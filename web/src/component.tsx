@@ -63,7 +63,9 @@ function App() {
 
   useEffect(() => {
     const limitFromGPT = (window as any).__OPENAI_OUTPUT_DATA__?.input?.number;
+    console.error("GPT limit", limitFromGPT);
     const limit = limitFromGPT ? parseInt(limitFromGPT, 10) : 20;
+    console.error("API limit", limit);
     const fetchPokemons = async (limit: number) => {
       setLoading(true);
       try {
@@ -91,7 +93,7 @@ function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React</h1>
+      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons.length}</h1>
       {loading ? (
         <p style={{ textAlign: "center" }}>Cargando...</p>
       ) : (
