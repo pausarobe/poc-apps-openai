@@ -21772,7 +21772,9 @@ function App() {
   const [loading, setLoading] = (0, import_react.useState)(false);
   (0, import_react.useEffect)(() => {
     const limitFromGPT = window.__OPENAI_OUTPUT_DATA__?.input?.number;
+    console.error("GPT limit", limitFromGPT);
     const limit = limitFromGPT ? parseInt(limitFromGPT, 10) : 20;
+    console.error("API limit", limit);
     const fetchPokemons = async (limit2) => {
       setLoading(true);
       try {
@@ -21795,7 +21797,10 @@ function App() {
     fetchPokemons(limit);
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { style: { textAlign: "center" }, children: "Pok\xE9dex React" }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
+      "Pok\xE9dex React ",
+      pokemons.length
+    ] }),
     loading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { textAlign: "center" }, children: "Cargando..." }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })
   ] });
 }
