@@ -21,7 +21,7 @@ server.registerResource(
         uri: "ui://widget/kanban-board.html",
         mimeType: "text/html+skybridge",
         text: `
-            <div id="pizza-root"></div>
+            <div id="root"></div>
             <script type="module">${JS}</script>
         `.trim(),
         _meta: {
