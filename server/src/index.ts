@@ -31,60 +31,17 @@ server.registerResource(
           "openai/widgetPrefersBorder": true,
           "openai/widgetDomain": "https://chatgpt.com",
           "openai/widgetCSP": {
-            connect_domains: ["https://chatgpt.com"],
-            resource_domains: ["https://*.oaistatic.com"],
+            connect_domains: ["https://chatgpt.com", "https://pokeapi.co"],
+            resource_domains: [
+              "https://*.oaistatic.com",
+              "https://raw.githubusercontent.com",
+            ],
           },
         },
       },
     ],
   })
 );
-
-// Register tools
-// async function loadKanbanBoard() {
-//   const tasks = [
-//     {
-//       id: "task-1",
-//       title: "Design empty states",
-//       assignee: "Ada",
-//       status: "todo",
-//     },
-//     {
-//       id: "task-2",
-//       title: "Wireframe admin panel",
-//       assignee: "Grace",
-//       status: "in-progress",
-//     },
-//     {
-//       id: "task-3",
-//       title: "QA onboarding flow",
-//       assignee: "Lin",
-//       status: "done",
-//     },
-//   ];
-
-//   return {
-//     columns: [
-//       {
-//         id: "todo",
-//         title: "To do",
-//         tasks: tasks.filter((task) => task.status === "todo"),
-//       },
-//       {
-//         id: "in-progress",
-//         title: "In progress",
-//         tasks: tasks.filter((task) => task.status === "in-progress"),
-//       },
-//       {
-//         id: "done",
-//         title: "Done",
-//         tasks: tasks.filter((task) => task.status === "done"),
-//       },
-//     ],
-//     tasksById: Object.fromEntries(tasks.map((task) => [task.id, task])),
-//     lastSyncedAt: new Date().toISOString(),
-//   };
-// }
 
 server.registerTool(
   "pokedex-list",
@@ -100,49 +57,13 @@ server.registerTool(
     inputSchema: { number: z.string().describe("Number of pokemon to list") },
   },
   async () => {
-    // let limit = number || 9;
-    // try {
-    //   const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-    //   const data = await res.json() as any;
-
-    //   const detailedPokemons = await Promise.all(
-    //     data.results.map(async (p: any) => {
-    //       const res = await fetch(p.url);
-    //       return res.json();
-    //     })
-    //   );
-
-    //   if (!data) {
-    //     throw new Error("Invalid response format from PokeAPI");
-    //   }
-
-    //   return {
-    //     structuredContent: {pokemons: detailedPokemons}
-    //   }
-    // } catch (error) {
-    //   console.error("Error fetching pokemons:", error);
-    // }
-
-    // const board = await loadKanbanBoard();
-
     return {
-      // structuredContent: {
-      //   columns: board.columns.map((column) => ({
-      //     id: column.id,
-      //     title: column.title,
-      //     tasks: column.tasks.slice(0, 5), // keep payload concise for the model
-      //   })),
-      // },
       content: [
         {
           type: "text",
           text: "Here's your pokemon list.",
         },
       ],
-      // _meta: {
-      //   tasksById: board.tasksById, // full task map for the component only
-      //   lastSyncedAt: board.lastSyncedAt,
-      // },
     };
   }
 );
