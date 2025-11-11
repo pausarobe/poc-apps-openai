@@ -21721,8 +21721,81 @@ var require_jsx_runtime = __commonJS({
 var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+function Card({ pokemon }) {
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    "div",
+    {
+      style: {
+        border: "1px solid #ccc",
+        borderRadius: "10px",
+        padding: "1rem",
+        textAlign: "center"
+      },
+      children: [
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "img",
+          {
+            src: pokemon.sprites?.front_default,
+            alt: pokemon.name,
+            width: 100,
+            height: 100
+          }
+        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { textTransform: "capitalize" }, children: pokemon.name }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Tipo:" }),
+          " ",
+          pokemon.types.map((t) => t.type.name).join(", ")
+        ] })
+      ]
+    }
+  );
+}
+function List({ pokemons }) {
+  if (!pokemons) {
+    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemons" });
+  }
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    "div",
+    {
+      style: {
+        display: "grid",
+        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
+        gap: "1rem"
+      },
+      children: pokemons.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { pokemon: p }, p.id))
+    }
+  );
+}
 function App() {
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "Soy el APP" });
+  const [pokemons, setPokemons] = (0, import_react.useState)([]);
+  const [loading, setLoading] = (0, import_react.useState)(false);
+  (0, import_react.useEffect)(() => {
+    const fetchPokemons = async (limit = 20) => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+        );
+        const data = await res.json();
+        const detailedPokemons = await Promise.all(
+          data.results.map(async (p) => {
+            const res2 = await fetch(p.url);
+            return res2.json();
+          })
+        );
+        setPokemons(detailedPokemons);
+      } catch (error) {
+        console.error("Error fetching pokemons:", error);
+      }
+      setLoading(false);
+    };
+    fetchPokemons();
+  }, []);
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { style: { textAlign: "center" }, children: "Pok\xE9dex React" }),
+    loading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { textAlign: "center" }, children: "Cargando..." }) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })
+  ] });
 }
 var root = (0, import_client.createRoot)(document.getElementById("root"));
 root.render(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(App, {}));
