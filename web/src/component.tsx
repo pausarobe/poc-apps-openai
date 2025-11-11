@@ -62,7 +62,9 @@ function App() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const fetchPokemons = async (limit = 20) => {
+    const limitFromGPT = (window as any).__OPENAI_OUTPUT_DATA__?.input?.number;
+    const limit = limitFromGPT ? parseInt(limitFromGPT, 10) : 20;
+    const fetchPokemons = async (limit: number) => {
       setLoading(true);
       try {
         const res = await fetch(
@@ -84,7 +86,7 @@ function App() {
       setLoading(false);
     };
 
-    fetchPokemons();
+    fetchPokemons(limit);
   }, []);
 
   return (

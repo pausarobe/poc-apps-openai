@@ -21771,11 +21771,13 @@ function App() {
   const [pokemons, setPokemons] = (0, import_react.useState)([]);
   const [loading, setLoading] = (0, import_react.useState)(false);
   (0, import_react.useEffect)(() => {
-    const fetchPokemons = async (limit = 20) => {
+    const limitFromGPT = window.__OPENAI_OUTPUT_DATA__?.input?.number;
+    const limit = limitFromGPT ? parseInt(limitFromGPT, 10) : 20;
+    const fetchPokemons = async (limit2) => {
       setLoading(true);
       try {
         const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+          `https://pokeapi.co/api/v2/pokemon?limit=${limit2}`
         );
         const data = await res.json();
         const detailedPokemons = await Promise.all(
@@ -21790,7 +21792,7 @@ function App() {
       }
       setLoading(false);
     };
-    fetchPokemons();
+    fetchPokemons(limit);
   }, []);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", { style: { textAlign: "center" }, children: "Pok\xE9dex React" }),
