@@ -1,4 +1,4 @@
-// import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { createRoot } from "react-dom/client";
 interface PokemonType {
   type: { name: string };
@@ -62,7 +62,8 @@ export default function App(results: any) {
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
       <h1 style={{ textAlign: "center" }}>Pokédex React {results.length}</h1>
-      <List pokemons={results} />
+      {results && <List pokemons={results} />}
+      {!results && <div>No hay pokemon</div>}
     </div>
   );
 }
