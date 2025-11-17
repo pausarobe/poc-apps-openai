@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-// import { createRoot } from "react-dom/client";
+import { createRoot } from "react-dom/client";
 interface PokemonType {
   type: { name: string };
 }
@@ -68,5 +68,5 @@ export default function App(results: any) {
   );
 }
 
-// const root = createRoot(document.getElementById("root")!);
-// root.render(<App />);
+const root = createRoot(document.getElementById("root")!);
+root.render(<App />);
