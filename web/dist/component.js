@@ -21768,8 +21768,6 @@ function List({ pokemons }) {
   );
 }
 function App() {
-  const openai = window.openai;
-  console.error("openai", openai);
   const output = window.openai.toolOutput;
   console.error("output", output);
   const results = output.results || void 0;
@@ -21779,7 +21777,7 @@ function App() {
       "Pok\xE9dex React ",
       results.length
     ] }),
-    results && results.results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons: results }),
+    results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons: results }),
     !results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemon" })
   ] });
 }

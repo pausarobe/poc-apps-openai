@@ -57,8 +57,6 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
 }
 
 export default function App() {
-  const openai = (window as any).openai;
-  console.error("openai", openai);
   const output = (window as any).openai.toolOutput;
   console.error("output", output);
   const results = output.results || undefined;
@@ -67,7 +65,7 @@ export default function App() {
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
       <h1 style={{ textAlign: "center" }}>Pokédex React {results.length}</h1>
-      {results && results.results && <List pokemons={results} />}
+      {results && <List pokemons={results} />}
       {!results && <div>No hay pokemon</div>}
     </div>
   );
