@@ -21770,15 +21770,15 @@ function List({ pokemons }) {
 function App() {
   const output = window.openai.toolOutput;
   console.error("output", output);
-  const results = output.results || void 0;
-  console.error("WIDGET", results);
+  const pokemons = output?.pokemonList || void 0;
+  console.error("pokemons", pokemons);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex React ",
-      results.length
+      pokemons.length
     ] }),
-    results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons: results }),
-    !results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemon" })
+    pokemons && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons }),
+    !pokemons && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemon" })
   ] });
 }
 var root = (0, import_client.createRoot)(document.getElementById("root"));

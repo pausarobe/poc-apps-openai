@@ -24,8 +24,10 @@ server.registerResource(
         uri: "ui://widget/pokedex.html",
         mimeType: "text/html+skybridge",
         text: `
-            <div id="root"></div>
-            <script type="module">${JS}</script>
+          <div id="root"></div>
+          <script type="module">
+            ${JS}
+          </script>
         `.trim(),
         _meta: {
           "openai/widgetPrefersBorder": true,
@@ -66,17 +68,12 @@ server.registerTool(
       data = await res.json();
       console.error("DATA", data);
     } catch (error) {
-      console.error("Errro fetching pokemons:", error);
+      console.error("Error fetching pokemons:", error);
     }
     return {
-      content: [
-        {
-          type: "text",
-          text: `Aquí tienes el listado de ${limit} pokemon que has solicitado`,
-        },
-      ],
+      content: [],
       structuredContent: {
-        results: data.results,
+        pokemonList: data.results,
       },
     };
   }

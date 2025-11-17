@@ -59,14 +59,14 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
 export default function App() {
   const output = (window as any).openai.toolOutput;
   console.error("output", output);
-  const results = output.results || undefined;
-  console.error("WIDGET", results);
+  const pokemons = output?.pokemonList || undefined;
+  console.error("pokemons", pokemons);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React {results.length}</h1>
-      {results && <List pokemons={results} />}
-      {!results && <div>No hay pokemon</div>}
+      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons.length}</h1>
+      {pokemons && <List pokemons={pokemons} />}
+      {!pokemons && <div>No hay pokemon</div>}
     </div>
   );
 }
