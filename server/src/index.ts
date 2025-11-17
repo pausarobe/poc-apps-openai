@@ -60,12 +60,19 @@ server.registerTool(
   },
   async ({ number }) => {
     const limit = number || "20";
-    let data: any;
+    let pokemonDetail: any;
+
     try {
       const res = await fetch(
         `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
       );
-      data = await res.json();
+      const data: any = await res.json();
+      pokemonDetail = await Promise.all(
+        data.results.map(async (p: any) => {
+          const res = await fetch(p.url);
+          return res.json();
+        })
+      );
       console.error("DATA", data);
     } catch (error) {
       console.error("Error fetching pokemons:", error);
@@ -73,7 +80,7 @@ server.registerTool(
     return {
       content: [],
       structuredContent: {
-        pokemonList: data.results,
+        pokemonList: pokemonDetail,
       },
     };
   }
