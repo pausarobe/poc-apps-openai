@@ -21767,14 +21767,19 @@ function List({ pokemons }) {
     }
   );
 }
-function App(results) {
-  console.error("Datos recibidos en el App", results);
+function App() {
+  const openai = window.openai;
+  console.error("openai", openai);
+  const output = window.openai.toolOutput;
+  console.error("output", output);
+  const { results } = window._openaiWidgetProps ?? void 0;
+  console.error("WIDGET", results);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex React ",
       results.length
     ] }),
-    results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons: results }),
+    results && results.results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons: results }),
     !results && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemon" })
   ] });
 }

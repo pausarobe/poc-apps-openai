@@ -56,13 +56,18 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
   );
 }
 
-export default function App(results: any) {
-  console.error("Datos recibidos en el App", results);
+export default function App() {
+  const openai = (window as any).openai;
+  console.error("openai", openai);
+  const output = (window as any).openai.toolOutput;
+  console.error("output", output);
+  const { results } = (window as any)._openaiWidgetProps ?? undefined;
+  console.error("WIDGET", results);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
       <h1 style={{ textAlign: "center" }}>Pokédex React {results.length}</h1>
-      {results && <List pokemons={results} />}
+      {results && results.results && <List pokemons={results} />}
       {!results && <div>No hay pokemon</div>}
     </div>
   );
