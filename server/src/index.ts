@@ -56,14 +56,28 @@ server.registerTool(
     },
     inputSchema: { number: z.string().describe("Number of pokemon to list") },
   },
-  async () => {
+  async ({ number }) => {
+    const limit = number || "20";
+    let data: any;
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+      );
+      data = await res.json();
+      console.error("DATA", data);
+    } catch (error) {
+      console.error("Errro fetching pokemons:", error);
+    }
     return {
       content: [
         {
           type: "text",
-          text: "Here's your pokemon list.",
+          text: `Aquí tienes el listado de ${limit} pokemon que has solicitado`,
         },
       ],
+      structuredContent: {
+        results: data.results,
+      },
     };
   }
 );
