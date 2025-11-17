@@ -7,8 +7,8 @@ interface PokemonType {
 interface Pokemon {
   id: number;
   name: string;
-  sprites: { front_default: string };
-  types: PokemonType[];
+  img: string;
+  types: any;
 }
 
 function Card({ pokemon }: { pokemon: Pokemon }) {
@@ -22,12 +22,7 @@ function Card({ pokemon }: { pokemon: Pokemon }) {
         textAlign: "center",
       }}
     >
-      <img
-        src={pokemon.sprites?.front_default}
-        alt={pokemon.name}
-        width={100}
-        height={100}
-      />
+      <img src={pokemon.img} alt={pokemon.name} width={100} height={100} />
       <h3 style={{ textTransform: "capitalize" }}>{pokemon.name}</h3>
       <p>
         <strong>Tipo:</strong>{" "}

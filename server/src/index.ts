@@ -83,7 +83,7 @@ server.registerTool(
         pokemonList: pokemonDetail.map((p: any) => ({
           id: p.id,
           name: p.name,
-          type: p.types,
+          types: p.types,
           img: p.sprites.front_default,
         })),
       },

@@ -21733,15 +21733,7 @@ function Card({ pokemon }) {
         textAlign: "center"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-          "img",
-          {
-            src: pokemon.sprites?.front_default,
-            alt: pokemon.name,
-            width: 100,
-            height: 100
-          }
-        ),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: pokemon.img, alt: pokemon.name, width: 100, height: 100 }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { textTransform: "capitalize" }, children: pokemon.name }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Tipo:" }),
