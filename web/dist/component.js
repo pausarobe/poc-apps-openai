@@ -21722,6 +21722,7 @@ var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
 function Card({ pokemon }) {
+  console.log("Card", pokemon);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     "div",
     {
@@ -21752,6 +21753,7 @@ function Card({ pokemon }) {
   );
 }
 function List({ pokemons }) {
+  console.log("List", pokemons);
   if (!pokemons) {
     return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemons" });
   }
@@ -21775,10 +21777,9 @@ function App() {
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex React ",
-      pokemons.length
+      pokemons?.length
     ] }),
-    pokemons && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons }),
-    !pokemons && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemon" })
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })
   ] });
 }
 var root = (0, import_client.createRoot)(document.getElementById("root"));

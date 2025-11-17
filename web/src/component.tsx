@@ -12,6 +12,7 @@ interface Pokemon {
 }
 
 function Card({ pokemon }: { pokemon: Pokemon }) {
+  console.log("Card", pokemon);
   return (
     <div
       style={{
@@ -37,6 +38,7 @@ function Card({ pokemon }: { pokemon: Pokemon }) {
 }
 
 function List({ pokemons }: { pokemons: Pokemon[] }) {
+  console.log("List", pokemons);
   if (!pokemons) {
     return <div>No hay pokemons</div>;
   }
@@ -64,9 +66,8 @@ export default function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons.length}</h1>
-      {pokemons && <List pokemons={pokemons} />}
-      {!pokemons && <div>No hay pokemon</div>}
+      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
+      <List pokemons={pokemons} />
     </div>
   );
 }
