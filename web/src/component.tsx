@@ -60,7 +60,6 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
 
 export default function App() {
   const output = (window as any).openai.toolOutput;
-  console.error("output", output);
   const pokemons = output?.pokemonList || undefined;
   console.error("pokemons", pokemons);
 

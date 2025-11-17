@@ -73,14 +73,19 @@ server.registerTool(
           return res.json();
         })
       );
-      console.error("DATA", data);
     } catch (error) {
       console.error("Error fetching pokemons:", error);
     }
+
     return {
-      content: [],
+      content: [{ type: "text", text: "Listando Pokémon... (cargando datos)" }],
       structuredContent: {
-        pokemonList: pokemonDetail,
+        pokemonList: pokemonDetail.map((p: any) => ({
+          id: p.id,
+          name: p.name,
+          type: p.types,
+          img: p.sprites.front_default,
+        })),
       },
     };
   }
