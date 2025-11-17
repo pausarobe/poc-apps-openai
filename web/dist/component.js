@@ -21772,7 +21772,7 @@ function App() {
   console.error("openai", openai);
   const output = window.openai.toolOutput;
   console.error("output", output);
-  const { results } = window._openaiWidgetProps ?? void 0;
+  const results = output.results || void 0;
   console.error("WIDGET", results);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [

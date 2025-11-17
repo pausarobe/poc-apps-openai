@@ -61,7 +61,7 @@ export default function App() {
   console.error("openai", openai);
   const output = (window as any).openai.toolOutput;
   console.error("output", output);
-  const { results } = (window as any)._openaiWidgetProps ?? undefined;
+  const results = output.results || undefined;
   console.error("WIDGET", results);
 
   return (
