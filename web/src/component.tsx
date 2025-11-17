@@ -193,7 +193,7 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
   );
 }
 
-export default function App({ results }: any) {
+export default function App(results: any) {
   console.error("Datos recibidos en el App", results);
 
   return (

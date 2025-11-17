@@ -21767,7 +21767,7 @@ function List({ pokemons }) {
     }
   );
 }
-function App({ results }) {
+function App(results) {
   console.error("Datos recibidos en el App", results);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
