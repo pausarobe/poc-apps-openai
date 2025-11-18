@@ -61,6 +61,8 @@ server.registerTool(
   async ({ number }) => {
     const limit = number || "20";
     let pokemonDetail: any;
+    console.log("🚀 Tool invoked with input:", number);
+    const start = Date.now();
 
     try {
       const res = await fetch(
@@ -70,6 +72,7 @@ server.registerTool(
       pokemonDetail = await Promise.all(
         data.results.map(async (p: any) => {
           const res = await fetch(p.url);
+          console.log("📡 Fetch finished in", Date.now() - start, "ms");
           return res.json();
         })
       );
@@ -77,8 +80,11 @@ server.registerTool(
       console.error("Error fetching pokemons:", error);
     }
 
+    console.log("📤 Returning tool structuredContent");
     return {
-      content: [{ type: "text", text: "Listando Pokémon... (cargando datos)" }],
+      content: [
+        { type: "text", text: `Aquí tienes los ${limit} Pokémon solicitados.` },
+      ],
       structuredContent: {
         pokemonList: pokemonDetail.map((p: any) => ({
           id: p.id,
@@ -103,7 +109,10 @@ const app = express();
 app.use(express.json());
 
 app.all("/mcp", async (req: any, res: any) => {
+  console.log("\n🟦 Incoming MCP Request:");
+  console.log(JSON.stringify(req.body, null, 2));
   await transport.handleRequest(req, res, req.body);
+  console.log("🟩 Outgoing MCP Response:", res.locals?.mcpResponse);
 });
 
 const PORT = process.env.PORT || 3333;
