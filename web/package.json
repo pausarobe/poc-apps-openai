@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npx esbuild src/component.tsx --bundle --format=esm --outfile=dist/component.js && cp index.html dist/index.html",
+    "build": "npx esbuild src/component.tsx src/component-front.tsx --bundle --format=esm --outdir=dist && cp index.html dist/index.html",
     "start": "npx esbuild src/component.tsx --bundle --format=esm --outfile=dist/component.js --servedir=dist --serve=8000 --watch"
   },
   "keywords": [],
