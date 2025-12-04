@@ -49,6 +49,7 @@ server.registerTool(
   "pokedex-list",
   {
     title: "Show Pokemon list",
+    description: "Show a list of Pokemons using PokeAPI",
     _meta: {
       "openai/outputTemplate": "ui://widget/pokedex.html",
       "openai/toolInvocation/invoking": "Displaying the board",
