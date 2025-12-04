@@ -59,6 +59,7 @@ export default function App() {
 
   const output = (window as any).openai.toolOutput;
   const pokemonsNumber = output?.pokemonNumber || 20;
+  const tool = output?.tool || "unknown";
   console.error("pokemonsNumber", pokemonsNumber);
 
   useEffect(() => {
@@ -90,6 +91,7 @@ export default function App() {
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
       <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
+      <p>Tool: {tool}</p>
       {loading && <p style={{ textAlign: "center" }}>Loading pokemons...</p>}
       {!loading && <List pokemons={pokemons} />}
     </div>

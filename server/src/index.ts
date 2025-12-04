@@ -51,7 +51,7 @@ server.registerResource(
   "ui://widget/pokedex-front.html",
   {
     title: "Pokedex Frontend",
-    description: "Get a list of Pokemon in Frontend",
+    description: "Get a Frontend Polemon list",
   },
   async () => ({
     contents: [
@@ -81,6 +81,38 @@ server.registerResource(
 );
 
 server.registerTool(
+  "pokedex-json-list",
+  {
+    title: "Show JSON Pokemon list",
+    inputSchema: { number: z.string().describe("Number of pokemon to list") },
+  },
+  async ({ number }) => {
+    console.error("🔔 Pokedex JSON tool invoked");
+    const limit = number || "20";
+    let pokemonDetail: any;
+
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+      );
+      const data: any = await res.json();
+      pokemonDetail = await Promise.all(
+        data.results.map(async (p: any) => {
+          const res = await fetch(p.url);
+          return res.json();
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching pokemons:", error);
+    }
+
+    return {
+      content: [{ type: "text", text: JSON.stringify(pokemonDetail) }],
+    };
+  }
+);
+
+server.registerTool(
   "pokedex-list",
   {
     title: "Show Pokemon list",
@@ -94,10 +126,9 @@ server.registerTool(
     inputSchema: { number: z.string().describe("Number of pokemon to list") },
   },
   async ({ number }) => {
+    console.error("🔔 Pokedex tool invoked");
     const limit = number || "20";
     let pokemonDetail: any;
-    console.error("🚀 Tool invoked with input:", number);
-    const start = Date.now();
 
     try {
       const res = await fetch(
@@ -107,7 +138,6 @@ server.registerTool(
       pokemonDetail = await Promise.all(
         data.results.map(async (p: any) => {
           const res = await fetch(p.url);
-          console.error("📡 Fetch finished in", Date.now() - start, "ms");
           return res.json();
         })
       );
@@ -127,6 +157,7 @@ server.registerTool(
           types: p.types,
           img: p.sprites.front_default,
         })),
+        tool: "pokedex-list",
       },
     };
   }
@@ -144,6 +175,7 @@ server.registerTool(
     inputSchema: { number: z.string().describe("Number of pokemon to list") },
   },
   async ({ number }) => {
+    console.error("🔔 Pokedex Front tool invoked");
     return {
       content: [
         {
@@ -153,6 +185,7 @@ server.registerTool(
       ],
       structuredContent: {
         pokemonNumber: number,
+        tool: "pokedex-front-list",
       },
     };
   }

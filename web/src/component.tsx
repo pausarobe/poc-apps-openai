@@ -56,11 +56,13 @@ function List({ pokemons }: { pokemons: Pokemon[] }) {
 export default function App() {
   const output = (window as any).openai.toolOutput;
   const pokemons = output?.pokemonList || undefined;
+  const tool = output?.tool || "unknown";
   console.error("pokemons", pokemons);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
       <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
+      <p>Tool: {tool}</p>
       <List pokemons={pokemons} />
     </div>
   );
