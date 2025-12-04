@@ -13,23 +13,23 @@ const JS_FRONT = readFileSync("../web/dist/component-front.js", "utf8");
 
 // UI resource (no inline data assignment; host will inject data)
 server.registerResource(
-  "pokedex-widget",
-  "ui://widget/pokedex.html",
+  "pokedex-widget", // Nombre único del recurso
+  "ui://widget/pokedex.html", // URI del recurso
   {
-    title: "Pokedex",
-    description: "Get a list of Pokemon",
+    title: "Pokedex", // Título del recurso
+    description: "Get a list of Pokemon", // Descripción del recurso
   },
   async () => ({
     contents: [
       {
-        uri: "ui://widget/pokedex.html",
-        mimeType: "text/html+skybridge",
+        uri: "ui://widget/pokedex.html", // URI del contenido, debe coincidir con el recurso
+        mimeType: "text/html+skybridge", // Tipo MIME del contenido
         text: `
           <div id="root"></div>
           <script type="module">
-            ${JS_FRONT}
+            ${JS}
           </script>
-        `.trim(),
+        `.trim(), // Contenido HTML con el script embebido
         _meta: {
           "openai/widgetPrefersBorder": true,
           "openai/widgetDomain": "https://chatgpt.com",
@@ -61,7 +61,7 @@ server.registerResource(
         text: `
           <div id="root"></div>
           <script type="module">
-            ${JS}
+            ${JS_FRONT}
           </script>
         `.trim(),
         _meta: {
@@ -113,19 +113,21 @@ server.registerTool(
 );
 
 server.registerTool(
-  "pokedex-list",
+  "pokedex-list", // Nombre de la herramienta
   {
-    title: "Show Pokemon list",
+    title: "Show Pokemon list", // Título de la herramienta
     _meta: {
-      // associate this tool with the HTML template
-      "openai/outputTemplate": "ui://widget/pokedex.html",
+      "openai/outputTemplate": "ui://widget/pokedex.html", // URI del recurso, debe coincidir con el registrado
       // labels to display in ChatGPT when the tool is called
       "openai/toolInvocation/invoking": "Displaying the board",
       "openai/toolInvocation/invoked": "Displayed the board",
     },
-    inputSchema: { number: z.string().describe("Number of pokemon to list") },
+    inputSchema: {
+      number: z.string().describe("Number of pokemon to list"), // Definimos tipo string y descripción para facilitar a ChatGPT la identificación
+    }, // Parametros de entrada
   },
   async ({ number }) => {
+    // Callback de la herramienta
     console.error("🔔 Pokedex tool invoked");
     const limit = number || "20";
     let pokemonDetail: any;
@@ -148,7 +150,7 @@ server.registerTool(
     console.error("📤 Returning tool structuredContent");
     return {
       content: [
-        { type: "text", text: `Aquí tienes los ${limit} Pokémon solicitados.` },
+        { type: "text", text: `Aquí tienes los ${limit} Pokémon solicitados.` }, // Mensaje que mandamos a chatgpt para mayor contexto
       ],
       structuredContent: {
         pokemonList: pokemonDetail.map((p: any) => ({
@@ -158,7 +160,7 @@ server.registerTool(
           img: p.sprites.front_default,
         })),
         tool: "pokedex-list",
-      },
+      }, // Datos estructurados que mandamos al componente UI
     };
   }
 );
