@@ -21766,6 +21766,7 @@ function App() {
   const [loading, setLoading] = (0, import_react.useState)(false);
   const output = window.openai.toolOutput;
   const pokemonsNumber = output?.pokemonNumber || 20;
+  const tool = output?.tool || "unknown";
   console.error("pokemonsNumber", pokemonsNumber);
   (0, import_react.useEffect)(() => {
     const fetchPokemons = async (limit) => {
@@ -21793,6 +21794,10 @@ function App() {
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex React ",
       pokemons?.length
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+      "Tool: ",
+      tool
     ] }),
     loading && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", { style: { textAlign: "center" }, children: "Loading pokemons..." }),
     !loading && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })

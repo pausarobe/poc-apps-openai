@@ -21764,11 +21764,16 @@ function List({ pokemons }) {
 function App() {
   const output = window.openai.toolOutput;
   const pokemons = output?.pokemonList || void 0;
+  const tool = output?.tool || "unknown";
   console.error("pokemons", pokemons);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex React ",
       pokemons?.length
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+      "Tool: ",
+      tool
     ] }),
     /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })
   ] });
