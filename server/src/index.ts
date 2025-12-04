@@ -9,7 +9,7 @@ const server = new McpServer({ name: "pokedex", version: "1.0.0" });
 
 // Load locally built assets (produced by your component build)
 const JS = readFileSync("../web/dist/component.js", "utf8");
-const JS_FRONT = readFileSync("../web/dist/component-front.js", "utf8");
+// const JS_FRONT = readFileSync("../web/dist/component-front.js", "utf8");
 
 // UI resource (no inline data assignment; host will inject data)
 server.registerResource(
@@ -46,39 +46,39 @@ server.registerResource(
   })
 );
 
-server.registerResource(
-  "pokedex-front-widget",
-  "ui://widget/pokedex-front.html",
-  {
-    title: "Pokedex Frontend",
-    description: "Get a Frontend Polemon list",
-  },
-  async () => ({
-    contents: [
-      {
-        uri: "ui://widget/pokedex-front.html",
-        mimeType: "text/html+skybridge",
-        text: `
-          <div id="root"></div>
-          <script type="module">
-            ${JS_FRONT}
-          </script>
-        `.trim(),
-        _meta: {
-          "openai/widgetPrefersBorder": true,
-          "openai/widgetDomain": "https://chatgpt.com",
-          "openai/widgetCSP": {
-            connect_domains: ["https://chatgpt.com", "https://pokeapi.co"],
-            resource_domains: [
-              "https://*.oaistatic.com",
-              "https://raw.githubusercontent.com",
-            ],
-          },
-        },
-      },
-    ],
-  })
-);
+// server.registerResource(
+//   "pokedex-front-widget",
+//   "ui://widget/pokedex-front.html",
+//   {
+//     title: "Pokedex Frontend",
+//     description: "Get a Frontend Pokemon list",
+//   },
+//   async () => ({
+//     contents: [
+//       {
+//         uri: "ui://widget/pokedex-front.html",
+//         mimeType: "text/html+skybridge",
+//         text: `
+//           <div id="root"></div>
+//           <script type="module">
+//             ${JS_FRONT}
+//           </script>
+//         `.trim(),
+//         _meta: {
+//           "openai/widgetPrefersBorder": true,
+//           "openai/widgetDomain": "https://chatgpt.com",
+//           "openai/widgetCSP": {
+//             connect_domains: ["https://chatgpt.com", "https://pokeapi.co"],
+//             resource_domains: [
+//               "https://*.oaistatic.com",
+//               "https://raw.githubusercontent.com",
+//             ],
+//           },
+//         },
+//       },
+//     ],
+//   })
+// );
 
 server.registerTool(
   "pokedex-json-list",
@@ -165,33 +165,33 @@ server.registerTool(
   }
 );
 
-server.registerTool(
-  "pokedex-front-list",
-  {
-    title: "Show Pokemon list in Frontend",
-    _meta: {
-      "openai/outputTemplate": "ui://widget/pokedex-front.html",
-      "openai/toolInvocation/invoking": "Displaying the board",
-      "openai/toolInvocation/invoked": "Displayed the board",
-    },
-    inputSchema: { number: z.string().describe("Number of pokemon to list") },
-  },
-  async ({ number }) => {
-    console.error("🔔 Pokedex Front tool invoked");
-    return {
-      content: [
-        {
-          type: "text",
-          text: `Aquí tienes los ${number} Pokémon solicitados.`,
-        },
-      ],
-      structuredContent: {
-        pokemonNumber: number,
-        tool: "pokedex-front-list",
-      },
-    };
-  }
-);
+// server.registerTool(
+//   "pokedex-front-list",
+//   {
+//     title: "Show Pokemon list in Frontend",
+//     _meta: {
+//       "openai/outputTemplate": "ui://widget/pokedex-front.html",
+//       "openai/toolInvocation/invoking": "Displaying the board",
+//       "openai/toolInvocation/invoked": "Displayed the board",
+//     },
+//     inputSchema: { number: z.string().describe("Number of pokemon to list") },
+//   },
+//   async ({ number }) => {
+//     console.error("🔔 Pokedex Front tool invoked");
+//     return {
+//       content: [
+//         {
+//           type: "text",
+//           text: `Aquí tienes los ${number} Pokémon solicitados.`,
+//         },
+//       ],
+//       structuredContent: {
+//         pokemonNumber: number,
+//         tool: "pokedex-front-list",
+//       },
+//     };
+//   }
+// );
 
 // 6) Transport streamable HTTP (el que soporta Inspector Web)
 const transport = new StreamableHTTPServerTransport({
