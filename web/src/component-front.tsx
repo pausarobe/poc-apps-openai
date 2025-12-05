@@ -110,9 +110,9 @@ export default function App() {
   console.error("output", output);
   const toolOutput = useOpenAiGlobal("toolOutput");
   console.error("toolOutput", toolOutput);
-  const pokemonsNumber = toolOutput?.structuredContent?.number || 20;
+  const pokemonsNumber = toolOutput?.number || 20;
   console.error("pokemonsNumber", pokemonsNumber);
-  const tool = output?.structuredContent?.tool || "unknown";
+  const tool = output?.tool || "unknown";
   console.error("tool", tool);
 
   useEffect(() => {
