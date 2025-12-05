@@ -90,7 +90,9 @@ export default function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
+      <h1 style={{ textAlign: "center" }}>
+        Pokédex Front React {pokemons?.length}
+      </h1>
       <p>Tool: {tool}</p>
       {loading && <p style={{ textAlign: "center" }}>Loading pokemons...</p>}
       {!loading && <List pokemons={pokemons} />}

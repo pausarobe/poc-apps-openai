@@ -9,6 +9,7 @@ const server = new McpServer({ name: "pokedex", version: "1.0.0" });
 
 // Load locally built assets (produced by your component build)
 const JS = readFileSync("../web/dist/component.js", "utf8");
+const JS_FRONT = readFileSync("../web/dist/component-front.js", "utf8");
 
 // UI resource (no inline data assignment; host will inject data)
 server.registerResource(
@@ -27,6 +28,41 @@ server.registerResource(
           <div id="root"></div>
           <script type="module">
             ${JS}
+          </script>
+        `.trim(),
+        _meta: {
+          "openai/widgetPrefersBorder": true,
+          "openai/widgetDomain": "https://chatgpt.com",
+          "openai/widgetCSP": {
+            connect_domains: ["https://chatgpt.com", "https://pokeapi.co"],
+            resource_domains: [
+              "https://*.oaistatic.com",
+              "https://raw.githubusercontent.com",
+            ],
+          },
+        },
+      },
+    ],
+  })
+);
+
+// FRONTEND UI resource (with inline data assignment)
+server.registerResource(
+  "pokedex-front-widget",
+  "ui://widget/pokedex-front.html",
+  {
+    title: "Pokedex Front",
+    description: "Get a Front list of Pokemon",
+  },
+  async () => ({
+    contents: [
+      {
+        uri: "ui://widget/pokedex-front.html",
+        mimeType: "text/html+skybridge",
+        text: `
+          <div id="root"></div>
+          <script type="module">
+            ${JS_FRONT}
           </script>
         `.trim(),
         _meta: {
@@ -90,6 +126,35 @@ server.registerTool(
           img: p.sprites.front_default,
         })),
         tool: "pokedex-list",
+      },
+    };
+  }
+);
+
+server.registerTool(
+  "pokedex-front-list",
+  {
+    title: "Show Pokemon front list",
+    description: "Show a front list of Pokemons using PokeAPI",
+    _meta: {
+      "openai/outputTemplate": "ui://widget/pokedex-front.html",
+      "openai/toolInvocation/invoking": "Displaying the board",
+      "openai/toolInvocation/invoked": "Displayed the board",
+    },
+    inputSchema: { number: z.string().describe("Number of pokemon to list") },
+  },
+  async ({ number }) => {
+    console.error("Pokedex FRONT tool invoked");
+    return {
+      content: [
+        {
+          type: "text",
+          text: `Aquí tienes los ${number} Pokémon solicitados.`,
+        },
+      ],
+      structuredContent: {
+        number,
+        tool: "pokedex-front-list",
       },
     };
   }
