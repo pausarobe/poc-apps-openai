@@ -144,7 +144,7 @@ server.registerTool(
     inputSchema: { number: z.string().describe("Number of pokemon to list") },
   },
   async ({ number }) => {
-    console.error("Pokedex FRONT tool invoked");
+    console.error("Pokedex FRONT tool invoked", number);
     return {
       content: [
         {
@@ -153,7 +153,7 @@ server.registerTool(
         },
       ],
       structuredContent: {
-        number,
+        number: 3,
         tool: "pokedex-front-list",
       },
     };

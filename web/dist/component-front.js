@@ -21733,7 +21733,15 @@ function Card({ pokemon }) {
         textAlign: "center"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: pokemon.img, alt: pokemon.name, width: 100, height: 100 }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+          "img",
+          {
+            src: pokemon.sprites.front_default,
+            alt: pokemon.name,
+            width: 100,
+            height: 100
+          }
+        ),
         /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { textTransform: "capitalize" }, children: pokemon.name }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Tipo:" }),
@@ -21765,6 +21773,7 @@ function App() {
   const [pokemons, setPokemons] = (0, import_react.useState)([]);
   const [loading, setLoading] = (0, import_react.useState)(false);
   const output = window.openai.toolOutput;
+  console.error("output", output);
   const pokemonsNumber = output?.pokemonNumber || 20;
   const tool = output?.tool || "unknown";
   console.error("pokemonsNumber", pokemonsNumber);

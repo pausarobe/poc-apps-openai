@@ -7,7 +7,7 @@ interface PokemonType {
 interface Pokemon {
   id: number;
   name: string;
-  img: string;
+  sprites: any;
   types: any;
 }
 
@@ -22,7 +22,12 @@ function Card({ pokemon }: { pokemon: Pokemon }) {
         textAlign: "center",
       }}
     >
-      <img src={pokemon.img} alt={pokemon.name} width={100} height={100} />
+      <img
+        src={pokemon.sprites.front_default}
+        alt={pokemon.name}
+        width={100}
+        height={100}
+      />
       <h3 style={{ textTransform: "capitalize" }}>{pokemon.name}</h3>
       <p>
         <strong>Tipo:</strong>{" "}
@@ -58,6 +63,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
 
   const output = (window as any).openai.toolOutput;
+  console.error("output", output);
   const pokemonsNumber = output?.pokemonNumber || 20;
   const tool = output?.tool || "unknown";
   console.error("pokemonsNumber", pokemonsNumber);
