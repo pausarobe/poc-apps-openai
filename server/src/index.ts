@@ -153,7 +153,7 @@ server.registerTool(
         },
       ],
       structuredContent: {
-        number: 3,
+        number,
         tool: "pokedex-front-list",
       },
     };

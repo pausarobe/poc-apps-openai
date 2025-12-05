@@ -21774,7 +21774,7 @@ function App() {
   const [loading, setLoading] = (0, import_react.useState)(false);
   const output = window.openai.toolOutput;
   console.error("output", output);
-  const pokemonsNumber = output?.pokemonNumber || 20;
+  const pokemonsNumber = output?.number || 20;
   const tool = output?.tool || "unknown";
   console.error("pokemonsNumber", pokemonsNumber);
   (0, import_react.useEffect)(() => {
