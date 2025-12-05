@@ -108,12 +108,13 @@ export default function App() {
 
   const output = (window as any).openai.toolOutput;
   console.error("output", output);
+  const tool = output?.tool || "unknown";
+  console.error("tool", tool);
+
   const toolOutput = useOpenAiGlobal("toolOutput");
   console.error("toolOutput", toolOutput);
   const pokemonsNumber = toolOutput?.number || 20;
   console.error("pokemonsNumber", pokemonsNumber);
-  const tool = output?.tool || "unknown";
-  console.error("tool", tool);
 
   useEffect(() => {
     const fetchPokemons = async (limit: number) => {
@@ -139,7 +140,7 @@ export default function App() {
     };
 
     fetchPokemons(pokemonsNumber);
-  }, []);
+  }, [pokemonsNumber]);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>

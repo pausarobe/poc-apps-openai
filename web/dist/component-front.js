@@ -21789,12 +21789,12 @@ function App() {
   const [loading, setLoading] = (0, import_react.useState)(false);
   const output = window.openai.toolOutput;
   console.error("output", output);
+  const tool = output?.tool || "unknown";
+  console.error("tool", tool);
   const toolOutput = useOpenAiGlobal("toolOutput");
   console.error("toolOutput", toolOutput);
   const pokemonsNumber = toolOutput?.number || 20;
   console.error("pokemonsNumber", pokemonsNumber);
-  const tool = output?.tool || "unknown";
-  console.error("tool", tool);
   (0, import_react.useEffect)(() => {
     const fetchPokemons = async (limit) => {
       setLoading(true);
@@ -21816,7 +21816,7 @@ function App() {
       setLoading(false);
     };
     fetchPokemons(pokemonsNumber);
-  }, []);
+  }, [pokemonsNumber]);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
       "Pok\xE9dex Front React ",

@@ -21721,6 +21721,21 @@ var require_jsx_runtime = __commonJS({
 var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+function useOpenAiGlobal(key) {
+  return (0, import_react.useSyncExternalStore)(
+    (onChange) => {
+      const handler = (event) => {
+        const value = event.detail.globals[key];
+        if (value !== void 0) onChange();
+      };
+      window.addEventListener("openai:set_globals", handler, { passive: true });
+      return () => {
+        window.removeEventListener("openai:set_globals", handler);
+      };
+    },
+    () => window.openai[key]
+  );
+}
 function Card({ pokemon }) {
   console.log("Card", pokemon);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
@@ -21763,7 +21778,11 @@ function List({ pokemons }) {
 }
 function App() {
   const output = window.openai.toolOutput;
-  const pokemons = output?.pokemonList || void 0;
+  const p = output?.pokemonList || void 0;
+  console.error("p", p);
+  const toolOutput = useOpenAiGlobal("toolOutput");
+  console.error("toolOutput", toolOutput);
+  const pokemons = toolOutput?.pokemonList || void 0;
   console.error("pokemons", pokemons);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
     /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
