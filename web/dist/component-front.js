@@ -21721,6 +21721,21 @@ var require_jsx_runtime = __commonJS({
 var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
+function useOpenAiGlobal(key) {
+  return (0, import_react.useSyncExternalStore)(
+    (onChange) => {
+      const handler = (event) => {
+        const value = event.detail.globals[key];
+        if (value !== void 0) onChange();
+      };
+      window.addEventListener("openai:set_globals", handler, { passive: true });
+      return () => {
+        window.removeEventListener("openai:set_globals", handler);
+      };
+    },
+    () => window.openai[key]
+  );
+}
 function Card({ pokemon }) {
   console.log("Card", pokemon);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
@@ -21774,9 +21789,12 @@ function App() {
   const [loading, setLoading] = (0, import_react.useState)(false);
   const output = window.openai.toolOutput;
   console.error("output", output);
-  const pokemonsNumber = output?.number || 20;
-  const tool = output?.tool || "unknown";
+  const toolOutput = useOpenAiGlobal("toolOutput");
+  console.error("toolOutput", toolOutput);
+  const pokemonsNumber = toolOutput?.structuredContent?.number || 20;
   console.error("pokemonsNumber", pokemonsNumber);
+  const tool = output?.structuredContent?.tool || "unknown";
+  console.error("tool", tool);
   (0, import_react.useEffect)(() => {
     const fetchPokemons = async (limit) => {
       setLoading(true);

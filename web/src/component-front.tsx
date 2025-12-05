@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useSyncExternalStore } from "react";
 import { createRoot } from "react-dom/client";
 interface PokemonType {
   type: { name: string };
@@ -9,6 +9,50 @@ interface Pokemon {
   name: string;
   sprites: any;
   types: any;
+}
+
+declare global {
+  interface OpenAIWindowGlobals {
+    toolInput?: unknown;
+    toolOutput?: any;
+    toolResponseMetadata?: unknown;
+    widgetState?: unknown;
+    theme?: "light" | "dark";
+    locale?: string;
+  }
+
+  interface OpenAIWindowApi {
+    toolInput?: OpenAIWindowGlobals["toolInput"];
+    toolOutput?: OpenAIWindowGlobals["toolOutput"];
+    toolResponseMetadata?: OpenAIWindowGlobals["toolResponseMetadata"];
+    widgetState?: OpenAIWindowGlobals["widgetState"];
+    theme?: OpenAIWindowGlobals["theme"];
+    locale?: OpenAIWindowGlobals["locale"];
+
+    callTool?: (name: string, args: unknown) => Promise<unknown>;
+    setWidgetState?: (state: unknown) => void;
+  }
+  interface Window {
+    openai: OpenAIWindowApi;
+  }
+}
+
+function useOpenAiGlobal<K extends keyof Window["openai"]>(
+  key: K
+): Window["openai"][K] {
+  return useSyncExternalStore(
+    (onChange) => {
+      const handler = (event: any) => {
+        const value = event.detail.globals[key];
+        if (value !== undefined) onChange();
+      };
+      window.addEventListener("openai:set_globals", handler, { passive: true });
+      return () => {
+        window.removeEventListener("openai:set_globals", handler);
+      };
+    },
+    () => window.openai[key]
+  );
 }
 
 function Card({ pokemon }: { pokemon: Pokemon }) {
@@ -64,9 +108,12 @@ export default function App() {
 
   const output = (window as any).openai.toolOutput;
   console.error("output", output);
-  const pokemonsNumber = output?.number || 20;
-  const tool = output?.tool || "unknown";
+  const toolOutput = useOpenAiGlobal("toolOutput");
+  console.error("toolOutput", toolOutput);
+  const pokemonsNumber = toolOutput?.structuredContent?.number || 20;
   console.error("pokemonsNumber", pokemonsNumber);
+  const tool = output?.structuredContent?.tool || "unknown";
+  console.error("tool", tool);
 
   useEffect(() => {
     const fetchPokemons = async (limit: number) => {
