@@ -11,7 +11,7 @@ const server = new McpServer({ name: "pokedex", version: "1.0.0" });
 const JS = readFileSync("../web/dist/component.js", "utf8");
 const JS_FRONT = readFileSync("../web/dist/component-front.js", "utf8");
 
-// UI resource (no inline data assignment; host will inject data)
+// UI resources
 server.registerResource(
   "pokedex-widget",
   "ui://widget/pokedex.html",
@@ -46,7 +46,6 @@ server.registerResource(
   })
 );
 
-// FRONTEND UI resource (with inline data assignment)
 server.registerResource(
   "pokedex-front-widget",
   "ui://widget/pokedex-front.html",
@@ -81,6 +80,7 @@ server.registerResource(
   })
 );
 
+// Register tools
 server.registerTool(
   "pokedex-list",
   {
@@ -156,6 +156,40 @@ server.registerTool(
         number,
         tool: "pokedex-front-list",
       },
+    };
+  }
+);
+
+server.registerTool(
+  "get-pokemon",
+  {
+    title: "Get Pokemon",
+    description: "Get Pokemons using PokeAPI",
+    inputSchema: { number: z.string().describe("Number of pokemon") },
+  },
+  async ({ number }) => {
+    console.error("Get pokemon tool invoked");
+    const limit = number || "20";
+    let pokemonDetail: any;
+
+    try {
+      const res = await fetch(
+        `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
+      );
+      const data: any = await res.json();
+      pokemonDetail = await Promise.all(
+        data.results.map(async (p: any) => {
+          const res = await fetch(p.url);
+          return res.json();
+        })
+      );
+    } catch (error) {
+      console.error("Error fetching pokemons:", error);
+    }
+
+    console.error("📤 Returning tool structuredContent");
+    return {
+      content: [{ type: "text", text: JSON.stringify(pokemonDetail) }],
     };
   }
 );
