@@ -95,7 +95,7 @@ server.registerTool(
   },
   async ({ number }) => {
     console.error("Pokedex tool invoked");
-    const limit = number || "20";
+    const limit = number;
     let pokemonDetail: any;
 
     try {
@@ -165,17 +165,13 @@ server.registerTool(
   {
     title: "Get Pokemon",
     description: "Get Pokemons using PokeAPI",
-    inputSchema: { number: z.string().describe("Number of pokemon") },
   },
-  async ({ number }) => {
+  async () => {
     console.error("Get pokemon tool invoked");
-    const limit = number || "20";
     let pokemonDetail: any;
 
     try {
-      const res = await fetch(
-        `https://pokeapi.co/api/v2/pokemon?limit=${limit}`
-      );
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`);
       const data: any = await res.json();
       pokemonDetail = await Promise.all(
         data.results.map(async (p: any) => {
