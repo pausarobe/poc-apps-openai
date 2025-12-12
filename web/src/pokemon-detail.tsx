@@ -113,8 +113,13 @@ export default function App() {
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1>{detail.name} detail</h1>
-      <Detail detail={detail} />
+      {detail && (
+        <>
+          <h1>{detail.name} detail</h1>
+          <Detail detail={detail} />
+        </>
+      )}
+      {!detail && <pre>No detail data</pre>}
     </div>
   );
 }

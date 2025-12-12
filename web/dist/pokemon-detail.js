@@ -21816,11 +21816,14 @@ function App() {
   const detail = toolOutput?.pokemonDetail;
   console.error("detail", detail);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
-      detail.name,
-      " detail"
+    detail && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [
+      /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+        detail.name,
+        " detail"
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Detail, { detail })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Detail, { detail })
+    !detail && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("pre", { children: "No detail data" })
   ] });
 }
 var root = (0, import_client.createRoot)(document.getElementById("root"));
