@@ -21717,7 +21717,7 @@ var require_jsx_runtime = __commonJS({
   }
 });
 
-// src/component.tsx
+// src/pokemon-detail.tsx
 var import_react = __toESM(require_react(), 1);
 var import_client = __toESM(require_client(), 1);
 var import_jsx_runtime = __toESM(require_jsx_runtime(), 1);
@@ -21736,8 +21736,8 @@ function useOpenAiGlobal(key) {
     () => window.openai[key]
   );
 }
-function Card({ pokemon }) {
-  console.log("Card", pokemon);
+function Detail({ detail }) {
+  console.log("Detail", detail);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
     "div",
     {
@@ -21748,45 +21748,79 @@ function Card({ pokemon }) {
         textAlign: "center"
       },
       children: [
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", { src: pokemon.img, alt: pokemon.name, width: 100, height: 100 }),
-        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { textTransform: "capitalize" }, children: pokemon.name }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "img",
+            {
+              src: detail.sprites.front_default,
+              alt: detail.name,
+              width: 100,
+              height: 100
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "img",
+            {
+              src: detail.sprites.back_default,
+              alt: detail.name,
+              width: 100,
+              height: 100
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "img",
+            {
+              src: detail.sprites.front_shiny,
+              alt: detail.name,
+              width: 100,
+              height: 100
+            }
+          ),
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+            "img",
+            {
+              src: detail.sprites.back_shiny,
+              alt: detail.name,
+              width: 100,
+              height: 100
+            }
+          )
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", { style: { textTransform: "capitalize" }, children: detail.name }),
         /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
           /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Tipo:" }),
           " ",
-          pokemon.types.map((t) => t.type.name).join(", ")
+          detail.types.map((t) => t.type.name).join(", ")
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Peso:" }),
+          " ",
+          detail.weight
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Altura:" }),
+          " ",
+          detail.height
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("strong", { children: "Habilidades:" }),
+          " ",
+          detail.abilities.map((t) => t.ability.name).join(", ")
         ] })
       ]
     }
   );
 }
-function List({ pokemons }) {
-  console.log("List", pokemons);
-  if (!pokemons) {
-    return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: "No hay pokemons" });
-  }
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
-    "div",
-    {
-      style: {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-        gap: "1rem"
-      },
-      children: pokemons.map((p) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Card, { pokemon: p }, p.id))
-    }
-  );
-}
 function App() {
   const toolOutput = useOpenAiGlobal("toolOutput");
-  console.error("toolOutput", toolOutput);
-  const pokemons = toolOutput?.pokemonList || void 0;
-  console.error("pokemons", pokemons);
+  const detail = toolOutput?.pokemonDetail;
+  console.error("detail", detail);
   return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { style: { padding: "2rem", fontFamily: "sans-serif" }, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { style: { textAlign: "center" }, children: [
-      "Pok\xE9dex React ",
-      pokemons?.length
+    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", { children: [
+      detail.name,
+      " detail"
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(List, { pokemons })
+    /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Detail, { detail })
   ] });
 }
 var root = (0, import_client.createRoot)(document.getElementById("root"));

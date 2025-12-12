@@ -1,14 +1,9 @@
 import React, { useEffect, useState, useSyncExternalStore } from "react";
 import { createRoot } from "react-dom/client";
+import { pokemonDetailExample } from "./mock/data.js";
+
 interface PokemonType {
   type: { name: string };
-}
-
-interface Pokemon {
-  id: number;
-  name: string;
-  img: string;
-  types: any;
 }
 
 declare global {
@@ -55,8 +50,8 @@ function useOpenAiGlobal<K extends keyof Window["openai"]>(
   );
 }
 
-function Card({ pokemon }: { pokemon: Pokemon }) {
-  console.log("Card", pokemon);
+function Detail({ detail }: { detail: any }) {
+  console.log("Detail", detail);
   return (
     <div
       style={{
@@ -66,50 +61,60 @@ function Card({ pokemon }: { pokemon: Pokemon }) {
         textAlign: "center",
       }}
     >
-      <img src={pokemon.img} alt={pokemon.name} width={100} height={100} />
-      <h3 style={{ textTransform: "capitalize" }}>{pokemon.name}</h3>
+      <div>
+        <img
+          src={detail.sprites.front_default}
+          alt={detail.name}
+          width={100}
+          height={100}
+        />
+        <img
+          src={detail.sprites.back_default}
+          alt={detail.name}
+          width={100}
+          height={100}
+        />
+        <img
+          src={detail.sprites.front_shiny}
+          alt={detail.name}
+          width={100}
+          height={100}
+        />
+        <img
+          src={detail.sprites.back_shiny}
+          alt={detail.name}
+          width={100}
+          height={100}
+        />
+      </div>
+      <h3 style={{ textTransform: "capitalize" }}>{detail.name}</h3>
       <p>
         <strong>Tipo:</strong>{" "}
-        {pokemon.types.map((t: PokemonType) => t.type.name).join(", ")}
+        {detail.types.map((t: PokemonType) => t.type.name).join(", ")}
+      </p>
+      <p>
+        <strong>Peso:</strong> {detail.weight}
+      </p>
+      <p>
+        <strong>Altura:</strong> {detail.height}
+      </p>
+      <p>
+        <strong>Habilidades:</strong>{" "}
+        {detail.abilities.map((t: any) => t.ability.name).join(", ")}
       </p>
     </div>
   );
 }
 
-function List({ pokemons }: { pokemons: Pokemon[] }) {
-  console.log("List", pokemons);
-  if (!pokemons) {
-    return <div>No hay pokemons</div>;
-  }
-
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-        gap: "1rem",
-      }}
-    >
-      {pokemons.map((p: Pokemon) => (
-        <Card key={p.id} pokemon={p} />
-      ))}
-    </div>
-  );
-}
-
 export default function App() {
-  // const output = (window as any).openai.toolOutput;
-  // const p = output?.pokemonList || undefined;
-
   const toolOutput = useOpenAiGlobal("toolOutput");
-  console.error("toolOutput", toolOutput);
-  const pokemons = toolOutput?.pokemonList || undefined;
-  console.error("pokemons", pokemons);
+  const detail = toolOutput?.pokemonDetail;
+  console.error("detail", detail);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
-      <List pokemons={pokemons} />
+      <h1>{detail.name} detail</h1>
+      <Detail detail={detail} />
     </div>
   );
 }
