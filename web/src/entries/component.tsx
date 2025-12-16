@@ -1,59 +1,7 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
-interface PokemonType {
-  type: { name: string };
-}
-
-interface Pokemon {
-  id: number;
-  name: string;
-  img: string;
-  types: any;
-}
-
-declare global {
-  interface OpenAIWindowGlobals {
-    toolInput?: unknown;
-    toolOutput?: any;
-    toolResponseMetadata?: unknown;
-    widgetState?: unknown;
-    theme?: "light" | "dark";
-    locale?: string;
-  }
-
-  interface OpenAIWindowApi {
-    toolInput?: OpenAIWindowGlobals["toolInput"];
-    toolOutput?: OpenAIWindowGlobals["toolOutput"];
-    toolResponseMetadata?: OpenAIWindowGlobals["toolResponseMetadata"];
-    widgetState?: OpenAIWindowGlobals["widgetState"];
-    theme?: OpenAIWindowGlobals["theme"];
-    locale?: OpenAIWindowGlobals["locale"];
-
-    callTool?: (name: string, args: unknown) => Promise<unknown>;
-    setWidgetState?: (state: unknown) => void;
-  }
-  interface Window {
-    openai: OpenAIWindowApi;
-  }
-}
-
-function useOpenAiGlobal<K extends keyof Window["openai"]>(
-  key: K
-): Window["openai"][K] {
-  return useSyncExternalStore(
-    (onChange) => {
-      const handler = (event: any) => {
-        const value = event.detail.globals[key];
-        if (value !== undefined) onChange();
-      };
-      window.addEventListener("openai:set_globals", handler, { passive: true });
-      return () => {
-        window.removeEventListener("openai:set_globals", handler);
-      };
-    },
-    () => window.openai[key]
-  );
-}
+import type { PokemonType, Pokemon } from "../lib/types.js";
+import { useOpenAiGlobal } from "../lib/hooks.js";
 
 function Card({ pokemon }: { pokemon: Pokemon }) {
   console.log("Card", pokemon);
@@ -78,7 +26,7 @@ function Card({ pokemon }: { pokemon: Pokemon }) {
 
 function List({ pokemons }: { pokemons: Pokemon[] }) {
   console.log("List", pokemons);
-  if (!pokemons) {
+  if (pokemons.length === 0) {
     return <div>No hay pokemons</div>;
   }
 
@@ -103,7 +51,7 @@ export default function App() {
 
   const toolOutput = useOpenAiGlobal("toolOutput");
   console.error("toolOutput", toolOutput);
-  const pokemons = toolOutput?.pokemonList || undefined;
+  const pokemons = toolOutput?.pokemonList ?? [];
   console.error("pokemons", pokemons);
 
   return (

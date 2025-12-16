@@ -1,57 +1,9 @@
-import React, { useEffect, useState, useSyncExternalStore } from "react";
+import React from "react";
 import { createRoot } from "react-dom/client";
-import { pokemonDetailExample } from "./mock/data.js";
-
-interface PokemonType {
-  type: { name: string };
-}
-
-declare global {
-  interface OpenAIWindowGlobals {
-    toolInput?: unknown;
-    toolOutput?: any;
-    toolResponseMetadata?: unknown;
-    widgetState?: unknown;
-    theme?: "light" | "dark";
-    locale?: string;
-  }
-
-  interface OpenAIWindowApi {
-    toolInput?: OpenAIWindowGlobals["toolInput"];
-    toolOutput?: OpenAIWindowGlobals["toolOutput"];
-    toolResponseMetadata?: OpenAIWindowGlobals["toolResponseMetadata"];
-    widgetState?: OpenAIWindowGlobals["widgetState"];
-    theme?: OpenAIWindowGlobals["theme"];
-    locale?: OpenAIWindowGlobals["locale"];
-
-    callTool?: (name: string, args: unknown) => Promise<unknown>;
-    setWidgetState?: (state: unknown) => void;
-  }
-  interface Window {
-    openai: OpenAIWindowApi;
-  }
-}
-
-function useOpenAiGlobal<K extends keyof Window["openai"]>(
-  key: K
-): Window["openai"][K] {
-  return useSyncExternalStore(
-    (onChange) => {
-      const handler = (event: any) => {
-        const value = event.detail.globals[key];
-        if (value !== undefined) onChange();
-      };
-      window.addEventListener("openai:set_globals", handler, { passive: true });
-      return () => {
-        window.removeEventListener("openai:set_globals", handler);
-      };
-    },
-    () => window.openai[key]
-  );
-}
+import type { PokemonType } from "../lib/types.js";
+import { useOpenAiGlobal } from "../lib/hooks.js";
 
 function Detail({ detail }: { detail: any }) {
-  console.log("Detail", detail);
   return (
     <div
       style={{
