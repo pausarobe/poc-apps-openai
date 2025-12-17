@@ -1,7 +1,9 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 
 export function createRegisterTool(server: McpServer) {
-  return server.registerTool as unknown as (
+  const bound = server.registerTool.bind(server);
+
+  return bound as unknown as (
     name: string,
     def: {
       title: string;
