@@ -1,12 +1,12 @@
-import { useSyncExternalStore } from "react";
+import { useSyncExternalStore } from 'react';
 
-function getOpenAIValue<K extends keyof Window["openai"]>(key: K) {
+function getOpenAIValue<K extends keyof Window['openai']>(key: K) {
   return window.openai?.[key];
 }
 
-export function useOpenAiGlobal<K extends keyof Window["openai"]>(key: K) {
+export function useOpenAiGlobal<K extends keyof Window['openai']>(key: K) {
   return useSyncExternalStore(
-    (onStoreChange) => {
+    (onStoreChange: () => void) => {
       let prev = getOpenAIValue(key);
 
       const handler = (event: Event) => {
@@ -17,10 +17,10 @@ export function useOpenAiGlobal<K extends keyof Window["openai"]>(key: K) {
         }
       };
 
-      window.addEventListener("openai:set_globals", handler, { passive: true });
-      return () => window.removeEventListener("openai:set_globals", handler);
+      window.addEventListener('openai:set_globals', handler, { passive: true });
+      return () => window.removeEventListener('openai:set_globals', handler);
     },
     () => getOpenAIValue(key),
-    () => undefined
-  ) as Window["openai"][K];
+    () => undefined,
+  ) as Window['openai'][K];
 }
