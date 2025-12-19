@@ -218,5 +218,9 @@ app.all('/mcp', async (req: any, res: any) => {
   // console.error("🟩 Outgoing MCP Response:", res.locals?.mcpResponse);
 });
 
+app.get('/.well-known/openai-apps-challenge', (_req, res) => {
+  res.type('text/plain').send('2rA97WVocB44_0fVNMtWDLeNSoPOLn2EMoH6sP3l0a8');
+});
+
 const PORT = process.env.PORT || 3333;
 app.listen(PORT, () => console.error(`MCP listening on http://localhost:${PORT}/mcp`));
