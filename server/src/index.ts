@@ -207,7 +207,9 @@ server.connect(transport);
 // Endpoint
 const app = express();
 app.use(express.json());
-app.use(express.static('public'));
+
+const PUBLIC_DIR = join(PROJECT_ROOT, 'public');
+app.use(express.static(PUBLIC_DIR));
 
 app.all('/mcp', async (req: any, res: any) => {
   // console.error("\n🟦 Incoming MCP Request:");
