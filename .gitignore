@@ -139,3 +139,5 @@ vite.config.ts.timestamp-*
 
 # Project
 dist
+
+.npmrc
