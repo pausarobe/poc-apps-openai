@@ -17,6 +17,7 @@ const PROJECT_ROOT = join(__dirname, '../..');
 
 const WEB_DIST = join(PROJECT_ROOT, 'web/dist');
 const JS = readFileSync(join(WEB_DIST, 'component.js'), 'utf8');
+const JS_TEST = readFileSync(join(WEB_DIST, 'test.js'), 'utf8');
 const JS_DETAIL = readFileSync(join(WEB_DIST, 'pokemon-detail.js'), 'utf8');
 
 // UI resources
@@ -48,18 +49,18 @@ server.registerResource(
 );
 
 server.registerResource(
-  'pokedex-widget',
-  'ui://widget/pokedex.html',
+  'poketest',
+  'ui://widget/poketest.html',
   {
-    title: 'Pokedex',
-    description: 'Get a list of Pokemon',
+    title: 'Poketest',
+    description: 'Get a list of testing pokemons',
   },
   async () => ({
     contents: [
       {
-        uri: 'ui://widget/pokedex.html',
+        uri: 'ui://widget/poketest.html',
         mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS),
+        text: makeWidgetHtml(JS_TEST),
         _meta: {
           'openai/widgetPrefersBorder': true,
           'openai/widgetDomain': 'https://chatgpt.com',
@@ -72,6 +73,7 @@ server.registerResource(
     ],
   }),
 );
+
 
 server.registerResource(
   'pokemon-detail-widget',
@@ -154,6 +156,58 @@ registerTool(
           // img: p.sprites.front_default,
         })),
         tool: 'airplane-list',
+      },
+    };
+  },
+);
+
+registerTool(
+  'poketest-list',
+  {
+    title: 'List of Testing Pokemons',
+    description: 'Show a defined number of Testing Pokemons.',
+    _meta: {
+      'openai/outputTemplate': 'ui://widget/poketest.html',
+      'openai/toolInvocation/invoking': 'Displaying the board',
+      'openai/toolInvocation/invoked': 'Displayed the board',
+    },
+    inputSchema: {
+      number: z.coerce.number().int().min(1).max(200).describe('Number of pokemon to list'),
+    },
+  },
+  async ({ number }) => {
+    console.error('Pokedex tool invoked 2.0');
+    const limit = number;
+    let pokemonDetail: any[] = [];
+
+    try {
+      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
+      const data: any = await res.json();
+      pokemonDetail = await Promise.all(
+        data.results.map(async (p: any) => {
+          const res = await fetch(p.url);
+          return res.json();
+        }),
+      );
+    } catch (error) {
+      console.error('Error fetching pokemons:', error);
+    }
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: `Aquí tienes los ${limit} Pokémon solicitados.`,
+        },
+      ],
+      structuredContent: {
+        pokemonList: pokemonDetail.map((p: any) => ({
+          id: p.id,
+          name: p.name,
+          types: p.types,
+          img: p.sprites.front_default,
+        })),
+        tool: 'poketest-list',
       },
     };
   },
