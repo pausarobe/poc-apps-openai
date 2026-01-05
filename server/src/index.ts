@@ -49,7 +49,7 @@ server.registerResource(
 );
 
 server.registerResource(
-  'poketest',
+  'poketest-widget',
   'ui://widget/poketest.html',
   {
     title: 'Poketest',
@@ -59,6 +59,32 @@ server.registerResource(
     contents: [
       {
         uri: 'ui://widget/poketest.html',
+        mimeType: 'text/html+skybridge',
+        text: makeWidgetHtml(JS_TEST),
+        _meta: {
+          'openai/widgetPrefersBorder': true,
+          'openai/widgetDomain': 'https://chatgpt.com',
+          'openai/widgetCSP': {
+            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
+            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
+          },
+        },
+      },
+    ],
+  }),
+);
+
+server.registerResource(
+  'pokedex-widget',
+  'ui://widget/pokedex.html',
+  {
+    title: 'Poketest',
+    description: 'Get a list of testing pokemons',
+  },
+  async () => ({
+    contents: [
+      {
+        uri: 'ui://widget/pokedex.html',
         mimeType: 'text/html+skybridge',
         text: makeWidgetHtml(JS_TEST),
         _meta: {
@@ -167,7 +193,7 @@ registerTool(
     title: 'List of Testing Pokemons',
     description: 'Show a defined number of Testing Pokemons.',
     _meta: {
-      'openai/outputTemplate': 'ui://widget/poketest.html',
+      'openai/outputTemplate': 'ui://widget/poketest-list.html',
       'openai/toolInvocation/invoking': 'Displaying the board',
       'openai/toolInvocation/invoked': 'Displayed the board',
     },
