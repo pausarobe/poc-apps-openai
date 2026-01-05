@@ -20,6 +20,33 @@ const JS = readFileSync(join(WEB_DIST, 'component.js'), 'utf8');
 const JS_DETAIL = readFileSync(join(WEB_DIST, 'pokemon-detail.js'), 'utf8');
 
 // UI resources
+
+server.registerResource(
+  'aviation-widget',
+  'ui://widget/aviation.html',
+  {
+    title: 'Aviation',
+    description: 'Get a list of Airplanes',
+  },
+  async () => ({
+    contents: [
+      {
+        uri: 'ui://widget/aviation.html',
+        mimeType: 'text/html+skybridge',
+        text: makeWidgetHtml(JS),
+        _meta: {
+          'openai/widgetPrefersBorder': true,
+          'openai/widgetDomain': 'https://chatgpt.com',
+          'openai/widgetCSP': {
+            connect_domains: ['https://chatgpt.com', 'https://api.aviationstack.com'],
+            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
+          },
+        },
+      },
+    ],
+  }),
+);
+
 server.registerResource(
   'pokedex-widget',
   'ui://widget/pokedex.html',
@@ -76,6 +103,63 @@ server.registerResource(
 const registerTool = createRegisterTool(server);
 
 registerTool(
+  'airplane-list',
+  {
+    title: 'List of Airplanes',
+    description: 'Show a defined number of Airplanes.',
+    _meta: {
+      'openai/outputTemplate': 'ui://widget/aviation.html',
+      'openai/toolInvocation/invoking': 'Displaying the board',
+      'openai/toolInvocation/invoked': 'Displayed the board',
+    },
+    inputSchema: {
+      number: z.coerce.number().int().min(1).max(200).describe('Number of airplane to list'),
+    },
+  },
+  async ({ number }) => {
+    console.error('Aviation tool invoked');
+    const limit = number;
+    let airplaneDetail: any[] = [];
+
+    try {
+      console.log(`Fetching airplanes from AviationStack API https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
+      const res = await fetch(`https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
+      const data: any = await res.json();
+      airplaneDetail = await Promise.all(
+        data.results.map(async (p: any) => {
+          const res = await fetch(p.url);
+          return res.json();
+        }),
+      );
+    } catch (error) {
+      console.error('Error fetching pokemons:', error);
+    }
+
+    return {
+      content: [
+        {
+          type: 'text' as const,
+          text: `Aquí tienes los ${limit} Aviones solicitados.`,
+        },
+      ],
+      structuredContent: {
+        airplaneList: airplaneDetail.map((p: any) => ({
+          //TODO: revisar
+          iata_code_long: p.iata_code_long,
+          production_line: p.production_line,
+          model_name: p.model_name,
+          // id: p.id,
+          // name: p.name,
+          // types: p.types,
+          // img: p.sprites.front_default,
+        })),
+        tool: 'airplane-list',
+      },
+    };
+  },
+);
+
+registerTool(
   'pokedex-list',
   {
     title: 'List of Pokemons',
@@ -90,7 +174,7 @@ registerTool(
     },
   },
   async ({ number }) => {
-    console.error('Pokedex tool invoked');
+    console.error('Pokedex tool invoked 2.0');
     const limit = number;
     let pokemonDetail: any[] = [];
 
