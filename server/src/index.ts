@@ -193,7 +193,7 @@ registerTool(
     title: 'List of Testing Pokemons',
     description: 'Show a defined number of Testing Pokemons.',
     _meta: {
-      'openai/outputTemplate': 'ui://widget/poketest-list.html',
+      'openai/outputTemplate': 'ui://widget/poketest.html',
       'openai/toolInvocation/invoking': 'Displaying the board',
       'openai/toolInvocation/invoked': 'Displayed the board',
     },
