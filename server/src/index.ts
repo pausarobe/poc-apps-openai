@@ -78,15 +78,15 @@ server.registerResource(
   'pokedex-widget',
   'ui://widget/pokedex.html',
   {
-    title: 'Poketest',
-    description: 'Get a list of testing pokemons',
+    title: 'Pokedex',
+    description: 'Get a list of pokemons',
   },
   async () => ({
     contents: [
       {
         uri: 'ui://widget/pokedex.html',
         mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS_TEST),
+        text: makeWidgetHtml(JS),
         _meta: {
           'openai/widgetPrefersBorder': true,
           'openai/widgetDomain': 'https://chatgpt.com',
