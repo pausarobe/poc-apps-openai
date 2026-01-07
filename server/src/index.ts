@@ -8,7 +8,7 @@ import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/
 import { createRegisterTool, makeWidgetHtml } from './helpers.js';
 
 // Create an MCP server
-const server = new McpServer({ name: 'pokedex', version: '1.0.0' });
+const server = new McpServer({ name: "NTT Flight's", version: '1.0.0' });
 
 // Load locally built assets (produced by your component build)
 const __filename = fileURLToPath(import.meta.url);
@@ -18,7 +18,6 @@ const PROJECT_ROOT = join(__dirname, '../..');
 const WEB_DIST = join(PROJECT_ROOT, 'web/dist');
 const JS = readFileSync(join(WEB_DIST, 'component.js'), 'utf8');
 const JS_TEST = readFileSync(join(WEB_DIST, 'test.js'), 'utf8');
-const JS_DETAIL = readFileSync(join(WEB_DIST, 'pokemon-detail.js'), 'utf8');
 
 // UI resources
 
@@ -49,77 +48,24 @@ server.registerResource(
 );
 
 server.registerResource(
-  'poketest-widget',
-  'ui://widget/poketest.html',
+  'flight-test-widget',
+  'ui://widget/flighttest.html',
   {
-    title: 'Poketest',
-    description: 'Get a list of testing pokemons',
+    title: 'Flighttest',
+    description: 'Get a list of testing flights',
   },
   async () => ({
     contents: [
       {
-        uri: 'ui://widget/poketest.html',
+        uri: 'ui://widget/flighttest.html',
         mimeType: 'text/html+skybridge',
         text: makeWidgetHtml(JS_TEST),
         _meta: {
           'openai/widgetPrefersBorder': true,
           'openai/widgetDomain': 'https://chatgpt.com',
           'openai/widgetCSP': {
-            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
-            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
-          },
-        },
-      },
-    ],
-  }),
-);
-
-server.registerResource(
-  'pokedex-widget',
-  'ui://widget/pokedex.html',
-  {
-    title: 'Pokedex',
-    description: 'Get a list of pokemons',
-  },
-  async () => ({
-    contents: [
-      {
-        uri: 'ui://widget/pokedex.html',
-        mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS),
-        _meta: {
-          'openai/widgetPrefersBorder': true,
-          'openai/widgetDomain': 'https://chatgpt.com',
-          'openai/widgetCSP': {
-            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
-            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
-          },
-        },
-      },
-    ],
-  }),
-);
-
-
-server.registerResource(
-  'pokemon-detail-widget',
-  'ui://widget/pokemon-detail.html',
-  {
-    title: 'Pokemon detail',
-    description: 'Detail of a Pokemon',
-  },
-  async () => ({
-    contents: [
-      {
-        uri: 'ui://widget/pokemon-detail.html',
-        mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS_DETAIL),
-        _meta: {
-          'openai/widgetPrefersBorder': false,
-          'openai/widgetDomain': 'https://chatgpt.com',
-          'openai/widgetCSP': {
-            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
-            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
+            connect_domains: ['https://chatgpt.com'],
+            resource_domains: ['https://*.oaistatic.com'],
           },
         },
       },
@@ -160,7 +106,7 @@ registerTool(
         }),
       );
     } catch (error) {
-      console.error('Error fetching pokemons:', error);
+      console.error('Error fetching airplanes:', error);
     }
 
     return {
@@ -188,175 +134,27 @@ registerTool(
 );
 
 registerTool(
-  'poketest-list',
+  'flight-test-list',
   {
-    title: 'List of Testing Pokemons',
-    description: 'Show a defined number of Testing Pokemons.',
+    title: 'List of Testing Flights',
+    description: 'Show a defined number of Testing Flights.',
     _meta: {
-      'openai/outputTemplate': 'ui://widget/poketest.html',
+      'openai/outputTemplate': 'ui://widget/flighttest.html',
       'openai/toolInvocation/invoking': 'Displaying the board',
       'openai/toolInvocation/invoked': 'Displayed the board',
     },
-    inputSchema: {
-      number: z.coerce.number().int().min(1).max(200).describe('Number of pokemon to list'),
-    },
-  },
-  async ({ number }) => {
-    console.error('Pokedex tool invoked 2.0');
-    const limit = number;
-    let pokemonDetail: any[] = [];
-
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-      const data: any = await res.json();
-      pokemonDetail = await Promise.all(
-        data.results.map(async (p: any) => {
-          const res = await fetch(p.url);
-          return res.json();
-        }),
-      );
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-    }
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: `Aquí tienes los ${limit} Pokémon solicitados.`,
-        },
-      ],
-      structuredContent: {
-        pokemonList: pokemonDetail.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          types: p.types,
-          img: p.sprites.front_default,
-        })),
-        tool: 'poketest-list',
-      },
-    };
-  },
-);
-
-registerTool(
-  'pokedex-list',
-  {
-    title: 'List of Pokemons',
-    description: 'Show a defined number of Pokemons.',
-    _meta: {
-      'openai/outputTemplate': 'ui://widget/pokedex.html',
-      'openai/toolInvocation/invoking': 'Displaying the board',
-      'openai/toolInvocation/invoked': 'Displayed the board',
-    },
-    inputSchema: {
-      number: z.coerce.number().int().min(1).max(200).describe('Number of pokemon to list'),
-    },
-  },
-  async ({ number }) => {
-    console.error('Pokedex tool invoked 2.0');
-    const limit = number;
-    let pokemonDetail: any[] = [];
-
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-      const data: any = await res.json();
-      pokemonDetail = await Promise.all(
-        data.results.map(async (p: any) => {
-          const res = await fetch(p.url);
-          return res.json();
-        }),
-      );
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-    }
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: `Aquí tienes los ${limit} Pokémon solicitados.`,
-        },
-      ],
-      structuredContent: {
-        pokemonList: pokemonDetail.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          types: p.types,
-          img: p.sprites.front_default,
-        })),
-        tool: 'pokedex-list',
-      },
-    };
-  },
-);
-
-registerTool(
-  'get-pokemon',
-  {
-    title: 'Get Pokemon',
-    description: 'Get the name and the detail url of all Pokemons',
   },
   async () => {
-    console.error('Get pokemon tool invoked');
-    let data: any;
-
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=151`);
-      data = await res.json();
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-      return {
-        content: [{ type: 'text' as const, text: 'Error fetching pokemons' }],
-      };
-    }
-
-    const pokemons = data?.results ?? [];
-
     return {
       content: [
         {
-          type: 'text',
-          text: `I found ${pokemons.length} pokemons. Use their URLs with the get-pokemon-detail tool.`,
+          type: 'text' as const,
+          text: `Herramienta de testeo.`,
         },
       ],
-      structuredContent: { pokemons },
-    };
-  },
-);
-
-registerTool(
-  'get-pokemon-detail',
-  {
-    title: 'Get Pokemon detail',
-    description: 'Get the detail of one pokemon using PokeAPI. Use the url field returned by get-pokemon.',
-    _meta: {
-      'openai/outputTemplate': 'ui://widget/pokemon-detail.html',
-    },
-    inputSchema: { url: z.string().describe('The url where find the detail') },
-  },
-  async ({ url }) => {
-    console.error('Get pokemon detail tool invoked');
-    let pokemonDetail: any;
-
-    try {
-      const res = await fetch(url);
-      pokemonDetail = await res.json();
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-      return {
-        content: [{ type: 'text' as const, text: 'Error fetching pokemon detail' }],
-      };
-    }
-
-    return {
-      content: [
-        {
-          type: 'text',
-          text: `Ok, aquí tienes el detalle de ${pokemonDetail.name}.`,
-        },
-      ],
-      structuredContent: { pokemonDetail },
+      structuredContent: {
+        tool: 'flight-test-list',
+      },
     };
   },
 );

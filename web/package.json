@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "typecheck": "tsc --noEmit",
-    "bundle": "npx esbuild src/entries/component.tsx src/entries/pokemon-detail.tsx src/entries/test.tsx --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
+    "bundle": "npx esbuild src/entries/component.tsx src/entries/test.tsx --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
     "build": "npm run typecheck && npm run bundle && cp index.html dist/index.html",
     "start": "npx esbuild src/entries/component.tsx --bundle --format=esm --outfile=dist/component.js --servedir=dist --serve=8000 --watch"
   },
