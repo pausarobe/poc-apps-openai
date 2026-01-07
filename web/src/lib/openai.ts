@@ -1,7 +1,8 @@
-import type { Pokemon } from "./types.js";
+import type { Airplane, Pokemon } from "./types.js";
 
 export interface ToolOutput {
   pokemonList?: Pokemon[];
+  airplaneList?: Airplane[];
   pokemonDetail?: PokemonDetail;
 }
 

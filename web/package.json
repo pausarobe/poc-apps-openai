@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "typecheck": "tsc --noEmit",
-    "bundle": "npx esbuild src/entries/component.tsx src/entries/pokemon-detail.tsx --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
+    "bundle": "npx esbuild src/entries/component.tsx src/entries/pokemon-detail.tsx src/entries/test.tsx --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
     "build": "npm run typecheck && npm run bundle && cp index.html dist/index.html",
     "start": "npx esbuild src/entries/component.tsx --bundle --format=esm --outfile=dist/component.js --servedir=dist --serve=8000 --watch"
   },
@@ -15,12 +15,13 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@ladle/react": "^5.1.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
   },
   "devDependencies": {
-    "@types/react": "^19.2.2",
-    "@types/react-dom": "^19.2.2",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
     "esbuild": "^0.25.12",
     "typescript": "^5.9.3"
   }

@@ -5,23 +5,21 @@ import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
-import { createRegisterTool, makeWidgetHtml } from './helpers.js';
+import { createRegisterTool, makeWidgetHtml } from '../helpers.js';
 
 // Create an MCP server
 const server = new McpServer({ name: 'pokedex', version: '1.0.0' });
-
+// const PROVIDER_API_KEY = process.env.PROVIDER_API_KEY;
 // Load locally built assets (produced by your component build)
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const PROJECT_ROOT = join(__dirname, '../..');
 
 const WEB_DIST = join(PROJECT_ROOT, 'web/dist');
-const JS = readFileSync(join(WEB_DIST, 'component.js'), 'utf8');
-const JS_TEST = readFileSync(join(WEB_DIST, 'test.js'), 'utf8');
+const JS = readFileSync(join(WEB_DIST, 'airplane-components.js'), 'utf8');
 const JS_DETAIL = readFileSync(join(WEB_DIST, 'pokemon-detail.js'), 'utf8');
 
 // UI resources
-
 server.registerResource(
   'aviation-widget',
   'ui://widget/aviation.html',
@@ -47,59 +45,6 @@ server.registerResource(
     ],
   }),
 );
-
-server.registerResource(
-  'poketest-widget',
-  'ui://widget/poketest.html',
-  {
-    title: 'Poketest',
-    description: 'Get a list of testing pokemons',
-  },
-  async () => ({
-    contents: [
-      {
-        uri: 'ui://widget/poketest.html',
-        mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS_TEST),
-        _meta: {
-          'openai/widgetPrefersBorder': true,
-          'openai/widgetDomain': 'https://chatgpt.com',
-          'openai/widgetCSP': {
-            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
-            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
-          },
-        },
-      },
-    ],
-  }),
-);
-
-server.registerResource(
-  'pokedex-widget',
-  'ui://widget/pokedex.html',
-  {
-    title: 'Pokedex',
-    description: 'Get a list of pokemons',
-  },
-  async () => ({
-    contents: [
-      {
-        uri: 'ui://widget/pokedex.html',
-        mimeType: 'text/html+skybridge',
-        text: makeWidgetHtml(JS),
-        _meta: {
-          'openai/widgetPrefersBorder': true,
-          'openai/widgetDomain': 'https://chatgpt.com',
-          'openai/widgetCSP': {
-            connect_domains: ['https://chatgpt.com', 'https://pokeapi.co'],
-            resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
-          },
-        },
-      },
-    ],
-  }),
-);
-
 
 server.registerResource(
   'pokemon-detail-widget',
@@ -182,110 +127,6 @@ registerTool(
           // img: p.sprites.front_default,
         })),
         tool: 'airplane-list',
-      },
-    };
-  },
-);
-
-registerTool(
-  'poketest-list',
-  {
-    title: 'List of Testing Pokemons',
-    description: 'Show a defined number of Testing Pokemons.',
-    _meta: {
-      'openai/outputTemplate': 'ui://widget/poketest.html',
-      'openai/toolInvocation/invoking': 'Displaying the board',
-      'openai/toolInvocation/invoked': 'Displayed the board',
-    },
-    inputSchema: {
-      number: z.coerce.number().int().min(1).max(200).describe('Number of pokemon to list'),
-    },
-  },
-  async ({ number }) => {
-    console.error('Pokedex tool invoked 2.0');
-    const limit = number;
-    let pokemonDetail: any[] = [];
-
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-      const data: any = await res.json();
-      pokemonDetail = await Promise.all(
-        data.results.map(async (p: any) => {
-          const res = await fetch(p.url);
-          return res.json();
-        }),
-      );
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-    }
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: `Aquí tienes los ${limit} Pokémon solicitados.`,
-        },
-      ],
-      structuredContent: {
-        pokemonList: pokemonDetail.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          types: p.types,
-          img: p.sprites.front_default,
-        })),
-        tool: 'poketest-list',
-      },
-    };
-  },
-);
-
-registerTool(
-  'pokedex-list',
-  {
-    title: 'List of Pokemons',
-    description: 'Show a defined number of Pokemons.',
-    _meta: {
-      'openai/outputTemplate': 'ui://widget/pokedex.html',
-      'openai/toolInvocation/invoking': 'Displaying the board',
-      'openai/toolInvocation/invoked': 'Displayed the board',
-    },
-    inputSchema: {
-      number: z.coerce.number().int().min(1).max(200).describe('Number of pokemon to list'),
-    },
-  },
-  async ({ number }) => {
-    console.error('Pokedex tool invoked 2.0');
-    const limit = number;
-    let pokemonDetail: any[] = [];
-
-    try {
-      const res = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=${limit}`);
-      const data: any = await res.json();
-      pokemonDetail = await Promise.all(
-        data.results.map(async (p: any) => {
-          const res = await fetch(p.url);
-          return res.json();
-        }),
-      );
-    } catch (error) {
-      console.error('Error fetching pokemons:', error);
-    }
-
-    return {
-      content: [
-        {
-          type: 'text' as const,
-          text: `Aquí tienes los ${limit} Pokémon solicitados.`,
-        },
-      ],
-      structuredContent: {
-        pokemonList: pokemonDetail.map((p: any) => ({
-          id: p.id,
-          name: p.name,
-          types: p.types,
-          img: p.sprites.front_default,
-        })),
-        tool: 'pokedex-list',
       },
     };
   },
@@ -380,10 +221,6 @@ app.all('/mcp', async (req: any, res: any) => {
   // console.error(JSON.stringify(req.body, null, 2));
   await transport.handleRequest(req, res, req.body);
   // console.error("🟩 Outgoing MCP Response:", res.locals?.mcpResponse);
-});
-
-app.get('/.well-known/openai-apps-challenge', (_req, res) => {
-  res.type('text/plain').send('2rA97WVocB44_0fVNMtWDLeNSoPOLn2EMoH6sP3l0a8');
 });
 
 const PORT = process.env.PORT || 3333;

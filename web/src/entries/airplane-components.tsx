@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import type { PokemonType, Pokemon, Airplane } from "../lib/types.js";
 import { useOpenAiGlobal } from "../lib/hooks.js";
 
-function AviationCard({ airplane }: { airplane: Airplane }) {
+function Card({ airplane }: { airplane: Airplane }) {
   console.log("Card", airplane);
   return (
     <div
@@ -24,7 +24,7 @@ function AviationCard({ airplane }: { airplane: Airplane }) {
   );
 }
 
-function AviationList({ airplanes }: { airplanes: Airplane[] }) {
+function List({ airplanes }: { airplanes: Airplane[] }) {
   console.log("List", airplanes);
   if (airplanes.length === 0) {
     return <div>No hay airplanes</div>;
@@ -39,50 +39,7 @@ function AviationList({ airplanes }: { airplanes: Airplane[] }) {
       }}
     >
       {airplanes.map((p: Airplane) => (
-        <AviationCard key={p.iata_code_long} airplane={p} />
-      ))}
-    </div>
-  );
-}
-
-
-function Card({ pokemon }: { pokemon: Pokemon }) {
-  console.log("Card", pokemon);
-  return (
-    <div
-      style={{
-        border: "1px solid #ccc",
-        borderRadius: "10px",
-        padding: "1rem",
-        textAlign: "center",
-      }}
-    >
-      <img src={pokemon.img} alt={pokemon.name} width={100} height={100} />
-      <h3 style={{ textTransform: "capitalize" }}>{pokemon.name}</h3>
-      <p>
-        <strong>Tipo:</strong>{" "}
-        {pokemon.types.map((t: PokemonType) => t.type.name).join(", ")}
-      </p>
-    </div>
-  );
-}
-
-function List({ pokemons }: { pokemons: Pokemon[] }) {
-  console.log("List", pokemons);
-  if (pokemons.length === 0) {
-    return <div>No hay pokemons</div>;
-  }
-
-  return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-        gap: "1rem",
-      }}
-    >
-      {pokemons.map((p: Pokemon) => (
-        <Card key={p.id} pokemon={p} />
+        <Card key={p.iata_code_long} airplane={p} />
       ))}
     </div>
   );
@@ -94,15 +51,13 @@ export default function App() {
 
   const toolOutput = useOpenAiGlobal("toolOutput");
   console.error("toolOutput", toolOutput);
-  const pokemons = toolOutput?.pokemonList ?? [];
   const airplanes = toolOutput?.airplaneList ?? [];
-  console.error("pokemons", pokemons);
+  console.error("airplanes", airplanes);
 
   return (
     <div style={{ padding: "2rem", fontFamily: "sans-serif" }}>
-      <h1 style={{ textAlign: "center" }}>Pokédex React {pokemons?.length}</h1>
-      {pokemons.length && <List pokemons={pokemons} />}
-      {airplanes.length && <AviationList airplanes={airplanes} />}
+      <h1 style={{ textAlign: "center" }}>Airplanes React {airplanes?.length}</h1>
+      <List airplanes={airplanes} />
     </div>
   );
 }
