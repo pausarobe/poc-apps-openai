@@ -22,17 +22,15 @@ export function registerAirplaneListTool(registerTool: RegisterToolFn) {
       let airplaneDetail: any[] = [];
 
       try {
-        console.log(`Fetching airplanes from AviationStack API https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
-
-        const res = await fetch(`https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
-        const data: any = await res.json();
-
-        airplaneDetail = await Promise.all(
-          data.results.map(async (p: any) => {
-            const r = await fetch(p.url);
-            return r.json();
-          }),
-        );
+        // console.log(`Fetching airplanes from AviationStack API https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
+        // const res = await fetch(`https://api.aviationstack.com/v1/airplanes?access_key=${process.env.PROVIDER_API_KEY}&limit=${limit}`);
+        // const data: any = await res.json();
+        // airplaneDetail = await Promise.all(
+        //   data.results.map(async (p: any) => {
+        //     const r = await fetch(p.url);
+        //     return r.json();
+        //   }),
+        // );
       } catch (error) {
         console.error('Error fetching airplanes:', error);
       }

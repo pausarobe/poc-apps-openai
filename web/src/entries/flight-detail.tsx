@@ -2,7 +2,7 @@ import { createRoot } from 'react-dom/client';
 import { Card, Badge, Spinner } from 'flowbite-react';
 import { useState, useEffect } from 'react';
 import { HiArrowRight, HiClock, HiLocationMarker } from 'react-icons/hi';
-import { FlightDetailMock } from '../mock/data';
+import { useOpenAiGlobal } from '../lib/hooks';
 
 interface FlightData {
   flight_date: string;
@@ -45,6 +45,7 @@ interface FlightData {
 }
 
 function FlightDetail() {
+  const toolOutput = useOpenAiGlobal('toolOutput');
   const [flightDetail, setFlightDetail] = useState<FlightData | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -53,28 +54,7 @@ function FlightDetail() {
     async function getFlightData() {
       try {
         setLoading(true);
-        // const res = await fetch(`https://api.aviationstack.com/v1/flights?access_key=${PROVIDER_API_KEY}&limit=5`);
-        // const data: any = await res.json();
-        // const data = AllFlightsMock;
-        // console.log('All flights:', data);
-
-        // if (data.error) {
-        //   setError(data.error.message || 'Error al obtener vuelos');
-        //   setLoading(false);
-        //   return;
-        // }
-
-        // const flightIata = data?.data?.[2]?.flight?.iata;
-        // if (!flightIata) {
-        //   setError('No se encontraron vuelos disponibles');
-        //   setLoading(false);
-        //   return;
-        // }
-
-        // const resFlightIata = await fetch(`https://api.aviationstack.com/v1/flights?access_key=${PROVIDER_API_KEY}&flight_iata=${flightIata}&limit=1`);
-        // const flightData: any = await resFlightIata.json();
-        const flightData = FlightDetailMock;
-        const flight = flightData?.data?.[0] as FlightData | undefined;
+        const flight = toolOutput?.flightDetail;
         console.log('Flight Detail:', flight);
 
         if (flight) {
@@ -91,7 +71,7 @@ function FlightDetail() {
     }
 
     getFlightData();
-  }, []);
+  }, [toolOutput]);
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { color: string; label: string }> = {
