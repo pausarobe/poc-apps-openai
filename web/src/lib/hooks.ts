@@ -9,7 +9,7 @@ export function useOpenAiGlobal<K extends keyof Window['openai']>(key: K) {
     (onStoreChange: () => void) => {
       let prev = getOpenAIValue(key);
 
-      const handler = (event: Event) => {
+      const handler = () => {
         const next = getOpenAIValue(key);
         if (next !== prev) {
           prev = next;

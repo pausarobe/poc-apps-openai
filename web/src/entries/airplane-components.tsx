@@ -1,4 +1,3 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
 import type { Airplane } from '../lib/types.js';
 import { useOpenAiGlobal } from '../lib/hooks.js';
