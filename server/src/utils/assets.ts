@@ -6,5 +6,6 @@ export function loadWebAssets(WEB_DIST: string) {
     JS: readFileSync(join(WEB_DIST, 'component.js'), 'utf8'),
     JS_TEST: readFileSync(join(WEB_DIST, 'test.js'), 'utf8'),
     JS_FLIGHT_DETAIL: readFileSync(join(WEB_DIST, 'flight-detail.js'), 'utf8'),
+    JS_FLIGHT_ARRIVALS: readFileSync(join(WEB_DIST, 'airplane-arrivals.js'), 'utf8'),
   };
 }
