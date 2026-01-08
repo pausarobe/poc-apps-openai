@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import type { FlightData, RegisterToolFn } from '../utils/types';
-import { errorMessage } from '../utils/helpers';
+import { errorMessage } from '../utils/helpers.js';
 import { FlightDetailMock } from '../mock/data';
 
 export function registerFlightDetailTool(registerTool: RegisterToolFn) {
