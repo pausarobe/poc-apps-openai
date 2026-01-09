@@ -4,6 +4,7 @@ export interface Airplane {
   model_name: string;
 }
 
+// ADVERTISING: FlightData type used in web and server, actualize both when modifying
 export interface FlightData {
   flight_date: string;
   flight_status: string;

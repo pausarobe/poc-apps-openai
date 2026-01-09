@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { FlightData, RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
-import { FlightDetailMock } from '../mock/data.js';
+import { FlightDetailMock, MadridArrivalsMock } from '../mock/data.js';
 
 export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
   registerTool(
@@ -20,7 +20,7 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ code, type }: { code: number; type: string }) => {
-      let flightData: FlightData;
+      let flightData: FlightData[];
       console.error('Flight Dashboard tool invoked', code, type);
 
       if (!code || !type) {
@@ -30,7 +30,8 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
       try {
         // const res = await fetch(`https://api.aviationstack.com/v1/flights?access_key=${process.env.PROVIDER_API_KEY}&flight_iata=${code}&limit=1`);
         // const data: any = await res.json();
-        const mockData: any = FlightDetailMock;
+        const mockData = MadridArrivalsMock;
+        console.log("Mock data used for flight dashboard:", mockData);
         flightData = mockData?.data;
       } catch (error) {
         console.error('Error fetching airplanes:', error);
@@ -39,7 +40,7 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
 
       return {
         content: [{ type: 'text' as const, text: `Aquí los detalles del aeropuerto ${code} solicitado.` }],
-        structuredContent: { flightDetail: flightData },
+        structuredContent: { flightList: flightData },
       };
     },
   );

@@ -19,8 +19,8 @@ export function registerFlightDashboardWidgetResource(server: McpServer, js: str
             'openai/widgetPrefersBorder': true,
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
-              connect_domains: ['https://chatgpt.com'],
-              resource_domains: ['https://*.oaistatic.com'],
+              connect_domains: ['https://chatgpt.com', 'https://api.aviationstack.com'],
+              resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
             },
           },
         },

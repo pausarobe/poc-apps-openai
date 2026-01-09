@@ -325,6 +325,12 @@ export const FlightDetailMock = {
 };
 
 export const MadridArrivalsMock = {
+  pagination: {
+    limit: 1,
+    offset: 0,
+    count: 1,
+    total: 3,
+  },
   data: [
     {
       flight_date: "2026-01-08",
