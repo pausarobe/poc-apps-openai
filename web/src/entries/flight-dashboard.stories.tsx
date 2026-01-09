@@ -1,4 +1,4 @@
-import ArrivalsDashboard, { sampleFlights } from "./airplane-arrivals";
+import FlightDashboard, { sampleFlights } from "./flight-dashboard";
 import type { Story } from "@ladle/react";
 import { useEffect } from "react";
 import type { FlightData } from "../lib/types";
@@ -22,17 +22,17 @@ function MockToolOutput({ flightList, children }: { flightList: FlightData[]; ch
 export const Default: Story = () => {
   return (
     <MockToolOutput flightList={sampleFlights}>
-      <ArrivalsDashboard />
+      <FlightDashboard />
     </MockToolOutput>
   );
 };
 
-Default.storyName = "Arrivals Dashboard";
+Default.storyName = "Arrival Dashboard";
 
 export const Empty: Story = () => {
   return (
     <MockToolOutput flightList={[]}>
-      <ArrivalsDashboard />
+      <FlightDashboard />
     </MockToolOutput>
   );
 };
@@ -120,7 +120,7 @@ export const MultipleFlights: Story = () => {
 
   return (
     <MockToolOutput flightList={multipleFlights}>
-      <ArrivalsDashboard />
+      <FlightDashboard />
     </MockToolOutput>
   );
 };

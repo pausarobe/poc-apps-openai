@@ -158,7 +158,7 @@ function TopBar() {
             <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-gray-900 sm:h-9 sm:w-9 sm:rounded-xl" />
             <div className="min-w-0">
               <div className="truncate text-xs font-semibold leading-4 sm:text-sm">Iberia Express • Ops</div>
-              <div className="text-xs text-gray-500">Arrivals Dashboard</div>
+              <div className="text-xs text-gray-500">Arrival Dashboard</div>
             </div>
           </div>
 
@@ -279,7 +279,7 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
 }
 
 // ---------- page ----------
-export default function ArrivalsDashboard() {
+export default function FlightDashboard() {
   const [flights, setFlights] = useState<FlightData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -368,5 +368,5 @@ export default function ArrivalsDashboard() {
 // Solo renderizar si no estamos en Ladle/Storybook
 if (typeof window !== 'undefined' && document.getElementById('root')) {
   const root = createRoot(document.getElementById('root')!);
-  root.render(<ArrivalsDashboard />);
+  root.render(<FlightDashboard />);
 }
