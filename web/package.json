@@ -9,7 +9,8 @@
     "bundle": "npx esbuild \"src/entries/*.tsx\" --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
     "build": "npm run typecheck && npm run bundle && npm run build:css && cp index.html dist/index.html",
     "build:css": "npx tailwindcss -i src/styles.css -o dist/styles.css",
-    "start": "npm run build && npx esbuild src/entries/flight-detail.tsx --bundle --format=esm --outfile=dist/flight-detail.js --servedir=dist --serve=3030 --watch"
+    "start": "npm run build && npx esbuild src/entries/flight-detail.tsx --bundle --format=esm --outfile=dist/flight-detail.js --servedir=dist --serve=3030 --watch",
+    "ladle": "npx ladle serve"
   },
   "keywords": [],
   "author": "",

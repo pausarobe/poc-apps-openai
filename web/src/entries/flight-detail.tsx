@@ -3,46 +3,7 @@ import { Card, Badge, Spinner } from 'flowbite-react';
 import { useState, useEffect } from 'react';
 import { HiArrowRight, HiClock, HiLocationMarker } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks';
-
-interface FlightData {
-  flight_date: string;
-  flight_status: string;
-  departure: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal: string;
-    gate: string;
-    delay: number;
-    scheduled: string;
-    estimated: string;
-    actual: string;
-  };
-  arrival: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal: string;
-    gate: string;
-    baggage: string;
-    delay: number;
-    scheduled: string;
-    estimated: string;
-    actual: string;
-  };
-  airline: {
-    name: string;
-    iata: string;
-    icao: string;
-  };
-  flight: {
-    number: string;
-    iata: string;
-    icao: string;
-  };
-}
+import type { FlightData } from '../lib/types';
 
 function FlightDetail() {
   const toolOutput = useOpenAiGlobal('toolOutput');
@@ -276,7 +237,7 @@ function FlightDetail() {
           </div>
 
           {/* Delay Warnings */}
-          {(flightDetail.departure.delay > 0 || flightDetail.arrival.delay > 0) && (
+          {flightDetail.departure?.delay && flightDetail.arrival?.delay && (flightDetail.departure.delay > 0 || flightDetail.arrival.delay > 0) && (
             <div className="mt-6 pt-6 border-t border-white/20">
               <div className="flex flex-wrap gap-4 justify-center">
                 {flightDetail.departure.delay > 0 && (

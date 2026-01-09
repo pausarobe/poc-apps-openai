@@ -1,43 +1,7 @@
 import { createRoot } from 'react-dom/client';
-import { useMemo, useState } from "react";
-
-interface FlightData {
-  flight_date: string;
-  flight_status: string;
-  departure: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal: string | null;
-    gate: string | null;
-    delay: number | null;
-    scheduled: string;
-    estimated: string;
-    actual: string | null;
-    estimated_runway: string | null;
-    actual_runway: string | null;
-  };
-  arrival: {
-    airport: string;
-    timezone: string;
-    iata: string;
-    icao: string;
-    terminal: string | null;
-    gate: string | null;
-    baggage: string | null;
-    scheduled: string;
-    delay: number | null;
-    estimated: string | null;
-    actual: string | null;
-    estimated_runway: string | null;
-    actual_runway: string | null;
-  };
-  airline: { name: string; iata: string; icao: string };
-  flight: { number: string; iata: string; icao: string; codeshared: any };
-  aircraft: { registration: string | null; iata: string | null; icao: string | null; icao24: string };
-  live: any;
-}
+import { useEffect, useMemo, useState } from "react";
+import type { FlightData } from '../lib/types';
+import { useOpenAiGlobal } from '../lib/hooks';
 
 const sampleFlights: FlightData[] = [
   {
@@ -213,7 +177,7 @@ function TopBar() {
 }
 
 // ---------- table ----------
-function FlightsTable({ flights, onOpenDetails }: { flights: FlightData[]; onOpenDetails?: (f: FlightData) => void }) {
+function FlightsTable({ flights }: { flights: FlightData[]}) {
   return (
     <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:rounded-2xl">
       <div className="flex flex-col gap-2 border-b border-gray-200 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
@@ -320,7 +284,35 @@ export default function ArrivalsDashboard({
 }: {
   initialFlights?: FlightData[];
 }) {
-  const [flights] = useState(initialFlights);
+  const [flights, setFlights] = useState<FlightData[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  const toolOutput = useOpenAiGlobal('toolOutput');
+
+  useEffect(() => {
+    async function getFlightData() {
+      try {
+        setLoading(true);
+        const flightList = toolOutput?.flightList;
+        console.log('Flight List:', flightList);
+
+        if (flightList) {
+          setFlights(flightList);
+        } else {
+          setFlights(sampleFlights);
+          setError('No se encontraron vuelos');
+        }
+      } catch (error) {
+        console.error('Error fetching flightList data:', error);
+        setError('Error al conectar con el servidor');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getFlightData();
+  }, [toolOutput]);
 
   const kpis = useMemo(() => {
     const total = flights.length;

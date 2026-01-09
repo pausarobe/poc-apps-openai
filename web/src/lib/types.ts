@@ -12,25 +12,29 @@ export interface FlightData {
     timezone: string;
     iata: string;
     icao: string;
-    terminal: string;
-    gate: string;
-    delay: number;
+    terminal?: string | null;
+    gate?: string | null;
+    delay?: number | null;
     scheduled: string;
     estimated: string;
-    actual: string;
+    actual?: string | null;
+    estimated_runway?: string | null;
+    actual_runway?: string | null;
   };
   arrival: {
     airport: string;
     timezone: string;
     iata: string;
     icao: string;
-    terminal: string;
-    gate: string;
-    baggage: string;
-    delay: number;
+    terminal?: string | null;
+    gate?: string | null;
+    baggage?: string | null;
     scheduled: string;
-    estimated: string;
-    actual: string;
+    delay?: number | null;
+    estimated?: string | null;
+    actual?: string | null;
+    estimated_runway?: string | null;
+    actual_runway?: string | null;
   };
   airline: {
     name: string;
@@ -41,5 +45,13 @@ export interface FlightData {
     number: string;
     iata: string;
     icao: string;
+    codeshared?: any;
   };
+  aircraft?: {
+    registration?: string | null;
+    iata?: string | null;
+    icao?: string | null;
+    icao24?: string;
+  } | null;
+  live?: any;
 }
