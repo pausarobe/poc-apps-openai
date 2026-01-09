@@ -4,7 +4,7 @@ import { makeWidgetHtml } from '../utils/helpers.js';
 export function registerFlightDashboardWidgetResource(server: McpServer, js: string,  css: string) {
   server.registerResource(
     'flight-dashboard-widget',
-    'ui://widget/flightdashboard.html',
+    'ui://widget/flight-dashboard.html',
     {
       title: 'Flight Dashboard',
       description: 'Get a list of arrivals or departures from a airport.',
@@ -12,7 +12,7 @@ export function registerFlightDashboardWidgetResource(server: McpServer, js: str
     async () => ({
       contents: [
         {
-          uri: 'ui://widget/flightdashboard.html',
+          uri: 'ui://widget/flight-dashboard.html',
           mimeType: 'text/html+skybridge',
           text: makeWidgetHtml(js, css),
           _meta: {
