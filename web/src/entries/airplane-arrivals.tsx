@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import type { FlightData } from '../lib/types';
 import { useOpenAiGlobal } from '../lib/hooks';
 
-const sampleFlights: FlightData[] = [
+export const sampleFlights: FlightData[] = [
   {
     flight_date: "2026-01-08",
     flight_status: "active",
@@ -279,11 +279,7 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
 }
 
 // ---------- page ----------
-export default function ArrivalsDashboard({
-  initialFlights = sampleFlights,
-}: {
-  initialFlights?: FlightData[];
-}) {
+export default function ArrivalsDashboard() {
   const [flights, setFlights] = useState<FlightData[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -300,7 +296,6 @@ export default function ArrivalsDashboard({
         if (flightList) {
           setFlights(flightList);
         } else {
-          setFlights(sampleFlights);
           setError('No se encontraron vuelos');
         }
       } catch (error) {
