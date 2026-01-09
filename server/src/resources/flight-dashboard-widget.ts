@@ -1,7 +1,7 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeWidgetHtml } from '../utils/helpers.js';
 
-export function registerFlightDashboardWidgetResource(server: McpServer, js: string) {
+export function registerFlightDashboardWidgetResource(server: McpServer, js: string,  css: string) {
   server.registerResource(
     'flight-dashboard-widget',
     'ui://widget/flightdashboard.html',
@@ -14,7 +14,7 @@ export function registerFlightDashboardWidgetResource(server: McpServer, js: str
         {
           uri: 'ui://widget/flightdashboard.html',
           mimeType: 'text/html+skybridge',
-          text: makeWidgetHtml(js),
+          text: makeWidgetHtml(js, css),
           _meta: {
             'openai/widgetPrefersBorder': true,
             'openai/widgetDomain': 'https://chatgpt.com',

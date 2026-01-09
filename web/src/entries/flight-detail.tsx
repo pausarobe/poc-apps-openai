@@ -1,38 +1,47 @@
 import { createRoot } from 'react-dom/client';
-import { Card, Badge, Spinner } from 'flowbite-react';
-import { useState, useEffect } from 'react';
+import { Card, Badge } from 'flowbite-react';
+// import { useState } from 'react';
 import { HiArrowRight, HiClock, HiLocationMarker } from 'react-icons/hi';
-import { useOpenAiGlobal } from '../lib/hooks';
-import type { FlightData } from '../lib/types';
+import { useOpenAiGlobal } from '../lib/hooks.js';
+import type { FlightData } from '../lib/types.js';
 
 function FlightDetail() {
   const toolOutput = useOpenAiGlobal('toolOutput');
-  const [flightDetail, setFlightDetail] = useState<FlightData | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  // const [flightDetail, setFlightDetail] = useState<FlightData | null>(null);
+  // const [loading, setLoading] = useState(true);
+  // const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    async function getFlightData() {
-      try {
-        setLoading(true);
-        const flight = toolOutput?.flightDetail;
-        console.log('Flight Detail:', flight);
+  const flightDetail: FlightData | null = toolOutput?.flightDetail || null;
+  console.log('Flight Detail:', flightDetail);
 
-        if (flight) {
-          setFlightDetail(flight);
-        } else {
-          setError('No se encontró información del vuelo');
-        }
-      } catch (error) {
-        console.error('Error fetching flight data:', error);
-        setError('Error al conectar con el servidor');
-      } finally {
-        setLoading(false);
-      }
-    }
+  // if (!flightDetail) {
+  //   setLoading(true);
+  // } else {
+  //   setLoading(false);
+  // }
 
-    getFlightData();
-  }, [toolOutput]);
+  // useEffect(() => {
+  //   async function getFlightData() {
+  //     try {
+  //       setLoading(true);
+  //       const flight = toolOutput?.flightDetail;
+  //       console.log('Flight Detail:', flight);
+
+  //       if (flight) {
+  //         setFlightDetail(flight);
+  //       } else {
+  //         setError('No se encontró información del vuelo');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching flight data:', error);
+  //       setError('Error al conectar con el servidor');
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   }
+
+  //   getFlightData();
+  // }, []);
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { color: string; label: string }> = {
@@ -77,30 +86,30 @@ function FlightDetail() {
     }
   };
 
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-        <div className="text-center">
-          <Spinner size="xl" />
-          <p className="mt-4 text-gray-600 text-lg">Cargando información del vuelo...</p>
-        </div>
-      </div>
-    );
-  }
+  // if (loading) {
+  //   return (
+  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
+  //       <div className="text-center">
+  //         <Spinner size="xl" />
+  //         <p className="mt-4 text-gray-600 text-lg">Cargando información del vuelo...</p>
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
-  if (error) {
-    return (
-      <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-        <Card className="max-w-md">
-          <div className="text-center">
-            <div className="text-red-500 text-5xl mb-4">⚠️</div>
-            <h3 className="text-xl font-bold text-gray-900 mb-2">Error</h3>
-            <p className="text-gray-600">{error}</p>
-          </div>
-        </Card>
-      </div>
-    );
-  }
+  // if (error) {
+  //   return (
+  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
+  //       <Card className="max-w-md">
+  //         <div className="text-center">
+  //           <div className="text-red-500 text-5xl mb-4">⚠️</div>
+  //           <h3 className="text-xl font-bold text-gray-900 mb-2">Error</h3>
+  //           <p className="text-gray-600">{error}</p>
+  //         </div>
+  //       </Card>
+  //     </div>
+  //   );
+  // }
 
   if (!flightDetail) {
     return (
