@@ -281,8 +281,8 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
 // ---------- page ----------
 export default function FlightDashboard() {
   const [flights, setFlights] = useState<FlightData[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const [, setLoading] = useState(true);
+  const [, setError] = useState<string | null>(null);
 
   const toolOutput = useOpenAiGlobal('toolOutput');
 
