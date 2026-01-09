@@ -82,18 +82,18 @@ const sampleFlights: FlightData[] = [
 // ---------- helpers ----------
 const safeLower = (v: any): string => (v ?? "").toString().toLowerCase();
 
-function fmt(iso: string | null | undefined, tz: string | null | undefined): string {
-  if (!iso) return "—";
-  const d = new Date(iso);
-  return new Intl.DateTimeFormat("es-ES", {
-    timeZone: tz || "UTC",
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-  }).format(d);
-}
+// function fmt(iso: string | null | undefined, tz: string | null | undefined): string {
+//   if (!iso) return "—";
+//   const d = new Date(iso);
+//   return new Intl.DateTimeFormat("es-ES", {
+//     timeZone: tz || "UTC",
+//     year: "numeric",
+//     month: "2-digit",
+//     day: "2-digit",
+//     hour: "2-digit",
+//     minute: "2-digit",
+//   }).format(d);
+// }
 
 function fmtTime(iso: string | null | undefined, tz: string | null | undefined): string {
   if (!iso) return "—";
@@ -207,77 +207,10 @@ function TopBar() {
             Europe/Madrid
           </span>
         </div>
-
-        {/* <div className="flex items-center gap-2">
-          <button
-            type="button"
-            onClick={onExport}
-            className="inline-flex items-center rounded-lg bg-gray-900 px-3 py-2 text-sm font-medium text-white hover:bg-gray-800 focus:outline-none focus:ring-4 focus:ring-gray-200"
-          >
-            Exportar
-          </button>
-        </div> */}
       </div>
     </nav>
   );
 }
-
-// ---------- filters ----------
-// function Filters({ query, setQuery, status, setStatus, delay, setDelay, onReset }: {
-//   query: string;
-//   setQuery: (value: string) => void;
-//   status: string;
-//   setStatus: (value: string) => void;
-//   delay: string;
-//   setDelay: (value: string) => void;
-//   onReset: () => void;
-// }) {
-//   return (
-//     <div className="flex flex-col gap-2 sm:flex-row sm:items-center">
-//       <div className="relative">
-//         <span className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">🔎</span>
-//         <input
-//           value={query}
-//           onChange={(e) => setQuery(e.target.value)}
-//           type="search"
-//           className="block w-full rounded-lg border border-gray-200 bg-white p-2.5 pl-10 text-sm focus:border-gray-900 focus:ring-gray-900 sm:w-72"
-//           placeholder="Buscar: I21882, DUB, Iberia Express…"
-//         />
-//       </div>
-
-//       <select
-//         value={status}
-//         onChange={(e) => setStatus(e.target.value)}
-//         className="block rounded-lg border border-gray-200 bg-white p-2.5 text-sm focus:border-gray-900 focus:ring-gray-900"
-//       >
-//         <option value="all">Estado: Todos</option>
-//         <option value="active">Activo</option>
-//         <option value="scheduled">Programado</option>
-//         <option value="landed">Aterrizado</option>
-//         <option value="cancelled">Cancelado</option>
-//         <option value="diverted">Desviado</option>
-//       </select>
-
-//       <select
-//         value={delay}
-//         onChange={(e) => setDelay(e.target.value)}
-//         className="block rounded-lg border border-gray-200 bg-white p-2.5 text-sm focus:border-gray-900 focus:ring-gray-900"
-//       >
-//         <option value="all">Demora: Todas</option>
-//         <option value="delayed">Con demora</option>
-//         <option value="ontime">En hora / adelantado</option>
-//       </select>
-
-//       <button
-//         type="button"
-//         onClick={onReset}
-//         className="rounded-lg border border-gray-200 bg-white px-3 py-2.5 text-sm font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
-//       >
-//         Reset
-//       </button>
-//     </div>
-//   );
-// }
 
 // ---------- table ----------
 function FlightsTable({ flights, onOpenDetails }: { flights: FlightData[]; onOpenDetails?: (f: FlightData) => void }) {
@@ -379,141 +312,6 @@ function FlightsTable({ flights, onOpenDetails }: { flights: FlightData[]; onOpe
   );
 }
 
-// ---------- drawer ----------
-// function FlightDrawer({ open, flight, onClose }: { open: boolean; flight: FlightData | null; onClose: () => void }) {
-//   useEffect(() => {
-//     function onKeyDown(e: KeyboardEvent) {
-//       if (e.key === "Escape") onClose();
-//     }
-//     if (open) window.addEventListener("keydown", onKeyDown);
-//     return () => window.removeEventListener("keydown", onKeyDown);
-//   }, [open, onClose]);
-
-//   if (!open) return null;
-
-//   const f = flight;
-//   const d = f ? deriveFlight(f) : null;
-
-//   const st = f ? statusBadge(f.flight_status) : { text: "—", cls: "bg-gray-100 text-gray-800" };
-//   const dl = d ? delayBadge(d.depDelay, d.arrDelay) : { text: "—", cls: "bg-gray-100 text-gray-800" };
-
-//   return (
-//     <>
-//       {/* backdrop */}
-//       <div
-//         className="fixed inset-0 z-40 bg-gray-900/40"
-//         onClick={onClose}
-//         aria-hidden="true"
-//       />
-
-//       {/* panel */}
-//       <aside
-//         className="fixed right-0 top-0 z-50 h-screen w-full max-w-[520px] overflow-y-auto bg-white p-6 shadow-2xl"
-//         role="dialog"
-//         aria-modal="true"
-//       >
-//         <div className="mb-6 flex items-start justify-between gap-3">
-//           <div>
-//             <h2 className="text-lg font-semibold text-gray-900">
-//               {f?.flight?.iata || "—"} • {f?.airline?.name || "—"}
-//             </h2>
-//             <p className="mt-1 text-sm text-gray-600">
-//               {f?.departure?.iata || "—"} → {f?.arrival?.iata || "—"} • {f?.flight?.number || ""}
-//             </p>
-//           </div>
-
-//           <button
-//             type="button"
-//             onClick={onClose}
-//             className="inline-flex items-center rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm font-medium hover:bg-gray-100 focus:outline-none focus:ring-4 focus:ring-gray-200"
-//           >
-//             Cerrar
-//           </button>
-//         </div>
-
-//         <div className="space-y-4">
-//           <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-//             <div className="mb-3 flex flex-wrap items-center gap-2">
-//               <Pill className={st.cls}>{st.text}</Pill>
-//               <Pill className={dl.cls}>{dl.text}</Pill>
-//               <span className="text-xs text-gray-500">Fecha: {f?.flight_date || "—"}</span>
-//             </div>
-
-//             <div className="grid gap-3 sm:grid-cols-2">
-//               <div>
-//                 <div className="text-xs text-gray-500">Origen</div>
-//                 <div className="text-sm font-semibold text-gray-900">
-//                   {f?.departure?.airport || "—"} ({f?.departure?.iata || "—"})
-//                 </div>
-//                 <div className="text-xs text-gray-600">
-//                   {f?.departure?.timezone || "—"} • {f?.departure?.icao || "—"}
-//                 </div>
-//               </div>
-
-//               <div>
-//                 <div className="text-xs text-gray-500">Destino</div>
-//                 <div className="text-sm font-semibold text-gray-900">
-//                   {f?.arrival?.airport || "—"} ({f?.arrival?.iata || "—"})
-//                 </div>
-//                 <div className="text-xs text-gray-600">
-//                   {f?.arrival?.timezone || "—"} • {f?.arrival?.icao || "—"}
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-
-//           <div className="rounded-2xl border border-gray-200 bg-white p-4">
-//             <div className="mb-3 text-sm font-semibold text-gray-900">Tiempos (locales)</div>
-//             <dl className="grid gap-3 sm:grid-cols-2">
-//               <KV label="STD (salida programada)" value={fmt(f?.departure?.scheduled, d?.depTz)} />
-//               <KV label="ATD (salida real)" value={fmt(f?.departure?.actual, d?.depTz)} />
-//               <KV label="STA (llegada programada)" value={fmt(f?.arrival?.scheduled, d?.arrTz)} />
-//               <KV label="ETA (llegada estimada)" value={fmt(f?.arrival?.estimated, d?.arrTz)} />
-//               <KV
-//                 label="Runway (salida)"
-//                 value={fmt(f?.departure?.actual_runway || f?.departure?.estimated_runway, d?.depTz)}
-//               />
-//               <KV
-//                 label="Runway (llegada)"
-//                 value={fmt(f?.arrival?.actual_runway || f?.arrival?.estimated_runway, d?.arrTz)}
-//               />
-//             </dl>
-//           </div>
-
-//           <div className="rounded-2xl border border-gray-200 bg-white p-4">
-//             <div className="mb-3 text-sm font-semibold text-gray-900">Operación</div>
-//             <dl className="grid gap-3 sm:grid-cols-2">
-//               <KV
-//                 label="Terminal / Gate (origen)"
-//                 value={`${f?.departure?.terminal ? `T${f.departure.terminal}` : "—"}${
-//                   f?.departure?.gate ? ` • Gate ${f.departure.gate}` : ""
-//                 }`}
-//               />
-//               <KV
-//                 label="Terminal / Gate (MAD)"
-//                 value={`${f?.arrival?.terminal ? `T${f.arrival.terminal}` : "—"}${
-//                   f?.arrival?.gate ? ` • Gate ${f.arrival.gate}` : ""
-//                 }`}
-//               />
-//               <KV label="Baggage (MAD)" value={f?.arrival?.baggage || "—"} />
-//               <KV label="Aeronave (ICAO24)" value={f?.aircraft?.icao24 || "—"} />
-//             </dl>
-//           </div>
-//         </div>
-//       </aside>
-//     </>
-//   );
-// }
-
-// function KV({ label, value }: { label: string; value: string }) {
-//   return (
-//     <div>
-//       <dt className="text-xs text-gray-500">{label}</dt>
-//       <dd className="text-sm font-medium text-gray-900">{value}</dd>
-//     </div>
-//   );
-// }
-
 // ---------- page ----------
 export default function ArrivalsDashboard({
   initialFlights = sampleFlights,
@@ -521,34 +319,6 @@ export default function ArrivalsDashboard({
   initialFlights?: FlightData[];
 }) {
   const [flights] = useState(initialFlights);
-
-  // const [query, setQuery] = useState("");
-  // const [status, setStatus] = useState("all");
-  // const [delay, setDelay] = useState("all");
-
-  const [drawerOpen, setDrawerOpen] = useState(false);
-  const [selectedFlight, setSelectedFlight] = useState<FlightData | null>(null);
-
-  // const filtered = useMemo(() => {
-  //   const q = safeLower(query).trim();
-
-  //   return flights.filter((f) => {
-  //     const d = deriveFlight(f);
-
-  //     const matchesQuery =
-  //       !q ||
-  //       d.key.includes(q) ||
-  //       safeLower(f?.flight?.iata).includes(q) ||
-  //       safeLower(f?.flight?.number).includes(q);
-
-  //     const matchesStatus = status === "all" || safeLower(f?.flight_status) === status;
-
-  //     const hasDelay = (typeof d.depDelay === "number" && d.depDelay > 0) || (typeof d.arrDelay === "number" && d.arrDelay > 0);
-  //     const matchesDelay = delay === "all" || (delay === "delayed" ? hasDelay : !hasDelay);
-
-  //     return matchesQuery && matchesStatus && matchesDelay;
-  //   });
-  // }, [flights, query, status, delay]);
 
   const kpis = useMemo(() => {
     const total = flights.length;
@@ -570,29 +340,6 @@ export default function ArrivalsDashboard({
     return { total, active, delayed, nextEta, nextMeta, updatedAt };
   }, [flights]);
 
-  // function onReset() {
-  //   setQuery("");
-  //   setStatus("all");
-  //   setDelay("all");
-  // }
-
-  // function onOpenDetails(f: FlightData) {
-  //   setSelectedFlight(f);
-  //   setDrawerOpen(true);
-  // }
-
-  // function onCloseDetails() {
-  //   setDrawerOpen(false);
-  //   setSelectedFlight(null);
-  // }
-
-  // function onExport() {
-  //   // Placeholder: aquí puedes exportar CSV/JSON
-  //   const payload = JSON.stringify(filtered, null, 2);
-  //   console.log("EXPORT", payload);
-  //   alert("Export (demo): mira la consola (console.log).");
-  // }
-
   return (
     <div className="min-h-screen bg-gray-50 text-gray-900">
       <TopBar />
@@ -605,16 +352,6 @@ export default function ArrivalsDashboard({
               Resumen operativo de vuelos entrantes (horas formateadas por zona del aeropuerto).
             </p>
           </div>
-
-          {/* <Filters
-            query={query}
-            setQuery={setQuery}
-            status={status}
-            setStatus={setStatus}
-            delay={delay}
-            setDelay={setDelay}
-            onReset={onReset}
-          /> */}
         </div>
 
         <div className="mb-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
