@@ -1,5 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useMemo, useState } from "react";
+import { Card, Badge, Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
+import { HiClock, HiLocationMarker, HiStatusOnline } from 'react-icons/hi';
 import type { FlightData } from '../lib/types';
 import { useOpenAiGlobal } from '../lib/hooks';
 
@@ -76,23 +78,23 @@ function minutesDiff(aIso: string | null | undefined, bIso: string | null | unde
   return Math.round((a - b) / 60000);
 }
 
-function statusBadge(status: string): { text: string; cls: string } {
+function statusBadge(status: string): { color: any; text: string } {
   const s = safeLower(status) || "unknown";
-  if (s === "active") return { text: "Activo", cls: "bg-blue-100 text-blue-800" };
-  if (s === "landed") return { text: "Aterrizado", cls: "bg-green-100 text-green-800" };
-  if (s === "scheduled") return { text: "Programado", cls: "bg-gray-100 text-gray-800" };
-  if (s === "cancelled") return { text: "Cancelado", cls: "bg-red-100 text-red-800" };
-  if (s === "diverted") return { text: "Desviado", cls: "bg-amber-100 text-amber-800" };
-  return { text: status || "—", cls: "bg-gray-100 text-gray-800" };
+  if (s === "active") return { color: "info", text: "Activo" };
+  if (s === "landed") return { color: "success", text: "Aterrizado" };
+  if (s === "scheduled") return { color: "gray", text: "Programado" };
+  if (s === "cancelled") return { color: "failure", text: "Cancelado" };
+  if (s === "diverted") return { color: "warning", text: "Desviado" };
+  return { color: "gray", text: status || "—" };
 }
 
-function delayBadge(depDelayMin: number | null, arrDelayMin: number | null): { text: string; cls: string } {
+function delayBadge(depDelayMin: number | null, arrDelayMin: number | null): { color: any; text: string } {
   const nums = [depDelayMin, arrDelayMin].filter((x) => typeof x === "number");
   const maxDelay = nums.length ? Math.max(...nums) : 0;
 
-  if (maxDelay > 0) return { text: `Demora +${maxDelay} min`, cls: "bg-amber-100 text-amber-800" };
-  if (maxDelay < 0) return { text: `Adelantado ${maxDelay} min`, cls: "bg-emerald-100 text-emerald-800" };
-  return { text: "En hora", cls: "bg-green-100 text-green-800" };
+  if (maxDelay > 0) return { color: "warning", text: `Demora +${maxDelay} min` };
+  if (maxDelay < 0) return { color: "success", text: `Adelantado ${maxDelay} min` };
+  return { color: "success", text: "En hora" };
 }
 
 function deriveFlight(f: FlightData) {
@@ -130,150 +132,157 @@ function deriveFlight(f: FlightData) {
 }
 
 // ---------- UI atoms ----------
-function Pill({ className = "", children }: { className?: string; children: React.ReactNode }) {
+function KPICard({ title, value, subtitle, icon, bgColor, textColor, iconColor }: { 
+  title: string; 
+  value: number | string; 
+  subtitle: string; 
+  icon?: React.ReactNode;
+  bgColor?: string;
+  textColor?: string;
+  iconColor?: string;
+}) {
   return (
-    <span className={`inline-flex items-center rounded-full px-2.5 py-1 text-xs font-medium ${className}`}>
-      {children}
-    </span>
-  );
-}
-
-function Card({ title, value, subtitle }: { title: string; value: number | string; subtitle: string }) {
-  return (
-    <div className="rounded-xl border border-gray-200 bg-white p-2.5 shadow-sm sm:rounded-2xl sm:p-3">
-      <div className="text-[10px] text-gray-500 sm:text-xs">{title}</div>
-      <div className="mt-0.5 text-lg font-semibold tracking-tight sm:mt-1 sm:text-xl">{value}</div>
-      <div className="mt-1 text-[10px] text-gray-500 sm:text-xs">{subtitle}</div>
-    </div>
+    <Card className={`shadow-md ${bgColor || 'bg-white'}`}>
+      <div className="flex items-start justify-between">
+        <div className="flex-1">
+          <p className={`text-xs font-medium ${textColor || 'text-gray-700'}`}>{title}</p>
+          <p className={`mt-1 text-2xl font-bold ${textColor || 'text-gray-900'}`}>{value}</p>
+          <p className={`mt-2 text-xs ${textColor || 'text-gray-600'}`}>{subtitle}</p>
+        </div>
+        {icon && <div className={iconColor || 'text-gray-300'}>{icon}</div>}
+      </div>
+    </Card>
   );
 }
 
 // ---------- header ----------
 function TopBar() {
   return (
-    <nav className="px-2 pt-2 sm:px-4 sm:pt-4">
-      <div className="mx-auto max-w-7xl rounded-xl border border-gray-200 bg-white shadow-sm sm:rounded-2xl">
-        <div className="flex flex-col gap-3 px-3 py-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4 sm:px-4 sm:py-3">
-          <div className="flex items-center gap-2 sm:gap-3">
-            <div className="h-8 w-8 flex-shrink-0 rounded-lg bg-gray-900 sm:h-9 sm:w-9 sm:rounded-xl" />
-            <div className="min-w-0">
-              <div className="truncate text-xs font-semibold leading-4 sm:text-sm">Iberia Express • Ops</div>
-              <div className="text-xs text-gray-500">Arrival Dashboard</div>
-            </div>
+    <Card className="mb-6 bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md">
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm text-white">
+            <HiStatusOnline className="h-6 w-6" />
           </div>
-
-          <div className="flex items-center gap-2 text-xs">
-            <span className="inline-flex items-center rounded-lg border border-gray-200 bg-gray-50 px-2 py-1 text-xs font-medium">
-              MAD • Barajas
-            </span>
-            <span className="hidden items-center rounded-lg border border-gray-200 bg-gray-50 px-2 py-1 text-xs font-medium sm:inline-flex">
-              Europe/Madrid
-            </span>
+          <div>
+            <h2 className="text-lg font-bold text-white">Iberia Express • Ops</h2>
+            <p className="text-sm text-blue-100">Arrival Dashboard</p>
           </div>
         </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <Badge color="light" size="sm" className="bg-white/90 text-blue-700">
+            <div className="flex items-center gap-1">
+              <HiLocationMarker className="h-3 w-3" />
+              MAD • Barajas
+            </div>
+          </Badge>
+          <Badge color="light" size="sm" className="hidden sm:inline-flex bg-white/80 text-indigo-700">
+            <div className="flex items-center gap-1">
+              <HiClock className="h-3 w-3" />
+              Europe/Madrid
+            </div>
+          </Badge>
+        </div>
       </div>
-    </nav>
+    </Card>
   );
 }
 
 // ---------- table ----------
 function FlightsTable({ flights }: { flights: FlightData[]}) {
   return (
-    <div className="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm sm:rounded-2xl">
-      <div className="flex flex-col gap-2 border-b border-gray-200 p-3 sm:flex-row sm:items-center sm:justify-between sm:p-4">
-        <div className="text-sm font-semibold">Lista de llegadas</div>
-        <div className="hidden text-xs text-gray-500 sm:block">Tip: "Detalles" muestra terminal, puertas, timestamps y runway.</div>
+    <div className="space-y-3">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-2">
+        <h3 className="text-lg font-bold text-gray-900">Lista de llegadas</h3>
+        <p className="hidden text-xs text-gray-600 sm:block">
+          Tip: "Detalles" muestra terminal, puertas, timestamps y runway.
+        </p>
       </div>
 
-      <div className="overflow-x-auto">
-        <div className="inline-block min-w-full align-middle">
-        <table className="w-full min-w-[650px] text-left text-sm text-gray-700 md:min-w-0">
-          <thead className="bg-gray-50 text-xs uppercase text-gray-600">
-            <tr>
-              <th className="sticky left-0 z-10 bg-gray-50 px-2 py-2 md:static md:px-3">Vuelo</th>
-              <th className="px-2 py-2 md:px-3">Aerolínea</th>
-              <th className="px-2 py-2 md:px-3">Origen</th>
-              <th className="px-2 py-2 md:px-3">STD</th>
-              <th className="px-2 py-2 md:px-3">ATD</th>
-              <th className="px-2 py-2 md:px-3">STA</th>
-              <th className="px-2 py-2 md:px-3">ETA</th>
-              <th className="px-2 py-2 md:px-3">Estado</th>
-              <th className="px-2 py-2 text-right md:px-3">Acción</th>
-            </tr>
-          </thead>
+      {flights.length === 0 ? (
+        <div className="py-8 text-center text-gray-500 bg-white rounded-lg shadow-sm">
+          No hay vuelos actualmente.
+        </div>
+      ) : (
+        <div className="space-y-3">
+          {flights.map((f) => {
+            const d = deriveFlight(f);
+            const st = statusBadge(f.flight_status);
+            const dl = delayBadge(d.depDelay, d.arrDelay);
 
-          <tbody className="divide-y divide-gray-200">
-            {flights.map((f) => {
-              const d = deriveFlight(f);
-              const st = statusBadge(f.flight_status);
-              const dl = delayBadge(d.depDelay, d.arrDelay);
-
-              return (
-                <tr key={`${f.flight?.iata ?? "—"}-${f.flight_date ?? ""}`} className="hover:bg-gray-50">
-                  <td className="sticky left-0 z-10 bg-white px-2 py-2 hover:bg-gray-50 md:static md:px-3">
-                    <div className="font-semibold text-gray-900">{f.flight?.iata || "—"}</div>
-                    <div className="text-xs text-gray-500">{f.flight?.icao || ""}</div>
-                  </td>
-
-                  <td className="px-2 py-2 md:px-3">
-                    <div className="font-medium text-gray-900">{f.airline?.name || "—"}</div>
-                    <div className="text-xs text-gray-500">
+            return (
+              <Card key={`${f.flight?.iata ?? "—"}-${f.flight_date ?? ""}`} className="bg-gradient-to-br from-slate-700 to-slate-800 shadow-md hover:shadow-lg transition-shadow">
+                <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-3">
+                  {/* Vuelo */}
+                  <div className="md:col-span-2">
+                    <p className="text-xs font-medium text-slate-400 mb-1">Vuelo</p>
+                    <div className="font-bold text-white text-lg">{f.flight?.iata || "—"}</div>
+                    <div className="text-xs text-slate-300">{f.flight?.icao || ""}</div>
+                  </div>
+                  
+                  {/* Aerolínea */}
+                  <div className="md:col-span-2">
+                    <p className="text-xs font-medium text-slate-400 mb-1">Aerolínea</p>
+                    <div className="font-semibold text-white">{f.airline?.name || "—"}</div>
+                    <div className="text-xs text-slate-300">
                       {f.airline?.iata || ""} • {f.airline?.icao || ""}
                     </div>
-                  </td>
-
-                  <td className="px-2 py-2 md:px-3">
-                    <div className="font-medium text-gray-900">
-                      {f.departure?.iata || "—"} · {f.departure?.airport || "—"}
+                  </div>
+                  
+                  {/* Origen */}
+                  <div className="md:col-span-3">
+                    <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
+                    <div className="flex items-center gap-1">
+                      <HiLocationMarker className="h-4 w-4 text-blue-400" />
+                      <span className="font-semibold text-white">
+                        {f.departure?.iata || "—"}
+                      </span>
+                      <span className="text-slate-300 text-sm">· {f.departure?.airport || "—"}</span>
                     </div>
-                    <div className="text-xs text-gray-500">
+                    <div className="text-xs text-slate-300 mt-1">
                       {f.departure?.terminal ? `T${f.departure.terminal}` : "—"}
                       {f.departure?.gate ? ` • Gate ${f.departure.gate}` : ""}
                     </div>
-                  </td>
-
-                  <td className="whitespace-nowrap px-2 py-2 md:px-3">{fmtTime(f.departure?.scheduled, d.depTz)}</td>
-                  <td className="whitespace-nowrap px-2 py-2 md:px-3">{fmtTime(f.departure?.actual, d.depTz)}</td>
-                  <td className="whitespace-nowrap px-2 py-2 md:px-3">{fmtTime(f.arrival?.scheduled, d.arrTz)}</td>
-
-                  <td className="px-2 py-2 md:px-3">
-                    <div className="whitespace-nowrap font-medium text-gray-900">{fmtTime(f.arrival?.estimated, d.arrTz)}</div>
-                    <div className="whitespace-nowrap text-xs text-gray-500">
-                      {typeof d.arrDelay === "number" ? `${d.arrDelay > 0 ? "+" : ""}${d.arrDelay} min` : "—"}
+                  </div>
+                  
+                  {/* Horarios */}
+                  <div className="md:col-span-3 grid grid-cols-2 gap-2">
+                    <div>
+                      <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
+                      <div className="text-white font-medium">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                      <div className="text-slate-300 text-sm">{fmtTime(f.departure?.actual, d.depTz)}</div>
                     </div>
-                  </td>
-
-                  <td className="px-2 py-2 md:px-3">
-                    <Pill className={st.cls}>{st.text}</Pill>
-                    <div className="mt-1">
-                      <Pill className={dl.cls}>{dl.text}</Pill>
+                    <div>
+                      <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
+                      <div className="text-white font-medium">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                      <div className="text-emerald-300 text-sm font-semibold">
+                        {fmtTime(f.arrival?.estimated, d.arrTz)}
+                        {typeof d.arrDelay === "number" && (
+                          <span className="text-xs ml-1">
+                            ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
+                          </span>
+                        )}
+                      </div>
                     </div>
-                  </td>
-
-                  <td className="px-2 py-2 text-right md:px-3">
-                    <button
-                      type="button"
-                      onClick={() => {}}
-                      className="whitespace-nowrap rounded-lg border border-gray-200 bg-white px-2 py-1.5 text-xs font-medium text-gray-900 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200"
-                    >
-                      Detalles
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-
-            {flights.length === 0 && (
-              <tr>
-                <td className="px-2 py-6 text-center text-sm text-gray-500 md:px-3" colSpan={9}>
-                  No hay vuelos actualmente.
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
+                  </div>
+                  
+                  {/* Estado y Acciones */}
+                  <div className="md:col-span-2 flex flex-col gap-2 md:items-end">
+                    <div className="flex flex-wrap gap-1">
+                      <Badge color={st.color} size="sm">{st.text}</Badge>
+                      <Badge color={dl.color} size="sm">{dl.text}</Badge>
+                    </div>
+                    <Button size="xs" className="bg-blue-500 hover:bg-blue-600 text-white border-0" onClick={() => {}}>
+                      Ver detalles
+                    </Button>
+                  </div>
+                </div>
+              </Card>
+            );
+          })}
         </div>
-      </div>
+      )}
     </div>
   );
 }
@@ -330,37 +339,59 @@ export default function FlightDashboard() {
   }, [flights]);
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-900">
-      <TopBar />
+    <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
+      <div className="mx-auto max-w-7xl space-y-6">
+        <TopBar />
 
-      <main className="mx-auto max-w-7xl px-2 py-3 sm:px-4 sm:py-6">
-        <div className="mb-4 flex flex-col gap-2 sm:mb-6 sm:gap-3 md:flex-row md:items-end md:justify-between">
-          <div>
-            <h1 className="text-xl font-semibold tracking-tight text-gray-900 sm:text-2xl">Llegadas a Madrid (MAD)</h1>
-            <p className="mt-1 text-xs text-gray-600 sm:text-sm">
+        <div className="bg-transparent">
+          <div className="mb-4">
+            <h1 className="text-2xl font-bold text-gray-900">Llegadas a Madrid (MAD)</h1>
+            <p className="mt-1 text-sm text-gray-600">
               Resumen operativo de vuelos entrantes
             </p>
           </div>
-        </div>
 
-        <div className="mb-4 grid grid-cols-3 gap-2 sm:mb-6 sm:gap-3">
-          <Card title="Total vuelos" value={kpis.total} subtitle="En la lista actual" />
-          <Card title="Con demora" value={kpis.delayed} subtitle="Salida o llegada" />
-          <Card title="ETA más próxima" value={kpis.nextEta} subtitle={kpis.nextMeta} />
-        </div>
-
-        <FlightsTable flights={flights}  />
-
-        <div className="mt-3 flex flex-col gap-2 text-xs text-gray-600 sm:mt-4 sm:flex-row sm:items-center sm:justify-between">
-          <div>{flights.length} vuelo(s) mostrados</div>
-          <div className="flex items-center gap-2">
-            <span className="inline-flex items-center rounded-full bg-gray-100 px-2 py-1">⬤ Actualizado</span>
-            <span className="text-xs">{kpis.updatedAt}</span>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <KPICard 
+              title="Total vuelos" 
+              value={kpis.total} 
+              subtitle="En la lista actual"
+              icon={<HiStatusOnline className="h-8 w-8" />}
+              bgColor="bg-gradient-to-br from-blue-500 to-blue-600"
+              textColor="text-white"
+              iconColor="text-blue-200"
+            />
+            <KPICard 
+              title="Con demora" 
+              value={kpis.delayed} 
+              subtitle="Salida o llegada"
+              icon={<HiClock className="h-8 w-8" />}
+              bgColor="bg-gradient-to-br from-amber-500 to-orange-600"
+              textColor="text-white"
+              iconColor="text-amber-200"
+            />
+            <KPICard 
+              title="ETA más próxima" 
+              value={kpis.nextEta} 
+              subtitle={kpis.nextMeta}
+              icon={<HiLocationMarker className="h-8 w-8" />}
+              bgColor="bg-gradient-to-br from-emerald-500 to-teal-600"
+              textColor="text-white"
+              iconColor="text-emerald-200"
+            />
           </div>
         </div>
-      </main>
 
-      {/* <FlightDrawer open={drawerOpen} flight={selectedFlight} onClose={onCloseDetails} /> */}
+        <FlightsTable flights={flights} />
+
+        <div className="flex flex-col gap-2 text-xs text-gray-600 sm:flex-row sm:items-center sm:justify-between bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+          <div className="font-medium">{flights.length} vuelo(s) mostrados</div>
+          <div className="flex items-center gap-2">
+            <Badge color="success">⬤ Actualizado</Badge>
+            <span>{kpis.updatedAt}</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
