@@ -15,7 +15,7 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
         'openai/toolInvocation/invoked': 'Displayed the board',
       },
       inputSchema: {
-        code: z.coerce.number().int().describe('Airport code (IATA)'),
+        code: z.coerce.string().describe('Airport code (IATA)'),
         type: z.coerce.string().describe('Type of dashboard (arrivals or departures)'),
       },
     },
