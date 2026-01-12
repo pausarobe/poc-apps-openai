@@ -154,7 +154,7 @@ function TopBar({ type }: { type: 'arrival' | 'departure' }) {
             <HiStatusOnline className="h-7 w-7" />
           </div>
           <div>
-            <h1 className="text-xl font-bold text-white">Iberia Express • Ops</h1>
+            <h1 className="text-xl font-bold text-white">FLIGHT GPT APP • Operations</h1>
             <p className="text-sm text-blue-100 mt-0.5">{title} • Resumen operativo</p>
           </div>
         </div>
@@ -231,45 +231,31 @@ function FlightsTable({ flights, type }: { flights: FlightData[]; type: 'arrival
                       {/* Horarios */}
                       <div className="flex gap-6 flex-1 min-w-0">
                         {isArrival ? (
-                          <>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
-                              <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
-                              <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
+                            <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                            <div className="text-emerald-300 text-xs font-semibold">
+                              {fmtTime(f.arrival?.estimated, d.arrTz)}
+                              {typeof d.arrDelay === "number" && (
+                                <span className="ml-1">
+                                  ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
+                                </span>
+                              )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
-                              <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
-                              <div className="text-emerald-300 text-xs font-semibold">
-                                {fmtTime(f.arrival?.estimated, d.arrTz)}
-                                {typeof d.arrDelay === "number" && (
-                                  <span className="ml-1">
-                                    ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                          </>
+                          </div>
                         ) : (
-                          <>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-medium text-slate-400 mb-1">STD / ETD</p>
-                              <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
-                              <div className="text-emerald-300 text-xs font-semibold">
-                                {fmtTime(f.departure?.estimated, d.depTz)}
-                                {typeof d.depDelay === "number" && (
-                                  <span className="ml-1">
-                                    ({d.depDelay > 0 ? "+" : ""}{d.depDelay}min)
-                                  </span>
-                                )}
-                              </div>
+                          <div className="flex-1 min-w-0">
+                            <p className="text-xs font-medium text-slate-400 mb-1">STD / ETD</p>
+                            <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                            <div className="text-emerald-300 text-xs font-semibold">
+                              {fmtTime(f.departure?.estimated, d.depTz)}
+                              {typeof d.depDelay === "number" && (
+                                <span className="ml-1">
+                                  ({d.depDelay > 0 ? "+" : ""}{d.depDelay}min)
+                                </span>
+                              )}
                             </div>
-                            <div className="flex-1 min-w-0">
-                              <p className="text-xs font-medium text-slate-400 mb-1">STA / ATA</p>
-                              <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
-                              <div className="text-slate-300 text-xs">{fmtTime(f.arrival?.actual, d.arrTz)}</div>
-                            </div>
-                          </>
+                          </div>
                         )}
                       </div>
                       
@@ -353,7 +339,12 @@ export default function FlightDashboard() {
       .filter((x) => x.t != null)
       .sort((a, b) => (a.t ?? 0) - (b.t ?? 0))[0];
 
-    const nextTime = next ? (isArrival ? fmtTime(next.eta, next.arrTz) : fmtTime(next.std, next.depTz)) : "—";
+    const nextFlight = next ? flights[next.idx] : null;
+    const nextTime = next 
+      ? (isArrival 
+          ? fmtTime(next.eta, next.arrTz) 
+          : fmtTime(nextFlight?.departure?.estimated || next.std, next.depTz)) 
+      : "—";
     const nextMeta = next 
       ? (isArrival 
           ? `${flights[next.idx]?.flight?.iata || "—"} desde ${flights[next.idx]?.departure?.iata || "—"}`
@@ -366,7 +357,7 @@ export default function FlightDashboard() {
   }, [flights, type]);
 
   const isArrival = type === 'arrival';
-  const nextLabel = isArrival ? 'ETA más próxima' : 'ETD más próxima';
+  const nextLabel = isArrival ? 'Llegada más próxima' : 'Salida más próxima';
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
