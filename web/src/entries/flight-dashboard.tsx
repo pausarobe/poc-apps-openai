@@ -1,6 +1,6 @@
 import { createRoot } from 'react-dom/client';
 import { useEffect, useMemo, useState } from "react";
-import { Card, Badge, Button, Table, TableBody, TableCell, TableHead, TableHeadCell, TableRow } from 'flowbite-react';
+import { Card, Badge, Button } from 'flowbite-react';
 import { HiClock, HiLocationMarker, HiStatusOnline } from 'react-icons/hi';
 import type { FlightData } from '../lib/types';
 import { useOpenAiGlobal } from '../lib/hooks';
@@ -47,19 +47,6 @@ export const sampleFlights: FlightData[] = [
 
 // ---------- helpers ----------
 const safeLower = (v: any): string => (v ?? "").toString().toLowerCase();
-
-// function fmt(iso: string | null | undefined, tz: string | null | undefined): string {
-//   if (!iso) return "—";
-//   const d = new Date(iso);
-//   return new Intl.DateTimeFormat("es-ES", {
-//     timeZone: tz || "UTC",
-//     year: "numeric",
-//     month: "2-digit",
-//     day: "2-digit",
-//     hour: "2-digit",
-//     minute: "2-digit",
-//   }).format(d);
-// }
 
 function fmtTime(iso: string | null | undefined, tz: string | null | undefined): string {
   if (!iso) return "—";
@@ -155,7 +142,10 @@ function KPICard({ title, value, subtitle, icon, bgColor, textColor, iconColor }
 }
 
 // ---------- header ----------
-function TopBar() {
+function TopBar({ type }: { type: 'arrival' | 'departure' }) {
+  const isArrival = type === 'arrival';
+  const title = isArrival ? 'Llegadas a Madrid (MAD)' : 'Salidas desde Madrid (MAD)';
+  
   return (
     <Card className="mb-6 bg-gradient-to-r from-blue-600 to-indigo-700 shadow-lg">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
@@ -165,7 +155,7 @@ function TopBar() {
           </div>
           <div>
             <h1 className="text-xl font-bold text-white">Iberia Express • Ops</h1>
-            <p className="text-sm text-blue-100 mt-0.5">Llegadas a Madrid (MAD) • Resumen operativo</p>
+            <p className="text-sm text-blue-100 mt-0.5">{title} • Resumen operativo</p>
           </div>
         </div>
 
@@ -185,11 +175,14 @@ function TopBar() {
 }
 
 // ---------- table ----------
-function FlightsTable({ flights }: { flights: FlightData[]}) {
+function FlightsTable({ flights, type }: { flights: FlightData[]; type: 'arrival' | 'departure' }) {
+  const isArrival = type === 'arrival';
+  const listTitle = isArrival ? 'Lista de llegadas' : 'Lista de salidas';
+  
   return (
     <div className="space-y-3">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between px-2">
-        <h3 className="text-lg font-bold text-gray-900">Lista de llegadas</h3>
+        <h3 className="text-lg font-bold text-gray-900">{listTitle}</h3>
         <p className="hidden text-xs text-gray-600 sm:block">
           Tip: "Detalles" muestra terminal, puertas, timestamps y runway.
         </p>
@@ -224,36 +217,60 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
                         <div className="font-semibold text-white text-sm leading-tight">{f.airline?.name || "—"}</div>
                       </div>
                       
-                      {/* Origen */}
+                      {/* Origen/Destino */}
                       <div className="w-16 flex-shrink-0">
-                        <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
+                        <p className="text-xs font-medium text-slate-400 mb-1">{isArrival ? 'Origen' : 'Destino'}</p>
                         <div className="flex items-center gap-1">
                           <HiLocationMarker className="h-4 w-4 text-blue-400" />
                           <span className="font-bold text-white text-base">
-                            {f.departure?.iata || "—"}
+                            {isArrival ? (f.departure?.iata || "—") : (f.arrival?.iata || "—")}
                           </span>
                         </div>
                       </div>
                       
                       {/* Horarios */}
                       <div className="flex gap-6 flex-1 min-w-0">
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
-                          <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
-                          <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
-                        </div>
-                        <div className="flex-1 min-w-0">
-                          <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
-                          <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
-                          <div className="text-emerald-300 text-xs font-semibold">
-                            {fmtTime(f.arrival?.estimated, d.arrTz)}
-                            {typeof d.arrDelay === "number" && (
-                              <span className="ml-1">
-                                ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
-                              </span>
-                            )}
-                          </div>
-                        </div>
+                        {isArrival ? (
+                          <>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
+                              <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                              <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
+                              <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                              <div className="text-emerald-300 text-xs font-semibold">
+                                {fmtTime(f.arrival?.estimated, d.arrTz)}
+                                {typeof d.arrDelay === "number" && (
+                                  <span className="ml-1">
+                                    ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </>
+                        ) : (
+                          <>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium text-slate-400 mb-1">STD / ETD</p>
+                              <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                              <div className="text-emerald-300 text-xs font-semibold">
+                                {fmtTime(f.departure?.estimated, d.depTz)}
+                                {typeof d.depDelay === "number" && (
+                                  <span className="ml-1">
+                                    ({d.depDelay > 0 ? "+" : ""}{d.depDelay}min)
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <p className="text-xs font-medium text-slate-400 mb-1">STA / ATA</p>
+                              <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                              <div className="text-slate-300 text-xs">{fmtTime(f.arrival?.actual, d.arrTz)}</div>
+                            </div>
+                          </>
+                        )}
                       </div>
                       
                       {/* Estado */}
@@ -290,6 +307,7 @@ export default function FlightDashboard() {
   const [, setError] = useState<string | null>(null);
 
   const toolOutput = useOpenAiGlobal('toolOutput');
+  const type = (toolOutput?.type as 'arrival' | 'departure') || 'arrival';
 
   useEffect(() => {
     async function getFlightData() {
@@ -297,6 +315,7 @@ export default function FlightDashboard() {
         setLoading(true);
         const flightList = toolOutput?.flightList;
         console.log('Flight List:', flightList);
+        console.log('Type:', toolOutput?.type);
 
         if (flightList) {
           setFlights(flightList);
@@ -321,23 +340,38 @@ export default function FlightDashboard() {
     const derived = flights.map(deriveFlight);
     const delayed = derived.filter((d) => (d.depDelay || 0) > 0 || (d.arrDelay || 0) > 0).length;
 
+    const isArrival = type === 'arrival';
+    
     const next = derived
-      .map((d, idx) => ({ ...d, idx, t: d.eta ? new Date(d.eta).getTime() : null }))
+      .map((d, idx) => ({ 
+        ...d, 
+        idx, 
+        t: isArrival 
+          ? (d.eta ? new Date(d.eta).getTime() : null)
+          : (d.std ? new Date(d.std).getTime() : null)
+      }))
       .filter((x) => x.t != null)
       .sort((a, b) => (a.t ?? 0) - (b.t ?? 0))[0];
 
-    const nextEta = next ? fmtTime(next.eta, next.arrTz) : "—";
-    const nextMeta = next ? `${flights[next.idx]?.flight?.iata || "—"} desde ${flights[next.idx]?.departure?.iata || "—"}` : "Sin ETA";
+    const nextTime = next ? (isArrival ? fmtTime(next.eta, next.arrTz) : fmtTime(next.std, next.depTz)) : "—";
+    const nextMeta = next 
+      ? (isArrival 
+          ? `${flights[next.idx]?.flight?.iata || "—"} desde ${flights[next.idx]?.departure?.iata || "—"}`
+          : `${flights[next.idx]?.flight?.iata || "—"} hacia ${flights[next.idx]?.arrival?.iata || "—"}`)
+      : (isArrival ? "Sin ETA" : "Sin ETD");
 
     const updatedAt = new Intl.DateTimeFormat("es-ES", { dateStyle: "medium", timeStyle: "short" }).format(new Date());
 
-    return { total, active, delayed, nextEta, nextMeta, updatedAt };
-  }, [flights]);
+    return { total, active, delayed, nextTime, nextMeta, updatedAt };
+  }, [flights, type]);
+
+  const isArrival = type === 'arrival';
+  const nextLabel = isArrival ? 'ETA más próxima' : 'ETD más próxima';
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-6">
       <div className="mx-auto max-w-7xl space-y-6">
-        <TopBar />
+        <TopBar type={type} />
 
         <div className="bg-transparent">
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
@@ -360,8 +394,8 @@ export default function FlightDashboard() {
               iconColor="text-amber-200"
             />
             <KPICard 
-              title="ETA más próxima" 
-              value={kpis.nextEta} 
+              title={nextLabel} 
+              value={kpis.nextTime} 
               subtitle={kpis.nextMeta}
               icon={<HiLocationMarker className="h-6 w-6" />}
               bgColor="bg-gradient-to-br from-emerald-500 to-teal-600"
@@ -371,7 +405,7 @@ export default function FlightDashboard() {
           </div>
         </div>
 
-        <FlightsTable flights={flights} />
+        <FlightsTable flights={flights} type={type} />
 
         <div className="flex flex-col gap-2 text-xs text-gray-600 sm:flex-row sm:items-center sm:justify-between bg-white rounded-lg shadow-sm p-4 border border-gray-200">
           <div className="font-medium">{flights.length} vuelo(s) mostrados</div>
