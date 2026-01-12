@@ -141,47 +141,43 @@ function KPICard({ title, value, subtitle, icon, bgColor, textColor, iconColor }
   iconColor?: string;
 }) {
   return (
-    <Card className={`shadow-md ${bgColor || 'bg-white'}`}>
-      <div className="flex items-start justify-between">
-        <div className="flex-1">
+    <div className={`${bgColor || 'bg-white'} rounded-lg shadow-md p-3`}>
+      <div className="flex items-start justify-between gap-2">
+        <div className="flex-1 min-w-0">
           <p className={`text-xs font-medium ${textColor || 'text-gray-700'}`}>{title}</p>
-          <p className={`mt-1 text-2xl font-bold ${textColor || 'text-gray-900'}`}>{value}</p>
-          <p className={`mt-2 text-xs ${textColor || 'text-gray-600'}`}>{subtitle}</p>
+          <p className={`mt-0.5 text-xl font-bold ${textColor || 'text-gray-900'}`}>{value}</p>
+          <p className={`mt-0.5 text-xs ${textColor || 'text-gray-600'} truncate`}>{subtitle}</p>
         </div>
-        {icon && <div className={iconColor || 'text-gray-300'}>{icon}</div>}
+        {icon && <div className={`${iconColor || 'text-gray-300'} flex-shrink-0`}>{icon}</div>}
       </div>
-    </Card>
+    </div>
   );
 }
 
 // ---------- header ----------
 function TopBar() {
   return (
-    <Card className="mb-6 bg-gradient-to-r from-blue-600 to-indigo-700 shadow-md">
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <Card className="mb-6 bg-gradient-to-r from-blue-600 to-indigo-700 shadow-lg">
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex items-center gap-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm text-white">
-            <HiStatusOnline className="h-6 w-6" />
+          <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-white/20 backdrop-blur-sm text-white">
+            <HiStatusOnline className="h-7 w-7" />
           </div>
           <div>
-            <h2 className="text-lg font-bold text-white">Iberia Express • Ops</h2>
-            <p className="text-sm text-blue-100">Arrival Dashboard</p>
+            <h1 className="text-xl font-bold text-white">Iberia Express • Ops</h1>
+            <p className="text-sm text-blue-100 mt-0.5">Llegadas a Madrid (MAD) • Resumen operativo</p>
           </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2">
-          <Badge color="light" size="sm" className="bg-white/90 text-blue-700">
-            <div className="flex items-center gap-1">
-              <HiLocationMarker className="h-3 w-3" />
-              MAD • Barajas
-            </div>
-          </Badge>
-          <Badge color="light" size="sm" className="hidden sm:inline-flex bg-white/80 text-indigo-700">
-            <div className="flex items-center gap-1">
-              <HiClock className="h-3 w-3" />
-              Europe/Madrid
-            </div>
-          </Badge>
+          <div className="flex items-center gap-1.5 bg-white/95 backdrop-blur-sm rounded-md px-3 py-1.5 shadow-sm">
+            <HiLocationMarker className="h-4 w-4 text-blue-600" />
+            <span className="text-sm font-semibold text-blue-700">MAD • Barajas</span>
+          </div>
+          <div className="hidden sm:flex items-center gap-1.5 bg-white/90 backdrop-blur-sm rounded-md px-3 py-1.5 shadow-sm">
+            <HiClock className="h-4 w-4 text-indigo-600" />
+            <span className="text-sm font-medium text-indigo-700">Europe/Madrid</span>
+          </div>
         </div>
       </div>
     </Card>
@@ -204,81 +200,83 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
           No hay vuelos actualmente.
         </div>
       ) : (
-        <div className="space-y-3">
-          {flights.map((f) => {
-            const d = deriveFlight(f);
-            const st = statusBadge(f.flight_status);
-            const dl = delayBadge(d.depDelay, d.arrDelay);
+        <div className="max-h-[580px] overflow-y-auto rounded-lg pr-2 scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-100">
+          <div className="space-y-3">
+            {flights.map((f) => {
+              const d = deriveFlight(f);
+              const st = statusBadge(f.flight_status);
+              const dl = delayBadge(d.depDelay, d.arrDelay);
 
-            return (
-              <Card key={`${f.flight?.iata ?? "—"}-${f.flight_date ?? ""}`} className="bg-gradient-to-br from-slate-700 to-slate-800 shadow-md hover:shadow-lg transition-shadow">
-                <div className="flex gap-4">
-                  <div className="flex items-start gap-4 flex-1">
-                    {/* Vuelo */}
-                    <div className="w-20 flex-shrink-0">
-                      <p className="text-xs font-medium text-slate-400 mb-1">Vuelo</p>
-                      <div className="font-bold text-white text-base">{f.flight?.iata || "—"}</div>
-                      <div className="text-xs text-slate-300">{f.flight?.icao || ""}</div>
-                    </div>
-                    
-                    {/* Aerolínea */}
-                    <div className="w-28 flex-shrink-0">
-                      <p className="text-xs font-medium text-slate-400 mb-1">Aerolínea</p>
-                      <div className="font-semibold text-white text-sm leading-tight">{f.airline?.name || "—"}</div>
-                    </div>
-                    
-                    {/* Origen */}
-                    <div className="w-16 flex-shrink-0">
-                      <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
-                      <div className="flex items-center gap-1">
-                        <HiLocationMarker className="h-4 w-4 text-blue-400" />
-                        <span className="font-bold text-white text-base">
-                          {f.departure?.iata || "—"}
-                        </span>
+              return (
+                <Card key={`${f.flight?.iata ?? "—"}-${f.flight_date ?? ""}`} className="bg-gradient-to-br from-slate-700 to-slate-800 shadow-md hover:shadow-lg transition-shadow">
+                  <div className="flex gap-4">
+                    <div className="flex items-start gap-4 flex-1">
+                      {/* Vuelo */}
+                      <div className="w-20 flex-shrink-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">Vuelo</p>
+                        <div className="font-bold text-white text-base">{f.flight?.iata || "—"}</div>
+                        <div className="text-xs text-slate-300">{f.flight?.icao || ""}</div>
                       </div>
-                    </div>
-                    
-                    {/* Horarios */}
-                    <div className="flex gap-6 flex-1 min-w-0">
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
-                        <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
-                        <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                      
+                      {/* Aerolínea */}
+                      <div className="w-28 flex-shrink-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">Aerolínea</p>
+                        <div className="font-semibold text-white text-sm leading-tight">{f.airline?.name || "—"}</div>
                       </div>
-                      <div className="flex-1 min-w-0">
-                        <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
-                        <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
-                        <div className="text-emerald-300 text-xs font-semibold">
-                          {fmtTime(f.arrival?.estimated, d.arrTz)}
-                          {typeof d.arrDelay === "number" && (
-                            <span className="ml-1">
-                              ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
-                            </span>
-                          )}
+                      
+                      {/* Origen */}
+                      <div className="w-16 flex-shrink-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
+                        <div className="flex items-center gap-1">
+                          <HiLocationMarker className="h-4 w-4 text-blue-400" />
+                          <span className="font-bold text-white text-base">
+                            {f.departure?.iata || "—"}
+                          </span>
+                        </div>
+                      </div>
+                      
+                      {/* Horarios */}
+                      <div className="flex gap-6 flex-1 min-w-0">
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
+                          <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                          <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
+                          <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                          <div className="text-emerald-300 text-xs font-semibold">
+                            {fmtTime(f.arrival?.estimated, d.arrTz)}
+                            {typeof d.arrDelay === "number" && (
+                              <span className="ml-1">
+                                ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Estado */}
+                      <div className="w-24 flex-shrink-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">Estado</p>
+                        <div className="flex flex-col gap-1">
+                          <Badge color={st.color} size="sm">{st.text}</Badge>
+                          {dl && <Badge color={dl.color} size="sm">{dl.text}</Badge>}
                         </div>
                       </div>
                     </div>
                     
-                    {/* Estado */}
-                    <div className="w-24 flex-shrink-0">
-                      <p className="text-xs font-medium text-slate-400 mb-1">Estado</p>
-                      <div className="flex flex-col gap-1">
-                        <Badge color={st.color} size="sm">{st.text}</Badge>
-                        {dl && <Badge color={dl.color} size="sm">{dl.text}</Badge>}
-                      </div>
+                    {/* Detalle */}
+                    <div className="w-20 flex-shrink-0 flex items-center">
+                      <Button size="xs" className="bg-blue-500 hover:bg-blue-600 text-white border-0 w-full whitespace-nowrap" onClick={() => {}}>
+                        Detalle
+                      </Button>
                     </div>
                   </div>
-                  
-                  {/* Detalle */}
-                  <div className="w-20 flex-shrink-0 flex items-center">
-                    <Button size="xs" className="bg-blue-500 hover:bg-blue-600 text-white border-0 w-full whitespace-nowrap" onClick={() => {}}>
-                      Detalle
-                    </Button>
-                  </div>
-                </div>
-              </Card>
-            );
-          })}
+                </Card>
+              );
+            })}
+          </div>
         </div>
       )}
     </div>
@@ -342,19 +340,12 @@ export default function FlightDashboard() {
         <TopBar />
 
         <div className="bg-transparent">
-          <div className="mb-4">
-            <h1 className="text-2xl font-bold text-gray-900">Llegadas a Madrid (MAD)</h1>
-            <p className="mt-1 text-sm text-gray-600">
-              Resumen operativo de vuelos entrantes
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+          <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
             <KPICard 
               title="Total vuelos" 
               value={kpis.total} 
               subtitle="En la lista actual"
-              icon={<HiStatusOnline className="h-8 w-8" />}
+              icon={<HiStatusOnline className="h-6 w-6" />}
               bgColor="bg-gradient-to-br from-blue-500 to-blue-600"
               textColor="text-white"
               iconColor="text-blue-200"
@@ -363,7 +354,7 @@ export default function FlightDashboard() {
               title="Con demora" 
               value={kpis.delayed} 
               subtitle="Salida o llegada"
-              icon={<HiClock className="h-8 w-8" />}
+              icon={<HiClock className="h-6 w-6" />}
               bgColor="bg-gradient-to-br from-amber-500 to-orange-600"
               textColor="text-white"
               iconColor="text-amber-200"
@@ -372,7 +363,7 @@ export default function FlightDashboard() {
               title="ETA más próxima" 
               value={kpis.nextEta} 
               subtitle={kpis.nextMeta}
-              icon={<HiLocationMarker className="h-8 w-8" />}
+              icon={<HiLocationMarker className="h-6 w-6" />}
               bgColor="bg-gradient-to-br from-emerald-500 to-teal-600"
               textColor="text-white"
               iconColor="text-emerald-200"
