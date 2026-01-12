@@ -88,13 +88,12 @@ function statusBadge(status: string): { color: any; text: string } {
   return { color: "gray", text: status || "—" };
 }
 
-function delayBadge(depDelayMin: number | null, arrDelayMin: number | null): { color: any; text: string } {
+function delayBadge(depDelayMin: number | null, arrDelayMin: number | null): { color: any; text: string } | null {
   const nums = [depDelayMin, arrDelayMin].filter((x) => typeof x === "number");
   const maxDelay = nums.length ? Math.max(...nums) : 0;
 
   if (maxDelay > 0) return { color: "warning", text: `Demora +${maxDelay} min` };
-  if (maxDelay < 0) return { color: "success", text: `Adelantado ${maxDelay} min` };
-  return { color: "success", text: "En hora" };
+  return null;
 }
 
 function deriveFlight(f: FlightData) {
@@ -213,68 +212,67 @@ function FlightsTable({ flights }: { flights: FlightData[]}) {
 
             return (
               <Card key={`${f.flight?.iata ?? "—"}-${f.flight_date ?? ""}`} className="bg-gradient-to-br from-slate-700 to-slate-800 shadow-md hover:shadow-lg transition-shadow">
-                <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-3">
-                  {/* Vuelo */}
-                  <div className="md:col-span-2">
-                    <p className="text-xs font-medium text-slate-400 mb-1">Vuelo</p>
-                    <div className="font-bold text-white text-lg">{f.flight?.iata || "—"}</div>
-                    <div className="text-xs text-slate-300">{f.flight?.icao || ""}</div>
-                  </div>
-                  
-                  {/* Aerolínea */}
-                  <div className="md:col-span-2">
-                    <p className="text-xs font-medium text-slate-400 mb-1">Aerolínea</p>
-                    <div className="font-semibold text-white">{f.airline?.name || "—"}</div>
-                    <div className="text-xs text-slate-300">
-                      {f.airline?.iata || ""} • {f.airline?.icao || ""}
+                <div className="flex gap-4">
+                  <div className="flex items-start gap-4 flex-1">
+                    {/* Vuelo */}
+                    <div className="w-20 flex-shrink-0">
+                      <p className="text-xs font-medium text-slate-400 mb-1">Vuelo</p>
+                      <div className="font-bold text-white text-base">{f.flight?.iata || "—"}</div>
+                      <div className="text-xs text-slate-300">{f.flight?.icao || ""}</div>
                     </div>
-                  </div>
-                  
-                  {/* Origen */}
-                  <div className="md:col-span-3">
-                    <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
-                    <div className="flex items-center gap-1">
-                      <HiLocationMarker className="h-4 w-4 text-blue-400" />
-                      <span className="font-semibold text-white">
-                        {f.departure?.iata || "—"}
-                      </span>
-                      <span className="text-slate-300 text-sm">· {f.departure?.airport || "—"}</span>
+                    
+                    {/* Aerolínea */}
+                    <div className="w-28 flex-shrink-0">
+                      <p className="text-xs font-medium text-slate-400 mb-1">Aerolínea</p>
+                      <div className="font-semibold text-white text-sm leading-tight">{f.airline?.name || "—"}</div>
                     </div>
-                    <div className="text-xs text-slate-300 mt-1">
-                      {f.departure?.terminal ? `T${f.departure.terminal}` : "—"}
-                      {f.departure?.gate ? ` • Gate ${f.departure.gate}` : ""}
+                    
+                    {/* Origen */}
+                    <div className="w-16 flex-shrink-0">
+                      <p className="text-xs font-medium text-slate-400 mb-1">Origen</p>
+                      <div className="flex items-center gap-1">
+                        <HiLocationMarker className="h-4 w-4 text-blue-400" />
+                        <span className="font-bold text-white text-base">
+                          {f.departure?.iata || "—"}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                  
-                  {/* Horarios */}
-                  <div className="md:col-span-3 grid grid-cols-2 gap-2">
-                    <div>
-                      <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
-                      <div className="text-white font-medium">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
-                      <div className="text-slate-300 text-sm">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                    
+                    {/* Horarios */}
+                    <div className="flex gap-6 flex-1 min-w-0">
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">STD / ATD</p>
+                        <div className="text-white font-medium text-sm">{fmtTime(f.departure?.scheduled, d.depTz)}</div>
+                        <div className="text-slate-300 text-xs">{fmtTime(f.departure?.actual, d.depTz)}</div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
+                        <div className="text-white font-medium text-sm">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
+                        <div className="text-emerald-300 text-xs font-semibold">
+                          {fmtTime(f.arrival?.estimated, d.arrTz)}
+                          {typeof d.arrDelay === "number" && (
+                            <span className="ml-1">
+                              ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
+                            </span>
+                          )}
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-xs font-medium text-slate-400 mb-1">STA / ETA</p>
-                      <div className="text-white font-medium">{fmtTime(f.arrival?.scheduled, d.arrTz)}</div>
-                      <div className="text-emerald-300 text-sm font-semibold">
-                        {fmtTime(f.arrival?.estimated, d.arrTz)}
-                        {typeof d.arrDelay === "number" && (
-                          <span className="text-xs ml-1">
-                            ({d.arrDelay > 0 ? "+" : ""}{d.arrDelay}min)
-                          </span>
-                        )}
+                    
+                    {/* Estado */}
+                    <div className="w-24 flex-shrink-0">
+                      <p className="text-xs font-medium text-slate-400 mb-1">Estado</p>
+                      <div className="flex flex-col gap-1">
+                        <Badge color={st.color} size="sm">{st.text}</Badge>
+                        {dl && <Badge color={dl.color} size="sm">{dl.text}</Badge>}
                       </div>
                     </div>
                   </div>
                   
-                  {/* Estado y Acciones */}
-                  <div className="md:col-span-2 flex flex-col gap-2 md:items-end">
-                    <div className="flex flex-wrap gap-1">
-                      <Badge color={st.color} size="sm">{st.text}</Badge>
-                      <Badge color={dl.color} size="sm">{dl.text}</Badge>
-                    </div>
-                    <Button size="xs" className="bg-blue-500 hover:bg-blue-600 text-white border-0" onClick={() => {}}>
-                      Ver detalles
+                  {/* Detalle */}
+                  <div className="w-20 flex-shrink-0 flex items-center">
+                    <Button size="xs" className="bg-blue-500 hover:bg-blue-600 text-white border-0 w-full whitespace-nowrap" onClick={() => {}}>
+                      Detalle
                     </Button>
                   </div>
                 </div>
