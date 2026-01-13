@@ -11,6 +11,7 @@ export function registerFlightDetailTool(registerTool: RegisterToolFn) {
       description: 'Starting with a code (IATA), you can obtain the details of a flight',
       _meta: {
         'openai/outputTemplate': 'ui://widget/flight-detail.html',
+        'openai/widgetAccessible': true,
         'openai/toolInvocation/invoking': 'Displaying the board',
         'openai/toolInvocation/invoked': 'Displayed the board',
       },

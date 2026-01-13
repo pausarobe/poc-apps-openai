@@ -94,12 +94,20 @@ export default function FlightDetail() {
 
   async function searchRentalCars() {
     console.log('Searching rental cars...', window);
-    if (!window.openai?.callTool) {
+    if (!window.openai?.sendFollowUpMessage) {
       setCallError(true);
       return;
     }
     setCallError(false);
-    await window.openai?.callTool('rental-car-list', {});
+    await window.openai.sendFollowUpMessage({
+      prompt: 'Quiero ver coches de alquiler. Llama a la herramienta rental-car-list y muéstrame su widget.',
+    });
+    // if (!window.openai?.callTool) {
+    //   setCallError(true);
+    //   return;
+    // }
+    // setCallError(false);
+    // await window.openai?.callTool('rental-car-list', {});
   }
 
   const getStatusBadge = (status: string) => {
