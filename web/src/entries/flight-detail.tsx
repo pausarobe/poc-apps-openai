@@ -1,47 +1,106 @@
 import { createRoot } from 'react-dom/client';
-import { Card, Badge } from 'flowbite-react';
-// import { useState } from 'react';
-import { HiArrowRight, HiClock, HiLocationMarker } from 'react-icons/hi';
+import { Card, Badge, Spinner } from 'flowbite-react';
+import { useState } from 'react';
+import { HiArrowRight, HiClock, HiCursorClick, HiExclamationCircle } from 'react-icons/hi';
+import { LuPlaneLanding, LuPlaneTakeoff } from 'react-icons/lu';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { FlightData } from '../lib/types.js';
 
-function FlightDetail() {
+export default function FlightDetail() {
   const toolOutput = useOpenAiGlobal('toolOutput');
   // const [flightDetail, setFlightDetail] = useState<FlightData | null>(null);
   // const [loading, setLoading] = useState(true);
   // const [error, setError] = useState<string | null>(null);
+  const [callError, setCallError] = useState(false);
 
   const flightDetail: FlightData | null = toolOutput?.flightDetail || null;
+  // const flightDetail = {
+  //   flight_date: '2026-01-09',
+  //   flight_status: 'cancelled',
+  //   departure: {
+  //     airport: 'Singapore Changi',
+  //     timezone: 'Asia/Singapore',
+  //     iata: 'SIN',
+  //     icao: 'WSSS',
+  //     terminal: '1',
+  //     gate: '1',
+  //     delay: 123,
+  //     scheduled: '2026-01-09T00:40:00+00:00',
+  //     estimated: '2026-01-09T00:40:00+00:00',
+  //     actual: null,
+  //     estimated_runway: '2026-01-09T00:40:00+00:00',
+  //     actual_runway: null,
+  //   },
+  //   arrival: {
+  //     airport: 'Ninoy Aquino International',
+  //     timezone: 'Asia/Manila',
+  //     iata: 'MNL',
+  //     icao: 'RPLL',
+  //     terminal: '1',
+  //     gate: null,
+  //     baggage: null,
+  //     scheduled: '2026-01-09T04:25:00+00:00',
+  //     delay: 321,
+  //     estimated: null,
+  //     actual: null,
+  //     estimated_runway: null,
+  //     actual_runway: null,
+  //   },
+  //   airline: {
+  //     name: 'Singapore Airlines',
+  //     iata: 'SQ',
+  //     icao: 'SIA',
+  //   },
+  //   flight: {
+  //     number: '5056',
+  //     iata: 'SQ5056',
+  //     icao: 'SIA5056',
+  //     codeshared: {
+  //       airline_name: 'philippine airlines',
+  //       airline_iata: 'pr',
+  //       airline_icao: 'pal',
+  //       flight_number: '510',
+  //       flight_iata: 'pr510',
+  //       flight_icao: 'pal510',
+  //     },
+  //   },
+  //   aircraft: null,
+  //   live: null,
+  // };
   console.log('Flight Detail:', flightDetail);
-
-  // if (!flightDetail) {
-  //   setLoading(true);
-  // } else {
-  //   setLoading(false);
-  // }
 
   // useEffect(() => {
   //   async function getFlightData() {
   //     try {
-  //       setLoading(true);
+  //       // setLoading(true);
   //       const flight = toolOutput?.flightDetail;
   //       console.log('Flight Detail:', flight);
 
   //       if (flight) {
   //         setFlightDetail(flight);
   //       } else {
-  //         setError('No se encontró información del vuelo');
+  //         // setError('No se encontró información del vuelo');
   //       }
   //     } catch (error) {
   //       console.error('Error fetching flight data:', error);
-  //       setError('Error al conectar con el servidor');
+  //       // setError('Error al conectar con el servidor');
   //     } finally {
-  //       setLoading(false);
+  //       // setLoading(false);
   //     }
   //   }
 
   //   getFlightData();
-  // }, []);
+  // }, [toolOutput]);
+
+  async function searchRentalCars() {
+    console.log('Searching rental cars...', window);
+    if (!window.openai?.callTool) {
+      setCallError(true);
+      return;
+    }
+    setCallError(false);
+    await window.openai?.callTool('rental-car-list', {});
+  }
 
   const getStatusBadge = (status: string) => {
     const statusMap: Record<string, { color: string; label: string }> = {
@@ -86,36 +145,14 @@ function FlightDetail() {
     }
   };
 
-  // if (loading) {
-  //   return (
-  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-  //       <div className="text-center">
-  //         <Spinner size="xl" />
-  //         <p className="mt-4 text-gray-600 text-lg">Cargando información del vuelo...</p>
-  //       </div>
-  //     </div>
-  //   );
-  // }
-
-  // if (error) {
-  //   return (
-  //     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
-  //       <Card className="max-w-md">
-  //         <div className="text-center">
-  //           <div className="text-red-500 text-5xl mb-4">⚠️</div>
-  //           <h3 className="text-xl font-bold text-gray-900 mb-2">Error</h3>
-  //           <p className="text-gray-600">{error}</p>
-  //         </div>
-  //       </Card>
-  //     </div>
-  //   );
-  // }
-
   if (!flightDetail) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-4">
         <Card className="max-w-md">
-          <p className="text-center text-gray-600">No hay información de vuelo disponible</p>
+          <div className="flex gap-4 items-center">
+            <Spinner color="purple" aria-label="cargando" />
+            <p className="text-center text-gray-600">Estamos buscando tu vuelo</p>
+          </div>
         </Card>
       </div>
     );
@@ -151,7 +188,7 @@ function FlightDetail() {
             {/* Departure */}
             <div className="text-center md:text-left h-full">
               <div className="flex items-center justify-center md:justify-start gap-2 mb-2">
-                <HiLocationMarker className="w-6 h-6" />
+                <LuPlaneTakeoff className="w-6 h-6" />
                 <p className="text-sm font-semibold opacity-90">Salida</p>
               </div>
               <h2 className="text-5xl font-bold mb-2">{flightDetail.departure.iata}</h2>
@@ -201,7 +238,7 @@ function FlightDetail() {
             <div className="text-center md:text-right h-full">
               <div className="flex items-center justify-center md:justify-end gap-2 mb-2">
                 <p className="text-sm font-semibold opacity-90">Llegada</p>
-                <HiLocationMarker className="w-6 h-6" />
+                <LuPlaneLanding className="w-6 h-6" />
               </div>
               <h2 className="text-5xl font-bold mb-2">{flightDetail.arrival.iata}</h2>
               <p className="text-lg opacity-90 mb-4">{flightDetail.arrival.airport}</p>
@@ -249,14 +286,20 @@ function FlightDetail() {
           {flightDetail.departure?.delay && flightDetail.arrival?.delay && (flightDetail.departure.delay > 0 || flightDetail.arrival.delay > 0) && (
             <div className="mt-6 pt-6 border-t border-white/20">
               <div className="flex flex-wrap gap-4 justify-center">
-                {flightDetail.departure.delay > 0 && (
+                {flightDetail.departure.delay && (
                   <Badge color="warning" size="lg">
-                    ⏰ Retraso en salida: {flightDetail.departure.delay} min
+                    <div className="flex items-center gap-2">
+                      <HiExclamationCircle />
+                      Retraso en salida: {flightDetail.departure.delay} min
+                    </div>
                   </Badge>
                 )}
-                {flightDetail.arrival.delay > 0 && (
+                {flightDetail.arrival.delay && (
                   <Badge color="warning" size="lg">
-                    ⏰ Retraso en llegada: {flightDetail.arrival.delay} min
+                    <div className="flex items-center gap-2">
+                      <HiExclamationCircle />
+                      Retraso en llegada: {flightDetail.arrival.delay} min
+                    </div>
                   </Badge>
                 )}
               </div>
@@ -264,114 +307,32 @@ function FlightDetail() {
           )}
         </Card>
 
-        {/* Flight Timeline */}
-        {/* <Card className="shadow-xl">
-          <h3 className="text-2xl font-bold text-gray-900 mb-6 flex items-center gap-2">
-            <HiStatusOnline className="w-6 h-6 text-blue-600" />
-            Estado del Vuelo
-          </h3>
-
-          <ol className="relative border-l border-gray-300">
-            <li className="mb-10 ml-6">
-              <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
-                <HiClock className="w-4 h-4 text-blue-600" />
-              </span>
-              <time className="mb-1 text-sm font-normal leading-none text-gray-500">{formatTime(flightDetail.departure.scheduled)}</time>
-              <h3 className="text-lg font-semibold text-gray-900">Salida Programada</h3>
-              <p className="text-base font-normal text-gray-600">
-                Desde {flightDetail.departure.airport} ({flightDetail.departure.iata}){flightDetail.departure.terminal && ` - Terminal ${flightDetail.departure.terminal}`}
-                {flightDetail.departure.gate && `, Puerta ${flightDetail.departure.gate}`}
-              </p>
-            </li>
-
-            {flightDetail.departure.actual && (
-              <li className="mb-10 ml-6">
-                <span className="absolute flex items-center justify-center w-8 h-8 bg-green-100 rounded-full -left-4 ring-4 ring-white">
-                  <HiCheckCircle className="w-4 h-4 text-green-600" />
-                </span>
-                <time className="mb-1 text-sm font-normal leading-none text-gray-500">{formatTime(flightDetail.departure.actual)}</time>
-                <h3 className="text-lg font-semibold text-gray-900">Despegue Real</h3>
-                <p className="text-base font-normal text-gray-600">
-                  El vuelo despegó correctamente
-                  {flightDetail.departure.delay > 0 && ` con un retraso de ${flightDetail.departure.delay} minutos`}
+        <div className="grid gap-6" style={{ gridTemplateColumns: '1fr 1fr' }}>
+          <a href="https://www.iberia.com" target="_blank" rel="noopener noreferrer">
+            <Card className="shadow-xl h-full">
+              <div className="flex gap-6 items-center justify-center">
+                <HiCursorClick className="font-bold text-blue-600 text-2xl" />
+                <p className="font-bold">Haz tu check-in</p>
+              </div>
+            </Card>
+          </a>
+          <button onClick={() => searchRentalCars()}>
+            <Card className="shadow-xl text-center h-full">
+              {!callError && (
+                <p>
+                  Busca coches de alquiler en <span className="font-bold text-blue-600">{flightDetail.arrival.airport}</span>
                 </p>
-              </li>
-            )}
-
-            <li className="mb-10 ml-6">
-              <span className="absolute flex items-center justify-center w-8 h-8 bg-blue-100 rounded-full -left-4 ring-4 ring-white">
-                <HiClock className="w-4 h-4 text-blue-600" />
-              </span>
-              <time className="mb-1 text-sm font-normal leading-none text-gray-500">{formatTime(flightDetail.arrival.scheduled)}</time>
-              <h3 className="text-lg font-semibold text-gray-900">Llegada Programada</h3>
-              <p className="text-base font-normal text-gray-600">
-                A {flightDetail.arrival.airport} ({flightDetail.arrival.iata}){flightDetail.arrival.terminal && ` - Terminal ${flightDetail.arrival.terminal}`}
-                {flightDetail.arrival.gate && `, Puerta ${flightDetail.arrival.gate}`}
-              </p>
-            </li>
-
-            {flightDetail.arrival.actual && (
-              <li className="ml-6">
-                <span className="absolute flex items-center justify-center w-8 h-8 bg-green-100 rounded-full -left-4 ring-4 ring-white">
-                  <HiLocationMarker className="w-4 h-4 text-green-600" />
-                </span>
-                <time className="mb-1 text-sm font-normal leading-none text-gray-500">{formatTime(flightDetail.arrival.actual)}</time>
-                <h3 className="text-lg font-semibold text-gray-900">Aterrizaje Real</h3>
-                <p className="text-base font-normal text-gray-600">
-                  El vuelo aterrizó exitosamente
-                  {flightDetail.arrival.baggage && ` - Recogida de equipaje: ${flightDetail.arrival.baggage}`}
-                </p>
-              </li>
-            )}
-          </ol>
-        </Card> */}
-
-        {/* Additional Info Card */}
-        {/* <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <Card className="shadow-xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Información del Vuelo</h3>
-            <dl className="space-y-3">
-              <div className="flex justify-between border-b pb-2">
-                <dt className="text-gray-600">Número de vuelo:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.flight.iata}</dd>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <dt className="text-gray-600">Código ICAO:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.flight.icao}</dd>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <dt className="text-gray-600">Fecha:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.flight_date}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-gray-600">Estado:</dt>
-                <dd>{getStatusBadge(flightDetail.flight_status)}</dd>
-              </div>
-            </dl>
-          </Card>
-
-          <Card className="shadow-xl">
-            <h3 className="text-xl font-bold text-gray-900 mb-4">Información de la Aerolínea</h3>
-            <dl className="space-y-3">
-              <div className="flex justify-between border-b pb-2">
-                <dt className="text-gray-600">Nombre:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.airline.name}</dd>
-              </div>
-              <div className="flex justify-between border-b pb-2">
-                <dt className="text-gray-600">Código IATA:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.airline.iata}</dd>
-              </div>
-              <div className="flex justify-between">
-                <dt className="text-gray-600">Código ICAO:</dt>
-                <dd className="font-semibold text-gray-900">{flightDetail.airline.icao}</dd>
-              </div>
-            </dl>
-          </Card>
-        </div> */}
+              )}
+              {callError && <p className="text-red-600 font-bold">No se pudo iniciar la búsqueda de coches de alquiler. Por favor, inténtalo de nuevo.</p>}
+            </Card>
+          </button>
+        </div>
       </div>
     </div>
   );
 }
 
-const root = createRoot(document.getElementById('root')!);
-root.render(<FlightDetail />);
+if (typeof window !== 'undefined' && document.getElementById('root')) {
+  const root = createRoot(document.getElementById('root')!);
+  root.render(<FlightDetail />);
+}
