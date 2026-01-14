@@ -18,10 +18,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ category }: { category?: string }) => {
-      
-      const API_KEY = 'API_KEY'; 
-
-      let API_URL = `https://api.tu-servicio-renting.com/v1/cars?api_key=${API_KEY}`;
+      let API_URL = `https://api.tu-servicio-renting.com/v1/cars?api_key=${process.env.PROVIDER_CARS_API_KEY}`;
       
       if (category) {
         API_URL += `&category=${encodeURIComponent(category)}`;
@@ -30,7 +27,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
       console.error('Invocando API de catálogo para categoría:', category || 'Todas');
 
       try {
-        
+        console.log('Fetching car catalog from API:', API_URL);
         const response = await fetch(API_URL);
         
         if (!response.ok) {
