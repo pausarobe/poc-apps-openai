@@ -3,6 +3,17 @@ export interface Airplane {
   production_line: string;
   model_name: string;
 }
+export interface CarData {
+  id: number;
+  sku: string;
+  name: string;
+  status: number;
+  price: number;
+  custom_attributes: Array<{
+    attribute_code: string;
+    value: any;
+  }>;
+}
 
 // ADVERTISING: FlightData type used in web and server, actualize both when modifying
 export interface FlightData {
