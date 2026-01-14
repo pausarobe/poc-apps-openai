@@ -18,9 +18,7 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ sku }: { sku: string }) => {
-      // API Key en código según tu petición (se moverá a env más adelante)
-      const API_KEY = 'TU_API_KEY_AQUI'; 
-      const API_URL = `https://api.tu-servicio-renting.com/v1/cars?sku=${sku}&api_key=${API_KEY}`;
+      const API_URL = `https://api.tu-servicio-renting.com/v1/cars?sku=${sku}&api_key=${process.env.PROVIDER_CARS_API_KEY}`;
 
       console.error('Invocando API de coches para SKU:', sku);
 
@@ -30,6 +28,7 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
 
       try {
         // Llamada real a la API
+        console.log('Fetching car detail from API:', API_URL);
         const response = await fetch(API_URL);
         
         if (!response.ok) {
