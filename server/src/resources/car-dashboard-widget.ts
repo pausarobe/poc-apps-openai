@@ -19,7 +19,7 @@ export function registerCarDashboardWidgetResource(server: McpServer, js: string
             'openai/widgetPrefersBorder': true,
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
-              connect_domains: ['https://chatgpt.com'],
+              connect_domains: ['https://chatgpt.com', 'https://api.tu-servicio-renting.com'],
               resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com'],
             },
           },
