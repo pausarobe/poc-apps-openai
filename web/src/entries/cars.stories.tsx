@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { CarAIRentingResults } from './car-components'; // Sin el .js
 import { CarDetail } from './car-detail'; // Sin el .js
 import carsData from '../mock/cars.json' with { type: 'json' };

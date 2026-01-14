@@ -1,6 +1,6 @@
-import React from 'react';
+
 import { Card, Badge, Button as FlowbiteButton } from 'flowbite-react';
-import { HiTruck, HiShieldCheck, HiLightningBolt, HiChip } from 'react-icons/hi';
+import { HiTruck,  HiLightningBolt, HiChip } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
 

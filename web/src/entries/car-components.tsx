@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import { Card, Badge } from 'flowbite-react';
+import  { useMemo } from 'react';
+import {  Badge } from 'flowbite-react';
 import { HiTruck, HiLightningBolt, HiCurrencyEuro, HiStatusOnline, HiArrowRight, HiLocationMarker } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
