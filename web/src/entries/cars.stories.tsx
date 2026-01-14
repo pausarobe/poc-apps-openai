@@ -1,5 +1,5 @@
 
-import { CarAIRentingResults } from './car-components'; // Sin el .js
+import { CarAIRentingResults } from './car-dashboard'; // Sin el .js
 import { CarDetail } from './car-detail'; // Sin el .js
 import carsData from '../mock/cars.json' with { type: 'json' };
 
