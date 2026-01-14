@@ -27,7 +27,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
       console.error('Invocando API de catálogo para categoría:', category || 'Todas');
 
       try {
-        console.log('Fetching car catalog from API:', API_URL);
+        console.error('Fetching car catalog from API:', API_URL);
         const response = await fetch(API_URL);
         
         if (!response.ok) {
