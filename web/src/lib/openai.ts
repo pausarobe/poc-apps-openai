@@ -5,4 +5,5 @@ export interface ToolOutput {
   flightList?: FlightData[];
   carDetail?: CarData;
   carList?: CarData[];
+  type?: "arrival" | "departure";
 }

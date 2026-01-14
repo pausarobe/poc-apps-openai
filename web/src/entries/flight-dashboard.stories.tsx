@@ -10,6 +10,7 @@ function MockToolOutput({ flightList, children }: { flightList: FlightData[]; ch
       window.openai = {
         toolOutput: {
           flightList,
+          type: "arrival",
         },
       } as any;
 
@@ -20,7 +21,7 @@ function MockToolOutput({ flightList, children }: { flightList: FlightData[]; ch
   return <>{children}</>;
 }
 
-export const Default: Story = () => {
+export const Arrival: Story = () => {
   return (
     <MockToolOutput flightList={MadridArrivalsMock.data}>
       <FlightDashboard />
@@ -28,7 +29,34 @@ export const Default: Story = () => {
   );
 };
 
-Default.storyName = "Arrival Dashboard";
+Arrival.storyName = "Arrival Dashboard";
+
+function MockToolOutputDeparture({ flightList, children }: { flightList: FlightData[]; children: React.ReactNode }) {
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      window.openai = {
+        toolOutput: {
+          flightList,
+          type: "departure",
+        },
+      } as any;
+
+      window.dispatchEvent(new Event('openai:set_globals'));
+    }
+  }, [flightList]);
+
+  return <>{children}</>;
+}
+
+export const Departure: Story = () => {
+  return (
+    <MockToolOutputDeparture flightList={MadridArrivalsMock.data}>
+      <FlightDashboard />
+    </MockToolOutputDeparture>
+  );
+};
+
+Departure.storyName = "Departure Dashboard";
 
 export const Empty: Story = () => {
   return (

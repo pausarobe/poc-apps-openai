@@ -16,7 +16,7 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
       },
       inputSchema: {
         code: z.coerce.string().describe('Airport code (IATA)'),
-        type: z.coerce.string().describe('Type of dashboard (arrivals or departures)'),
+        type: z.coerce.string().describe('Type of dashboard (arrival or departure)'),
       },
     },
     async ({ code, type }: { code: number; type: string }) => {
@@ -40,7 +40,7 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
 
       return {
         content: [{ type: 'text' as const, text: `Aquí los detalles del aeropuerto ${code} solicitado.` }],
-        structuredContent: { flightList: flightData },
+        structuredContent: { flightList: flightData, type: type },
       };
     },
   );
