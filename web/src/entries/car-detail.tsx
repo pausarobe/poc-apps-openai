@@ -65,7 +65,8 @@ export function CarDetail({ car: initialCar }: { car?: any }) {
           {/* Columna Imagen y Descripción */}
           <div className="space-y-6">
             <Card className="p-0 overflow-hidden border-none shadow-xl rounded-[2.5rem]">
-              <img src={"https://img.freepik.com/psd-gratis/coche-aislado-blanco_23-2151852916.jpg"} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
+              {/* https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/m/o/modelo_electrico.jpg */}
+              <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0].file}`} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
               <div className="p-8 bg-white">
                 <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-xl">
                   <HiChip className="text-blue-500 w-6 h-6" /> Detalles del Asistente
