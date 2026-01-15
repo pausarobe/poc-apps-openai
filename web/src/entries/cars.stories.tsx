@@ -30,7 +30,7 @@ function MockToolOutput({ carList, children }: { carList: CarData[]; children: R
 export const CatalogoCochesIA = () => {
   // Extraemos los coches del JSON local
   const items = (carsData as any).items || (Array.isArray(carsData) ? carsData : []);
-
+  console.log('Número de coches en el mock:', items);
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
       <MockToolOutput carList={items} >

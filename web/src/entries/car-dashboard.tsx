@@ -1,7 +1,8 @@
-import  { useMemo } from 'react';
+import  { useEffect, useMemo, useState } from 'react';
 import {  Badge } from 'flowbite-react';
 import { HiTruck, HiLightningBolt, HiCurrencyEuro, HiStatusOnline, HiArrowRight, HiLocationMarker } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
+import type { CarData } from '../lib/types.js';
 
 
 function CarKPICard({ title, value, subtitle, icon, bgColor, iconColor }: any) {
@@ -24,13 +25,34 @@ const getAttrValue = (attributes: any[], code: string) => {
 };
 
 export function CarAIRentingResults() {
+  const [cars, setCars] = useState<CarData[]>([]);
   const toolOutput = useOpenAiGlobal('toolOutput');
   
-  console.error('CarAIRentingResults - toolOutput:', toolOutput);
-  const cars = toolOutput?.carList || [];
+  console.error('CarAIRentingResults - toolOutput:', toolOutput?.carList?.length);
+  // const cars = toolOutput?.carList || [];
+
+  useEffect(() => {
+    async function getCarData() {
+      try {
+        const carList = toolOutput?.carList || [] ;
+        console.log('Car List:', carList);
+        console.log('Type:', toolOutput?.type);
+
+        if (carList) {
+          setCars(carList);
+        }
+      } catch (error) {
+        console.error('Error fetching carList data:', error);
+      }
+    }
+
+    getCarData();
+  }, [toolOutput]);
+
 
   // Cálculos de indicadores basados en los vuelos
   const stats = useMemo(() => {
+    console.log('Calculando estadísticas para coches, total coches:', cars.length);
     const total = cars.length;
     const electricos = cars.filter((c: any) => getAttrValue(c.custom_attributes, 'tipo_motor') === 'ELÉCTRICO').length;
     const cuotas = cars.map((c: any) => Number(getAttrValue(c.custom_attributes, 'cuota_renting') || 0));
