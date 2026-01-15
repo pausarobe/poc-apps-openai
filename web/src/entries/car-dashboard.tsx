@@ -116,7 +116,7 @@ export default function CarAIRentingResults() {
           return (
             <div key={car.sku} className="bg-white rounded-[2.5rem] shadow-lg border border-slate-100 overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col">
               <div className="relative h-56 overflow-hidden">
-                <img src={"https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product//d/e/deportivo_gt.jpg"} alt={car.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0].file}`} alt={car.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
                 <div className="absolute top-5 right-5">
                    <div className="bg-white/90 backdrop-blur px-3 py-1 rounded-lg shadow-sm font-black text-blue-700 text-sm">
                     {Math.round(Number(cuota))}€/mes
