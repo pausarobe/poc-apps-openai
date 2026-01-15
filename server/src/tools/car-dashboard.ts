@@ -29,7 +29,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
 
       // 2. Construcción de Search Criteria (Filtros obligatorios para Magento)
       // Filtramos por productos activos (status = 1)
-      let query = 'searchCriteria[filter_groups][0][filters][0][field]=status&searchCriteria[filter_groups][0][filters][0][value]=1';
+      let query = 'searchCriteria[filter_groups][0][filters][0][field]=category_id&searchCriteria[filter_groups][0][filters][0][value]=24';
       
       // Si el usuario pide una categoría, la añadimos
       if (category) {
