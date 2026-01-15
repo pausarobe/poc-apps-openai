@@ -19,7 +19,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
     },
     async ({ category }: { category?: string }) => {
       
-      const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1/products';
+      const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1';
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY; 
 
       if (!ACCESS_TOKEN) {
