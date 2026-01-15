@@ -3,7 +3,9 @@ import {  Badge } from 'flowbite-react';
 import { HiTruck, HiLightningBolt, HiCurrencyEuro, HiStatusOnline, HiArrowRight, HiLocationMarker } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { CarData } from '../lib/types.js';
+import { createRoot } from 'react-dom/client';
 
+export const a = 5;
 
 function CarKPICard({ title, value, subtitle, icon, bgColor, iconColor }: any) {
   return (
@@ -139,4 +141,11 @@ export default function CarAIRentingResults() {
       </div>
     </div>
   );
+}
+
+
+// Solo renderizar si no estamos en Ladle/Storybook
+if (typeof window !== 'undefined' && document.getElementById('root')) {
+  const root = createRoot(document.getElementById('root')!);
+  root.render(<CarAIRentingResults />);
 }
