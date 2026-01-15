@@ -20,7 +20,8 @@ export function registerCarDashboardWidgetResource(server: McpServer, js: string
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
               connect_domains: ['https://chatgpt.com', 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud'],
-              resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com','https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud'],
+              resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com',
+                'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud'],
             },
           },
         },
