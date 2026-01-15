@@ -107,37 +107,39 @@ export default function CarAIRentingResults() {
       </div>
 
       {/* Grid de Coches */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {cars.map((car: any) => {
-          const cuota = getAttrValue(car.custom_attributes, 'cuota_renting');
-          const motor = getAttrValue(car.custom_attributes, 'tipo_motor');
-          // const img = new URL('../mock/Modelo_electrico.jpg', import.meta.url).href;
+      <div className="max-h-[600px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+          {cars.map((car: any) => {
+            const cuota = getAttrValue(car.custom_attributes, 'cuota_renting');
+            const motor = getAttrValue(car.custom_attributes, 'tipo_motor');
+            // const img = new URL('../mock/Modelo_electrico.jpg', import.meta.url).href;
 
-          return (
-            <div key={car.sku} className="bg-white rounded-[2.5rem] shadow-lg border border-slate-100 overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col">
-              <div className="relative h-56 overflow-hidden">
-                <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0].file}`} alt={car.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
-                <div className="absolute top-5 right-5">
-                   <div className="bg-white/90 backdrop-blur px-3 py-1 rounded-lg shadow-sm font-black text-blue-700 text-sm">
-                    {Math.round(Number(cuota))}€/mes
-                   </div>
+            return (
+              <div key={car.sku} className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden group hover:shadow-2xl transition-all duration-500 flex flex-col">
+                <div className="relative h-40 overflow-hidden">
+                  <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0].file}`} alt={car.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" />
+                  <div className="absolute top-3 right-3">
+                     <div className="bg-white/90 backdrop-blur px-2 py-1 rounded-lg shadow-sm font-black text-blue-700 text-xs">
+                      {Math.round(Number(cuota))}€/mes
+                     </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 flex-grow flex flex-col">
+                  <h3 className="text-base font-black text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{car.name}</h3>
+                  <div className="flex flex-col gap-1 mb-3">
+                    <Badge color="info" className="font-bold uppercase tracking-tighter text-xs">{car.sku}</Badge>
+                    {motor && <Badge color="purple" className="font-bold uppercase tracking-tighter text-xs">{motor}</Badge>}
+                  </div>
+
+                  <button className="mt-auto w-full bg-slate-50 text-slate-600 font-bold py-2 rounded-xl hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 group/btn shadow-inner text-sm">
+                    Ver Detalles <HiArrowRight className="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" />
+                  </button>
                 </div>
               </div>
-              
-              <div className="p-8 flex-grow flex flex-col">
-                <h3 className="text-xl font-black text-slate-800 mb-2 group-hover:text-blue-600 transition-colors">{car.name}</h3>
-                <div className="flex gap-2 mb-6">
-                  <Badge color="info" className="font-bold uppercase tracking-tighter">{car.sku}</Badge>
-                  <Badge color="purple" className="font-bold uppercase tracking-tighter">{motor}</Badge>
-                </div>
-
-                <button className="mt-auto w-full bg-slate-50 text-slate-600 font-bold py-4 rounded-2xl hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 group/btn shadow-inner">
-                  Ver Detalles <HiArrowRight className="w-4 h-4 transform group-hover/btn:translate-x-1 transition-transform" />
-                </button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
       </div>
     </div>
   );
