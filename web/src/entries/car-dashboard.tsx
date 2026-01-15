@@ -24,7 +24,7 @@ const getAttrValue = (attributes: any[], code: string) => {
   return attributes?.find(attr => attr.attribute_code === code)?.value;
 };
 
-export function CarAIRentingResults() {
+export default function CarAIRentingResults() {
   const [cars, setCars] = useState<CarData[]>([]);
   const toolOutput = useOpenAiGlobal('toolOutput');
   

@@ -62,7 +62,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
         
         // 4. Extraemos los items (Magento siempre encapsula en 'items')
         const items = data?.items || [];
-        console.error(`Se han obtenido ${items.length} vehículos desde Magento Cloud.`, data.items);
+        console.error(`Se han obtenido ${items.length} vehículos desde Magento Cloud.`);
         return {
           content: [{ 
             type: 'text' as const, 
