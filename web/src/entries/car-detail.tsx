@@ -33,7 +33,7 @@ export function CarDetail({ car: initialCar }: { car?: any }) {
     reparaciones: getAttrValue(car.custom_attributes, 'coste_reparaciones') || 0,
   };
 
-  const imgPrueba = new URL('../mock/Modelo_electrico.jpg', import.meta.url).href;
+  // const imgPrueba = new URL('../mock/Modelo_electrico.jpg', import.meta.url).href;
 
   return (
     <div className="p-4 md:p-8 bg-slate-50 min-h-screen antialiased font-sans">
@@ -65,7 +65,7 @@ export function CarDetail({ car: initialCar }: { car?: any }) {
           {/* Columna Imagen y Descripción */}
           <div className="space-y-6">
             <Card className="p-0 overflow-hidden border-none shadow-xl rounded-[2.5rem]">
-              <img src={imgPrueba} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
+              <img src={"https://img.freepik.com/psd-gratis/coche-aislado-blanco_23-2151852916.jpg"} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
               <div className="p-8 bg-white">
                 <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-xl">
                   <HiChip className="text-blue-500 w-6 h-6" /> Detalles del Asistente
