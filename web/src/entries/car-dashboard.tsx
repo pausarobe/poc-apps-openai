@@ -23,11 +23,11 @@ const getAttrValue = (attributes: any[], code: string) => {
   return attributes?.find(attr => attr.attribute_code === code)?.value;
 };
 
-export function CarAIRentingResults({ cars: initialCars }: { cars?: any[] }) {
+export function CarAIRentingResults() {
   const toolOutput = useOpenAiGlobal('toolOutput');
   
-  
-  const cars = initialCars || toolOutput?.carList || [];
+  console.error('CarAIRentingResults - toolOutput:', toolOutput);
+  const cars = toolOutput?.carList || [];
 
   // Cálculos de indicadores basados en los vuelos
   const stats = useMemo(() => {
