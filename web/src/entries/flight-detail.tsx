@@ -51,7 +51,7 @@ export default function FlightDetail() {
     }
     setCallError(false);
     await window.openai.sendFollowUpMessage({
-      prompt: 'Quiero ver coches de alquiler. Llama a la herramienta rental-car-list y muéstrame su widget.',
+      prompt: 'Quiero ver coches de alquiler. Llama a la herramienta car-dashboard y muéstrame su widget.',
     });
   }
 
