@@ -3,6 +3,8 @@ import { Card, Badge, Button as FlowbiteButton } from 'flowbite-react';
 import { HiTruck,  HiLightningBolt, HiChip } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import { createRoot } from 'react-dom/client';
+import { useEffect, useState } from 'react';
+import type { CarData } from '../lib/types.js';
 
 const Button = FlowbiteButton as any;
 
@@ -11,10 +13,31 @@ const getAttrValue = (attributes: any[], code: string) => {
   return attributes.find((attr: any) => attr.attribute_code === code)?.value;
 };
 
-export function CarDetail({ car: initialCar }: { car?: any }) {
-  const toolOutput = useOpenAiGlobal('toolOutput');
-  const car = initialCar || toolOutput?.carDetail || null;
 
+export default function CarDetail() {
+  const [car, setCar] = useState<CarData>();
+  const toolOutput = useOpenAiGlobal('toolOutput');
+
+//  const car = initialCar || toolOutput?.carDetail || null;
+
+useEffect(() => {
+    async function getCarData() {
+      try {
+        const carDetail = toolOutput?.carDetail || undefined ;
+        console.log('Car Detail:', carDetail);
+        console.log('Type:', toolOutput?.type);
+
+        if (carDetail) {
+          setCar(carDetail);
+        }
+      } catch (error) {
+        console.error('Error fetching carDetail data:', error);
+      }
+    }
+
+    getCarData();
+  }, [toolOutput]);
+  
   if (!car) {
     return (
       <div className="p-8 text-center text-gray-500 italic bg-white rounded-3xl shadow-sm border border-dashed border-gray-200">
@@ -66,7 +89,7 @@ export function CarDetail({ car: initialCar }: { car?: any }) {
           <div className="space-y-6">
             <Card className="p-0 overflow-hidden border-none shadow-xl rounded-[2.5rem]">
               {/* https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/m/o/modelo_electrico.jpg */}
-              <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0].file}`} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
+              <img src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0]?.file}`} alt={car.name} className="w-full h-80 object-cover hover:scale-105 transition-transform duration-500" />
               <div className="p-8 bg-white">
                 <h4 className="font-bold text-gray-900 mb-4 flex items-center gap-2 text-xl">
                   <HiChip className="text-blue-500 w-6 h-6" /> Detalles del Asistente

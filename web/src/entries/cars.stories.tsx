@@ -1,21 +1,22 @@
 
 import  CarAIRentingResults  from './car-dashboard'; // Sin el .js
-import { CarDetail } from './car-detail'; // Sin el .js
+
 import carsData from '../mock/cars.json' with { type: 'json' };
 import { useEffect } from 'react';
 import type { CarData } from '../lib/types';
+import CarDetail from './car-detail';
 
 export default {
   title: 'Coches IA',
 };
 
-function MockToolOutput({ carList, children }: { carList: CarData[]; children: React.ReactNode }) {
+function MockToolOutput({ carList, carDetail,  children }: { carList?: CarData[]; carDetail?: CarData; children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.openai = {
         toolOutput: {
-          carList, 
-          type: 'arrival',
+          carList,
+          carDetail, 
         },
       } as any;
 
@@ -46,8 +47,8 @@ export const FichaDetalleCoche = () => {
   const primerCoche = items[0];
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput carList={items}>
-        <CarDetail car={primerCoche} />
+      <MockToolOutput carDetail={primerCoche}>
+        <CarDetail/>
       </MockToolOutput>
     </div>
   );
