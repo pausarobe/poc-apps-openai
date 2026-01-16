@@ -8,8 +8,9 @@ import type { FlightData } from '../lib/types.js';
 
 async function getWeather(iata: string) {
   console.log('Fetching weather for IATA:', iata);
-  console.error('URL WEATHER', `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=iata:${iata}&lang=es&aqi=no`);
-  const url = `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=iata:${iata}&lang=es&aqi=no`;
+  const KEY = __WEATHER_API_KEY__;
+  console.error('URL WEATHER', `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=iata:${iata}&lang=es&aqi=no`);
+  const url = `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=iata:${iata}&lang=es&aqi=no`;
   const res = await fetch(url);
 
   if (!res.ok) {
