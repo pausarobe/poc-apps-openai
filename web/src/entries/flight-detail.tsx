@@ -1,99 +1,50 @@
 import { createRoot } from 'react-dom/client';
 import { Card, Badge, Spinner } from 'flowbite-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiArrowRight, HiClock, HiCursorClick, HiExclamationCircle } from 'react-icons/hi';
 import { LuPlaneLanding, LuPlaneTakeoff } from 'react-icons/lu';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { FlightData } from '../lib/types.js';
 
+async function getWeather(iata: string) {
+  console.log('Fetching weather for IATA:', iata);
+  console.error('URL WEATHER', `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=iata:${iata}&lang=es&aqi=no`);
+  const url = `https://api.weatherapi.com/v1/current.json?key=${process.env.WEATHER_API_KEY}&q=iata:${iata}&lang=es&aqi=no`;
+  const res = await fetch(url);
+
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(`Error fetching weather data: ${res.status} - ${text}`);
+  }
+
+  return res.json();
+}
+
 export default function FlightDetail() {
   const toolOutput = useOpenAiGlobal('toolOutput');
-  // const [flightDetail, setFlightDetail] = useState<FlightData | null>(null);
-  // const [loading, setLoading] = useState(true);
-  // const [error, setError] = useState<string | null>(null);
-  const [callError, setCallError] = useState(false);
-
   const flightDetail: FlightData | null = toolOutput?.flightDetail || null;
-  // const flightDetail = {
-  //   flight_date: '2026-01-09',
-  //   flight_status: 'cancelled',
-  //   departure: {
-  //     airport: 'Singapore Changi',
-  //     timezone: 'Asia/Singapore',
-  //     iata: 'SIN',
-  //     icao: 'WSSS',
-  //     terminal: '1',
-  //     gate: '1',
-  //     delay: 123,
-  //     scheduled: '2026-01-09T00:40:00+00:00',
-  //     estimated: '2026-01-09T00:40:00+00:00',
-  //     actual: null,
-  //     estimated_runway: '2026-01-09T00:40:00+00:00',
-  //     actual_runway: null,
-  //   },
-  //   arrival: {
-  //     airport: 'Ninoy Aquino International',
-  //     timezone: 'Asia/Manila',
-  //     iata: 'MNL',
-  //     icao: 'RPLL',
-  //     terminal: '1',
-  //     gate: null,
-  //     baggage: null,
-  //     scheduled: '2026-01-09T04:25:00+00:00',
-  //     delay: 321,
-  //     estimated: null,
-  //     actual: null,
-  //     estimated_runway: null,
-  //     actual_runway: null,
-  //   },
-  //   airline: {
-  //     name: 'Singapore Airlines',
-  //     iata: 'SQ',
-  //     icao: 'SIA',
-  //   },
-  //   flight: {
-  //     number: '5056',
-  //     iata: 'SQ5056',
-  //     icao: 'SIA5056',
-  //     codeshared: {
-  //       airline_name: 'philippine airlines',
-  //       airline_iata: 'pr',
-  //       airline_icao: 'pal',
-  //       flight_number: '510',
-  //       flight_iata: 'pr510',
-  //       flight_icao: 'pal510',
-  //     },
-  //   },
-  //   aircraft: null,
-  //   live: null,
-  // };
+  const [callError, setCallError] = useState(false);
+  const [arrivalWeather, setArrivalWeather] = useState<any>(null);
+  const [departureWeather, setDepartureWeather] = useState<any>(null);
   console.log('Flight Detail:', flightDetail);
 
-  // useEffect(() => {
-  //   async function getFlightData() {
-  //     try {
-  //       // setLoading(true);
-  //       const flight = toolOutput?.flightDetail;
-  //       console.log('Flight Detail:', flight);
-
-  //       if (flight) {
-  //         setFlightDetail(flight);
-  //       } else {
-  //         // setError('No se encontró información del vuelo');
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching flight data:', error);
-  //       // setError('Error al conectar con el servidor');
-  //     } finally {
-  //       // setLoading(false);
-  //     }
-  //   }
-
-  //   getFlightData();
-  // }, [toolOutput]);
+  useEffect(() => {
+    const loadWeather = async () => {
+      if (!flightDetail) return;
+      try {
+        const [arrival, departure] = await Promise.all([getWeather(flightDetail.arrival.iata), getWeather(flightDetail.departure.iata)]);
+        setArrivalWeather(arrival);
+        setDepartureWeather(departure);
+        console.log('Arrival Weather:', arrival);
+        console.log('Departure Weather:', departure);
+      } catch (error) {
+        console.error('Error fetching weather data:', error);
+      }
+    };
+    loadWeather();
+  }, [flightDetail]);
 
   async function searchRentalCars() {
-    console.log('Searching rental cars...', window);
     if (!window.openai?.sendFollowUpMessage) {
       setCallError(true);
       return;
@@ -102,12 +53,6 @@ export default function FlightDetail() {
     await window.openai.sendFollowUpMessage({
       prompt: 'Quiero ver coches de alquiler. Llama a la herramienta rental-car-list y muéstrame su widget.',
     });
-    // if (!window.openai?.callTool) {
-    //   setCallError(true);
-    //   return;
-    // }
-    // setCallError(false);
-    // await window.openai?.callTool('rental-car-list', {});
   }
 
   const getStatusBadge = (status: string) => {
@@ -119,8 +64,8 @@ export default function FlightDetail() {
       incident: { color: 'warning', label: 'Incidente' },
       diverted: { color: 'warning', label: 'Desviado' },
     };
-
     const statusInfo = statusMap[status] || { color: 'gray', label: status };
+
     return (
       <Badge color={statusInfo.color as any} size="lg">
         {statusInfo.label}
@@ -284,6 +229,30 @@ export default function FlightDetail() {
                   <div className="flex justify-between md:justify-end md:gap-4">
                     <span className="opacity-75">Equipaje:</span>
                     <span className="font-semibold">{flightDetail.arrival.baggage}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Weather */}
+          <div className="mt-6 pt-6 border-t border-white/20">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
+              <div className="text-center md:text-left h-full">
+                {departureWeather && (
+                  <div className="flex items-center gap-4 justify-center md:justify-start mt-2">
+                    <img src={departureWeather.current.condition.icon} alt={departureWeather.current.condition.text} />
+                    <div>{departureWeather.current.condition.text}</div>
+                    <div>{departureWeather.current.temp_c}°C</div>
+                  </div>
+                )}
+              </div>
+              <div className="text-center md:text-right h-full">
+                {arrivalWeather && (
+                  <div className="flex items-center gap-4 justify-center md:justify-start md:flex-row-reverse mt-2">
+                    <img src={arrivalWeather.current.condition.icon} alt={arrivalWeather.current.condition.text} />
+                    <div>{arrivalWeather.current.condition.text}</div>
+                    <div>{arrivalWeather.current.temp_c}°C</div>
                   </div>
                 )}
               </div>
