@@ -14,7 +14,7 @@ function MockToolOutput({ carList, children }: { carList: CarData[]; children: R
     if (typeof window !== 'undefined') {
       window.openai = {
         toolOutput: {
-          carList,
+          carList, 
           type: 'arrival',
         },
       } as any;
@@ -44,10 +44,11 @@ export const CatalogoCochesIA = () => {
 export const FichaDetalleCoche = () => {
   const items = (carsData as any).items || (Array.isArray(carsData) ? carsData : []);
   const primerCoche = items[0];
-
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '40px' }}>
-      <CarDetail car={primerCoche} />
+      <MockToolOutput carList={items}>
+        <CarDetail car={primerCoche} />
+      </MockToolOutput>
     </div>
   );
 };

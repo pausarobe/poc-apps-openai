@@ -2,7 +2,7 @@
 import { Card, Badge, Button as FlowbiteButton } from 'flowbite-react';
 import { HiTruck,  HiLightningBolt, HiChip } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
-
+import { createRoot } from 'react-dom/client';
 
 const Button = FlowbiteButton as any;
 
@@ -123,4 +123,8 @@ export function CarDetail({ car: initialCar }: { car?: any }) {
       </div>
     </div>
   );
+}
+if (typeof window !== 'undefined' && document.getElementById('root')) {
+  const root = createRoot(document.getElementById('root')!);
+  root.render(<CarDetail />);
 }

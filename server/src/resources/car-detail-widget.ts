@@ -1,7 +1,6 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeWidgetHtml } from '../utils/helpers.js';
 
-
 export function registerCarDetailWidgetResource(server: McpServer, js: string, css: string) {
   server.registerResource(
     'car-detail-widget',
@@ -20,11 +19,17 @@ export function registerCarDetailWidgetResource(server: McpServer, js: string, c
             'openai/widgetPrefersBorder': true,
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
-              connect_domains: ['https://chatgpt.com', 'https://api.tu-servicio-renting.com'],
+              // Permitimos la conexión a ChatGPT y a tu entorno específico de Magento Cloud
+              connect_domains: [
+                'https://chatgpt.com', 
+                'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud'
+              ],
+              // Permitimos la carga de imágenes desde Magento Cloud y mantenemos los otros dominios
               resource_domains: [
                 'https://*.oaistatic.com', 
                 'https://raw.githubusercontent.com',
-                'https://images.unsplash.com'
+                'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud',
+                'https://images.unsplash.com' // Mantenemos Unsplash por si usas placeholders
               ],
             },
           },
