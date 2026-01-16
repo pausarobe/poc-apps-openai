@@ -18,33 +18,41 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ sku }: { sku: string }) => {
-      const API_URL = `https://api.tu-servicio-renting.com/v1/cars?sku=${sku}&api_key=${process.env.PROVIDER_CARS_API_KEY}`;
-
-      console.error('Invocando API de coches para SKU:', sku);
+      // Mantenemos tu URL de Magento Cloud y tu variable de entorno
+      const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1';
+      const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
 
       if (!sku) {
         return errorMessage('No se proporcionó el SKU del vehículo');
       }
 
       try {
-        // Llamada real a la API
-        console.log('Fetching car detail from API:', API_URL);
-        const response = await fetch(API_URL);
-        
+        // La URL de Magento para un producto específico
+        const FINAL_URL = `${MAGENTO_BASE_URL}/products/${encodeURIComponent(sku)}`;
+        console.error('Invocando Detalle en Magento Cloud para SKU:', sku);
+
+        const response = await fetch(FINAL_URL, {
+          method: 'GET',
+          headers: {
+            'Authorization': `Bearer ${ACCESS_TOKEN}`, // Tu Token de siempre
+            'Content-Type': 'application/json'
+          }
+        });
+
         if (!response.ok) {
           throw new Error(`Error en la API: ${response.statusText}`);
         }
 
         const data: any = await response.json();
         
-        // Asumimos que la API devuelve un objeto o un array de items
-        const car = data?.items?.[0] || data; 
+        // Mantenemos tu lógica de extracción: el objeto directo o el primer item
+        const car = data?.items?.[0] || data;
 
         if (!car || (car.sku !== sku && !data.id)) {
           return errorMessage(`No se encontró información para el vehículo con SKU: ${sku}`);
         }
 
-        // Devolvemos la data estructurada para el Resource
+        // Devolvemos EXACTAMENTE lo mismo que antes para que tu widget no rompa
         return {
           content: [{ 
             type: 'text' as const, 
