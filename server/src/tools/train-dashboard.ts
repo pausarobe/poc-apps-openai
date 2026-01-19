@@ -15,7 +15,7 @@ export function registerTrainDashboardTool(registerTool: RegisterToolFn) {
         'openai/toolInvocation/invoked': 'Displayed the board',
       },
       inputSchema: {
-        location: z.coerce.string().describe('Name station'),
+        name: z.coerce.string().describe('Name station'),
       },
     },
     async ({ name }: { name: string }) => {
