@@ -7,9 +7,7 @@ import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { FlightData } from '../lib/types.js';
 
 async function getWeather(iata: string) {
-  console.log('Fetching weather for IATA:', iata);
   const KEY = __WEATHER_API_KEY__;
-  console.error('URL WEATHER', `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=iata:${iata}&lang=es&aqi=no`);
   const url = `https://api.weatherapi.com/v1/current.json?key=${KEY}&q=iata:${iata}&lang=es&aqi=no`;
   const res = await fetch(url);
 
@@ -27,7 +25,6 @@ export default function FlightDetail() {
   const [callError, setCallError] = useState(false);
   const [arrivalWeather, setArrivalWeather] = useState<any>(null);
   const [departureWeather, setDepartureWeather] = useState<any>(null);
-  console.log('Flight Detail:', flightDetail);
 
   useEffect(() => {
     const loadWeather = async () => {
@@ -36,8 +33,6 @@ export default function FlightDetail() {
         const [arrival, departure] = await Promise.all([getWeather(flightDetail.arrival.iata), getWeather(flightDetail.departure.iata)]);
         setArrivalWeather(arrival);
         setDepartureWeather(departure);
-        console.log('Arrival Weather:', arrival);
-        console.log('Departure Weather:', departure);
       } catch (error) {
         console.error('Error fetching weather data:', error);
       }
