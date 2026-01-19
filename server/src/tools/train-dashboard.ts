@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
-import { trainMock } from '../mock/train.mock';
+import { trainMock } from '../mock/train.mock.js';
 
 export function registerTrainDashboardTool(registerTool: RegisterToolFn) {
   registerTool(
