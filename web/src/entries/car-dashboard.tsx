@@ -30,8 +30,7 @@ export default function CarAIRentingResults() {
   const [cars, setCars] = useState<CarData[]>([]);
   const toolOutput = useOpenAiGlobal('toolOutput');
   
-  console.error('CarAIRentingResults - toolOutput:', toolOutput?.carList?.length);
-  // const cars = toolOutput?.carList || [];
+  
 
   useEffect(() => {
     async function getCarData() {
