@@ -9,7 +9,7 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
       title: 'Gestionar Alta de Vehículo',
       description: 'Allows you to open the registration form or add a vehicle directly to the catalog.',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/car-create-success.html',
+        'openai/outputTemplate': 'ui://widget/car-create.html',
         'openai/toolInvocation/invoking': 'Procesando solicitud...',
         'openai/toolInvocation/invoked': 'Operación completada',
       },
