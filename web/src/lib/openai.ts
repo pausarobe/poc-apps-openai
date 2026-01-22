@@ -6,5 +6,6 @@ export interface ToolOutput {
   carDetail?: CarData;
   carList?: CarData[];
   trainList?: TrainData;
+  carCreate?: CarData;
   type?: 'arrival' | 'departure';
 }
