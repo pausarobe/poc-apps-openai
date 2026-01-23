@@ -7,7 +7,7 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
     'create-car',
     {
       title: 'Gestionar Alta de Vehículo',
-      description: 'Allows you to open the registration form or add a vehicle directly to the catalog.',
+      description: 'Allows you to create a new car directly in the catalog or open the registration form.',
       _meta: {
         'openai/outputTemplate': 'ui://widget/car-create.html',
         'openai/toolInvocation/invoking': 'Procesando solicitud...',
@@ -28,15 +28,21 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
       },
     },
     async (input) => {
+      //Se reciben los datos? 
+      console.log('--- DEBUG: DATOS RECIBIDOS DEL FORMULARIO ---');
+      console.log(JSON.stringify(input, null, 2));
+
       const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1';
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
 
       if (!ACCESS_TOKEN) {
+        console.error('--- ERROR: PROVIDER_CARS_API_KEY no está definido en el entorno ---');
         return errorMessage('Error de configuración: No se encontró el Token de Administrador.');
       }
 
       // Si faltan datos básicos, mostramos el formulario en el widget
       if (!input.name || !input.sku) {
+        console.log('--- DEBUG: Faltan name o sku, abriendo formulario en el widget ---');
         return {
           content: [{ 
             type: 'text' as const, 
@@ -74,7 +80,10 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
 
       try {
         const FINAL_URL = `${MAGENTO_BASE_URL}/products`;
-        console.error('Iniciando creación de producto:', input.sku);
+          // Log de depuración antes de la petición
+        console.log('--- DEBUG: ENVIANDO PETICIÓN A MAGENTO ---');
+        console.log('URL:', FINAL_URL);
+        console.log('Payload:', JSON.stringify(productData, null, 2));
 
         const response = await fetch(FINAL_URL, {
           method: 'POST',
@@ -84,18 +93,23 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
           },
           body: JSON.stringify(productData)
         });
+        // Log de depuración de la respuesta
+        const responseText = await response.text();
+        console.log('--- DEBUG: RESPUESTA DE MAGENTO ---');
+        console.log('Status:', response.status, response.statusText);
+        console.log('Body:', responseText);
 
         if (!response.ok) {
           const errorDetail = await response.text();
-          throw new Error(`Error API Magento: ${errorDetail}`);
+          throw new Error(`Error API Magento: ${responseText}`);
         }
 
-        const result = await response.json();
+        const result = JSON.parse(responseText);
 
         return {
           content: [{ 
             type: 'text' as const, 
-            text: `✅ El vehículo "${input.name}" ha sido creado correctamente con el SKU ${input.sku}.` 
+            text: `El vehículo "${input.name}" ha sido creado correctamente con el SKU ${input.sku}.` 
           }],
           structuredContent: { createSuccess: result }, // Envía los datos para la tarjeta de éxito
         };
