@@ -25,6 +25,7 @@ export function registerCreateCarTool(registerTool: RegisterToolFn) {
         coste_seguro: z.number().nullish().describe('Importe mensual del seguro'),
         coste_mantenimiento: z.number().nullish().describe('Importe mensual de mantenimiento'),
         coste_reparaciones: z.number().nullish().describe('Importe mensual de reparaciones'),
+        provider: z.string().optional().describe('Proveedor del vehículo'),
       },
     },
     async (input) => {
