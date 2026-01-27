@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
+import carsData from '../mock/cars.json';
 
 export function registerCarDashboardTool(registerTool: RegisterToolFn) {
   registerTool(
@@ -18,7 +19,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ category }: { category?: string }) => {
-      
+      /*
       const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1';
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY; 
 
@@ -59,7 +60,10 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
         }
 
         const data: any = await response.json();
-        
+        */
+      try {
+        console.log('--- LEYENDO DATOS DESDE mock/cars.json ---');
+        const items = (carsData as any).items || carsData;
        
         /* =========================================================================
         OPCIÓN B: QUERY GRAPHQL (COMENTADA Y LISTA PARA USAR)
@@ -139,7 +143,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
         =========================================================================
         */
 
-        const items = data?.items || [];
+        
         console.error(`Se han obtenido ${items.length} vehículos desde Magento Cloud.`);
         return {
           content: [{ 

@@ -1,6 +1,7 @@
 import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
+import carsData from '../mock/cars.json';
 
 export function registerCarDetailTool(registerTool: RegisterToolFn) {
   registerTool(
@@ -18,6 +19,7 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
       },
     },
     async ({ sku }: { sku: string }) => {
+      /*
       // Mantenemos tu URL de Magento Cloud y tu variable de entorno
       const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/motores/rest/V1';
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
@@ -44,11 +46,17 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
         }
 
         const data: any = await response.json();
-        
-        // Mantenemos tu lógica de extracción: el objeto directo o el primer item
-        const car = data?.items?.[0] || data;
+        */
+       
+      try {
+        console.log('--- LEYENDO DETALLE DESDE mock/cars.json ---');
+        const items = (carsData as any).items || carsData;
+        const car = items.find((car: any) => car.sku === sku);
 
-        if (!car || (car.sku !== sku && !data.id)) {
+        // Mantenemos tu lógica de extracción: el objeto directo o el primer item
+        //const car = data?.items?.[0] || data;
+
+        if (!car)    {
           return errorMessage(`No se encontró información para el vehículo con SKU: ${sku}`);
         }
 
