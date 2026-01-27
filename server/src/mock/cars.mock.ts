@@ -1,4 +1,4 @@
-{
+export const carsData = {
     "items": [
         {
             "id": 1174,

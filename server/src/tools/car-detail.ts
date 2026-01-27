@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
-import carsData from '../mock/cars.json';
+import { carsData } from '../mock/cars.mock.js';
 
 export function registerCarDetailTool(registerTool: RegisterToolFn) {
   registerTool(
