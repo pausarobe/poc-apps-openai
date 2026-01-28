@@ -1,0 +1,1415 @@
+export const carsData = {
+    "items": [
+        {
+            "id": 1174,
+            "sku": "PROD-001",
+            "name": "Modelo X Eléctrico",
+            "attribute_set_id": 15,
+            "price": 35000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2025-12-23 07:38:14",
+            "updated_at": "2026-01-09 12:25:21",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -1,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1294,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/m/o/modelo_electrico.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "descripcion",
+                    "value": "Coche eléctrico familiar cómodo para viajes largos y en la ciudad"
+                },
+                {
+                    "attribute_code": "image",
+                    "value": "/m/o/modelo_electrico.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "modelo-x-electrico"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "90000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/m/o/modelo_electrico.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Modelo X Eléctrico"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "tipo_motor",
+                    "value": "Eléctrico"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/m/o/modelo_electrico.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Modelo X Eléctrico"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "420.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/m/o/modelo_electrico.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Modelo X Eléctrico "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "0.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "150.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1175,
+            "sku": "PROD-002",
+            "name": "SUV Familiar 500",
+            "attribute_set_id": 15,
+            "price": 45000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2025-12-23 07:52:18",
+            "updated_at": "2026-01-07 12:55:56",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -2,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1295,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/s/u/suv_familiar_500.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/s/u/suv_familiar_500.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "suv-familiar-500"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "150000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/s/u/suv_familiar_500.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "SUV Familiar 500"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/s/u/suv_familiar_500.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "SUV Familiar 500"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "600.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/s/u/suv_familiar_500.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "SUV Familiar 500 "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "150.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "0.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1176,
+            "sku": "PROD-003",
+            "name": "Deportivo GT",
+            "attribute_set_id": 15,
+            "price": 50000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2025-12-23 07:56:45",
+            "updated_at": "2026-01-07 12:56:27",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -3,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1296,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/d/e/deportivo_gt.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/d/e/deportivo_gt.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "deportivo-gt"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "140000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/d/e/deportivo_gt.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Deportivo GT"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/d/e/deportivo_gt.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Deportivo GT"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "700.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/d/e/deportivo_gt.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Deportivo GT "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "200.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "50.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "0.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1182,
+            "sku": "PROD-004",
+            "name": "Berlina Ejecutiva Premium",
+            "attribute_set_id": 15,
+            "price": 42000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:15:35",
+            "updated_at": "2026-01-07 12:57:13",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -4,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1300,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 2,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/b/e/berlina.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/b/e/berlina.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "berlina-ejecutiva-premium"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "90000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/b/e/berlina.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Berlina Ejecutiva Premium"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/b/e/berlina.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Berlina Ejecutiva Premium"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "550.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/b/e/berlina.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Berlina Ejecutiva Premium "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "300.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "50.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "0.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1183,
+            "sku": "PROD-005",
+            "name": "City Car Eco-Compact",
+            "attribute_set_id": 15,
+            "price": 19500,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:19:46",
+            "updated_at": "2026-01-07 12:53:08",
+            "extension_attributes": {
+                "website_ids": [
+                    1
+                ],
+                "category_links": [
+                    {
+                        "position": -5,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1301,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche4.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche4.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "city-car-eco-compact"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "100000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche4.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "City Car Eco-Compact"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche4.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "City Car Eco-Compact"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "290.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche4.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "City Car Eco-Compact "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "300.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "150.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1184,
+            "sku": "PROD-006",
+            "name": "Adventure SUV 4x4",
+            "attribute_set_id": 15,
+            "price": 38000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:27:35",
+            "updated_at": "2026-01-07 12:54:43",
+            "extension_attributes": {
+                "website_ids": [
+                    1
+                ],
+                "category_links": [
+                    {
+                        "position": -6,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1302,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche5.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche5.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "adventure-suv-4x4"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "120000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche5.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Adventure SUV 4x4"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche5.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Adventure SUV 4x4"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "480.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche5.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Adventure SUV 4x4 "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "200.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "50.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "300.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1185,
+            "sku": "PROD-007",
+            "name": "Coupé Sport S-Line",
+            "attribute_set_id": 15,
+            "price": 55000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:30:53",
+            "updated_at": "2026-01-07 12:57:47",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -7,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1303,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche6.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche6.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "coupe-sport-s-line"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "130000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche6.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Coupé Sport S-Line"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche6.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Coupé Sport S-Line"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "720.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche6.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Coupé Sport S-Line "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "500.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "120.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1186,
+            "sku": "PROD-008",
+            "name": "Van Familiar Max",
+            "attribute_set_id": 15,
+            "price": 31000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:36:35",
+            "updated_at": "2026-01-07 12:58:21",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -8,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1304,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche7.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche7.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "van-familiar-max"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "200000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche7.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Van Familiar Max"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche7.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Van Familiar Max"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "450.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche7.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Van Familiar Max "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "400.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "240.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1187,
+            "sku": "PROD-009",
+            "name": "Urban Crossover Hybrid",
+            "attribute_set_id": 15,
+            "price": 26500,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:39:19",
+            "updated_at": "2026-01-07 12:58:48",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -9,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1305,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche8.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche8.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "urban-crossover-hybrid"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "160000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche8.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Urban Crossover Hybrid"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche8.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Urban Crossover Hybrid"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "380.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche8.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Urban Crossover Hybrid "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "400.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "120.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "100.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        },
+        {
+            "id": 1188,
+            "sku": "PROD-010",
+            "name": "Luxury Roadster Z",
+            "attribute_set_id": 15,
+            "price": 89000,
+            "status": 1,
+            "visibility": 4,
+            "type_id": "virtual",
+            "created_at": "2026-01-05 11:43:17",
+            "updated_at": "2026-01-07 12:59:26",
+            "extension_attributes": {
+                "website_ids": [
+                    1,
+                    3
+                ],
+                "category_links": [
+                    {
+                        "position": -10,
+                        "category_id": "24"
+                    }
+                ]
+            },
+            "product_links": [],
+            "options": [],
+            "media_gallery_entries": [
+                {
+                    "id": 1306,
+                    "media_type": "image",
+                    "label": null,
+                    "position": 1,
+                    "disabled": false,
+                    "types": [
+                        "image",
+                        "small_image",
+                        "thumbnail",
+                        "swatch_image"
+                    ],
+                    "file": "/c/o/coche9.jpg"
+                }
+            ],
+            "tier_prices": [],
+            "custom_attributes": [
+                {
+                    "attribute_code": "image",
+                    "value": "/c/o/coche9.jpg"
+                },
+                {
+                    "attribute_code": "url_key",
+                    "value": "luxury-roadster-z"
+                },
+                {
+                    "attribute_code": "page_layout",
+                    "value": "product-full-width"
+                },
+                {
+                    "attribute_code": "gift_message_available",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "kilometros_max",
+                    "value": "170000.000000"
+                },
+                {
+                    "attribute_code": "small_image",
+                    "value": "/c/o/coche9.jpg"
+                },
+                {
+                    "attribute_code": "meta_title",
+                    "value": "Luxury Roadster Z"
+                },
+                {
+                    "attribute_code": "options_container",
+                    "value": "container2"
+                },
+                {
+                    "attribute_code": "thumbnail",
+                    "value": "/c/o/coche9.jpg"
+                },
+                {
+                    "attribute_code": "meta_keyword",
+                    "value": "Luxury Roadster Z"
+                },
+                {
+                    "attribute_code": "cuota_renting",
+                    "value": "900.000000"
+                },
+                {
+                    "attribute_code": "swatch_image",
+                    "value": "/c/o/coche9.jpg"
+                },
+                {
+                    "attribute_code": "meta_description",
+                    "value": "Luxury Roadster Z "
+                },
+                {
+                    "attribute_code": "coste_seguro",
+                    "value": "1000.000000"
+                },
+                {
+                    "attribute_code": "coste_mantenimiento",
+                    "value": "200.000000"
+                },
+                {
+                    "attribute_code": "coste_reparaciones",
+                    "value": "300.000000"
+                },
+                {
+                    "attribute_code": "msrp_display_actual_price_type",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "tax_class_id",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "required_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "has_options",
+                    "value": "0"
+                },
+                {
+                    "attribute_code": "category_ids",
+                    "value": [
+                        "24"
+                    ]
+                },
+                {
+                    "attribute_code": "is_returnable",
+                    "value": "2"
+                },
+                {
+                    "attribute_code": "provider",
+                    "value": "304"
+                }
+            ]
+        }
+    ],
+    "search_criteria": {
+        "filter_groups": [
+            {
+                "filters": [
+                    {
+                        "field": "category_id",
+                        "value": "24",
+                        "condition_type": "eq"
+                    }
+                ]
+            }
+        ],
+        "page_size": 10
+    },
+    "total_count": 11
+}
