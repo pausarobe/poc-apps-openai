@@ -6,9 +6,11 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "typecheck": "tsc --noEmit",
-    "bundle": "npx esbuild src/entries/component.tsx src/entries/pokemon-detail.tsx src/entries/test.tsx --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap",
-    "build": "npm run typecheck && npm run bundle && cp index.html dist/index.html",
-    "start": "npx esbuild src/entries/component.tsx --bundle --format=esm --outfile=dist/component.js --servedir=dist --serve=8000 --watch"
+    "bundle": "npx esbuild \"src/entries/*.tsx\" --bundle --format=esm --outdir=dist --entry-names=[name] --sourcemap --define:__WEATHER_API_KEY__='\"'\"$WEATHER_API_KEY\"'\"'",
+    "build": "npm run typecheck && npm run bundle && npm run build:css && cp index.html dist/index.html",
+    "build:css": "npx tailwindcss -i src/styles.css -o dist/styles.css",
+    "start": "npm run build && npx esbuild src/entries/flight-detail.tsx --bundle --format=esm --outfile=dist/flight-detail.js --servedir=dist --serve=3030 --watch",
+    "ladle": "npx ladle serve"
   },
   "keywords": [],
   "author": "",
@@ -16,13 +18,20 @@
   "description": "",
   "dependencies": {
     "@ladle/react": "^5.1.1",
+    "flowbite": "^4.0.1",
+    "flowbite-react": "^0.12.16",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-icons": "^5.5.0"
   },
   "devDependencies": {
+    "@types/node": "^25.0.9",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.12",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
     "typescript": "^5.9.3"
   }
 }
