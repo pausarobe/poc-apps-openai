@@ -1,18 +1,18 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeWidgetHtml } from '../utils/helpers.js';
 
-export function registerRentalCarListWidgetResource(server: McpServer, js: string, css: string) {
+export function registerTrainDashboardWidgetResource(server: McpServer, js: string, css: string) {
   server.registerResource(
-    'rental-car-list-widget',
-    'ui://widget/rental-car-list.html',
+    'train-dashboard-widget',
+    'ui://widget/train-dashboard.html',
     {
-      title: 'Rental Car List',
-      description: 'Get a rental car list',
+      title: 'Train Dashboard',
+      description: 'Get a list of train arrivals from a station.',
     },
     async () => ({
       contents: [
         {
-          uri: 'ui://widget/rental-car-list.html',
+          uri: 'ui://widget/train-dashboard.html',
           mimeType: 'text/html+skybridge',
           text: makeWidgetHtml(js, css),
           _meta: {
@@ -20,7 +20,7 @@ export function registerRentalCarListWidgetResource(server: McpServer, js: strin
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
               connect_domains: ['https://chatgpt.com'],
-              resource_domains: ['https://*.oaistatic.com'],
+              resource_domains: ['https://*.oaistatic.com', 'https://yt3.googleusercontent.com'],
             },
           },
         },

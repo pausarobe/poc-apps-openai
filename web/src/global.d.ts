@@ -3,6 +3,8 @@ import type { ToolOutput } from './lib/openai.js';
 export {};
 
 declare global {
+  const __WEATHER_API_KEY__: string;
+
   interface OpenAIWindowGlobals {
     toolInput?: unknown;
     toolOutput?: ToolOutput;

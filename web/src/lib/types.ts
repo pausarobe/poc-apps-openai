@@ -3,6 +3,28 @@ export interface Airplane {
   production_line: string;
   model_name: string;
 }
+export interface CarData {
+  id: number;
+  sku: string;
+  name: string;
+  status: number;
+  price: number;
+  media_gallery_entries: 
+  {
+      id: number,
+      media_type: string,
+      label: string | null,
+      position: number,
+      disabled: boolean,
+      types: string[],
+      file: string
+    
+  }[],
+  custom_attributes: Array<{
+    attribute_code: string;
+    value: any;
+  }>;
+}
 
 // ADVERTISING: FlightData type used in web and server, actualize both when modifying
 export interface FlightData {
@@ -55,4 +77,92 @@ export interface FlightData {
     icao24?: string;
   } | null;
   live?: any;
+}
+
+// Train
+export interface TrainData {
+  data: Trip[];
+}
+
+export interface Trip {
+  start: string;
+  end: string;
+  duration: number;
+  legs: Leg[];
+}
+
+export interface Leg {
+  agency: Agency;
+  mode: string;
+  distance: number;
+  duration: number;
+  startTime: number;
+  endTime: number;
+  arrivalDelay: number;
+  departureDelay: number;
+  alerts: any[];
+  from: Place;
+  to: Place;
+  intermediatePlace: boolean;
+  intermediatePlaces: IntermediatePlace[];
+  route: Route;
+}
+
+export interface Agency {
+  fareUrl: string | null;
+  gtfsId: string;
+  lang: string;
+  name: string;
+  phone: string;
+  timezone: string;
+  url: string;
+}
+
+export interface Place {
+  name: string;
+  arrivalTime: number;
+  departureTime: number;
+  stop: Stop;
+}
+
+export interface IntermediatePlace {
+  arrivalTime: number;
+  departureTime: number;
+  lat: number;
+  lon: number;
+  name: string;
+  vertexType: string; // e.g. "TRANSIT"
+}
+
+export interface Stop {
+  id?: string;
+  gtfsId: string;
+  name?: string;
+  lat: number;
+  lon: number;
+}
+
+export interface Route {
+  id: string;
+  shortName: string;
+  longName: string | null;
+  url: string | null;
+  type: number;
+  textColor: string | null;
+  color: string;
+  patterns: Pattern[];
+  stops: RouteStop[];
+}
+
+export interface Pattern {
+  code: string;
+  vehiclePositions: any[];
+}
+
+export interface RouteStop {
+  id: string;
+  gtfsId: string;
+  name: string;
+  lat: number;
+  lon: number;
 }
