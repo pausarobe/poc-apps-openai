@@ -49,11 +49,10 @@ export default function CarDetail() {
   };
 
   return (
-    /* bg-token-main-surface-primary: El fondo ahora es elástico y se adapta al chat */
     <div className="p-2 md:p-6 bg-token-main-surface-primary antialiased font-sans">
-      <div className="max-w-5xl mx-auto space-y-6">
+      <div className="max-w-2xl mx-auto space-y-6">
         
-        {/* Cabecera: Flexible para evitar que el precio se corte en móvil */}
+        {/* Cabecera Estilo Boarding Pass */}
         <Card className="bg-token-main-surface-secondary border-t-8 border-blue-600 border-x-token-border-medium border-b-token-border-medium shadow-2xl rounded-3xl overflow-hidden">
           <div className="flex flex-col sm:flex-row justify-between items-center gap-6 p-2">
             <div className="flex items-center gap-4">
@@ -75,30 +74,27 @@ export default function CarDetail() {
           </div>
         </Card>
 
-        {/* Layout: Una columna en móvil y dos en pantallas medianas */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {/* CAMBIO: Layout Vertical para que se vea "estirado hacia abajo" en el chat */}
+        <div className="flex flex-col gap-6">
           
-          {/* Columna Imagen y Descripción */}
-          <div className="space-y-6">
-            <Card className="p-0 overflow-hidden border-token-border-medium shadow-xl rounded-[2.5rem] bg-token-main-surface-secondary">
-              {/* https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/m/o/modelo_electrico.jpg */}
-              <img 
-                src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0]?.file}`} 
-                alt={car.name} 
-                className="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-500" 
-              />
-              <div className="p-8">
-                <h4 className="font-bold text-token-text-primary mb-4 flex items-center gap-2 text-xl">
-                  <HiChip className="text-blue-500 w-6 h-6" /> Detalles del Asistente
-                </h4>
-                <p className="text-token-text-secondary leading-relaxed italic border-l-4 border-blue-200 pl-6 text-lg">
-                  "{data.desc}"
-                </p>
-              </div>
-            </Card>
-          </div>
+          {/* Bloque Imagen y Descripción */}
+          <Card className="p-0 overflow-hidden border-token-border-medium shadow-xl rounded-[2.5rem] bg-token-main-surface-secondary">
+            <img 
+              src={`https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${car.media_gallery_entries[0]?.file}`} 
+              alt={car.name} 
+              className="w-full h-64 md:h-80 object-cover hover:scale-105 transition-transform duration-500" 
+            />
+            <div className="p-8">
+              <h4 className="font-bold text-token-text-primary mb-4 flex items-center gap-2 text-xl">
+                <HiChip className="text-blue-500 w-6 h-6" /> Detalles del Asistente
+              </h4>
+              <p className="text-token-text-secondary leading-relaxed italic border-l-4 border-blue-200 pl-6 text-lg">
+                "{data.desc}"
+              </p>
+            </div>
+          </Card>
 
-          {/* Columna Resumen del Contrato */}
+          {/* Bloque Resumen del Contrato */}
           <Card className="shadow-xl border-token-border-medium rounded-[2.5rem] p-6 bg-token-main-surface-secondary flex flex-col justify-between">
             <div>
               <h3 className="text-2xl font-bold text-token-text-primary mb-8 flex items-center gap-3">
