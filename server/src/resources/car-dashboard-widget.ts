@@ -16,6 +16,7 @@ export function registerCarDashboardWidgetResource(server: McpServer, js: string
           mimeType: 'text/html+skybridge',
           text: makeWidgetHtml(js, css),
           _meta: {
+            'openai/view/preference': 'expanded',
             'openai/widgetPrefersBorder': true,
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
