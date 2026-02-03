@@ -75,18 +75,17 @@ export default function CarAIRentingResults() {
   }
 
   return (
-    /* 1. CONTENEDOR DINÁMICO: Detecta si debe estar "fixed" (fullscreen) o normal */
+    /* CAMBIO CLAVE: Añadido w-screen h-screen para forzar dimensiones en Fullscreen */
     <div className={`
       transition-all duration-500 ease-in-out antialiased
       ${isFullscreen 
-        ? "fixed inset-0 z-[9999] w-full h-full bg-token-main-surface-primary overflow-y-auto p-4 md:p-12" 
-        : "min-h-screen bg-token-main-surface-primary p-4 md:p-8"}
+        ? "fixed inset-0 z-[9999] w-screen h-screen bg-token-main-surface-primary overflow-y-auto p-4 md:p-12" 
+        : "bg-token-main-surface-primary p-4 md:p-8"}
     `}>
       
-      {/* 2. MAX-WIDTH ADAPTATIVO: Crece en pantalla completa */}
       <div className={`${isFullscreen ? "max-w-7xl" : "max-w-5xl"} mx-auto space-y-8 relative`}>
         
-        {/* 3. BOTÓN TOGGLE: Para alternar el modo de vista */}
+        {/* Botón de Toggle con HiX corregido */}
         <div className="absolute -top-2 -right-2 z-50">
           <Tooltip content={isFullscreen ? "Minimizar" : "Pantalla Completa"}>
             <button 
@@ -98,7 +97,7 @@ export default function CarAIRentingResults() {
           </Tooltip>
         </div>
 
-        {/* TopBar Estilo Profesional */}
+        {/* TopBar Profesional */}
         <div className="bg-gradient-to-r from-slate-900 to-blue-900 rounded-[2.5rem] p-8 shadow-2xl flex flex-col md:flex-row justify-between items-center gap-6 border-b-4 border-blue-500">
           <div className="flex items-center gap-5">
             <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-xl border border-white/20 text-white">
@@ -116,7 +115,7 @@ export default function CarAIRentingResults() {
           </div>
         </div>
 
-        {/* Grid de KPIs */}
+        {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <CarKPICard 
             title="Modelos en Stock" value={stats.total} subtitle="Vehículos listos"
@@ -132,7 +131,7 @@ export default function CarAIRentingResults() {
           />
         </div>
 
-        {/* Grid de Coches */}
+        {/* Grid de Coches adaptativo */}
         <div className={`grid gap-4 ${isFullscreen ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1 md:grid-cols-2 lg:grid-cols-4"}`}>
           {visibleCars.map((car: any) => {
             const cuota = getAttrValue(car.custom_attributes, 'cuota_renting');
@@ -165,7 +164,7 @@ export default function CarAIRentingResults() {
           })}
         </div>
 
-        {/* Botón "Show More" / Indicador de estado */}
+        {/* Botón Inferior */}
         {!isFullscreen && !isExpanded && cars.length > 4 && (
           <button 
             onClick={() => setIsExpanded(true)}
@@ -176,7 +175,6 @@ export default function CarAIRentingResults() {
           </button>
         )}
 
-        {/* 4. BOTÓN DE CIERRE: Solo visible en Fullscreen para volver cómodamente */}
         {isFullscreen && (
           <div className="flex justify-center pt-8">
             <Button color="gray" pill onClick={() => setIsFullscreen(false)}>
