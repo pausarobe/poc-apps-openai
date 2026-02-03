@@ -13,6 +13,7 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
         'openai/outputTemplate': 'ui://widget/car-dashboard.html',
         'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
         'openai/toolInvocation/invoked': 'Catálogo cargado correctamente',
+        'openai/view/preference': 'expanded',
       },
       inputSchema: {
         category: z.string().optional().describe('ID de categoría opcional (ej: 3, 5)'),
