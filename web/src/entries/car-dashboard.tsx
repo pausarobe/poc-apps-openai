@@ -2,7 +2,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Badge, Tooltip, Button as FlowbiteButton } from 'flowbite-react'; 
 import { 
   HiTruck, HiLightningBolt, HiCurrencyEuro, HiStatusOnline, 
-  HiArrowRight, HiLocationMarker, HiArrowsExpand, HiX 
+  HiArrowRight, HiArrowsExpand, HiX 
 } from 'react-icons/hi';
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { CarData } from '../lib/types.js';
@@ -39,12 +39,11 @@ export default function CarAIRentingResults() {
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   
   useEffect(() => {
-    // Escuchamos los datos del catálogo
     const carList = toolOutput?.carList || [];
     if (carList.length > 0) {
       setCars(carList);
       
-      // AUTO-OPEN: Si llegan datos y no hemos abierto aún, expandimos
+      // AUTO-OPEN: Se expande automáticamente la primera vez que recibe datos
       if (!hasAutoOpened) {
         setIsFullscreen(true);
         setHasAutoOpened(true); 
@@ -52,7 +51,6 @@ export default function CarAIRentingResults() {
     }
   }, [toolOutput, hasAutoOpened]);
 
-  // Si estamos en fullscreen, mostramos todos; si no, solo 4
   const visibleCars = (isExpanded || isFullscreen) ? cars : cars.slice(0, 4);
 
   const stats = useMemo(() => {
@@ -72,7 +70,6 @@ export default function CarAIRentingResults() {
   }
 
   return (
-   
     <div className={`
       transition-all duration-500 ease-in-out antialiased
       ${isFullscreen 
@@ -82,7 +79,7 @@ export default function CarAIRentingResults() {
       
       <div className={`${isFullscreen ? "max-w-7xl" : "max-w-full"} mx-auto space-y-8 relative`}>
         
-        {/* BOTÓN DE TOGGLE: Icono HiX para cerrar pantalla completa */}
+        {/* BOTÓN DE TOGGLE */}
         <div className="absolute -top-2 -right-2 z-[10000]">
           <Tooltip content={isFullscreen ? "Minimizar" : "Pantalla Completa"}>
             <button 
@@ -105,9 +102,15 @@ export default function CarAIRentingResults() {
               <p className="text-blue-300 font-medium italic">Stock Central de Vehículos</p>
             </div>
           </div>
+          <div className="flex gap-3">
+            <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-white font-bold border border-white/10">
+              {/* Cambiado HiLocationMarker por HiStatusOnline para evitar el error TS */}
+              <HiStatusOnline className="text-blue-400 w-4 h-4" /> STOCK CENTRAL
+            </div>
+          </div>
         </div>
 
-        {/* KPIs: Grid de 3 columnas en pantallas grandes */}
+        {/* KPIs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <CarKPICard 
             title="Modelos en Stock" value={stats.total} subtitle="Listos para entrega"
@@ -123,7 +126,7 @@ export default function CarAIRentingResults() {
           />
         </div>
 
-        {/* Listado de Coches: Layout adaptativo (4 columnas en Fullscreen) */}
+        {/* Listado de Coches */}
         <div className={`grid gap-4 ${isFullscreen ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-2"}`}>
           {visibleCars.map((car: any) => {
             const cuota = getAttrValue(car.custom_attributes, 'cuota_renting');
