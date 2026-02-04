@@ -3,7 +3,7 @@ import { Badge, Tooltip, Button as FlowbiteButton } from 'flowbite-react';
 import { 
   HiTruck, HiLightningBolt, HiCurrencyEuro, HiStatusOnline, 
   HiArrowRight, HiArrowsExpand, HiX 
-} from 'react-icons/hi';
+} from 'react-icons/hi'; // He eliminado HiLocationMarker para evitar el error TS6133
 import { useOpenAiGlobal } from '../lib/hooks.js';
 import type { CarData } from '../lib/types.js';
 import { createRoot } from 'react-dom/client';
@@ -34,7 +34,6 @@ export default function CarAIRentingResults() {
   const [isExpanded, setIsExpanded] = useState(false);
   const toolOutput = useOpenAiGlobal('toolOutput');
   
-  // ESTADOS PARA FULLSCREEN
   const [isFullscreen, setIsFullscreen] = useState(false);
   const [hasAutoOpened, setHasAutoOpened] = useState(false);
   
@@ -43,7 +42,7 @@ export default function CarAIRentingResults() {
     if (carList.length > 0) {
       setCars(carList);
       
-      // AUTO-OPEN: Se expande automáticamente la primera vez que recibe datos
+      // AUTO-OPEN: Al recibir datos, forzamos la expansión para llenar el lienzo
       if (!hasAutoOpened) {
         setIsFullscreen(true);
         setHasAutoOpened(true); 
@@ -70,17 +69,22 @@ export default function CarAIRentingResults() {
   }
 
   return (
+    /* CONTENEDOR DE PANTALLA COMPLETA:
+       Usamos w-full h-full y fixed inset-0 para asegurar que el fondo cubra 
+       todo el Canvas de OpenAI por encima del composer.
+    */
     <div className={`
       transition-all duration-500 ease-in-out antialiased
       ${isFullscreen 
-        ? "fixed inset-0 z-[9999] w-screen h-screen bg-token-main-surface-primary overflow-y-auto p-4 md:p-12" 
+        ? "fixed inset-0 z-[9999] w-full h-full bg-token-main-surface-primary overflow-y-auto" 
         : "relative w-full h-auto bg-token-main-surface-primary p-2 md:p-6"}
     `}>
       
-      <div className={`${isFullscreen ? "max-w-7xl" : "max-w-full"} mx-auto space-y-8 relative`}>
+      {/* Contenedor de contenido centrado profesional */}
+      <div className={`${isFullscreen ? "max-w-7xl" : "max-w-full"} mx-auto space-y-8 relative p-4 md:p-10`}>
         
-        {/* BOTÓN DE TOGGLE */}
-        <div className="absolute -top-2 -right-2 z-[10000]">
+        {/* BOTÓN DE TOGGLE (X) - Posicionado como en el ejemplo de la pizza */}
+        <div className="absolute top-0 right-0 z-[10000] p-4">
           <Tooltip content={isFullscreen ? "Minimizar" : "Pantalla Completa"}>
             <button 
               onClick={() => setIsFullscreen(!isFullscreen)}
@@ -104,13 +108,12 @@ export default function CarAIRentingResults() {
           </div>
           <div className="flex gap-3">
             <div className="flex items-center gap-2 bg-white/10 px-4 py-2 rounded-xl text-white font-bold border border-white/10">
-              {/* Cambiado HiLocationMarker por HiStatusOnline para evitar el error TS */}
               <HiStatusOnline className="text-blue-400 w-4 h-4" /> STOCK CENTRAL
             </div>
           </div>
         </div>
 
-        {/* KPIs */}
+        {/* KPIs: Se benefician del ancho máximo 7xl en fullscreen */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <CarKPICard 
             title="Modelos en Stock" value={stats.total} subtitle="Listos para entrega"
@@ -126,7 +129,7 @@ export default function CarAIRentingResults() {
           />
         </div>
 
-        {/* Listado de Coches */}
+        {/* Grid de Coches: En Fullscreen aprovecha las 4 columnas (lg:grid-cols-4) */}
         <div className={`grid gap-4 ${isFullscreen ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4" : "grid-cols-1 sm:grid-cols-2"}`}>
           {visibleCars.map((car: any) => {
             const cuota = getAttrValue(car.custom_attributes, 'cuota_renting');
@@ -163,7 +166,7 @@ export default function CarAIRentingResults() {
           })}
         </div>
 
-        {/* Botones de Navegación Inferiores */}
+        {/* Navegación Inferior */}
         {isFullscreen ? (
           <div className="flex justify-center pt-8">
             <Button color="gray" pill size="xl" onClick={() => setIsFullscreen(false)}>

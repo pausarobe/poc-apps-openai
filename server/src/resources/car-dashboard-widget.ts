@@ -17,7 +17,7 @@ export function registerCarDashboardWidgetResource(server: McpServer, js: string
           text: makeWidgetHtml(js, css),
           _meta: {
             'openai/view/preference': 'expanded',
-            'openai/widgetPrefersBorder': true,
+            'openai/widgetPrefersBorder': false,
             'openai/widgetDomain': 'https://chatgpt.com',
             'openai/widgetCSP': {
               connect_domains: ['https://chatgpt.com', 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud'],
