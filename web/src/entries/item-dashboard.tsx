@@ -13,10 +13,10 @@ import {
 } from "react-icons/hi";
 
 /** Opcional: si en custom_attributes viene {attribute_code, value} estilo Magento */
-const getAttrValue = (attributes: any[] | undefined, code: string) => {
+/*const getAttrValue = (attributes: any[] | undefined, code: string) => {
   const found = attributes?.find((a: any) => a?.attribute_code === code);
   return found?.value;
-};
+}; */
 
 function KPICard({
   title,

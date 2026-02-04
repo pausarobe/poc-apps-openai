@@ -54,3 +54,23 @@ export interface FlightData {
   } | null;
   live?: any;
 }
+export type Item = {
+  id: number;
+  sku: string;
+  name: string;
+  status: number;
+  price: number;
+  description: string;
+  media_gallery_entries: {
+    id: number,
+    media_type: string,
+    label: string | null,
+    position: number,
+    disabled: boolean,
+    types: string[],
+    file: string
+  }[],
+  custom_attributes: Array<{
+    [key: string]: unknown;
+  }>;
+}
