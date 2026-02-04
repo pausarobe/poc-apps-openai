@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "ntt-flights": {
+      "command": "node",
+      "args": [
+        "/REPLACE/WITH/ABSOLUTE/PATH/TO/poc-apps-openai/server/dist/index.js"
+      ],
+      "env": {
+        "PROVIDER_API_KEY": "your-api-key-here",
+        "PROVIDER_CARS_API_KEY": "your-magento-token-here"
+      }
+    }
+  }
+}

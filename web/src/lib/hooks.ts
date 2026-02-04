@@ -1,26 +1,48 @@
 import { useSyncExternalStore } from 'react';
+import { mcpApp } from './mcp-app.js';
+import type { ToolOutput } from './types.js';
 
-function getOpenAIValue<K extends keyof Window['openai']>(key: K) {
-  return window.openai?.[key];
-}
-
-export function useOpenAiGlobal<K extends keyof Window['openai']>(key: K) {
+/**
+ * Hook to access MCP App tool output
+ * Replaces the previous OpenAI global pattern
+ */
+export function useMcpToolOutput(): ToolOutput | undefined {
   return useSyncExternalStore(
     (onStoreChange: () => void) => {
-      let prev = getOpenAIValue(key);
-
-      const handler = () => {
-        const next = getOpenAIValue(key);
-        if (next !== prev) {
-          prev = next;
-          onStoreChange();
-        }
-      };
-
-      window.addEventListener('openai:set_globals', handler, { passive: true });
-      return () => window.removeEventListener('openai:set_globals', handler);
+      return mcpApp.subscribe(onStoreChange);
     },
-    () => getOpenAIValue(key),
+    () => mcpApp.getToolOutput(),
     () => undefined,
-  ) as Window['openai'][K];
+  );
+}
+
+/**
+ * Hook to call server tools from the UI
+ */
+export function useMcpServerTool() {
+  return async (name: string, args: Record<string, unknown>) => {
+    return await mcpApp.callServerTool(name, args);
+  };
+}
+
+/**
+ * Hook to update model context (send messages to AI)
+ */
+export function useMcpModelContext() {
+  return async (text: string) => {
+    return await mcpApp.updateModelContext(text);
+  };
+}
+
+/**
+ * Legacy hook for backward compatibility during migration
+ * @deprecated Use useMcpToolOutput instead
+ */
+export function useOpenAiGlobal(key: 'toolOutput'): ToolOutput | undefined;
+export function useOpenAiGlobal(key: string): any {
+  if (key === 'toolOutput') {
+    return useMcpToolOutput();
+  }
+  console.warn(`useOpenAiGlobal('${key}') is deprecated. Use MCP App hooks instead.`);
+  return undefined;
 }

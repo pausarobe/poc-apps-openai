@@ -10,9 +10,9 @@ export function registerCarDashboardTool(registerTool: RegisterToolFn) {
       title: 'Car Catalog',
       description: 'Get the complete catalog of available rental vehicles from Magento Cloud',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/car-dashboard.html',
-        'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
-        'openai/toolInvocation/invoked': 'Catálogo cargado correctamente',
+        ui: {
+          resourceUri: 'ui://widget/car-dashboard.html'
+        }
       },
       inputSchema: {
         category: z.string().optional().describe('ID de categoría opcional (ej: 3, 5)'),

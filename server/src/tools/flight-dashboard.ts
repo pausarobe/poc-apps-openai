@@ -10,9 +10,9 @@ export function registerFlightDashboardTool(registerTool: RegisterToolFn) {
       title: 'Flight Dashboard',
       description: 'Starting with a code (IATA) from a airport, you can obtain a dashboard of flights arrivals or departures',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/flight-dashboard.html',
-        'openai/toolInvocation/invoking': 'Displaying the board',
-        'openai/toolInvocation/invoked': 'Displayed the board',
+        ui: {
+          resourceUri: 'ui://widget/flight-dashboard.html'
+        }
       },
       inputSchema: {
         code: z.coerce.string().describe('Airport code (IATA)'),

@@ -13,16 +13,8 @@ export function registerTrainDashboardWidgetResource(server: McpServer, js: stri
       contents: [
         {
           uri: 'ui://widget/train-dashboard.html',
-          mimeType: 'text/html+skybridge',
+          mimeType: 'text/html',
           text: makeWidgetHtml(js, css),
-          _meta: {
-            'openai/widgetPrefersBorder': true,
-            'openai/widgetDomain': 'https://chatgpt.com',
-            'openai/widgetCSP': {
-              connect_domains: ['https://chatgpt.com'],
-              resource_domains: ['https://*.oaistatic.com', 'https://yt3.googleusercontent.com'],
-            },
-          },
         },
       ],
     }),

@@ -13,15 +13,17 @@ export default {
 
 function MockToolOutput({ carList, carDetail, carCreate, showForm, children }: { carList?: CarData[]; carDetail?: CarData; carCreate?: CarData; showForm?: boolean; children: React.ReactNode }) {
   useEffect(() => {
+    // Note: Story files are for visual development only.
+    // Real MCP Apps use the MCP transport layer, not window.openai
     if (typeof window !== 'undefined') {
-      window.openai = {
+      (window as any).openai = {
         toolOutput: {
           carList,
           carDetail,
           carCreate,
           showForm
         },
-      } as any;
+      };
 
       window.dispatchEvent(new Event('openai:set_globals'));
     }

@@ -3,6 +3,7 @@ export interface Airplane {
   production_line: string;
   model_name: string;
 }
+
 export interface CarData {
   id: number;
   sku: string;
@@ -24,6 +25,21 @@ export interface CarData {
     attribute_code: string;
     value: any;
   }>;
+}
+
+/**
+ * Tool output structure from MCP server tools
+ */
+export interface ToolOutput {
+  flightDetail?: FlightData;
+  flightList?: FlightData[];
+  carDetail?: CarData;
+  carList?: CarData[];
+  trainList?: TrainData;
+  carCreate?: CarData;
+  type?: 'arrival' | 'departure';
+  showForm?: boolean;
+  createSuccess?: any;
 }
 
 // ADVERTISING: FlightData type used in web and server, actualize both when modifying

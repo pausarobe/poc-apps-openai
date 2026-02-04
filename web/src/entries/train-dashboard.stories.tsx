@@ -6,11 +6,12 @@ import { trainMock } from '../mock/data';
 function MockToolOutput({ trainList, children }: { trainList: any; children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.openai = {
+      // Note: Stories use mock data. Real MCP Apps use MCP transport.
+      (window as any).openai = {
         toolOutput: {
           trainList,
         },
-      } as any;
+      };
 
       window.dispatchEvent(new Event('openai:set_globals'));
     }

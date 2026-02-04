@@ -1,0 +1,12 @@
+{
+	"servers": {
+		"ntt-flights": {
+			"type": "stdio",
+			"command": "node",
+			"args": [
+				"/absolute/path/to/poc-apps-openai/server/dist/index.js"
+			]
+		}
+	},
+	"inputs": []
+}

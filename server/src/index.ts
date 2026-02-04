@@ -1,4 +1,5 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
 
@@ -24,10 +25,22 @@ registerResources(server, loadWebAssets(WEB_DIST));
 // Register tools
 registerTools(createRegisterTool(server));
 
-// Server
-const transport = createMcpTransport();
-server.connect(transport);
+// Determine transport mode
+const USE_HTTP = process.env.MCP_HTTP === 'true';
 
-const app = createHttpApp(transport);
-const PORT = process.env.PORT || 3333;
-startHttpServer(app, PORT);
+if (USE_HTTP) {
+  // HTTP mode for development/testing
+  const transport = createMcpTransport();
+  server.connect(transport);
+  
+  const app = createHttpApp(transport);
+  const PORT = process.env.PORT || 3333;
+  startHttpServer(app, PORT);
+} else {
+  // Standard stdio transport for MCP clients (VS Code, Claude, etc.)
+  const transport = new StdioServerTransport();
+  server.connect(transport);
+  
+  // Log to stderr (stdout is used for MCP communication)
+  console.error('MCP server started with stdio transport');
+}

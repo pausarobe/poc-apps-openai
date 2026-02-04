@@ -7,12 +7,13 @@ import FlightDashboard from "./flight-dashboard";
 function MockToolOutput({ flightList, children }: { flightList: FlightData[]; children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.openai = {
+      // Note: Stories use mock data. Real MCP Apps use MCP transport.
+      (window as any).openai = {
         toolOutput: {
           flightList,
           type: "arrival",
         },
-      } as any;
+      };
 
       window.dispatchEvent(new Event('openai:set_globals'));
     }
@@ -34,12 +35,13 @@ Arrival.storyName = "Arrival Dashboard";
 function MockToolOutputDeparture({ flightList, children }: { flightList: FlightData[]; children: React.ReactNode }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      window.openai = {
+      // Note: Stories use mock data. Real MCP Apps use MCP transport.
+      (window as any).openai = {
         toolOutput: {
           flightList,
           type: "departure",
         },
-      } as any;
+      };
 
       window.dispatchEvent(new Event('openai:set_globals'));
     }

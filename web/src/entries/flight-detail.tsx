@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { HiArrowRight, HiClock, HiCursorClick, HiExclamationCircle } from 'react-icons/hi';
 import { LuPlaneLanding, LuPlaneTakeoff } from 'react-icons/lu';
 import { useOpenAiGlobal } from '../lib/hooks.js';
+import { mcpApp } from '../lib/mcp-app.js';
 import type { FlightData } from '../lib/types.js';
 
 async function getWeather(iata: string) {
@@ -41,14 +42,15 @@ export default function FlightDetail() {
   }, [flightDetail]);
 
   async function searchRentalCars() {
-    if (!window.openai?.sendFollowUpMessage) {
+    try {
+      setCallError(false);
+      await mcpApp.sendMessage(
+        'Quiero ver coches de alquiler. Llama a la herramienta car-dashboard y muéstrame su widget.'
+      );
+    } catch (error) {
+      console.error('Failed to send message:', error);
       setCallError(true);
-      return;
     }
-    setCallError(false);
-    await window.openai.sendFollowUpMessage({
-      prompt: 'Quiero ver coches de alquiler. Llama a la herramienta car-dashboard y muéstrame su widget.',
-    });
   }
 
   const getStatusBadge = (status: string) => {

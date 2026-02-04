@@ -4,6 +4,7 @@ import { Card, Badge, Button } from 'flowbite-react';
 import { HiClock, HiLocationMarker, HiStatusOnline } from 'react-icons/hi';
 import type { FlightData } from '../lib/types';
 import { useOpenAiGlobal } from '../lib/hooks';
+import { mcpApp } from '../lib/mcp-app.js';
 
 export const sampleFlights: FlightData[] = [
   {
@@ -110,13 +111,13 @@ function deriveFlight(f: FlightData) {
 
 async function searchFlightDetail(flightIata: string) {
   console.log('Searching flight detail...', flightIata);
-  if (!window.openai?.sendFollowUpMessage) {
-    console.error('window.openai.sendFollowUpMessage is not available');
-    return;
+  try {
+    await mcpApp.sendMessage(
+      `Quiero ver el detalle del vuelo. Llama a la herramienta flight-detail con el código IATA '${flightIata}'.`
+    );
+  } catch (error) {
+    console.error('Failed to send message:', error);
   }
-  await window.openai.sendFollowUpMessage({
-    prompt: `Quiero ver el detalle del vuelo. Llama a la herramienta flight-detail con el código IATA '${flightIata}'.`,
-  });
 }
 
 // ---------- UI atoms ----------

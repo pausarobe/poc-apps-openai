@@ -10,9 +10,9 @@ export function registerCarDetailTool(registerTool: RegisterToolFn) {
       title: 'Car Detail',
       description: 'Get the technical details and rental costs of a car using its SKU',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/car-detail.html',
-        'openai/toolInvocation/invoking': 'Consultando catálogo en tiempo real...',
-        'openai/toolInvocation/invoked': 'Ficha técnica actualizada',
+        ui: {
+          resourceUri: 'ui://widget/car-detail.html'
+        }
       },
       inputSchema: {
         sku: z.string().describe('El código SKU del coche (ej: PROD-001)'),

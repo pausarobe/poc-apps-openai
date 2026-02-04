@@ -13,16 +13,8 @@ export function registerFlightDetailWidgetResource(server: McpServer, js: string
       contents: [
         {
           uri: 'ui://widget/flight-detail.html',
-          mimeType: 'text/html+skybridge',
+          mimeType: 'text/html',
           text: makeWidgetHtml(js, css),
-          _meta: {
-            'openai/widgetPrefersBorder': true,
-            'openai/widgetDomain': 'https://chatgpt.com',
-            'openai/widgetCSP': {
-              connect_domains: ['https://chatgpt.com', 'https://api.aviationstack.com', 'https://api.weatherapi.com'],
-              resource_domains: ['https://*.oaistatic.com', 'https://raw.githubusercontent.com', 'https://cdn.weatherapi.com'],
-            },
-          },
         },
       ],
     }),

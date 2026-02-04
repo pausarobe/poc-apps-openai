@@ -16,7 +16,18 @@ export function createRegisterTool(server: McpServer) {
 }
 
 export function makeWidgetHtml(js: string, css?: string) {
-  return `<div id="root"></div>${css ? `<style>${css}</style>` : ''}<script type="module">${js}</script>`.trim();
+  return `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  ${css ? `<style>${css}</style>` : ''}
+</head>
+<body>
+  <div id="root"></div>
+  <script type="module">${js}</script>
+</body>
+</html>`.trim();
 }
 
 export function errorMessage(text: string) {

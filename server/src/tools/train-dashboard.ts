@@ -10,9 +10,9 @@ export function registerTrainDashboardTool(registerTool: RegisterToolFn) {
       title: 'Train Dashboard',
       description: 'Starting with a name station, you can obtain a dashboard of trains arrivals',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/train-dashboard.html',
-        'openai/toolInvocation/invoking': 'Displaying the board',
-        'openai/toolInvocation/invoked': 'Displayed the board',
+        ui: {
+          resourceUri: 'ui://widget/train-dashboard.html'
+        }
       },
       inputSchema: {
         name: z.coerce.string().describe('Name station'),

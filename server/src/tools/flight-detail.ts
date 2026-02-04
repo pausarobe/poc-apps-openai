@@ -10,10 +10,9 @@ export function registerFlightDetailTool(registerTool: RegisterToolFn) {
       title: 'Flight Detail',
       description: 'Starting with a code (IATA), you can obtain the details of a flight',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/flight-detail.html',
-        'openai/widgetAccessible': true,
-        'openai/toolInvocation/invoking': 'Displaying the board',
-        'openai/toolInvocation/invoked': 'Displayed the board',
+        ui: {
+          resourceUri: 'ui://widget/flight-detail.html'
+        }
       },
       inputSchema: {
         code: z.coerce.number().int().describe('Flight code (IATA)'),
