@@ -32,7 +32,7 @@ export type Item = {
   name: string;
   status: number;
   price: number;
-  description: string;
+  description?: string;
   media_gallery_entries: {
     id: number,
     media_type: string,

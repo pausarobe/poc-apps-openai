@@ -5,9 +5,10 @@ import { registerCarDetailWidgetResource } from './car-detail-widget.js';
 import { registerCarDashboardWidgetResource } from './car-dashboard-widget.js';
 import { registerTrainDashboardWidgetResource } from './train-dashboard-widget.js';
 import { registerCarCreateWidgetResource } from './car-create-widget.js';
+import { registerItemDashboardWidgetResource } from './item-dashboard-widgets.js';
 export function registerResources(
   server: McpServer,
-  assets: { CSS: string; JS_FLIGHT_DASHBOARD: string; JS_FLIGHT_DETAIL: string; JS_CAR_DETAIL: string; JS_CAR_DASHBOARD: string; JS_RENFE: string; JS_CAR_CREATE: string },
+  assets: ReturnType<typeof import('../utils/assets.js').loadWebAssets>,
 ) {
   registerFlightDashboardWidgetResource(server, assets.JS_FLIGHT_DASHBOARD, assets.CSS);
   registerFlightDetailWidgetResource(server, assets.JS_FLIGHT_DETAIL, assets.CSS);
@@ -15,4 +16,5 @@ export function registerResources(
   registerCarDashboardWidgetResource(server, assets.JS_CAR_DASHBOARD, assets.CSS);
   registerCarCreateWidgetResource(server, assets.JS_CAR_CREATE, assets.CSS);
   registerTrainDashboardWidgetResource(server, assets.JS_RENFE, assets.CSS);
+  registerItemDashboardWidgetResource(server, assets.JS_ITEM_DASHBOARD, assets.CSS);
 }

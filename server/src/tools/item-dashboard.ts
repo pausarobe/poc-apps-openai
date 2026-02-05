@@ -1,15 +1,13 @@
 import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
-import {itemsData} from '../mock/items.mock.js';
-import { carsData } from '../mock/cars.mock';
 
 export function registerItemDashboardTool(registerTool: RegisterToolFn) {
   registerTool(
     'item-dashboard',
     {
       title: 'Item Catalog',
-      description: 'Get the complete catalog of available rental vehicles from Magento Cloud',
+      description: 'Get the complete catalog of items from Magento Cloud',
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
@@ -21,7 +19,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
     },
     async ({ category }: { category?: string }) => {
       const MAGENTO_BASE_URL = 'https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/rest/V1';
-      const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY; 
+      const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
 
       if (!ACCESS_TOKEN) {
         console.error('ERROR: PROVIDER_CARS_API_KEY no está definida en el entorno.');
@@ -31,7 +29,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
       // 2. Construcción de Search Criteria (Filtros obligatorios para Magento)
       // Filtramos por productos activos (status = 1)
       let query = 'searchCriteria[filter_groups][0][filters][0][field]=website_id&searchCriteria[filter_groups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][0][value]=3';
-      
+
       // Si el usuario pide una categoría, la añadimos
       if (category) {
         query += `&searchCriteria[filter_groups][1][filters][0][field]=website_id&searchCriteria[filter_groups][1][filters][0][value]=${category}`;
@@ -43,7 +41,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
       const FINAL_URL = `${MAGENTO_BASE_URL}/products?${query}`;
 
       console.error('Invocando Magento Cloud en:', FINAL_URL);
-      
+
       try {
         // 3. Llamada a la API con Bearer Token
         const response = await fetch(FINAL_URL, {
@@ -53,19 +51,19 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
             'Content-Type': 'application/json'
           }
         });
-        
+
         if (!response.ok) {
           const errorText = await response.text();
           throw new Error(`Error Magento (${response.status}): ${errorText}`);
         }
 
         const data: any = await response.json();
-        
-      
+
+
         return {
-          content: [{ 
-            type: 'text' as const, 
-            text: `He encontrado ${data.items?.length || 0} vehículos disponibles en la vista de Motores.` 
+          content: [{
+            type: 'text' as const,
+            text: `He encontrado ${data.items?.length || 0} productos disponibles.`
           }],
           structuredContent: { itemsList: data.items },
         };

@@ -79,7 +79,7 @@ export default function ItemDashboard() {
   if (!items || items.length === 0) {
     return (
       <div className="p-12 text-center bg-white rounded-[2rem] border-2 border-dashed border-slate-200">
-        <p className="text-slate-400 italic">Cargando Datos...</p>
+        <p className="text-slate-400 italic">No se han encontrado datos</p>
       </div>
     );
   }
