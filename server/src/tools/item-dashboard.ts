@@ -28,7 +28,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
 
       // 2. Construcción de Search Criteria (Filtros obligatorios para Magento)
       // Filtramos por productos activos (status = 1)
-      let query = 'searchCriteria[filter_groups][0][filters][0][field]=website_id&searchCriteria[filter_groups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][0][value]=3';
+      let query = 'searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][0][value]=3&searchCriteria[filterGroups][0][filters][0][field]=website_id';
 
       // Si el usuario pide una categoría, la añadimos
       if (category) {
