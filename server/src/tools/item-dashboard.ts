@@ -65,7 +65,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
             type: 'text' as const,
             text: `He encontrado ${data.items?.length || 0} productos disponibles.`
           }],
-          structuredContent: { itemsList: data.items },
+          structuredContent: { itemList: data.items },
         };
 
       } catch (error) {
