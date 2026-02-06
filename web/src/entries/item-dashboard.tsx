@@ -12,6 +12,18 @@ import {
   HiPhotograph,
 } from "react-icons/hi";
 
+async function searchDetail(Id: string) {
+  console.log('Searching  detail...', Id);
+  if (!window.openai?.sendFollowUpMessage) {
+    console.error('window.openai.sendFollowUpMessage is not available');
+    return;
+  }
+  await window.openai.sendFollowUpMessage({
+    prompt: `Following previous prompt, I want to see the item with ID '${Id}'.`,
+  });
+}
+
+
 /** Opcional: si en custom_attributes viene {attribute_code, value} estilo Magento */
 /*const getAttrValue = (attributes: any[] | undefined, code: string) => {
   const found = attributes?.find((a: any) => a?.attribute_code === code);
@@ -222,7 +234,10 @@ export default function ItemDashboard() {
                     </p>
                   )}
 
-                  <button className="mt-auto w-full bg-slate-50 text-slate-600 font-bold py-2 rounded-xl hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 group/btn shadow-inner text-sm">
+                  <button
+                    className="mt-auto w-full bg-slate-50 text-slate-600 font-bold py-2 rounded-xl hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 group/btn shadow-inner text-sm"
+                    onClick={() => searchDetail(String(item.id))}
+                  >
                     Ver Detalles
                     <HiArrowRight className="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" />
                   </button>

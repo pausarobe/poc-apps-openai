@@ -31,10 +31,19 @@ export function registerTelcoDashboardTool(registerTool: RegisterToolFn) {
     'telco-dashboard',
     {
       title: 'Telco Catalog',
-      description: `Search for products in a specific catalog.
-Select catalog='b2b' when the user intent corresponds to a business context (e.g. wholesale purchasing, VAT/CIF, net pricing, pallets, business account, contractual terms).
-Select catalog='b2c' when the user intent corresponds to an individual consumer context (e.g. size or color selection, home delivery, returns, final consumer price).
-If the catalog cannot be confidently inferred from the request, ask the user to clarify or fall back to the configured default.`,
+      description: `Search for products in a telco catalog (telecommunications products and services).
+This tool MUST be used only for telco-related products (e.g. mobile plans, broadband, fiber, devices, SIMs, add-ons).
+
+Select catalog='b2b' when the user intent corresponds to a business context (e.g. wholesale purchasing, VAT/CIF, net pricing, business account, contractual terms).
+Select catalog='b2c' when the user intent corresponds to an individual consumer context (e.g. personal plans, devices for personal use, home delivery, returns, final consumer price).
+
+The tool input includes an optional "search" string.
+Populate the "search" field with product-related criteria mentioned by the user, when applicable.
+
+If the request is not related to telco products, do NOT call this tool.
+`,
+// If the catalog cannot be confidently inferred from the request, ask the user to clarify or fall back to the configured default.
+// Do NOT invent or assume a "search" value if it is not explicitly implied by the user request.
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
@@ -42,9 +51,10 @@ If the catalog cannot be confidently inferred from the request, ask the user to 
       },
       inputSchema: {
         catalog: z.enum(['b2b', 'b2c']).describe('El típo de catálogo a consultar: b2b o b2c'),
+        search: z.string().optional().describe('Criterio de búsqueda opcional, basado en la consulta del usuario'),
       }
     },
-    async ({ catalog }: { catalog: 'b2b' | 'b2c' }) => {
+    async ({ catalog, search }: { catalog: 'b2b' | 'b2c', search?: string }) => {
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'b2b' ? '29' : '28';
 
@@ -55,8 +65,11 @@ If the catalog cannot be confidently inferred from the request, ask the user to 
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/telco_${catalog}/graphql`;
-        const gqlQuery = `query GetItems($id: String!) {
-          products(filter: { category_id: { eq: $id } }) {
+        const gqlQuery = `query GetItems($id: String!, $search: String) {
+          products(
+            search: $search,
+            filter: { category_id: { eq: $id } }
+          ) {
             items {
               id
               sku
@@ -87,7 +100,7 @@ If the catalog cannot be confidently inferred from the request, ask the user to 
           },
           body: JSON.stringify({
             query: gqlQuery,
-            variables: { id: catalogId }
+            variables: { id: catalogId, search }
           })
         });
 
