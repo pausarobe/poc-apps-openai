@@ -42,9 +42,9 @@ export type Item = {
     types: string[],
     file: string
   }[],
-  custom_attributes: Array<{
+  custom_attributes: {
     [key: string]: unknown;
-  }>;
+  };
 }
 
 export type ItemList = Item[];

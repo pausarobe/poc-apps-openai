@@ -2,16 +2,16 @@ import { z } from 'zod';
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
 
-export function registerItemDashboardTool(registerTool: RegisterToolFn) {
+export function registerItemDetailTool(registerTool: RegisterToolFn) {
   registerTool(
-    'item-dashboard',
+    'item-detail',
     {
-      title: 'Item Catalog',
-      description: 'Get the complete catalog of items from Magento Cloud',
+      title: 'Item Detail',
+      description: 'Get the complete detail of a telco item from Magento Cloud',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/item-dashboard.html',
-        'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
-        'openai/toolInvocation/invoked': 'Catálogo cargado correctamente',
+        'openai/outputTemplate': 'ui://widget/item-detail.html',
+        'openai/toolInvocation/invoking': 'Consultando detalle de producto en Magento Cloud...',
+        'openai/toolInvocation/invoked': 'Detalle del producto cargado correctamente',
       },
       inputSchema: {
         category: z.string().optional().describe('ID de categoría opcional (ej: 3, 5)'),
@@ -28,7 +28,7 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
 
       // 2. Construcción de Search Criteria (Filtros obligatorios para Magento)
       // Filtramos por productos activos (status = 1)
-      let query = 'searchCriteria[filterGroups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][0][value]=3&searchCriteria[filterGroups][0][filters][0][field]=website_id';
+      let query = 'searchCriteria[filter_groups][0][filters][0][field]=website_id&searchCriteria[filter_groups][0][filters][0][conditionType]=eq&searchCriteria[filterGroups][0][filters][0][value]=3';
 
       // Si el usuario pide una categoría, la añadimos
       if (category) {
@@ -65,11 +65,11 @@ export function registerItemDashboardTool(registerTool: RegisterToolFn) {
             type: 'text' as const,
             text: `He encontrado ${data.items?.length || 0} productos disponibles.`
           }],
-          structuredContent: { itemList: data.items },
+          structuredContent: { itemsList: data.items },
         };
 
       } catch (error) {
-        console.error('Error fetching car catalog from Magento:', error);
+        console.error('Error fetching item detail from Magento:', error);
         return errorMessage('Hubo un problema al conectar con el catálogo de Magento Cloud');
       }
     },

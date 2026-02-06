@@ -9,6 +9,7 @@
   "scripts": {
     "web": "cd web && npm run start:ps",
     "server": "cd server && npm run build && npm start",
+    "chat": "$env:NODE_EXTRA_CA_CERTS=\"C:\\certs\\zscaler-root.pem\" && npx @modelcontextprotocol/inspector",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

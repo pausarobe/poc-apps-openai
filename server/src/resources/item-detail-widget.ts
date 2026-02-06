@@ -1,18 +1,18 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeWidgetHtml } from '../utils/helpers.js';
 
-export function registerItemDashboardWidgetResource(server: McpServer, js: string, css: string) {
+export function registerItemDetailWidgetResource(server: McpServer, js: string, css: string) {
   server.registerResource(
-    'item-dashboard-widget',
-    'ui://widget/item-dashboard.html',
+    'item-detail-widget',
+    'ui://widget/item-detail.html',
     {
-      title: 'Item Catalog Dashboard',
-      description: 'Overview of the items inventory',
+      title: 'Item Catalog Detail',
+      description: 'Overview of the item detail',
     },
     async () => ({
       contents: [
         {
-          uri: 'ui://widget/item-dashboard.html',
+          uri: 'ui://widget/item-detail.html',
           mimeType: 'text/html+skybridge',
           text: makeWidgetHtml(js, css),
           _meta: {
