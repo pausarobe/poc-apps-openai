@@ -21,7 +21,7 @@ export const ItemDashboardIA = () => {
   const items = itemList.items;
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput itemList={items}>
+      <MockToolOutput itemList={items as ItemList}>
         <ItemDashboard />
       </MockToolOutput>
     </div>

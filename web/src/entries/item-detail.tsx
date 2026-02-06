@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import type { Item } from "../lib/types";
 import { useOpenAiGlobal } from "../lib/hooks";
-import { Badge } from "flowbite-react";
 
 export default function ItemDetail() {
-  const [item, setItem] = useState<Item>();
+  const [item, setItem] = useState<Partial<Item>>();
   const toolOutput = useOpenAiGlobal("toolOutput");
 
   useEffect(() => {
@@ -28,16 +27,7 @@ export default function ItemDetail() {
     );
   }
 
-  const imageUrl = item.media_gallery_entries
-    .find((entry) => !entry.disabled && entry.media_type === "image")
-    ?.file;
-
-  const statusLabel =
-    item.status === 1
-      ? "Active"
-      : item.status === 2
-        ? "Inactive"
-        : "Draft";
+  const imageUrl = item.media_gallery_entries?.find((entry) => !entry.disabled && entry.media_type === "image")?.file;
 
   return (
     <div className="min-h-screen bg-background">
@@ -72,35 +62,31 @@ export default function ItemDetail() {
 
           {/* Details Section */}
           <div className="space-y-6">
-            {/* Status Badge */}
-            <div>
-              <Badge>{statusLabel}</Badge>
-            </div>
 
             {/* SKU */}
-            <div>
+            {item.sku && <div>
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 SKU
               </p>
               <p className="mt-1 text-foreground">{item.sku}</p>
-            </div>
+            </div>}
 
             {/* Item Name */}
-            <div>
+            {item.name && <div>
               <h1 className="text-3xl font-bold text-foreground">
                 {item.name}
               </h1>
-            </div>
+            </div>}
 
             {/* Price */}
-            <div>
+            {item.price && <div>
               <p className="text-xs font-medium text-muted-foreground uppercase tracking-wider">
                 Price
               </p>
               <p className="mt-1 text-3xl font-bold text-primary">
                 ${item.price.toFixed(2)}
               </p>
-            </div>
+            </div>}
 
             {/* Description */}
             {item.description && <div>

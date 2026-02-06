@@ -20,7 +20,7 @@ function MockToolOutput({ item, children }: { item: Item; children: React.ReactN
 export const ItemDetailIA = () => {
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput item={item.item}>
+      <MockToolOutput item={item.item as Item}>
         <ItemDetail />
       </MockToolOutput>
     </div>

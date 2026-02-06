@@ -64,7 +64,7 @@ export type Item = {
   media_gallery_entries?: {
     id: number,
     media_type: string,
-    label?: string,
+    label?: string | null,
     position: number,
     disabled: boolean,
     types: ("image" | "small_image" | "thumbnail")[],
