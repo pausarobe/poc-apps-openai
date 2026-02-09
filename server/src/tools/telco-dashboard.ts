@@ -40,8 +40,7 @@ Select catalog='b2c' when the user intent corresponds to an individual consumer 
 The tool input includes an optional "search" string.
 Populate the "search" field with product-related criteria mentioned by the user, when applicable.
 
-If the request is not related to telco products, do NOT call this tool.
-`,
+If the request is not related to telco products, do NOT call this tool.`,
 // If the catalog cannot be confidently inferred from the request, ask the user to clarify or fall back to the configured default.
 // Do NOT invent or assume a "search" value if it is not explicitly implied by the user request.
       _meta: {
@@ -75,18 +74,6 @@ If the request is not related to telco products, do NOT call this tool.
               sku
               name
               descripcion
-              kilometros_max
-              tipo_motor
-              coste_seguro
-              coste_mantenimiento
-              coste_reparaciones
-              provider
-              price_range {
-                minimum_price {
-                  final_price { value }
-                }
-              }
-              media_gallery { url label position }
             }
           }
         }`;
@@ -104,7 +91,12 @@ If the request is not related to telco products, do NOT call this tool.
           })
         });
 
-        const gqlResult = await gqlResponse.json() as { data?: { products?: { items: Product[] } } };
+        const gqlResult = await gqlResponse.json() as { data?: { products?: { items: Product[] }, __type?: { fields: any[] } }, errors?: { message: string }[] };
+        if (gqlResult?.errors && gqlResult.errors.length > 0) {
+          console.error('GraphQL Errors:', gqlResult.errors);
+          throw new Error();
+        }
+        console.log('GQL Result:', gqlResult.data?.__type?.fields);
         const gqlItems = gqlResult.data?.products?.items || [];
 
         const itemList: ItemList = gqlItems.map((item) => ({
