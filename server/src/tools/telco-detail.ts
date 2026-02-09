@@ -30,9 +30,10 @@ export function registerTelcoDetailTool(registerTool: RegisterToolFn) {
     {
       title: 'Telco Detail',
       description: `Retrieve detailed information for a single product from a specific catalog.
+Only call this tool when the user explicitly provides a product SKU
 Select catalog='b2b' when the user intent corresponds to a business context (e.g. wholesale purchasing, VAT/CIF, net pricing, pallets, business account, contractual terms).
 Select catalog='b2c' when the user intent corresponds to an individual consumer context (e.g. personal use, size or color, home delivery, returns, final consumer price).
-Extract the product identifier or product name from the user request.
+Extract the product SKU from the user request.
 If the catalog cannot be confidently inferred, ask the user to clarify before calling this tool.
 If the product cannot be clearly identified, ask a clarification question instead of guessing.`,
       _meta: {
