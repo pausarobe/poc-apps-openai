@@ -5,21 +5,23 @@ import { HiOutlineViewGrid, HiCurrencyEuro } from "react-icons/hi";
 import type { ItemList } from "../lib/types";
 import { useOpenAiGlobal } from "../lib/hooks";
 
-async function searchDetail(sku: string) {
+async function searchDetail(category: string, sku: string) {
   if (!window.openai?.sendFollowUpMessage) return;
   await window.openai.sendFollowUpMessage({
-    prompt: `Following previous prompt, I want to see the item with SKU '${sku}'.`,
+    prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
   });
 }
 
-export default function ItemDashboard() { 
+export default function ItemDashboard() {
   const [items, setItems] = useState<ItemList>();
+  const [category, setCategory] = useState<string>('');
   const toolOutput = useOpenAiGlobal("toolOutput");
 
   useEffect(() => {
     try {
       const list = toolOutput?.itemList;
       if (list) setItems(list);
+      setCategory(toolOutput?.category || '');
     } catch (error) {
       console.error("Error fetching items data:", error);
     }
@@ -55,9 +57,9 @@ export default function ItemDashboard() {
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3">
         {items.map((item) => {
           return (
-            <button 
+            <button
               key={item.sku}
-              onClick={() => searchDetail(item.sku)} 
+              onClick={() => searchDetail(category, item.sku)}
               className="group relative flex flex-col h-full overflow-hidden rounded-[2.5rem] border border-token-border-medium bg-token-main-surface-secondary text-left hover:shadow-[0_20px_50px_rgba(37,99,235,0.15)] hover:border-blue-500/50 transition-all duration-500 shadow-sm"
             >
               <div className="relative h-52 overflow-hidden bg-slate-200">

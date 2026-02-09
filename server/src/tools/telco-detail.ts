@@ -66,22 +66,30 @@ If the product cannot be clearly identified, ask a clarification question instea
         const gqlQuery = `query GetItem($category_id: String!, $sku: String!) {
           products(filter: { category_id: { eq: $category_id }, sku: { eq: $sku } }) {
             items {
-              id
+              uid
               sku
               name
               descripcion
-              kilometros_max
-              tipo_motor
-              coste_seguro
-              coste_mantenimiento
-              coste_reparaciones
-              provider
               price_range {
                 minimum_price {
-                  final_price { value }
+                  regular_price {
+                    currency
+                    value
+                  }
                 }
+              } 
+              image {
+                disabled
+                label
+                position
+                url
               }
-              media_gallery { url label position }
+              thumbnail {
+                disabled
+                label
+                position
+                url
+              }
             }
           }
         }`;
@@ -115,7 +123,7 @@ If the product cannot be clearly identified, ask a clarification question instea
           uid: gqlItem.uid,
           sku: gqlItem.sku,
           name: gqlItem.name,
-          price: gqlItem.price_range.minimum_price.regular_price.value,
+          price: gqlItem.price_range.minimum_price.regular_price?.value,
           description: gqlItem.descripcion,
           image: gqlItem.image,
           custom_attributes: []

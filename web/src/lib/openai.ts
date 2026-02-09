@@ -9,5 +9,6 @@ export interface ToolOutput {
   carCreate?: CarData;
   item?: Item;
   itemList?: ItemList;
+  category?: string;
   type?: 'arrival' | 'departure';
 }

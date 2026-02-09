@@ -140,7 +140,7 @@ If the request is not related to telco products, do NOT call this tool.`,
             type: 'text' as const,
             text: `He encontrado ${itemList.length ?? 0} productos disponibles.`
           }],
-          structuredContent: { itemList },
+          structuredContent: { itemList, category: `telco_${catalog}` },
         };
 
       } catch (error) {
