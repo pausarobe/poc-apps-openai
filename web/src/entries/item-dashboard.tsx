@@ -5,10 +5,10 @@ import { HiOutlineViewGrid, HiCurrencyEuro } from "react-icons/hi";
 import type { ItemList } from "../lib/types";
 import { useOpenAiGlobal } from "../lib/hooks";
 
-async function searchDetail(uid: string) {
+async function searchDetail(sku: string) {
   if (!window.openai?.sendFollowUpMessage) return;
   await window.openai.sendFollowUpMessage({
-    prompt: `Following previous prompt, I want to see the item with UID '${uid}'.`,
+    prompt: `Following previous prompt, I want to see the item with SKU '${sku}'.`,
   });
 }
 
