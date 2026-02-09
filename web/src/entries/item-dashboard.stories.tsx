@@ -18,10 +18,20 @@ function MockToolOutput({ itemList, children }: { itemList: ItemList; children: 
   return <>{children}</>;
 }
 export const ItemDashboardIA = () => {
-  const items = itemList.items;
+  const gqlItems = itemList.data.products.items;
+  const items: ItemList = gqlItems.map((item) => ({
+    uid: item.uid,
+    sku: item.sku,
+    name: item.name,
+    price: item.price_range.minimum_price.regular_price.value,
+    description: item.descripcion,
+    image: item.image,
+    custom_attributes: []
+  }));
+
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput itemList={items as ItemList}>
+      <MockToolOutput itemList={items}>
         <ItemDashboard />
       </MockToolOutput>
     </div>

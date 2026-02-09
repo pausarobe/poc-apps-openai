@@ -1,18 +1,16 @@
-import { useEffect, useState, useMemo } from "react";
-import { createRoot } from "react-dom/client";
-import { Badge, Button } from "flowbite-react";
-import { HiCurrencyEuro, HiInformationCircle, HiCheckCircle } from "react-icons/hi";
+import { useEffect, useState } from "react";
+import { Badge } from "flowbite-react";
+import { HiCurrencyEuro, HiOutlineViewGrid } from "react-icons/hi";
 import { useOpenAiGlobal } from "../lib/hooks";
 import type { Item } from "../lib/types";
 
-const getAttr = (attrs: any[] | undefined, code: string) => 
-  attrs?.find(a => a.attribute_code === code)?.value;
+/* const getAttr = (attrs: any[] | undefined, code: string) => {
+  return attrs?.find(a => a.attribute_code === code)?.value;
+} */
 
 export default function ItemDetail() {
-  const [item, setItem] = useState<Item | null>(null);
+  const [item, setItem] = useState<Item>();
   const toolOutput = useOpenAiGlobal("toolOutput");
-
-  const MEDIA_BASE_URL = "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product";
 
   useEffect(() => {
     const itemData = toolOutput?.item;
@@ -21,91 +19,104 @@ export default function ItemDetail() {
     }
   }, [toolOutput]);
 
-  const data = useMemo(() => {
-    if (!item) return null;
-    const desc = item.description || 
-                 getAttr(item.custom_attributes, 'description') || 
-                 getAttr(item.custom_attributes, 'short_description') || 
-                 "No hay descripción detallada disponible.";
-
-    return {
-      precio: item.price || getAttr(item.custom_attributes, 'cuota_renting') || 0,
-      descripcion: desc
-    };
-  }, [item]);
-
-  if (!item || !data) return null;
-
-  const imageUrl = item.media_gallery_entries?.find((e) => !e.disabled)?.file;
+  if (!item) {
+    return (
+      <div className="p-12 text-center bg-white rounded-[2rem] border-2 border-dashed border-slate-200">
+        <p className="text-slate-400 italic">No se han encontrado datos</p>
+      </div>
+    );
+  }
 
   return (
-    <div className="w-full bg-token-main-surface-primary rounded-[2.5rem] border border-token-border-medium overflow-hidden shadow-sm antialiased">
-      
-      {/* 1. IMAGEN TIPO BANNER (ALTURA REDUCIDA) */}
-      <div className="relative w-full h-64 bg-slate-900 overflow-hidden border-b border-token-border-light">
-        {imageUrl ? (
-          <img 
-            src={imageUrl.startsWith('http') ? imageUrl : `${MEDIA_BASE_URL}${imageUrl}`} 
-            alt={item.name} 
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full flex items-center justify-center bg-slate-800 text-slate-500 italic">
-            Imagen no disponible
-          </div>
-        )}
-        {/* SKU Badge Flotante */}
-        <div className="absolute top-6 left-6">
-          <Badge className="bg-black/60 backdrop-blur-xl text-blue-400 border-0 font-black px-4 py-2 uppercase tracking-tighter text-xs">
-            {item.sku}
-          </Badge>
-        </div>
-      </div>
+    <div className="space-y-6 sm:space-y-8 antialiased p-2 sm:p-4 lg:p-6">
+      {/* HEADER – mobile compacto / desktop premium */}
+      <div className="bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 
+                rounded-[1.25rem] sm:rounded-[2.5rem]
+                p-3 sm:p-8
+                text-white shadow-xl sm:shadow-2xl
+                border-b-2 sm:border-b-4 border-blue-500">
 
-      <div className="p-8 space-y-8">
-        {/* 2. NOMBRE Y ESTADO */}
-        <div>
-          <h1 className="text-4xl font-black text-token-text-primary tracking-tight leading-tight mb-2">
-            {item.name}
-          </h1>
-          <div className="flex items-center gap-2 text-[10px] text-blue-500 font-black uppercase tracking-[0.2em]">
-            <HiInformationCircle className="w-4 h-4" />
-            Stock Central • Disponibilidad Inmediata
-          </div>
-        </div>
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-6">
 
-        {/* 3. CAJA DE PRECIO PREMIUM */}
-        <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 p-8 rounded-[2rem] text-white shadow-2xl flex justify-between items-center border-b-4 border-blue-600 relative overflow-hidden">
-          <div className="relative z-10">
-            <p className="text-[10px] uppercase font-black opacity-50 tracking-[0.2em] mb-2 text-white">Cuota Mensual</p>
-            <div className="flex items-baseline gap-2">
-              <span className="text-5xl font-black">{Math.round(Number(data.precio))}€</span>
-              <span className="text-lg opacity-40 font-bold uppercase">/ mes</span>
+          {/* IZQUIERDA */}
+          <div className="flex items-center gap-3 sm:gap-5">
+            <div className="bg-white/10 p-2 sm:p-4 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-white/20 shadow-inner shrink-0">
+              <HiOutlineViewGrid className="w-5 h-5 sm:w-8 sm:h-8 text-blue-400" />
+            </div>
+
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-3xl font-black tracking-tight leading-tight line-clamp-2">
+                {item.name}
+              </h1>
             </div>
           </div>
-          <HiCurrencyEuro className="absolute -right-4 -bottom-4 w-32 h-32 opacity-10 rotate-12 text-blue-400" />
-        </div>
 
-        {/* 4. DESCRIPCIÓN */}
-        <div className="space-y-4">
-          <h3 className="text-xs font-black text-token-text-tertiary uppercase tracking-[0.3em] flex items-center gap-3">
-            <span className="w-8 h-[1px] bg-token-border-medium"></span>
-            Descripción y Detalles
-          </h3>
-          <div 
-            className="prose prose-sm dark:prose-invert max-w-none text-token-text-secondary leading-relaxed font-medium"
-            dangerouslySetInnerHTML={{ __html: data.descripcion }} 
-          />
+          {/* SKU – debajo en mobile, badge simple */}
+          <div className="self-start sm:self-auto">
+            <span className="inline-block
+                       bg-black/30 sm:bg-black/20
+                       text-blue-300 sm:text-blue-400
+                       text-xs sm:text-2xl
+                       font-black tracking-tight
+                       px-3 py-1.5 sm:px-6 sm:py-3
+                       rounded-xl sm:rounded-2xl
+                       border border-white/10">
+              {item.sku}
+            </span>
+          </div>
         </div>
-
-        {/* 5. BOTÓN DE ACCIÓN GIGANTE */}
-        <Button 
-          size="xl" 
-          className="w-full rounded-[2rem] font-black text-lg uppercase tracking-[0.2em] shadow-2xl bg-gradient-to-r from-blue-600 to-indigo-700 hover:from-blue-700 hover:to-indigo-800 text-white border-0 py-6 transition-all hover:scale-[1.01]"
-        >
-          <HiCheckCircle className="mr-3 h-7 w-7" /> Reservar Ahora
-        </Button>
       </div>
+
+      {/* 2. DETALLE DEL ITEM (mobile 1 col / desktop 2 cols) */}
+      <div className="grid gap-6 sm:gap-8 lg:grid-cols-2 lg:items-start">
+        {/* IMAGEN (siempre llena + responsive) */}
+        <div className="relative overflow-hidden rounded-[2rem] sm:rounded-[2.5rem] border border-token-border-medium bg-slate-200 shadow-lg">
+          {/* Altura estable en mobile/tablet, y en desktop altura “hero” */}
+          <div className="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[520px]">
+            {item.image ? (
+              <img
+                src={item.image.url}
+                alt={item.image.label ?? item.name}
+                className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 hover:scale-105"
+              />
+            ) : (
+              <div className="absolute inset-0 flex items-center justify-center bg-slate-300 text-slate-400">
+                <HiOutlineViewGrid className="w-16 h-16 sm:w-20 sm:h-20 opacity-20" />
+              </div>
+            )}
+          </div>
+
+          <div className="absolute top-4 sm:top-6 left-4 sm:left-6">
+            <Badge className="bg-black/70 backdrop-blur-md text-white border-0 font-black uppercase tracking-tighter px-3 sm:px-4 py-1">
+              {item.sku}
+            </Badge>
+          </div>
+        </div>
+
+        {/* INFO */}
+        <div className="flex flex-col gap-5 sm:gap-6 rounded-[2rem] sm:rounded-[2.5rem] border border-token-border-medium bg-token-main-surface-secondary p-5 sm:p-8 shadow-sm">
+          {/* DESCRIPCIÓN */}
+          {item.description && (
+            <p className="text-sm sm:text-[15px] leading-relaxed text-token-text-secondary opacity-80">
+              {item.description}
+            </p>
+          )}
+
+          {/* FOOTER PRECIO */}
+          <div className="mt-2 sm:mt-auto pt-6 border-t border-token-border-light">
+            <span className="text-[10px] font-black uppercase tracking-widest text-token-text-tertiary mb-2 block">
+              Precio final
+            </span>
+            <div className="flex items-center gap-2 text-3xl sm:text-4xl font-black text-blue-600 dark:text-blue-400">
+              <HiCurrencyEuro className="w-6 h-6 sm:w-7 sm:h-7 opacity-40" />
+              {item.price} €
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Espaciador para que el sticky no tape contenido en mobile */}
+      <div className="sm:hidden h-20" />
     </div>
   );
 }

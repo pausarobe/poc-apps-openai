@@ -18,9 +18,19 @@ function MockToolOutput({ item, children }: { item: Item; children: React.ReactN
   return <>{children}</>;
 }
 export const ItemDetailIA = () => {
+  const gqlItem = item.item;
+  const itemList: Item = {
+    uid: gqlItem.uid,
+    sku: gqlItem.sku,
+    name: gqlItem.name,
+    price: gqlItem.price_range.minimum_price.regular_price.value,
+    description: gqlItem.descripcion,
+    image: gqlItem.image,
+    custom_attributes: []
+  };
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput item={item.item as Item}>
+      <MockToolOutput item={itemList}>
         <ItemDetail />
       </MockToolOutput>
     </div>

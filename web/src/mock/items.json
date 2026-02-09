@@ -1,4382 +1,1008 @@
 {
-    "items": [
+  "data": {
+    "products": {
+      "items": [
         {
-            "id": 1194,
-            "sku": "Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas",
-            "name": "Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas",
-            "attribute_set_id": 18,
-            "price": 50,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "virtual",
-            "created_at": "2026-02-03 17:54:57",
-            "updated_at": "2026-02-09 09:42:53",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -1,
-                        "category_id": "45"
-                    },
-                    {
-                        "position": -26,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -7,
-                        "category_id": "35"
-                    }
-                ]
+          "uid": "MTI0Ng==",
+          "sku": "Fibra 1Gb + TV opcional",
+          "name": "Fibra 1Gb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 25
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 25
+              }
             },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1308,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/t/e/telco-001.png"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Descripcion Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "short_description",
-                    "value": "<p>Short Description: Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas</p>"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/t/e/telco-001.png"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-600mb-movil-50gb-y-llamadas-ilimitadas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/t/e/telco-001.png"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/t/e/telco-001.png"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/t/e/telco-001.png"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 600Mb + Móvil 50Gb y llamadas ilimitadas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "45",
-                        "29",
-                        "35"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1196,
-            "sku": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas",
-            "name": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas",
-            "attribute_set_id": 18,
-            "price": 55,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-05 12:16:52",
-            "updated_at": "2026-02-09 08:58:59",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -2,
-                        "category_id": "35"
-                    },
-                    {
-                        "position": -27,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "45"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1310,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/f/i/fibra2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/f/i/fibra2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-1-gb-movil-1000gb-y-llamadas-ilimitadas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/f/i/fibra2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/f/i/fibra2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/f/i/fibra2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 1 Gb + Móvil 1000Gb y llamadas ilimitadas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "35",
-                        "29",
-                        "45"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1197,
-            "sku": "Fibra 1 Gb + Móvil datos y llamadas ilimitados",
-            "name": "Fibra 1 Gb + Móvil datos y llamadas ilimitados",
-            "attribute_set_id": 18,
-            "price": 60,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-05 12:21:21",
-            "updated_at": "2026-02-09 08:59:49",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -3,
-                        "category_id": "35"
-                    },
-                    {
-                        "position": -28,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "45"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1311,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/f/i/fibra3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Fibra 1 Gb + Móvil datos y llamadas ilimitados"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/f/i/fibra3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-1-gb-movil-datos-y-llamadas-ilimitados"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/f/i/fibra3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 1 Gb + Móvil datos y llamadas ilimitados"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/f/i/fibra3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 1 Gb + Móvil datos y llamadas ilimitados"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/f/i/fibra3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 1 Gb + Móvil datos y llamadas ilimitados "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "35",
-                        "29",
-                        "45"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1198,
-            "sku": "Fibra 300Mb linea fija",
-            "name": "Fibra 300Mg linea fija",
-            "attribute_set_id": 18,
-            "price": 25,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 08:43:25",
-            "updated_at": "2026-02-09 09:00:36",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -4,
-                        "category_id": "35"
-                    },
-                    {
-                        "position": -29,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "46"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1312,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/f/i/fibra4.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Fibra 300Mg linea fija"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/f/i/fibra4.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-300mg-linea-fija"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/f/i/fibra4.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 300Mg linea fija"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/f/i/fibra4.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 300Mg linea fija"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/f/i/fibra4.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 300Mg linea fija "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "35",
-                        "29",
-                        "46"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1199,
-            "sku": "Fibra 600Mb linea fija",
-            "name": "Fibra 600Mg linea fija",
-            "attribute_set_id": 18,
-            "price": 30,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 08:51:39",
-            "updated_at": "2026-02-09 09:01:20",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -5,
-                        "category_id": "35"
-                    },
-                    {
-                        "position": -30,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "46"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1313,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/f/i/fibra5.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Fibra 600Mg linea fija"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/f/i/fibra5.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-600mg-linea-fija"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/f/i/fibra5.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 600Mg linea fija"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/f/i/fibra5.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 600Mg linea fija"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/f/i/fibra5.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 600Mg linea fija "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "35",
-                        "29",
-                        "46"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1200,
-            "sku": "Fibra 1Gb linea fija",
-            "name": "Fibra 1Gb linea fija",
-            "attribute_set_id": 18,
-            "price": 35,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 08:56:51",
-            "updated_at": "2026-02-09 09:02:04",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -6,
-                        "category_id": "35"
-                    },
-                    {
-                        "position": -31,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "46"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1314,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/f/i/fibra6.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Fibra 1Gb linea fija"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/f/i/fibra6.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "fibra-1gb-linea-fija"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/f/i/fibra6.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Fibra 1Gb linea fija"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/f/i/fibra6.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Fibra 1Gb linea fija"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/f/i/fibra6.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Fibra 1Gb linea fija "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "35",
-                        "29",
-                        "46"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1201,
-            "sku": "Centralita virtual hasta 100 líneas",
-            "name": "Centralita virtual hasta 100 líneas",
-            "attribute_set_id": 18,
-            "price": 30,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 09:14:27",
-            "updated_at": "2026-02-09 09:02:47",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -1,
-                        "category_id": "36"
-                    },
-                    {
-                        "position": -32,
-                        "category_id": "29"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1315,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/c/e/centralita1.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Cola de llamadas, presentación número de cabecera, grupo de captura"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/c/e/centralita1.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "centralita-virtual-hasta-100-lineas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/c/e/centralita1.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Centralita virtual hasta 100 líneas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/c/e/centralita1.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Centralita virtual hasta 100 líneas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/c/e/centralita1.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Centralita virtual hasta 100 líneas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "36",
-                        "29"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1202,
-            "sku": "Centralita virtual avanzada hasta 100 líneas",
-            "name": "Centralita virtual avanzada hasta 100 líneas",
-            "attribute_set_id": 18,
-            "price": 35,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 09:35:04",
-            "updated_at": "2026-02-06 09:35:04",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -1,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "36"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1316,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/c/e/centralita2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Cola de llamadas, presentación número de cabecera, grupo de captura, asistente virtual "
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/c/e/centralita2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "centralita-virtual-avanzada-hasta-100-lineas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/c/e/centralita2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Centralita virtual avanzada hasta 100 líneas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/c/e/centralita2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Centralita virtual avanzada hasta 100 líneas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/c/e/centralita2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Centralita virtual avanzada hasta 100 líneas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "36"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1203,
-            "sku": "Centralita virtual avanzada más de 100 líneas",
-            "name": "Centralita virtual avanzada más de 100 líneas",
-            "attribute_set_id": 18,
-            "price": 40,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 09:47:44",
-            "updated_at": "2026-02-06 09:47:44",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -2,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "36"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1317,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/c/e/centralita3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Cola de llamadas, presentación número de cabecera, grupo de captura, asistente virtual, no molestar, grupo de extensiones"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/c/e/centralita3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "centralita-virtual-avanzada-mas-de-100-lineas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/c/e/centralita3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Centralita virtual avanzada más de 100 líneas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/c/e/centralita3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Centralita virtual avanzada más de 100 líneas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/c/e/centralita3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Centralita virtual avanzada más de 100 líneas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "36"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1204,
-            "sku": "Llamadas ilimitadas, 50GB a máxima velocidad",
-            "name": "Llamadas ilimitadas, 50GB a máxima velocidad",
-            "attribute_set_id": 18,
-            "price": 20,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 10:06:42",
-            "updated_at": "2026-02-06 10:06:42",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -3,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "37"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1318,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/m/o/movil1.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Llamadas ilimitadas, datos ilimitados primeros 50GB a máxima velocidad"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/m/o/movil1.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "llamadas-ilimitadas-50gb-a-maxima-velocidad"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/m/o/movil1.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Llamadas ilimitadas, 50GB a máxima velocidad"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/m/o/movil1.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Llamadas ilimitadas, 50GB a máxima velocidad"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/m/o/movil1.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Llamadas ilimitadas, 50GB a máxima velocidad "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "37"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1205,
-            "sku": "Llamadas ilimitadas, datos ilimitados 100Gb",
-            "name": "Llamadas ilimitadas, datos ilimitados 100Gb",
-            "attribute_set_id": 18,
-            "price": 25,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 10:18:04",
-            "updated_at": "2026-02-06 10:18:04",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -4,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "37"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1319,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/m/o/movil2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Llamadas ilimitadas, datos ilimitados primeros 100GB a máxima velocidad"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/m/o/movil2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "llamadas-ilimitadas-datos-ilimitados-100gb"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/m/o/movil2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Llamadas ilimitadas, datos ilimitados 100Gb"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/m/o/movil2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Llamadas ilimitadas, datos ilimitados 100Gb"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/m/o/movil2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Llamadas ilimitadas, datos ilimitados 100Gb "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "37"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1206,
-            "sku": "Llamadas ilimitadas e internacionales",
-            "name": "Llamadas ilimitadas, datos ilimitados y 500 min llamadas internacionales",
-            "attribute_set_id": 18,
-            "price": 35,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 10:21:51",
-            "updated_at": "2026-02-06 10:23:05",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -5,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "37"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1320,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/m/o/movil3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Llamadas ilimitadas, datos ilimitados primeros 100GB a máxima velocidad y 500 min llamadas internacionales"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/m/o/movil3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "llamadas-ilimitadas-datos-ilimitados-y-500-min-llamadas-internacionales"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/m/o/movil3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Llamadas ilimitadas, datos ilimitados y 500 min llamadas internacionales"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/m/o/movil3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Llamadas ilimitadas, datos ilimitados y 500 min llamadas internacionales"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/m/o/movil3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Llamadas ilimitadas, datos ilimitados y 500 min llamadas internacionales "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "37"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1207,
-            "sku": "iPhone 17 256 GB",
-            "name": "iPhone 17 256 GB",
-            "attribute_set_id": 18,
-            "price": 17,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 10:57:16",
-            "updated_at": "2026-02-09 09:29:31",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -6,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -8,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1321,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/m/o/movil4.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "iPhone 17 256 GB"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/m/o/movil4.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "iphone-17-256-gb"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/m/o/movil4.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "iPhone 17 256 GB"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/m/o/movil4.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "iPhone 17 256 GB"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/m/o/movil4.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "iPhone 17 256 GB "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1208,
-            "sku": "iPhone 17 Pro 256 GB",
-            "name": "iPhone 17 Pro 256 GB",
-            "attribute_set_id": 18,
-            "price": 25,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 10:59:32",
-            "updated_at": "2026-02-09 09:31:31",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -7,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -9,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1322,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/a/l/alquiler1.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "iPhone 17 Pro 256 GB"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/a/l/alquiler1.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "iphone-17-pro-256-gb"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/a/l/alquiler1.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "iPhone 17 Pro 256 GB"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/a/l/alquiler1.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "iPhone 17 Pro 256 GB"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/a/l/alquiler1.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "iPhone 17 Pro 256 GB "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1209,
-            "sku": "Xiaomi Redmi Note 15 Pro 5G",
-            "name": "Xiaomi Redmi Note 15 Pro 5G",
-            "attribute_set_id": 18,
-            "price": 6,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-06 11:01:49",
-            "updated_at": "2026-02-09 09:37:52",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -8,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -10,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1323,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/a/l/alquiler2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Xiaomi Redmi Note 15 Pro 5G"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/a/l/alquiler2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "xiaomi-redmi-note-15-pro-5g"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/a/l/alquiler2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Xiaomi Redmi Note 15 Pro 5G"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/a/l/alquiler2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Xiaomi Redmi Note 15 Pro 5G"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/a/l/alquiler2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Xiaomi Redmi Note 15 Pro 5G "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1210,
-            "sku": "Samsung Galaxy S25 Ultra 5G",
-            "name": "Samsung Galaxy S25 Ultra 5G",
-            "attribute_set_id": 18,
-            "price": 22,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 07:37:16",
-            "updated_at": "2026-02-09 09:38:31",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -9,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -4,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -11,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -4,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1324,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/a/l/alquiler3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Samsung Galaxy S25 Ultra 5G"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/a/l/alquiler3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "samsung-galaxy-s25-ultra-5g"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/a/l/alquiler3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Samsung Galaxy S25 Ultra 5G"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/a/l/alquiler3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Samsung Galaxy S25 Ultra 5G"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/a/l/alquiler3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Samsung Galaxy S25 Ultra 5G "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1211,
-            "sku": "Google Pixel 10 5G",
-            "name": "Google Pixel 10 5G",
-            "attribute_set_id": 18,
-            "price": 12,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 07:43:46",
-            "updated_at": "2026-02-09 07:43:46",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -10,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -5,
-                        "category_id": "38"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1325,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/a/l/alquiler4.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Google Pixel 10 5G"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/a/l/alquiler4.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "google-pixel-10-5g"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/a/l/alquiler4.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Google Pixel 10 5G"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/a/l/alquiler4.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Google Pixel 10 5G"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/a/l/alquiler4.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Google Pixel 10 5G "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1212,
-            "sku": "Samsung 65 Smart TV",
-            "name": "Samsung 65 Smart TV",
-            "attribute_set_id": 18,
-            "price": 12,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 07:53:35",
-            "updated_at": "2026-02-09 09:41:03",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -11,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -6,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -12,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -5,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1326,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [],
-                    "file": "/a/l/alquiler5.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Samsung 65 Smart TV"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "samsung-65-smart-tv"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Samsung 65 Smart TV"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Samsung 65 Smart TV"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Samsung 65 Smart TV "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1213,
-            "sku": "Xiaomi Redmi Pad 2 Pro",
-            "name": "Xiaomi Redmi Pad 2 Pro",
-            "attribute_set_id": 18,
-            "price": 5,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:04:09",
-            "updated_at": "2026-02-09 09:40:08",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    5,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -12,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -7,
-                        "category_id": "38"
-                    },
-                    {
-                        "position": -13,
-                        "category_id": "28"
-                    },
-                    {
-                        "position": -6,
-                        "category_id": "34"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1327,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/a/l/alquiler6.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Xiaomi Redmi Pad 2 Pro"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/a/l/alquiler6.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "xiaomi-redmi-pad-2-pro"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/a/l/alquiler6.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Xiaomi Redmi Pad 2 Pro"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/a/l/alquiler6.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Xiaomi Redmi Pad 2 Pro"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/a/l/alquiler6.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Xiaomi Redmi Pad 2 Pro "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "38",
-                        "28",
-                        "34"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1214,
-            "sku": "Antivirus en PC y 1 dispositivo móvil",
-            "name": "Antivirus en PC y 1 dispositivo móvil",
-            "attribute_set_id": 18,
-            "price": 10,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:08:18",
-            "updated_at": "2026-02-09 08:08:18",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -13,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "40"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1328,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/e/seguridad1.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Antivirus en PC y 1 dispositivo móvil. Servicio de soporte ante urgencias"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/e/seguridad1.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "antivirus-en-pc-y-1-dispositivo-movil"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/e/seguridad1.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Antivirus en PC y 1 dispositivo móvil"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/e/seguridad1.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Antivirus en PC y 1 dispositivo móvil"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/e/seguridad1.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Antivirus en PC y 1 dispositivo móvil "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "40"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1215,
-            "sku": "Conectividad SD-WAN",
-            "name": "Conectividad SD-WAN",
-            "attribute_set_id": 18,
-            "price": 70,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:22:52",
-            "updated_at": "2026-02-09 08:22:52",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -14,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "40"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1329,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/e/seguridad2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Conectividad SD-WAN"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/e/seguridad2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "conectividad-sd-wan"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/e/seguridad2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Conectividad SD-WAN"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/e/seguridad2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Conectividad SD-WAN"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/e/seguridad2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Conectividad SD-WAN "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "40"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1216,
-            "sku": "Microsoft O365",
-            "name": "Microsoft O365",
-            "attribute_set_id": 18,
-            "price": 7,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:34:40",
-            "updated_at": "2026-02-09 08:34:40",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -15,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "41"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1330,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/w/o/workplace.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Microsoft O365"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/w/o/workplace.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "microsoft-o365"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/w/o/workplace.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Microsoft O365"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/w/o/workplace.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Microsoft O365"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/w/o/workplace.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Microsoft O365 "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "41"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1217,
-            "sku": "Copilot Microsoft M365",
-            "name": "Copilot Microsoft M365",
-            "attribute_set_id": 18,
-            "price": 3,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:36:06",
-            "updated_at": "2026-02-09 08:36:06",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -16,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -4,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "41"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1331,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/w/o/workplace2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Copilot Microsoft M365"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/w/o/workplace2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "copilot-microsoft-m365"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/w/o/workplace2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Copilot Microsoft M365"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/w/o/workplace2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Copilot Microsoft M365"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/w/o/workplace2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Copilot Microsoft M365 "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "41"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1218,
-            "sku": "Google Workspace",
-            "name": "Google Workspace",
-            "attribute_set_id": 18,
-            "price": 6,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:37:30",
-            "updated_at": "2026-02-09 08:37:30",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -17,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -5,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "41"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1332,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/w/o/workplace3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "image",
-                    "value": "/w/o/workplace3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "google-workspace"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/w/o/workplace3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Google Workspace"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/w/o/workplace3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Google Workspace"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/w/o/workplace3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Google Workspace "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "41"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1219,
-            "sku": "Tu factura",
-            "name": "Tu factura",
-            "attribute_set_id": 18,
-            "price": 11,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:42:32",
-            "updated_at": "2026-02-09 08:42:32",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -18,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -6,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "42"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1333,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/o/soluciones.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Tu factura"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/o/soluciones.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "tu-factura"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/o/soluciones.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Tu factura"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/o/soluciones.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Tu factura"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/o/soluciones.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Tu factura "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "42"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1220,
-            "sku": "Registro de horas",
-            "name": "Registro de horas",
-            "attribute_set_id": 18,
-            "price": 3,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:44:06",
-            "updated_at": "2026-02-09 08:44:06",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -19,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -7,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "42"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1334,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/o/soluciones2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Registro de horas"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/o/soluciones2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "registro-de-horas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/o/soluciones2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Registro de horas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/o/soluciones2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Registro de horas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/o/soluciones2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Registro de horas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "42"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1221,
-            "sku": "Firma digital",
-            "name": "Firma digital",
-            "attribute_set_id": 18,
-            "price": 30,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:46:03",
-            "updated_at": "2026-02-09 08:46:03",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -20,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -8,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -3,
-                        "category_id": "42"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1335,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/o/soluciones3.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "50 firmas digitales"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/o/soluciones3.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "firma-digital"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/o/soluciones3.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Firma digital"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/o/soluciones3.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Firma digital"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/o/soluciones3.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Firma digital "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "42"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1222,
-            "sku": "Mensajeria masiva",
-            "name": "Mensajeria masiva",
-            "attribute_set_id": 18,
-            "price": 3,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:47:41",
-            "updated_at": "2026-02-09 08:47:41",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -21,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -9,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -4,
-                        "category_id": "42"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1336,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/s/o/soluciones4.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Mensajeria masiva"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/s/o/soluciones4.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "mensajeria-masiva"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/s/o/soluciones4.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Mensajeria masiva"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/s/o/soluciones4.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Mensajeria masiva"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/s/o/soluciones4.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Mensajeria masiva "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "42"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1223,
-            "sku": "Baliza v16",
-            "name": "Baliza v16",
-            "attribute_set_id": 18,
-            "price": 0,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:49:44",
-            "updated_at": "2026-02-09 08:49:44",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -22,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -10,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "43"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1337,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/i/o/iot.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Baliza v16 , precio  adaptado a tu negocio"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/i/o/iot.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "baliza-v16"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/i/o/iot.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Baliza v16"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/i/o/iot.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Baliza v16"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/i/o/iot.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Baliza v16 "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "43"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1224,
-            "sku": "Gestión de flotas",
-            "name": "Gestión de flotas",
-            "attribute_set_id": 18,
-            "price": 6,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:51:11",
-            "updated_at": "2026-02-09 08:51:11",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -23,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -11,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "43"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1338,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/i/o/iot2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Gestión de flotas"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/i/o/iot2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "gestion-de-flotas"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/i/o/iot2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Gestión de flotas"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/i/o/iot2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Gestión de flotas"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/i/o/iot2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Gestión de flotas "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "43"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1225,
-            "sku": "Servidor en la nube",
-            "name": "Servidor en la nube",
-            "attribute_set_id": 18,
-            "price": 12,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:53:14",
-            "updated_at": "2026-02-09 08:53:14",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -24,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -12,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -1,
-                        "category_id": "44"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1339,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/c/l/cloud.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Servidor en la nube "
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/c/l/cloud.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "servidor-en-la-nube"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/c/l/cloud.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Servidor en la nube"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/c/l/cloud.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Servidor en la nube"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/c/l/cloud.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Servidor en la nube "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "44"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        },
-        {
-            "id": 1226,
-            "sku": "Cloud backup",
-            "name": "Cloud backup",
-            "attribute_set_id": 18,
-            "price": 11,
-            "status": 1,
-            "visibility": 4,
-            "type_id": "simple",
-            "created_at": "2026-02-09 08:56:14",
-            "updated_at": "2026-02-09 08:56:14",
-            "extension_attributes": {
-                "website_ids": [
-                    1,
-                    6
-                ],
-                "category_links": [
-                    {
-                        "position": -25,
-                        "category_id": "29"
-                    },
-                    {
-                        "position": -13,
-                        "category_id": "39"
-                    },
-                    {
-                        "position": -2,
-                        "category_id": "44"
-                    }
-                ]
-            },
-            "product_links": [],
-            "options": [],
-            "media_gallery_entries": [
-                {
-                    "id": 1340,
-                    "media_type": "image",
-                    "label": null,
-                    "position": 1,
-                    "disabled": false,
-                    "types": [
-                        "image",
-                        "small_image",
-                        "thumbnail",
-                        "swatch_image"
-                    ],
-                    "file": "/c/l/cloud2.jpg"
-                }
-            ],
-            "tier_prices": [],
-            "custom_attributes": [
-                {
-                    "attribute_code": "descripcion",
-                    "value": "Cloud backup"
-                },
-                {
-                    "attribute_code": "image",
-                    "value": "/c/l/cloud2.jpg"
-                },
-                {
-                    "attribute_code": "url_key",
-                    "value": "cloud-backup"
-                },
-                {
-                    "attribute_code": "page_layout",
-                    "value": "product-full-width"
-                },
-                {
-                    "attribute_code": "gift_message_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "small_image",
-                    "value": "/c/l/cloud2.jpg"
-                },
-                {
-                    "attribute_code": "meta_title",
-                    "value": "Cloud backup"
-                },
-                {
-                    "attribute_code": "options_container",
-                    "value": "container2"
-                },
-                {
-                    "attribute_code": "gift_wrapping_available",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "thumbnail",
-                    "value": "/c/l/cloud2.jpg"
-                },
-                {
-                    "attribute_code": "meta_keyword",
-                    "value": "Cloud backup"
-                },
-                {
-                    "attribute_code": "swatch_image",
-                    "value": "/c/l/cloud2.jpg"
-                },
-                {
-                    "attribute_code": "meta_description",
-                    "value": "Cloud backup "
-                },
-                {
-                    "attribute_code": "msrp_display_actual_price_type",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "tax_class_id",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "required_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "has_options",
-                    "value": "0"
-                },
-                {
-                    "attribute_code": "category_ids",
-                    "value": [
-                        "29",
-                        "39",
-                        "44"
-                    ]
-                },
-                {
-                    "attribute_code": "is_returnable",
-                    "value": "2"
-                },
-                {
-                    "attribute_code": "provider",
-                    "value": "304"
-                }
-            ]
-        }
-    ],
-    "search_criteria": {
-        "filter_groups": [
-            {
-                "filters": [
-                    {
-                        "field": "website_id",
-                        "value": "6",
-                        "condition_type": "eq"
-                    }
-                ]
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 25
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 25
+              }
             }
-        ]
-    },
-    "total_count": 32
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 1Gb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra9.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 1Gb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra9.jpg"
+          },
+          "descripcion": "Fibra 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0NQ==",
+          "sku": "Fibra 600Mb + TV opcional",
+          "name": "Fibra 600Mb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 20
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 20
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 600Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra8.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 600Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra8.jpg"
+          },
+          "descripcion": "Fibra 600Mb + TV opcional"
+        },
+        {
+          "uid": "MTI0NA==",
+          "sku": "4 líneas fibra + móvil 1Gb",
+          "name": "4 líneas fibra + móvil 1Gb ",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 77
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 77
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 77
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 77
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 1Gb ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil9_b2c_1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 1Gb ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil9_b2c_1.jpg"
+          },
+          "descripcion": "4 líneas fibra + móvil 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0Mw==",
+          "sku": "Fibra 300Mb + TV opcional",
+          "name": "Fibra 300Mb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 300Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra7.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 300Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra7.jpg"
+          },
+          "descripcion": "Fibra 300Mb + TV opcional"
+        },
+        {
+          "uid": "MTI0MQ==",
+          "sku": "2 líneas fibra + móvil 1Gb",
+          "name": "2 líneas fibra + móvil 1Gb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 1Gb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil7_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 1Gb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil7_b2c.jpg"
+          },
+          "descripcion": "2 líneas fibra + móvil 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0MA==",
+          "sku": "1 línea fibra + móvil 1Gb datos ilimitados",
+          "name": "1 línea fibra + móvil 1Gb datos ilimitados",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 62
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 62
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 62
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 62
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil6_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil6_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 1Gb con datos ilimitados a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzOQ==",
+          "sku": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+          "name": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil5_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil5_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzOA==",
+          "sku": "4 líneas fibra + móvil 600Mb",
+          "name": "4 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 70
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 70
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 70
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 70
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+          },
+          "descripcion": "4 líneas fibra + móvil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNw==",
+          "sku": "3 líneas fibra + móvil 600Mb",
+          "name": "3 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "3 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c_1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "3 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c_1.jpg"
+          },
+          "descripcion": "3 líneas fibra + móvil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNg==",
+          "sku": "2 líneas fibra + móvil 600Mb",
+          "name": "2 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c.jpg"
+          },
+          "descripcion": "2 líneas fibra + móvil 600Mb"
+        },
+        {
+          "uid": "MTIzNQ==",
+          "sku": "1 línea fibra + móvil 600Mb datos ilimitados",
+          "name": "1 linea fibra y movil 600Mb datos ilimitados",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 55
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 55
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil2_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil2_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 600Mb con datos ilimitados a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNA==",
+          "sku": "1 linea fibra y movil 600Mb",
+          "name": "1 linea fibra y movil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 50
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 50
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 50
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 50
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil_b2c.jpg"
+          },
+          "descripcion": "1 linea fibra y movil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzMw==",
+          "sku": "TV Prime video adicional",
+          "name": "TV Prime video adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 3
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 3
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 3
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 3
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Prime video adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv3.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Prime video adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv3.jpg"
+          },
+          "descripcion": "TV Prime video adicional"
+        },
+        {
+          "uid": "MTIzMg==",
+          "sku": "TV Netflix adicional",
+          "name": "TV Netflix adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Netflix adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv2.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Netflix adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv2.jpg"
+          },
+          "descripcion": "TV Netflix adicional"
+        },
+        {
+          "uid": "MTIzMQ==",
+          "sku": "TV Deportes adicional",
+          "name": "TV Deportes adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Deportes adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Deportes adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv1.jpg"
+          },
+          "descripcion": "TV Deportes adicional"
+        },
+        {
+          "uid": "MTIzMA==",
+          "sku": "TV 70 canales",
+          "name": "TV 70 canales",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 10
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 10
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 10
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 10
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV 70 canales",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV 70 canales",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv.jpg"
+          },
+          "descripcion": "TV 70 canales (A sumar en caso de adicional)"
+        },
+        {
+          "uid": "MTIyOQ==",
+          "sku": "Datos ilimitados a velocidad 5G",
+          "name": "Datos ilimitados a velocidad 5G",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 30
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 30
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 30
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 30
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados a velocidad 5G",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil3_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados a velocidad 5G",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil3_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados a velocidad 5G"
+        },
+        {
+          "uid": "MTIyOA==",
+          "sku": "Datos ilimitados primeros 100GB",
+          "name": "Datos ilimitados primeros 100GB",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 22
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 22
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 22
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 22
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 100GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil2_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 100GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil2_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados primeros 100GB a velocidad 5G"
+        },
+        {
+          "uid": "MTIyNw==",
+          "sku": "Datos ilimitados primeros 50GB",
+          "name": "Datos ilimitados primeros 50GB ",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 50GB ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 50GB ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados primeros 50GB a velocidad 5G"
+        },
+        {
+          "uid": "MTIxMw==",
+          "sku": "Xiaomi Redmi Pad 2 Pro",
+          "name": "Xiaomi Redmi Pad 2 Pro",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Xiaomi Redmi Pad 2 Pro",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/a/l/alquiler6.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Xiaomi Redmi Pad 2 Pro",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/a/l/alquiler6.jpg"
+          },
+          "descripcion": "Xiaomi Redmi Pad 2 Pro"
+        }
+      ]
+    }
+  }
 }

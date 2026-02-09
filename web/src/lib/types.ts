@@ -27,21 +27,24 @@ export interface CarData {
 }
 
 export type Item = {
-  id: number;
+  uid: string;
   sku: string;
   name: string;
   status?: number;
   price?: number;
   description?: string;
   media_gallery_entries?: {
-    id: number,
-    media_type: string,
-    label?: string | null,
-    position: number,
-    disabled: boolean,
-    types: ("image" | "small_image" | "thumbnail")[],
-    file: string
+    label: string,
+    url: string
   }[],
+  image?: {
+    label: string;
+    url: string;
+  };
+  thumbnail?: {
+    label: string;
+    url: string;
+  };
   custom_attributes?: Array<{
     [key: string]: unknown;
   }>;

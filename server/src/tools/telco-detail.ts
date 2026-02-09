@@ -3,22 +3,28 @@ import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
 
 type Product = {
+  uid: string;
   id: number;
   sku: string;
   name: string;
-  status: number;
-  price: number;
-  description: string;
-  media_gallery_entries: Array<{
-    id: number;
-    media_type: 'image';
-    label: string | null;
-    position: number;
-    disabled: boolean;
-    types: ("image" | "small_image" | "thumbnail")[];
-    file: string;
-  }>;
-  custom_attributes: Array<{
+  descripcion: string;
+  price_range: {
+    minimum_price: {
+      regular_price: {
+        value: number;
+        currency: "EUR";
+      };
+    };
+  };
+  image?: {
+    label: string;
+    url: string;
+  };
+  thumbnail?: {
+    label: string;
+    url: string;
+  };
+  custom_attributes?: Array<{
     attribute_code: string;
     value: string | null;
   }>;
@@ -30,10 +36,10 @@ export function registerTelcoDetailTool(registerTool: RegisterToolFn) {
     {
       title: 'Telco Detail',
       description: `Retrieve detailed information for a single product from a specific catalog.
-Only call this tool when the user explicitly provides a product SKU
+Only call this tool when the user explicitly provides a product UID
 Select catalog='b2b' when the user intent corresponds to a business context (e.g. wholesale purchasing, VAT/CIF, net pricing, pallets, business account, contractual terms).
 Select catalog='b2c' when the user intent corresponds to an individual consumer context (e.g. personal use, size or color, home delivery, returns, final consumer price).
-Extract the product SKU from the user request.
+Extract the product UID from the user request.
 If the catalog cannot be confidently inferred, ask the user to clarify before calling this tool.
 If the product cannot be clearly identified, ask a clarification question instead of guessing.`,
       _meta: {
@@ -106,21 +112,12 @@ If the product cannot be clearly identified, ask a clarification question instea
         }
 
         const item: Item = {
-          id: gqlItem.id,
+          uid: gqlItem.uid,
           sku: gqlItem.sku,
           name: gqlItem.name,
-          status: gqlItem.status,
-          price: gqlItem.price,
-          description: gqlItem.custom_attributes?.find(attr => attr.attribute_code === 'description')?.value ?? undefined,
-          media_gallery_entries: gqlItem.media_gallery_entries?.map(img => ({
-            id: img.id,
-            media_type: img.media_type,
-            label: img.label ?? undefined,
-            position: img.position,
-            disabled: img.disabled,
-            types: img.types,
-            file: img.file,
-          })),
+          price: gqlItem.price_range.minimum_price.regular_price.value,
+          description: gqlItem.descripcion,
+          image: gqlItem.image,
           custom_attributes: []
         };
 
