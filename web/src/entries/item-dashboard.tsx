@@ -12,14 +12,13 @@ import {
   HiPhotograph,
 } from "react-icons/hi";
 
-async function searchDetail(Id: string) {
-  console.log('Searching  detail...', Id);
+async function searchDetail(sku: string) {
   if (!window.openai?.sendFollowUpMessage) {
     console.error('window.openai.sendFollowUpMessage is not available');
     return;
   }
   await window.openai.sendFollowUpMessage({
-    prompt: `Following previous prompt, I want to see the item with ID '${Id}'.`,
+    prompt: `Following previous prompt, I want to see the item with SKU '${sku}'.`,
   });
 }
 
@@ -37,7 +36,7 @@ function KPICard({
   icon,
   bgColor,
   iconColor,
-}: any) {
+}: { title: string; value: number | string; subtitle: string; icon: React.ReactNode; bgColor: string; iconColor: string }) {
   return (
     <div className={`${bgColor} rounded-[1.5rem] shadow-xl p-5 flex items-center justify-between text-white`}>
       <div>
@@ -64,8 +63,6 @@ export default function ItemDashboard() {
   useEffect(() => {
     try {
       const list = toolOutput?.itemList;
-      console.log("Items Detail:", list);
-      console.log("Type:", toolOutput?.type);
       if (list) setItems(list);
     } catch (error) {
       console.error("Error fetching items data:", error);
@@ -73,7 +70,7 @@ export default function ItemDashboard() {
   }, [toolOutput]);
 
   const stats = useMemo(() => {
-    const list = (items || []) as any[];
+    const list = items || [];
     const total = list.length;
 
     const activos = list.filter((i) => Number(i?.status) === 1).length;
@@ -154,7 +151,7 @@ export default function ItemDashboard() {
       {/* Grid de Items */}
       <div className="max-h-[650px] overflow-y-auto pr-2 scrollbar-thin scrollbar-thumb-slate-300 scrollbar-track-slate-100">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-          {(items as any[]).map((item) => {
+          {(items).map((item) => {
             const imgFile = item?.media_gallery_entries?.[0]?.file;
             const imgUrl = imgFile
               ? `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/${imgFile}`
@@ -236,7 +233,7 @@ export default function ItemDashboard() {
 
                   <button
                     className="mt-auto w-full bg-slate-50 text-slate-600 font-bold py-2 rounded-xl hover:bg-blue-600 hover:text-white transition-all flex items-center justify-center gap-2 group/btn shadow-inner text-sm"
-                    onClick={() => searchDetail(String(item.id))}
+                    onClick={() => searchDetail(item.sku)}
                   >
                     Ver Detalles
                     <HiArrowRight className="w-3 h-3 transform group-hover/btn:translate-x-1 transition-transform" />

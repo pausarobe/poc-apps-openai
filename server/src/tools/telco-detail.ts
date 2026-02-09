@@ -42,10 +42,10 @@ If the product cannot be clearly identified, ask a clarification question instea
       },
       inputSchema: {
         catalog: z.enum(['b2b', 'b2c']).describe('El típo de catálogo a consultar: b2b o b2c'),
-        productId: z.number().describe('ID del producto a consultar'),
+        sku: z.string().trim().describe('SKU del producto a consultar'),
       },
     },
-    async ({ catalog, productId }: { catalog: 'b2b' | 'b2c', productId: number }) => {
+    async ({ catalog, sku }: { catalog: 'b2b' | 'b2c', sku: number }) => {
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'b2b' ? '29' : '28';
 
@@ -56,8 +56,8 @@ If the product cannot be clearly identified, ask a clarification question instea
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/telco_${catalog}/graphql`;
-        const gqlQuery = `query GetItem($category_id: String!, $product_id: Number!) {
-          products(filter: { category_id: { eq: $category_id }, id: { eq: $product_id } }) {
+        const gqlQuery = `query GetItem($category_id: String!, $sku: String!) {
+          products(filter: { category_id: { eq: $category_id }, sku: { eq: $sku } }) {
             items {
               id
               sku
@@ -88,7 +88,7 @@ If the product cannot be clearly identified, ask a clarification question instea
           },
           body: JSON.stringify({
             query: gqlQuery,
-            variables: { category_id: catalogId, product_id: productId }
+            variables: { category_id: catalogId, sku: sku }
           })
         });
 
