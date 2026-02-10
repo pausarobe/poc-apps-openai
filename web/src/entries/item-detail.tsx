@@ -9,6 +9,7 @@ import type { Item } from "../lib/types";
 } */
 
 export default function ItemDetail() {
+  console.log('loading detail');
   const [item, setItem] = useState<Item>();
   const toolOutput = useOpenAiGlobal("toolOutput");
 
@@ -114,9 +115,6 @@ export default function ItemDetail() {
           </div>
         </div>
       </div>
-
-      {/* Espaciador para que el sticky no tape contenido en mobile */}
-      <div className="sm:hidden h-20" />
     </div>
   );
 }
