@@ -29,7 +29,7 @@
   > [!NOTE]
   > Abrir la url que viene ya con el token en la opción `Open inspector with token pre-filled`.
   >
-  > Meter la url de nuestro servidor mcp que por defecto es `http://localhost:3333/mcp` y conectarse.
+  > En la opción `Transport Type` seleccionar `Streamable HTTP` y en la url poner la de nuestro servidor mcp que por defecto es `http://localhost:3333/mcp`.
 
 ## Creación de una nueva herramienta
 
