@@ -3,13 +3,13 @@ import { Badge } from "flowbite-react";
 import { HiCurrencyEuro, HiOutlineViewGrid } from "react-icons/hi";
 import { useOpenAiGlobal } from "../lib/hooks";
 import type { Item } from "../lib/types";
+import { createRoot } from "react-dom/client";
 
 /* const getAttr = (attrs: any[] | undefined, code: string) => {
   return attrs?.find(a => a.attribute_code === code)?.value;
 } */
 
 export default function ItemDetail() {
-  console.log('loading detail');
   const [item, setItem] = useState<Item>();
   const toolOutput = useOpenAiGlobal("toolOutput");
 
@@ -117,4 +117,9 @@ export default function ItemDetail() {
       </div>
     </div>
   );
+}
+
+if (typeof window !== "undefined" && document.getElementById("root")) {
+  const root = createRoot(document.getElementById("root")!);
+  root.render(<ItemDetail />);
 }
