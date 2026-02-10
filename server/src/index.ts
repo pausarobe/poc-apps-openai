@@ -1,7 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
-
+import 'dotenv/config';
 
 import { createRegisterTool } from './utils/helpers.js';
 import { loadWebAssets } from './utils/assets.js';
