@@ -2,9 +2,6 @@ import express from 'express';
 import type { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { EventEmitter } from 'node:events';
 
-/**
- * createHttpApp ahora recibe el transport y el server (para inyectar mensajes)
- */
 export function createHttpApp(transport: StreamableHTTPServerTransport, server: any) {
   const app = express();
   app.use(express.json());
@@ -19,7 +16,6 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     while (masterConnecting) await new Promise((r) => setTimeout(r, 10));
   }
 
-  // ✅ viewers: solo miran lo que el master emite (SSE propio)
   app.get("/mcp/watch", (req, res) => {
     res.writeHead(200, {
       "Content-Type": "text/event-stream",
@@ -56,9 +52,7 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     if (wantsSse) {
       await waitForMasterUnlock();
 
-      // ❌ aquí NO hagas res.writeHead/res.flushHeaders: lo hará el transport
       if (masterConnected) {
-        // si ya hay master, mejor rechazar (o redirigir a /mcp/watch)
         res.status(409).json({ error: "Master SSE already connected. Use GET /mcp/watch" });
         return;
       }
@@ -66,7 +60,6 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       masterConnecting = true;
       masterConnected = true;
 
-      // pinchamos write/end para “espiar” lo que escribe el transport
       const origWrite = res.write.bind(res);
       const origEnd = res.end.bind(res);
 
@@ -102,7 +95,6 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       return;
     }
 
-    // POST /mcp y cualquier otro caso: lo gestiona el transport normal
     try {
       await transport.handleRequest(req, res, req.body);
     } catch (err) {

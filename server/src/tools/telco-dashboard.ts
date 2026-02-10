@@ -43,6 +43,7 @@ If the user provides a SKU, do NOT use this tool.
 
 Select catalog='b2b' when the user intent corresponds to a business context (e.g. wholesale purchasing, VAT/CIF, net pricing, business account, contractual terms).
 Select catalog='b2c' when the user intent corresponds to an individual consumer context (e.g. personal plans, devices for personal use, home delivery, returns, final consumer price).
+If the user intent cannot be clearly classified as b2b or b2c, default to catalog='b2c'.
 
 The tool input includes an optional "search" string.
 Populate the "search" field with product-related criteria mentioned by the user, when applicable.

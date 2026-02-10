@@ -3,13 +3,14 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "workspaces":[
-    "server", "web"
+  "workspaces": [
+    "server",
+    "web"
   ],
   "scripts": {
-    "web": "cd web && npm run start:ps",
-    "server": "cd server && npm run build && npm start",
-    "chat": "$env:NODE_EXTRA_CA_CERTS=\"C:\\certs\\zscaler-root.pem\" && npx @modelcontextprotocol/inspector",
+    "ladle": "cd web && npm run ladle",
+    "server": "cross-env NODE_EXTRA_CA_CERTS=\"C:\\certs\\zscaler-root.pem\" && cd server && npm run build && npm start",
+    "mcp:inspector": "npx @modelcontextprotocol/inspector",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -22,5 +23,8 @@
   "bugs": {
     "url": "https://github.com/pausarobe/poc-apps-openai/issues"
   },
-  "homepage": "https://github.com/pausarobe/poc-apps-openai#readme"
+  "homepage": "https://github.com/pausarobe/poc-apps-openai#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
 }
