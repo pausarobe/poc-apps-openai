@@ -49,8 +49,6 @@ The tool input includes an optional "search" string.
 Populate the "search" field with product-related criteria mentioned by the user, when applicable.
 
 If the request is not related to telco products, do NOT call this tool.`,
-      // If the catalog cannot be confidently inferred from the request, ask the user to clarify or fall back to the configured default.
-      // Do NOT invent or assume a "search" value if it is not explicitly implied by the user request.
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
