@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Badge } from "flowbite-react";
-import { HiCurrencyEuro, HiOutlineViewGrid, HiOfficeBuilding, HiUser, HiInformationCircle } from "react-icons/hi";
+import { HiCurrencyEuro, HiOutlineViewGrid, HiOfficeBuilding, HiInformationCircle } from "react-icons/hi";
 import { useOpenAiGlobal } from "../lib/hooks";
 import type { Item } from "../lib/types";
 import { createRoot } from "react-dom/client";
