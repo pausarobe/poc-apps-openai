@@ -61,6 +61,7 @@ If the request is not related to telco products, do NOT call this tool.`,
       }
     },
     async ({ catalog, search }: { catalog: 'b2b' | 'b2c', search?: string }) => {
+      console.log('Joining telco-dashboard', catalog, search);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'b2b' ? '29' : '28';
 

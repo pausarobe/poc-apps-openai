@@ -53,6 +53,7 @@ If the product cannot be clearly identified, ask a clarification question instea
       },
     },
     async ({ catalog, sku }: { catalog: 'b2b' | 'b2c', sku: number }) => {
+      console.log('Joining telco-detail', catalog, sku);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'b2b' ? '29' : '28';
 

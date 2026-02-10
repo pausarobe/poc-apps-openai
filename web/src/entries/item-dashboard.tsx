@@ -7,6 +7,7 @@ import { useOpenAiGlobal } from "../lib/hooks";
 
 async function searchDetail(category: string, sku: string) {
   if (!window.openai?.sendFollowUpMessage) return;
+  console.log(`Following the catalog ${category}, I want to see the item with SKU '${sku}'.`);
   await window.openai.sendFollowUpMessage({
     prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
   });
