@@ -1,0 +1,52 @@
+{
+  "item": {
+    "uid": "MTIzOA==",
+    "sku": "4 líneas fibra + móvil 600Mb",
+    "name": "Fibra 1Gb + TV opcional",
+    "price_range": {
+      "maximum_price": {
+        "discount": {
+          "amount_off": 0,
+          "percent_off": 0
+        },
+        "final_price": {
+          "currency": "EUR",
+          "value": 70
+        },
+        "fixed_product_taxes": [],
+        "regular_price": {
+          "currency": "EUR",
+          "value": 70
+        }
+      },
+      "minimum_price": {
+        "discount": {
+          "amount_off": 0,
+          "percent_off": 0
+        },
+        "final_price": {
+          "currency": "EUR",
+          "value": 70
+        },
+        "fixed_product_taxes": [],
+        "regular_price": {
+          "currency": "EUR",
+          "value": 70
+        }
+      }
+    },
+    "image": {
+      "disabled": null,
+      "label": "4 líneas fibra + móvil 600Mb",
+      "position": null,
+      "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+    },
+    "thumbnail": {
+      "disabled": null,
+      "label": "4 líneas fibra + móvil 600Mb",
+      "position": null,
+      "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+    },
+    "descripcion": "4 líneas fibra + móvil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+  }
+}

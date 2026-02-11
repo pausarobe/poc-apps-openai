@@ -1,6 +1,7 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { fileURLToPath } from 'node:url';
 import { dirname, join } from 'node:path';
+import 'dotenv/config';
 
 import { createRegisterTool } from './utils/helpers.js';
 import { loadWebAssets } from './utils/assets.js';
@@ -11,6 +12,7 @@ import { createHttpApp, startHttpServer } from './http/http.js';
 
 // Create an MCP server
 const server = new McpServer({ name: "NTT Flight's", version: '1.0.0' });
+
 
 // Load locally built assets (produced by your component build)
 const __filename = fileURLToPath(import.meta.url);
@@ -28,6 +30,6 @@ registerTools(createRegisterTool(server));
 const transport = createMcpTransport();
 server.connect(transport);
 
-const app = createHttpApp(transport);
+const app = createHttpApp(transport, server);
 const PORT = process.env.PORT || 3333;
 startHttpServer(app, PORT);

@@ -9,22 +9,48 @@ export interface CarData {
   name: string;
   status: number;
   price: number;
-  media_gallery_entries: 
+  media_gallery_entries:
   {
-      id: number,
-      media_type: string,
-      label: string | null,
-      position: number,
-      disabled: boolean,
-      types: string[],
-      file: string
-    
+    id: number,
+    media_type: string,
+    label: string | null,
+    position: number,
+    disabled: boolean,
+    types: string[],
+    file: string
+
   }[],
   custom_attributes: Array<{
     attribute_code: string;
     value: any;
   }>;
 }
+
+export type Item = {
+  uid: string;
+  sku: string;
+  name: string;
+  status?: number;
+  price?: number;
+  description?: string;
+  media_gallery_entries?: {
+    label: string,
+    url: string
+  }[],
+  image?: {
+    label: string;
+    url: string;
+  };
+  thumbnail?: {
+    label: string;
+    url: string;
+  };
+  custom_attributes?: Array<{
+    [key: string]: unknown;
+  }>;
+}
+
+export type ItemList = Item[];
 
 // ADVERTISING: FlightData type used in web and server, actualize both when modifying
 export interface FlightData {

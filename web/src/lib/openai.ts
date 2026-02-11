@@ -1,4 +1,4 @@
-import type { CarData, FlightData, TrainData } from './types.js';
+import type { CarData, FlightData, Item, ItemList, TrainData } from './types.js';
 
 export interface ToolOutput {
   flightDetail?: FlightData;
@@ -7,5 +7,8 @@ export interface ToolOutput {
   carList?: CarData[];
   trainList?: TrainData;
   carCreate?: CarData;
+  item?: Item;
+  itemList?: ItemList;
+  category?: string;
   type?: 'arrival' | 'departure';
 }

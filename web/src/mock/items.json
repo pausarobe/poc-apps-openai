@@ -1,0 +1,1008 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "uid": "MTI0Ng==",
+          "sku": "Fibra 1Gb + TV opcional",
+          "name": "Fibra 1Gb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 25
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 25
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 25
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 25
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 1Gb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra9.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 1Gb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra9.jpg"
+          },
+          "descripcion": "Fibra 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0NQ==",
+          "sku": "Fibra 600Mb + TV opcional",
+          "name": "Fibra 600Mb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 20
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 20
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 600Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra8.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 600Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra8.jpg"
+          },
+          "descripcion": "Fibra 600Mb + TV opcional"
+        },
+        {
+          "uid": "MTI0NA==",
+          "sku": "4 líneas fibra + móvil 1Gb",
+          "name": "4 líneas fibra + móvil 1Gb ",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 77
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 77
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 77
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 77
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 1Gb ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil9_b2c_1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 1Gb ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil9_b2c_1.jpg"
+          },
+          "descripcion": "4 líneas fibra + móvil 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0Mw==",
+          "sku": "Fibra 300Mb + TV opcional",
+          "name": "Fibra 300Mb + TV opcional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Fibra 300Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra7.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Fibra 300Mb + TV opcional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibra7.jpg"
+          },
+          "descripcion": "Fibra 300Mb + TV opcional"
+        },
+        {
+          "uid": "MTI0MQ==",
+          "sku": "2 líneas fibra + móvil 1Gb",
+          "name": "2 líneas fibra + móvil 1Gb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 1Gb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil7_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 1Gb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil7_b2c.jpg"
+          },
+          "descripcion": "2 líneas fibra + móvil 1Gb + TV opcional"
+        },
+        {
+          "uid": "MTI0MA==",
+          "sku": "1 línea fibra + móvil 1Gb datos ilimitados",
+          "name": "1 línea fibra + móvil 1Gb datos ilimitados",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 62
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 62
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 62
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 62
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil6_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil6_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 1Gb con datos ilimitados a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzOQ==",
+          "sku": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+          "name": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil5_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil5_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 1Gb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzOA==",
+          "sku": "4 líneas fibra + móvil 600Mb",
+          "name": "4 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 70
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 70
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 70
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 70
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "4 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil4_b2c.jpg"
+          },
+          "descripcion": "4 líneas fibra + móvil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNw==",
+          "sku": "3 líneas fibra + móvil 600Mb",
+          "name": "3 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 65
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 65
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "3 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c_1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "3 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c_1.jpg"
+          },
+          "descripcion": "3 líneas fibra + móvil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNg==",
+          "sku": "2 líneas fibra + móvil 600Mb",
+          "name": "2 líneas fibra + móvil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 57
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 57
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "2 líneas fibra + móvil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil3_b2c.jpg"
+          },
+          "descripcion": "2 líneas fibra + móvil 600Mb"
+        },
+        {
+          "uid": "MTIzNQ==",
+          "sku": "1 línea fibra + móvil 600Mb datos ilimitados",
+          "name": "1 linea fibra y movil 600Mb datos ilimitados",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 55
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 55
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 55
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil2_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb datos ilimitados",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil2_b2c.jpg"
+          },
+          "descripcion": "1 línea fibra + móvil 600Mb con datos ilimitados a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzNA==",
+          "sku": "1 linea fibra y movil 600Mb",
+          "name": "1 linea fibra y movil 600Mb",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 50
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 50
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 50
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 50
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "1 linea fibra y movil 600Mb",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/f/i/fibraymovil_b2c.jpg"
+          },
+          "descripcion": "1 linea fibra y movil 600Mb con datos ilimitados primeros 50GB a velocidad 5G + TV opcional"
+        },
+        {
+          "uid": "MTIzMw==",
+          "sku": "TV Prime video adicional",
+          "name": "TV Prime video adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 3
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 3
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 3
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 3
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Prime video adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv3.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Prime video adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv3.jpg"
+          },
+          "descripcion": "TV Prime video adicional"
+        },
+        {
+          "uid": "MTIzMg==",
+          "sku": "TV Netflix adicional",
+          "name": "TV Netflix adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Netflix adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv2.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Netflix adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv2.jpg"
+          },
+          "descripcion": "TV Netflix adicional"
+        },
+        {
+          "uid": "MTIzMQ==",
+          "sku": "TV Deportes adicional",
+          "name": "TV Deportes adicional",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV Deportes adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv1.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV Deportes adicional",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv1.jpg"
+          },
+          "descripcion": "TV Deportes adicional"
+        },
+        {
+          "uid": "MTIzMA==",
+          "sku": "TV 70 canales",
+          "name": "TV 70 canales",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 10
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 10
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 10
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 10
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "TV 70 canales",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "TV 70 canales",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/t/v/tv.jpg"
+          },
+          "descripcion": "TV 70 canales (A sumar en caso de adicional)"
+        },
+        {
+          "uid": "MTIyOQ==",
+          "sku": "Datos ilimitados a velocidad 5G",
+          "name": "Datos ilimitados a velocidad 5G",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 30
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 30
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 30
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 30
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados a velocidad 5G",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil3_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados a velocidad 5G",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil3_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados a velocidad 5G"
+        },
+        {
+          "uid": "MTIyOA==",
+          "sku": "Datos ilimitados primeros 100GB",
+          "name": "Datos ilimitados primeros 100GB",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 22
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 22
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 22
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 22
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 100GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil2_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 100GB",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil2_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados primeros 100GB a velocidad 5G"
+        },
+        {
+          "uid": "MTIyNw==",
+          "sku": "Datos ilimitados primeros 50GB",
+          "name": "Datos ilimitados primeros 50GB ",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 15
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 15
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 50GB ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil_b2c.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Datos ilimitados primeros 50GB ",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/m/o/movil_b2c.jpg"
+          },
+          "descripcion": "Datos ilimitados primeros 50GB a velocidad 5G"
+        },
+        {
+          "uid": "MTIxMw==",
+          "sku": "Xiaomi Redmi Pad 2 Pro",
+          "name": "Xiaomi Redmi Pad 2 Pro",
+          "price_range": {
+            "maximum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            },
+            "minimum_price": {
+              "discount": {
+                "amount_off": 0,
+                "percent_off": 0
+              },
+              "final_price": {
+                "currency": "EUR",
+                "value": 5
+              },
+              "fixed_product_taxes": [],
+              "regular_price": {
+                "currency": "EUR",
+                "value": 5
+              }
+            }
+          },
+          "image": {
+            "disabled": null,
+            "label": "Xiaomi Redmi Pad 2 Pro",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/a/l/alquiler6.jpg"
+          },
+          "thumbnail": {
+            "disabled": null,
+            "label": "Xiaomi Redmi Pad 2 Pro",
+            "position": null,
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/a/l/alquiler6.jpg"
+          },
+          "descripcion": "Xiaomi Redmi Pad 2 Pro"
+        }
+      ]
+    }
+  }
+}
