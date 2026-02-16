@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Badge } from "flowbite-react";
-import { HiCurrencyEuro, HiOutlineViewGrid, HiOfficeBuilding, HiInformationCircle } from "react-icons/hi";
+import { HiCurrencyEuro, HiOutlineViewGrid } from "react-icons/hi";
 import { useOpenAiGlobal } from "../lib/hooks";
 import type { Item } from "../lib/types";
 import { createRoot } from "react-dom/client";
@@ -9,9 +8,6 @@ export default function ItemDetail() {
   const [item, setItem] = useState<Item>();
   const [subitems, setSubitems] = useState<Item[]>([]);
   const toolOutput = useOpenAiGlobal("toolOutput");
-
-  // DETECCIÓN DE SEGMENTO: B2B vs B2C
-  const isB2B = toolOutput?.category?.toLowerCase().includes('b2b') || item?.sku?.includes('B2B');
 
   useEffect(() => {
     const itemData = toolOutput?.item;
@@ -34,39 +30,11 @@ export default function ItemDetail() {
   return (
     <div className="space-y-6 sm:space-y-8 antialiased p-2 sm:p-4 lg:p-6">
       
-      {/* 1. HEADER DINÁMICO */}
-      <div className={`bg-gradient-to-r rounded-[1.25rem] sm:rounded-[2.5rem] p-4 sm:p-8 text-white shadow-xl border-b-2 sm:border-b-4 transition-colors duration-500 ${
-        isB2B ? 'from-gray-900 via-gray-800 to-gray-900 border-gray-700' : 'from-gray-800 via-gray-700 to-gray-800 border-gray-600'
-      }`}>
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-6">
-          <div className="flex items-center gap-4 sm:gap-5">
-            <div className="bg-white/10 p-2 sm:p-4 rounded-xl sm:rounded-2xl backdrop-blur-xl border border-white/20 shrink-0">
-              {isB2B ? <HiOfficeBuilding className="w-6 h-6 sm:w-8 sm:h-8 text-gray-300" /> : <HiOutlineViewGrid className="w-6 h-6 sm:w-8 sm:h-8 text-gray-300" />}
-            </div>
-            <div>
-              <div className="flex flex-wrap items-center gap-2 mb-1">
-                <h1 className="text-lg sm:text-3xl font-black tracking-tight leading-tight uppercase line-clamp-1">
-                  {item.name}
-                </h1>
-                <span className={`text-[8px] sm:text-[10px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded border ${
-                  isB2B ? 'bg-gray-700/50 text-gray-200 border-gray-600/60' : 'bg-gray-600/50 text-gray-100 border-gray-500/60'
-                }`}>
-                  {isB2B ? 'Para Empresas' : 'Para Particulares'}
-                </span>
-              </div>
-              <p className="text-[10px] sm:text-xs font-bold text-gray-300 opacity-60 uppercase tracking-widest flex items-center gap-1">
-                <HiInformationCircle className="w-3 h-3" />
-                {isB2B ? 'Tarificación para cuentas corporativas' : 'Equipamiento y precio para particular'}
-              </p>
-            </div>
-          </div>
-
-          <div className="self-start sm:self-auto">
-            <div className="bg-black/30 text-white text-xs sm:text-xl font-black px-4 py-2 sm:px-6 sm:py-3 rounded-xl sm:rounded-2xl border border-white/10 uppercase tracking-tighter">
-              {item.sku}
-            </div>
-          </div>
-        </div>
+      {/* 1. HEADER SIMPLE */}
+      <div className="pb-4 border-b border-token-border-medium">
+        <h1 className="text-2xl sm:text-3xl font-bold text-token-text-primary">
+          {item.name}
+        </h1>
       </div>
 
       {/* 2. CONTENIDO PRINCIPAL: Imagen + Descripción + Subitems */}
@@ -119,10 +87,10 @@ export default function ItemDetail() {
                 {subitems.map((subitem) => (
                   <div 
                     key={subitem.sku}
-                    className="group flex gap-3 p-3 rounded-xl border border-token-border-light bg-token-main-surface-primary hover:bg-token-main-surface-tertiary hover:border-token-border-medium transition-all duration-300 shadow-sm hover:shadow-md"
+                    className="group flex items-center gap-3 p-3 rounded-xl border border-token-border-light bg-token-main-surface-primary hover:bg-token-main-surface-tertiary hover:border-token-border-medium transition-all duration-300 shadow-sm hover:shadow-md"
                   >
                     {/* Imagen pequeña */}
-                    <div className="relative overflow-hidden rounded-lg w-20 h-20 flex-shrink-0 bg-slate-900">
+                    <div className="relative overflow-hidden rounded-lg w-16 h-16 flex-shrink-0 bg-slate-900">
                       {subitem.image ? (
                         <img
                           src={subitem.image.url}
@@ -141,22 +109,22 @@ export default function ItemDetail() {
                       <h4 className="text-sm font-bold text-token-text-primary line-clamp-2 mb-1">
                         {subitem.name}
                       </h4>
-                      <div className="flex items-center gap-1 mb-2">
+                      <div className="flex items-center gap-1">
                         <HiCurrencyEuro className="w-4 h-4 text-token-text-tertiary opacity-60" />
-                        <span className="text-lg font-black text-token-text-primary">
+                        <span className="text-base font-bold text-token-text-primary">
                           {Math.round(Number(subitem.price))} €
                         </span>
                       </div>
-                      <button
-                        className={`mt-auto px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wide transition-all duration-300 ${
-                          isB2B 
-                            ? 'bg-gray-800 hover:bg-gray-900 text-white' 
-                            : 'bg-gray-700 hover:bg-gray-800 text-white'
-                        }`}
-                      >
-                        Comprar
-                      </button>
                     </div>
+
+                    {/* Botón a la derecha */}
+                    <button
+                      className={`flex-shrink-0 px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wide transition-all duration-300 ${
+                        'bg-gray-700 hover:bg-gray-800 text-white'
+                      }`}
+                    >
+                      Comprar
+                    </button>
                   </div>
                 ))}
               </div>

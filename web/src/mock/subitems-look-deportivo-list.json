@@ -1,0 +1,80 @@
+{
+  "data": {
+    "products": {
+      "items": [
+        {
+          "uid": "MTI0Nw==",
+          "sku": "Camiseta técnica \"Dry-Fit\" Carbono",
+          "name": "Camiseta técnica \"Dry-Fit\" Carbono",
+          "price_range": {
+            "minimum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 30
+              }
+            }
+          },
+          "image": {
+            "label": "Camiseta técnica Dry-Fit Carbono",
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/c/a/camiseta1_1.jpg"
+          },
+          "descripcion": "Camiseta deportiva negra"
+        },
+        {
+          "uid": "MTI0OA==",
+          "sku": "Zapatillas",
+          "name": "Zapatillas",
+          "price_range": {
+            "minimum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            }
+          },
+          "image": {
+            "label": "Zapatillas",
+            "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/z/a/zapatilla1.jpg"
+          },
+          "descripcion": "Zapatillas deportivas"
+        },
+        {
+          "uid": "MTI1MQ==",
+          "sku": "Sudadera Técnica con cremallera",
+          "name": "Sudadera Técnica con cremallera",
+          "price_range": {
+            "minimum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 20
+              }
+            }
+          },
+          "image": {
+            "label": "Sudadera Técnica con cremallera",
+            "url": "https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=400&h=400&fit=crop"
+          },
+          "descripcion": "Sudadera con cremallera, ideal para deporte"
+        },
+        {
+          "uid": "MTI1Mg==",
+          "sku": "Pantalones cortos transpirables",
+          "name": "Pantalones cortos transpirables",
+          "price_range": {
+            "minimum_price": {
+              "regular_price": {
+                "currency": "EUR",
+                "value": 10
+              }
+            }
+          },
+          "image": {
+            "label": "Pantalones cortos transpirables",
+            "url": "https://images.unsplash.com/photo-1591195853828-11db59a44f6b?w=400&h=400&fit=crop"
+          },
+          "descripcion": "Pantalones cortos ideales para hacer deporte"
+        }
+      ]
+    }
+  }
+}

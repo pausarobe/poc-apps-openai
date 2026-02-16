@@ -1,0 +1,20 @@
+{
+  "item": {
+    "uid": "MTI0OQ==",
+    "sku": "Look deportivo",
+    "name": "Look deportivo",
+    "price_range": {
+      "minimum_price": {
+        "regular_price": {
+          "currency": "EUR",
+          "value": 60
+        }
+      }
+    },
+    "image": {
+      "label": "Look deportivo",
+      "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+    },
+    "descripcion": "Look deportivo perfecto para invierno. Conjunto completo que incluye camiseta técnica, zapatillas deportivas y todos los complementos necesarios para tu actividad física."
+  }
+}
