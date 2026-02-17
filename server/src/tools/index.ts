@@ -7,6 +7,7 @@ import { registerTrainDashboardTool } from './train-dashboard.js';
 import { registerCreateCarTool } from './car-create.js';
 import { registerTelcoDashboardTool } from './telco-dashboard.js';
 import { registerTelcoDetailTool } from './telco-detail.js';
+import { registerRetailDashboardTool } from './retail-dashboard.js';
 
 export function registerTools(registerTool: RegisterToolFn) {
   registerFlightDetailTool(registerTool);
@@ -17,4 +18,5 @@ export function registerTools(registerTool: RegisterToolFn) {
   registerCreateCarTool(registerTool);
   registerTelcoDashboardTool(registerTool);
   registerTelcoDetailTool(registerTool);
+  registerRetailDashboardTool(registerTool);
 }
