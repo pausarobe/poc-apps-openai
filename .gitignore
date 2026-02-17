@@ -142,3 +142,4 @@ dist
 
 .npmrc
 .config/builderio/data.json
+.config/
