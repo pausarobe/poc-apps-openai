@@ -81,19 +81,21 @@ export type Item = {
 export type ItemList = Item[];
 
 export type Look = {
-  id: number;
-  uid: string;
+  id?: number;
+  uid?: string;
   sku: string;
   name: string;
-  category: string;
+  category?: string;
   price: number;
   description?: string;
-  properties:{
+  properties?:{
     genero?: string;
     tiempo?: string;
     ocasion?: string;
     [key: string]: unknown;
   }
+  related_articles?: LookItem[];
+
   product_links?: Array<{
     linked_product_sku: string;
     link_type: string;
@@ -118,12 +120,12 @@ export type Look = {
 
 export type LookItem = {
   id?: number;
-  uid: string;
+  uid?: string;
   sku: string;
   name: string;
   price: number;
   description?: string;
-  buyUrl: string;
+  buyUrl?: string;
   media_gallery_entries?: {
     label: string,
     url: string

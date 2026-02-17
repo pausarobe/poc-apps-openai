@@ -7,9 +7,6 @@ type LookProduct = {
   id: number;
   sku: string;
   name: string;
-  // Añadimos el objeto oficial de Magento
-  description?: { html: string };
-  
   descripcion?: string;
   genero?: string;
   tiempo?: string;
@@ -89,9 +86,6 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
       tiempo
       ocasion
       descripcion
-      description {
-        html
-      }
       price_range {
         minimum_price {
           regular_price {
@@ -146,7 +140,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
 
         const gqlItems = gqlResult.data?.products?.items || [];
 
-        // MAPEADO: Manteniendo tu estilo de .find()
+      
        const lookList: LookList = gqlItems.map((item: any) => ({
         uid: item.uid,    
         name: item.name,
