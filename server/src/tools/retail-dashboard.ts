@@ -54,12 +54,12 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
       },
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
-        genero: z.enum(['hombre', 'mujer', 'otro']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "otro" para unisex o sin especificar'),
-        tiempo: z.string().optional().describe('Clima/Tiempo: "Invierno", "Verano", "Templado"'),
-        ocasion: z.string().optional().describe('Ocasión: "Boda", "Deportivo", "Fiesta", "Casual"'),
+        genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
+        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
       }
     },
-    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'otro', tiempo?: string, ocasion?: string }) => {
+    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
       console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
@@ -68,9 +68,29 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
       const generoMap: Record<string, string> = {
         'hombre': '112',
         'mujer': '113',
-        'otro': '114'
+        'unisex': '114',
+        'kids': '115'
       };
-      const generoId = genero ? generoMap[genero] : undefined;
+      const generoId = genero ? generoMap[genero] : "";
+
+      // Mapeo de tiempo a ID numérico
+      const tiempoMap: Record<string, string> = {
+        'frio': '99',
+        'calido': '100',
+        'lluvia': '101',
+        'templado': '102'
+      };
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
+
+      // Mapeo de ocasion a ID numérico
+      const ocasionMap: Record<string, string> = {
+        'boda': '103',
+        'oficina': '104',
+        'fiesta': '105',
+        'deporte': '106',
+        'diario': '107'
+      };
+      const ocasionId = ocasion ? ocasionMap[ocasion] : "";
 
       if (!ACCESS_TOKEN) {
         console.error('ERROR: PROVIDER_CARS_API_KEY no está definida.');
@@ -122,7 +142,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     }
   }
 }`;
-        console.error('GraphQL REQUEST:', gqlQuery, { id: catalogId, genero: genero, tiempo: tiempo ?? "", ocasion: ocasion ?? "" });
+        console.error('GraphQL REQUEST:', { id: catalogId, genero: generoId, tiempo: tiempoId, ocasion: ocasionId });
 
         const gqlResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
@@ -135,9 +155,9 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
             query: gqlQuery,
             variables: { 
               id: catalogId, 
-              genero: generoId ?? "", 
-              tiempo: tiempo ?? "", 
-              ocasion: ocasion ?? ""}
+              genero: generoId, 
+              tiempo: tiempoId, 
+              ocasion: ocasionId}
           })
         });
 
@@ -177,7 +197,8 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         return {
           content: [{
             type: 'text' as const,
-            text: `He encontrado ${ItemList.length} looks disponibles en el catálogo de moda.`
+            text: `He encontrado ${ItemList.length} looks disponibles en el catálogo de moda.
+            Los resultados obtenidos se basan en: género=${genero || 'cualquiera'}, tiempo=${tiempo || 'cualquiera'}, ocasión=${ocasion || 'cualquiera'}.`
           }],
           structuredContent: { ItemList, category: `retail_${catalog}` },
         };
