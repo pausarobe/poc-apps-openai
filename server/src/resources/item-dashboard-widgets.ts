@@ -10,7 +10,7 @@ export function registerItemDashboardWidgetResource(server: McpServer, js: strin
       description: 'Overview of the items inventory',
     },
     async () => {
-      console.log("Serving retail dashboard widget resource");
+      console.log("Serving item dashboard widget resource");
       return ({
       contents: [
         {
