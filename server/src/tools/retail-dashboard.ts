@@ -1,4 +1,4 @@
-import type { ItemList, LookList, RegisterToolFn } from '../utils/types';
+import type { Item, ItemList, LookList, RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
 
@@ -54,11 +54,13 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
       },
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
-        search: z.string().optional().describe('Estilo, clima u ocasión (ej: "invierno", "deportivo")'),
+        genero: z.string().optional().describe('Género: "Hombre", "Mujer", o el ID correspondiente'),
+        tiempo: z.string().optional().describe('Clima/Tiempo: "Invierno", "Verano", "Templado"'),
+        ocasion: z.string().optional().describe('Ocasión: "Boda", "Deportivo", "Fiesta", "Casual"'),
       }
     },
-    async ({ catalog, search }: { catalog: 'looks' | 'items', search?: string }) => {
-      console.log('Joining retail-dashboard', catalog, search);
+    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: string, tiempo?: string, ocasion?: string }) => {
+      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
 
@@ -69,19 +71,20 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
-        
-       
-        const gqlQuery = `query GetItems($id: String!, $search: String) {
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $tiempo: String, $ocasion: String) {
   products(
-    search: $search,
-    filter: { category_id: { eq: $id } }
+    filter: { 
+      category_id: { eq: $id },
+      genero: { eq: $genero },
+      tiempo: { eq: $tiempo },
+      ocasion: { eq: $ocasion }
+    }
   ) {
     items {
       uid
       id
       sku
       name
-      # Campos directos (deben estar activos en el Admin de Magento como "Visible in GraphQL")
       genero
       tiempo
       ocasion
@@ -121,7 +124,9 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
           },
           body: JSON.stringify({
             query: gqlQuery,
-            variables: { id: catalogId, search }
+            variables: { id: catalogId, genero: genero, 
+              tiempo: tiempo, 
+              ocasion: ocasion}
           })
         });
 
@@ -141,16 +146,14 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         const gqlItems = gqlResult.data?.products?.items || [];
 
       
-       const lookList: LookList = gqlItems.map((item: any) => ({
+       const ItemList: Item[] = gqlItems.map((item: any) => ({
         uid: item.uid,    
         name: item.name,
         id: item.id,   
         sku: item.sku,
         image: item.image, 
         thumbnail: item.thumbnail,
-        price: 0,
-        description: '',
-        category: 'Looks',
+        
 
         properties: {}, 
         
@@ -161,9 +164,9 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         return {
           content: [{
             type: 'text' as const,
-            text: `He encontrado ${lookList.length} looks disponibles en el catálogo de moda.`
+            text: `He encontrado ${ItemList.length} looks disponibles en el catálogo de moda.`
           }],
-          structuredContent: { lookList, category: `retail_${catalog}` },
+          structuredContent: { ItemList, category: `retail_${catalog}` },
         };
 
       } catch (error) {

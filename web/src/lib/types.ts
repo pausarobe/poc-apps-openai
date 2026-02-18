@@ -192,3 +192,67 @@ export interface RouteStop {
   lat: number;
   lon: number;
 }
+
+export type Look = {
+  id: number;
+  uid: string;
+  sku: string;
+  name: string;
+  category?: string;
+  price?: number;
+  description?: string;
+  properties?:{
+    genero?: string;
+    tiempo?: string;
+    ocasion?: string;
+    [key: string]: unknown;
+  }
+  related_articles?: LookItem[];
+
+  product_links?: Array<{
+    linked_product_sku: string;
+    link_type: string;
+    position: number;
+  }>;
+  media_gallery_entries?: {
+    label: string,
+    url: string
+  }[],
+  image?: {
+    label: string;
+    url: string;
+  };
+  thumbnail?: {
+    label: string;
+    url: string;
+  };
+  custom_attributes?: Array<{
+    [key: string]: unknown;
+  }>;
+}
+
+export type LookItem = {
+  id?: number;
+  uid?: string;
+  sku: string;
+  name: string;
+  price: number;
+  description?: string;
+  buyUrl?: string;
+  media_gallery_entries?: {
+    label: string,
+    url: string
+  }[],
+  image?: {
+    label: string;
+    url: string;
+  };
+  custom_attributes?: Array<{
+    [key: string]: unknown;
+  }>;
+}
+export type LookDetailResponse = {
+  look: Look;
+  items: LookItem[];
+}
+export type LookList = Look[];

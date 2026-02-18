@@ -60,6 +60,7 @@ export type Item = {
   name: string;
   status?: number;
   price?: number;
+  category?: string;
   description?: string;
   media_gallery_entries?: {
     label: string,
