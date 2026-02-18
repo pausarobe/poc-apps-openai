@@ -48,7 +48,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
                     Select catalog='looks' to see complete sets (Outfits). Select catalog='items' to see individual garments. 
                     By default, if the user wants to see general options, use catalog='looks'.`,
       _meta: {
-        'openai/outputTemplate': 'ui://widget/retail-dashboard.html',
+        'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Buscando las mejores tendencias...',
         'openai/toolInvocation/invoked': 'Catálogo de moda cargado',
       },
