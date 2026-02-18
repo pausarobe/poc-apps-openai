@@ -179,7 +179,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         const gqlItems = gqlResult.data?.products?.items || [];
 
       
-       const ItemList: Item[] = gqlItems.map((item: any) => ({
+       const itemList: Item[] = gqlItems.map((item: any) => ({
         uid: item.uid,    
         name: item.name,
         id: item.id,   
@@ -197,10 +197,10 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         return {
           content: [{
             type: 'text' as const,
-            text: `He encontrado ${ItemList.length} looks disponibles en el catálogo de moda.
+            text: `He encontrado ${itemList.length} looks disponibles en el catálogo de moda.
             Los resultados obtenidos se basan en: género=${genero || 'cualquiera'}, tiempo=${tiempo || 'cualquiera'}, ocasión=${ocasion || 'cualquiera'}.`
           }],
-          structuredContent: { ItemList, category: `retail_${catalog}` },
+          structuredContent: { itemList, category: `retail_${catalog}` },
         };
 
       } catch (error) {
