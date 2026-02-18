@@ -9,7 +9,9 @@ export function registerItemDashboardWidgetResource(server: McpServer, js: strin
       title: 'Item Catalog Dashboard',
       description: 'Overview of the items inventory',
     },
-    async () => ({
+    async () => {
+      console.log("Serving retail dashboard widget resource");
+      return ({
       contents: [
         {
           uri: 'ui://widget/item-dashboard.html',
@@ -26,6 +28,6 @@ export function registerItemDashboardWidgetResource(server: McpServer, js: strin
           },
         },
       ],
-    }),
+    })},
   );
 }
