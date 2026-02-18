@@ -114,6 +114,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     }
   }
 }`;
+        console.error('GraphQL REQUEST:', gqlQuery, { id: catalogId, genero: genero, tiempo: tiempo ?? "", ocasion: ocasion ?? "" });
 
         const gqlResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
@@ -124,11 +125,15 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
           },
           body: JSON.stringify({
             query: gqlQuery,
-            variables: { id: catalogId, genero: genero, 
-              tiempo: tiempo, 
-              ocasion: ocasion}
+            variables: { 
+              id: catalogId, 
+              genero: genero ?? "", 
+              tiempo: tiempo ?? "", 
+              ocasion: ocasion ?? ""}
           })
         });
+
+        console.error('GraphQL Response Status:', gqlResponse.status, gqlResponse.statusText);
 
         if (!gqlResponse.ok) {
           const errorText = await gqlResponse.text();
