@@ -54,15 +54,23 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
       },
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
-        genero: z.string().optional().describe('Género: "Hombre", "Mujer", o el ID correspondiente'),
+        genero: z.enum(['hombre', 'mujer', 'otro']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "otro" para unisex o sin especificar'),
         tiempo: z.string().optional().describe('Clima/Tiempo: "Invierno", "Verano", "Templado"'),
         ocasion: z.string().optional().describe('Ocasión: "Boda", "Deportivo", "Fiesta", "Casual"'),
       }
     },
-    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: string, tiempo?: string, ocasion?: string }) => {
+    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'otro', tiempo?: string, ocasion?: string }) => {
       console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
+      
+      // Mapeo de género a ID numérico
+      const generoMap: Record<string, string> = {
+        'hombre': '112',
+        'mujer': '113',
+        'otro': '114'
+      };
+      const generoId = genero ? generoMap[genero] : undefined;
 
       if (!ACCESS_TOKEN) {
         console.error('ERROR: PROVIDER_CARS_API_KEY no está definida.');
@@ -127,7 +135,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
             query: gqlQuery,
             variables: { 
               id: catalogId, 
-              genero: genero ?? "", 
+              genero: generoId ?? "", 
               tiempo: tiempo ?? "", 
               ocasion: ocasion ?? ""}
           })
