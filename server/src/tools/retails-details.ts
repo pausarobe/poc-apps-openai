@@ -47,8 +47,8 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
         }).describe('Parámetros de entrada para obtener el detalle del producto o look'),
       },
     },
-    async ({ catalog, sku, inputparameters }: { catalog: 'looks' | 'items', sku: string, inputparameters: { id: string, categoryId: string } }) => {
-      console.log('Joining retail-detail', catalog, sku, inputparameters);
+    async ({ catalog, sku, inputParameters }: { catalog: 'looks' | 'items', sku: string, inputParameters: { id: string, categoryId: string } }) => {
+      console.error('Joining retail-detail', catalog, sku, inputParameters);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
 
       if (!ACCESS_TOKEN) return errorMessage('Falta el Token de acceso.');
