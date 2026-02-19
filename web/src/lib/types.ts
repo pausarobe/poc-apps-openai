@@ -54,6 +54,7 @@ export type Item = {
   custom_attributes?: Array<{
     [key: string]: unknown;
   }>;
+  related_products?: Array<Item>;
 }
 
 export type ItemList = Item[];
@@ -213,7 +214,7 @@ export type Look = {
     ocasion?: string;
     [key: string]: unknown;
   }
-  related_articles?: LookItem[];
+  related_products?: LookItem[];
 
   product_links?: Array<{
     linked_product_sku: string;

@@ -1,4 +1,4 @@
-import type { RegisterToolFn, Look } from '../utils/types'; 
+import type { RegisterToolFn, Look, LookItem, Item } from '../utils/types'; 
 import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
 
@@ -15,6 +15,7 @@ type ItemsProduct = {
   };
   image?: { url: string; };
   related_products?: Array<{
+    uid: string;
     sku: string;
     name: string;
     thumbnail?: { url: string };
@@ -103,7 +104,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
         if (!gqlItem) return errorMessage('No se ha encontrado el producto solicitado.');
 
         
-        const itemLook: Look = {
+        const itemLook: Item = {
           uid: gqlItem.uid,
           sku: gqlItem.sku,
           name: gqlItem.name,
@@ -113,11 +114,14 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             url: gqlItem.image?.url || '' 
           },
           price: gqlItem.price_range?.minimum_price?.regular_price?.value ?? 0,
-          related_articles: gqlItem.related_products?.map((rel: any) => ({
+          related_products: gqlItem.related_products?.map(rel => ({
             uid: rel.uid,
             sku: rel.sku,
             name: rel.name,
-            thumbnail: rel.thumbnail?.url || '',
+            thumbnail: rel.thumbnail ? {
+              label: rel.name,
+              url: rel.thumbnail.url
+            } : undefined,
             price: rel.price_range?.minimum_price?.regular_price?.value ?? 0,
             currency: rel.price_range?.minimum_price?.regular_price?.currency ?? 'EUR'
           })) || []

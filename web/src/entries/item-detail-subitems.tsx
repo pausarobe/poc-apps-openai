@@ -15,7 +15,7 @@ export default function ItemDetail() {
       setItem(itemData);
     }
     
-    const subitemsData = toolOutput?.itemList || [];
+    const subitemsData = itemData?.related_products || [];
     setSubitems(subitemsData);
   }, [toolOutput]);
 
