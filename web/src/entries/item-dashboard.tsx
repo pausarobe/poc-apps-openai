@@ -17,9 +17,14 @@ import { useOpenAiGlobal } from "../lib/hooks";
 
 async function searchDetail(category: string, sku: string) {
   if (!window.openai?.sendFollowUpMessage) return;
-  await window.openai.sendFollowUpMessage({
-    prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
-  });
+  // await window.openai.sendFollowUpMessage({
+  //   prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
+  // });  
+
+  await window.openai?.sendFollowUpMessage?.({
+  prompt: `Responde SOLO con: "✅ Ok, estoy ejecutando la operación..."`,
+});
+  await window.openai?.callTool?.("retail-dashboard", { inputParameters: { sku, category } });
 }
 
 export default function ItemDashboard() {
@@ -143,7 +148,13 @@ export default function ItemDashboard() {
         {items.map((item) => (
           <button
             key={item.sku}
-            onClick={() => searchDetail(category, item.sku)}
+            onClick={() => 
+              
+              
+              
+              searchDetail(category, item.sku)
+              
+            }
             className="group relative flex flex-col h-full overflow-hidden rounded-[2.5rem] border border-token-border-medium bg-token-main-surface-secondary text-left transition-all duration-500 shadow-sm hover:shadow-xl hover:border-white/50"
           >
             {/* ÁREA DE IMAGEN */}

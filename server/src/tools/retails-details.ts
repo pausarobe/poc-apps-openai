@@ -41,10 +41,14 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
       inputSchema: {
         sku: z.string().describe('El SKU del producto o look'),
         catalog: z.enum(['looks', 'items']).default('looks'),
+        inputparameters: z.object({
+          id: z.string().describe('id pasado por parámetro cuando se llama a la tool desde otra tool'),
+          categoryId: z.string().describe("categoria pasada por parámetro cuando se llama a la tool desde otra tool, para identificar el tipo de producto (e.g. 'retail_looks', 'retail_items')"),
+        }).describe('Parámetros de entrada para obtener el detalle del producto o look'),
       },
     },
-    async ({ catalog, sku }: { catalog: 'looks' | 'items', sku: string }) => {
-      console.log('Joining retail-detail', catalog, sku);
+    async ({ catalog, sku, inputparameters }: { catalog: 'looks' | 'items', sku: string, inputparameters: { id: string, categoryId: string } }) => {
+      console.log('Joining retail-detail', catalog, sku, inputparameters);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
 
       if (!ACCESS_TOKEN) return errorMessage('Falta el Token de acceso.');
