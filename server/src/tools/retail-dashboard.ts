@@ -44,9 +44,10 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     'retail-dashboard',
     {
       title: 'Retail Catalog',
-      description: `Search for products in the fashion and retail catalog. Use this tool when the user wants to see clothing sets, outfits, or looks by style (urban, formal) or by weather (winter, summer).
-                    Select catalog='looks' to see complete sets (Outfits). Select catalog='items' to see individual garments. 
-                    By default, if the user wants to see general options, use catalog='looks'.`,
+      description: `GENERAL SEARCH. Use it to display lists of clothing, outfits, or looks. It works by filtering by gender (men, women), weather (cold, warm), or occasion (party, wedding).
+                    CRITICAL RULE: DO NOT USE this tool if the user mentions a specific SKU code (e.g., LOOK-123, SKU-001)
+                    or asks to see the details of an item that is already on screen. In those cases, DO NOT CALL the tool; 
+                    simply describe the product using the information you already received from Magento in the previous step.`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
