@@ -13,5 +13,6 @@ export function loadWebAssets(WEB_DIST: string) {
     JS_ITEM_DASHBOARD: readFileSync(join(WEB_DIST, 'item-dashboard.js'), 'utf8'),
     JS_ITEM_DETAIL: readFileSync(join(WEB_DIST, 'item-detail.js'), 'utf8'),
     JS_RETAIL_DASHBOARD: readFileSync(join(WEB_DIST, 'item-dashboard.js'), 'utf8'),
+    JS_RETAIL_DETAIL: readFileSync(join(WEB_DIST, 'item-detail-subitems.js'), 'utf8'),
   };
 }
