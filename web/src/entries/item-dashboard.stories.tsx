@@ -49,6 +49,11 @@ const mapGqlItems = (gqlItems: any[]): ItemList => {
       image: {
         label: item.name,
         url: imageUrl
+      },
+      visibleTags: {
+        genero: item.genero || '',
+        tiempo: item.tiempo || '',
+        ocasion: item.ocasion || ''
       }
     };
   });
