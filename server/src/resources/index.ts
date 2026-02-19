@@ -21,5 +21,5 @@ export function registerResources(
   registerTrainDashboardWidgetResource(server, assets.JS_RENFE, assets.CSS);
   registerItemDashboardWidgetResource(server, assets.JS_ITEM_DASHBOARD, assets.CSS);
   registerItemDetailWidgetResource(server, assets.JS_ITEM_DETAIL, assets.CSS);
-  registerRetailDashboardWidgetResource(server, assets.JS_RETAIL_DASHBOARD, assets.CSS);
+  registerRetailDashboardWidgetResource(server, assets.JS_RETAIL_DETAIL, assets.CSS);
 }

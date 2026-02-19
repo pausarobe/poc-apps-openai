@@ -33,7 +33,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
       title: 'Retail Detail',
       description: 'Get detailed information about a specific product or look.',
       _meta: {
-        'openai/outputTemplate': 'ui://widget/item-detail.html',
+        'openai/outputTemplate': 'ui://widget/retail-details.html',
         'openai/toolInvocation/invoking': 'Consultando detalle en Magento Cloud...',
         'openai/toolInvocation/invoked': 'Detalle cargado correctamente',
       },
