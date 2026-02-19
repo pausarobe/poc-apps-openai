@@ -1,10 +1,8 @@
 import { useEffect } from 'react';
 import type { Item } from '../lib/types';
-import item from '../mock/item.json' with { type: 'json' };
 
-import itemLookDeportivo from '../mock/item-look-deportivo.json' with { type: 'json' };
-import subitemsLookDeportivoList from '../mock/subitems-look-deportivo-list.json' with { type: 'json' };
 import ItemDetail from './item-detail-subitems';
+import itemLookRelatedData from '../mock/item-look-related.json';
 
 function MockToolOutput({ 
   item, 
@@ -30,48 +28,39 @@ function MockToolOutput({
   return <>{children}</>;
 }
 
-export const ItemDetailIA = () => {
-  const gqlItem = item.item;
-  const itemList: Item = {
-    uid: gqlItem.uid,
-    sku: gqlItem.sku,
-    name: gqlItem.name,
-    price: gqlItem.price_range.minimum_price.regular_price.value,
-    description: gqlItem.descripcion,
-    image: gqlItem.image,
-    custom_attributes: []
-  };
-  return (
-    <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput item={itemList}>
-        <ItemDetail />
-      </MockToolOutput>
-    </div>
-  );
-};
-
-
-export const ItemDetailLookDeportivo = () => {
-  const gqlItem = itemLookDeportivo.item;
+export const ItemDetailLookRelated = () => {
+  const gqlData = itemLookRelatedData.data.products.items[0];
   
-  const subitems: Item[] = subitemsLookDeportivoList.data.products.items.map((subitem) => ({
-    uid: subitem.uid,
-    sku: subitem.sku,
-    name: subitem.name,
-    price: subitem.price_range.minimum_price.regular_price.value,
-    description: subitem.descripcion,
-    image: subitem.image,
-    custom_attributes: []
-  }));
+  if (!gqlData) {
+    return <div>No data available</div>;
+  }
 
   const mainItem: Item = {
-    uid: gqlItem.uid,
-    sku: gqlItem.sku,
-    name: gqlItem.name,
-    price: gqlItem.price_range.minimum_price.regular_price.value,
-    description: gqlItem.descripcion,
-    image: gqlItem.image,
-    related_products: subitems,
+    uid: gqlData.uid,
+    name: gqlData.name,
+    sku: gqlData.sku,
+    image: {
+      label: gqlData.name,
+      url: gqlData.image.url
+    },
+    thumbnail: {
+      label: gqlData.name,
+      url: gqlData.image.url
+    },
+    related_products: gqlData.related_products.map((product: any) => ({
+      uid: product.sku,
+      sku: product.sku,
+      name: product.name,
+      thumbnail: {
+        label: product.name,
+        url: product.thumbnail.url
+      },
+      price: product.price_range.minimum_price.regular_price.value,
+      image: {
+        label: product.name,
+        url: product.thumbnail.url
+      },
+    })),
     custom_attributes: []
   };
 

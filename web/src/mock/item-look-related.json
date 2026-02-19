@@ -1,0 +1,87 @@
+{
+    "data": {
+        "products": {
+            "items": [
+                {
+                    "uid": "MTI3NQ==",
+                    "sku": "Look Fiesta Mujer",
+                    "name": "Look Fiesta Mujer",
+                    "descripcion": null,
+                    "image": {
+                        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                    },
+                    "price_range": {
+                        "minimum_price": {
+                            "regular_price": {
+                                "value": 100,
+                                "currency": "EUR"
+                            }
+                        }
+                    },
+                    "related_products": [
+                        {
+                            "sku": "Vestido Corto Negro",
+                            "name": "Vestido Corto Negro",
+                            "thumbnail": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                            },
+                            "price_range": {
+                                "minimum_price": {
+                                    "regular_price": {
+                                        "value": 80,
+                                        "currency": "EUR"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "sku": "Tacones Stilettos Negros",
+                            "name": "Tacones Stilettos Negros",
+                            "thumbnail": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                            },
+                            "price_range": {
+                                "minimum_price": {
+                                    "regular_price": {
+                                        "value": 20,
+                                        "currency": "EUR"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "sku": "Clutch Negro Brillante",
+                            "name": "Clutch Negro Brillante",
+                            "thumbnail": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                            },
+                            "price_range": {
+                                "minimum_price": {
+                                    "regular_price": {
+                                        "value": 20,
+                                        "currency": "EUR"
+                                    }
+                                }
+                            }
+                        },
+                        {
+                            "sku": "Chaqueta Cropped",
+                            "name": "Chaqueta Cropped",
+                            "thumbnail": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                            },
+                            "price_range": {
+                                "minimum_price": {
+                                    "regular_price": {
+                                        "value": 20,
+                                        "currency": "EUR"
+                                    }
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

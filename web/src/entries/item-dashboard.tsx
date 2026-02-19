@@ -40,7 +40,7 @@ export default function ItemDashboard() {
   if (!items || items.length === 0) {
     return (
       <div className="p-12 text-center bg-token-main-surface-secondary rounded-[2rem] border border-token-border-medium">
-        <p className="text-token-text-tertiary italic">No se han encontrado datos para mostrar</p>
+        <p className="text-token-text-tertiary italic">Buscando...</p>
       </div>
     );
   }

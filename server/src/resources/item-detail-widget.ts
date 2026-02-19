@@ -9,7 +9,9 @@ export function registerItemDetailWidgetResource(server: McpServer, js: string, 
       title: 'Item Catalog Detail',
       description: 'Overview of the item detail',
     },
-    async () => ({
+    async () => {
+      console.log("Serving item detail widget resource");
+      return ({
       contents: [
         {
           uri: 'ui://widget/item-detail.html',
@@ -26,6 +28,6 @@ export function registerItemDetailWidgetResource(server: McpServer, js: string, 
           },
         },
       ],
-    }),
+    })},
   );
 }
