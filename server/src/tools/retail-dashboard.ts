@@ -49,7 +49,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
                     By default, if the user wants to see general options, use catalog='looks'.`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
-        'openai/toolInvocation/invoking': 'Buscando las mejores tendencias...',
+        'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
         'openai/toolInvocation/invoked': 'Catálogo de moda cargado',
       },
       inputSchema: {
@@ -200,7 +200,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
             text: `He encontrado ${itemList.length} looks disponibles en el catálogo de moda.
             Los resultados obtenidos se basan en: género=${genero || 'cualquiera'}, tiempo=${tiempo || 'cualquiera'}, ocasión=${ocasion || 'cualquiera'}.`
           }],
-          structuredContent: { itemList, category: `retail_${catalog}` },
+          structuredContent: { itemList, category: `retail_${catalog}` }, 
         };
 
       } catch (error) {
