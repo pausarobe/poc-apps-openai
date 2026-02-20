@@ -41,12 +41,7 @@ export type Item = {
     label: string;
     url: string;
   };
-  visibleTags?: {
-    genero?: string;
-    tiempo?: string;
-    ocasion?: string;
-    [key: string]: unknown;
-  };
+  visibleTags?: string[];
   thumbnail?: {
     label: string;
     url: string;

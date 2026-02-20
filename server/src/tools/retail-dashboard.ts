@@ -192,7 +192,8 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         properties: {}, 
         
         product_links: [],
-        custom_attributes: []
+        custom_attributes: [],
+        visibleTags: [genero, tiempo, ocasion].filter(tag => tag != undefined)
       }));
 
         return {

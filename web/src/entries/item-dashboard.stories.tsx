@@ -50,11 +50,7 @@ const mapGqlItems = (gqlItems: any[]): ItemList => {
         label: item.name,
         url: imageUrl
       },
-      visibleTags: {
-        genero: item.genero || '',
-        tiempo: item.tiempo || '',
-        ocasion: item.ocasion || ''
-      }
+      visibleTags: ["hombre", "fiesta", "calido"]
     };
   });
 };

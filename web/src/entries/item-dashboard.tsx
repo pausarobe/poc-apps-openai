@@ -179,17 +179,15 @@ export default function ItemDashboard() {
               </div>
 
               {/* Añadir Etiquetas ocasion, genero, tiempo */}
-              <div className="absolute top-4 left-4">
-                <Badge color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md">
-                  {item.visibleTags?.genero}
-                </Badge>
-                <Badge color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md">
-                  {item.visibleTags?.tiempo}
-                </Badge>
-                <Badge color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md">
-                  {item.visibleTags?.ocasion}
-                </Badge>
-              </div>
+              {item.visibleTags?.length && (
+                <div className="absolute top-4 left-4">
+                  {item.visibleTags.map(tag => (
+                    <Badge key={tag} color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md mr-2">
+                      {tag}
+                    </Badge>
+                  ))}
+                </div>
+              )}
             </div>
 
             {/* ÁREA DE TEXTO */}
