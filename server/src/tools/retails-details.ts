@@ -122,7 +122,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             uid: rel.uid,
             sku: rel.sku,
             name: rel.name,
-            thumbnail: rel.thumbnail ? {
+            image: rel.thumbnail ? {
               label: rel.name,
               url: rel.thumbnail.url
             } : undefined,
