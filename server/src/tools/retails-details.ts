@@ -41,7 +41,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
       inputSchema: {
         sku: z.string().describe('El SKU del producto o look'),
         catalog: z.enum(['looks', 'items']).default('looks'),
-        inputparameters: z.object({
+        inputParameters: z.object({
           id: z.string().describe('id pasado por parámetro cuando se llama a la tool desde otra tool'),
           categoryId: z.string().describe("categoria pasada por parámetro cuando se llama a la tool desde otra tool, para identificar el tipo de producto (e.g. 'retail_looks', 'retail_items')"),
         }).describe('Parámetros de entrada para obtener el detalle del producto o look'),
@@ -108,7 +108,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
         if (!gqlItem) return errorMessage('No se ha encontrado el producto solicitado.');
 
         
-        const itemLook: Item = {
+        const item: Item = {
           uid: gqlItem.uid,
           sku: gqlItem.sku,
           name: gqlItem.name,
@@ -122,7 +122,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             uid: rel.uid,
             sku: rel.sku,
             name: rel.name,
-            thumbnail: rel.thumbnail ? {
+            image: rel.thumbnail ? {
               label: rel.name,
               url: rel.thumbnail.url
             } : undefined,
@@ -134,9 +134,9 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
         return {
           content: [{
             type: 'text' as const,
-            text: `Detalles de ${itemLook.name} cargados correctamente.`
+            text: `Detalles de ${item.name} cargados correctamente.`
           }],
-          structuredContent: { itemLook, category: `retail_${catalog}` },
+          structuredContent: { item, category: `retail_${catalog}` },
         };
 
       } catch (error) {

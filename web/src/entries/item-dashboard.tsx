@@ -21,7 +21,7 @@ async function searchDetail(category: string, sku: string) {
   //   prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
   // });  
 
-   window.openai?.sendFollowUpMessage?.({
+  window.openai?.sendFollowUpMessage?.({
     prompt: `Responde con: "✅ Ok, estoy ejecutando la operación..."`,
   });
   window.openai?.callTool?.("retail-dashboard", { inputParameters: { sku, category }, sku: sku, catalog: category });
