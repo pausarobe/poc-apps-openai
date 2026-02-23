@@ -140,10 +140,6 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         name
       }
 
-      custom_attributes {
-        attribute_code
-        value
-      }
       
     }
   }
@@ -185,10 +181,10 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
         const gqlItems = gqlResult.data?.products?.items || [];
 
           const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
-          const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
-          const getVisibleTags = (item: any) => item.custom_attributes
-              ?.filter((attr: any) => ['genero', 'tiempo', 'ocasion'].includes(attr.attribute_code) && attr.value)
-              .map((attr: any) => reverseMap[attr.value] || attr.value) || [];
+          // const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
+          // const getVisibleTags = (item: any) => item.custom_attributes
+          //     ?.filter((attr: any) => ['genero', 'tiempo', 'ocasion'].includes(attr.attribute_code) && attr.value)
+          //     .map((attr: any) => reverseMap[attr.value] || attr.value) || [];
           const itemList: Item[] = gqlItems.map((item: any) => ({
           uid: item.uid,    
           name: item.name,
@@ -202,7 +198,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
           
           product_links: [],
           custom_attributes:[],
-          visibleTags: getVisibleTags(item)
+          visibleTags: []
 
       }));
 

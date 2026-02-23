@@ -32,7 +32,8 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
     'retail-detail',
     {
       title: 'Retail Detail',
-      description: 'Get detailed information about a specific product or look.',
+      description: `Retrieve detailed information for a single look from a specific catalog. 
+      Only call this tool when the user explicitly provides a product SKU`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-details.html',
         'openai/toolInvocation/invoking': 'Consultando detalle en Magento Cloud...',
@@ -40,11 +41,6 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
       },
       inputSchema: {
         sku: z.string().describe('El SKU del producto o look'),
-        catalog: z.enum(['looks', 'items']).default('looks'),
-        inputParameters: z.object({
-          id: z.string().describe('id pasado por parámetro cuando se llama a la tool desde otra tool'),
-          categoryId: z.string().describe("categoria pasada por parámetro cuando se llama a la tool desde otra tool, para identificar el tipo de producto (e.g. 'retail_looks', 'retail_items')"),
-        }).describe('Parámetros de entrada para obtener el detalle del producto o look'),
       },
     },
     async ({ catalog, sku, inputParameters }: { catalog: 'looks' | 'items', sku: string, inputParameters: { id: string, categoryId: string } }) => {
