@@ -90,12 +90,14 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
         });
 
         if (!gqlResponse.ok) return errorMessage('Error de red con Magento.');
-
+        console.error('GraphQL REQUEST:', { gqlResponse });
        
         const gqlResult = await gqlResponse.json() as { 
           data?: { products?: { items: ItemsProduct[] } }, 
           errors?: { message: string }[] 
         };
+        
+        console.error('GraphQL REQUEST2 :', { gqlResult });
         
         if (gqlResult?.errors && gqlResult.errors.length > 0) {
           console.error('GraphQL Errors:', gqlResult.errors);
