@@ -83,7 +83,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Store': 'default',
+            'Store': 'Looks',
             'Authorization': `Bearer ${ACCESS_TOKEN}`
           },
           body: JSON.stringify({ query: gqlQuery, variables: { sku } })
