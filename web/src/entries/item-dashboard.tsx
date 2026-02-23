@@ -180,9 +180,9 @@ export default function ItemDashboard() {
 
               {/* Añadir Etiquetas ocasion, genero, tiempo */}
               {item.visibleTags?.length && (
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {item.visibleTags.map(tag => (
-                    <Badge key={tag} color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md mr-2">
+                    <Badge key={tag} color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md">
                       {tag}
                     </Badge>
                   ))}
