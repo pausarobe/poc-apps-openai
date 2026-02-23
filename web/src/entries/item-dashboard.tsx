@@ -50,6 +50,7 @@ async function searchDetail(category: string, sku: string) {
 export default function ItemDashboard() {
   const [items, setItems] = useState<ItemList>();
   const [category, setCategory] = useState<string>('');
+  const [showAll, setShowAll] = useState(false);
   const toolOutput = useOpenAiGlobal("toolOutput");
 
   useEffect(() => {
@@ -57,6 +58,7 @@ export default function ItemDashboard() {
       const list = toolOutput?.itemList;
       if (list) setItems(list);
       setCategory(toolOutput?.category || '');
+      setShowAll(false); // Resetear al recibir nuevos items
     } catch (error) {
       console.error("Error fetching items data:", error);
     }
@@ -132,6 +134,11 @@ export default function ItemDashboard() {
   const config = getModeConfig();
   const IconHeader = config.icon;
 
+  // Controlar cuántos items mostrar
+  const INITIAL_ITEMS = 4;
+  const hasMoreItems = items.length > INITIAL_ITEMS;
+  const displayedItems = showAll ? items : items.slice(0, INITIAL_ITEMS);
+
   return (
     <div className="space-y-8 antialiased p-2">
       {/* 1. CABECERA DINÁMICA */}
@@ -165,7 +172,7 @@ export default function ItemDashboard() {
 
       {/* 2. GRID DE TARJETAS */}
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((item) => (
+        {displayedItems.map((item) => (
           <button
             key={item.sku}
             onClick={() => 
@@ -234,6 +241,20 @@ export default function ItemDashboard() {
           </button>
         ))}
       </div>
+
+      {/* 3. FOOTER - Ver más opciones */}
+      {hasMoreItems && !showAll && (
+        <div className={`bg-gradient-to-r rounded-[2.5rem] p-6 text-center shadow-xl border-b-4 transition-all duration-500 ${config.gradient}`}>
+          <button
+            onClick={() => setShowAll(true)}
+            className="w-full bg-white/10 hover:bg-white/20 text-white font-black text-base uppercase tracking-wide px-8 py-4 rounded-2xl border border-white/20 backdrop-blur-xl transition-all duration-300 flex items-center justify-center gap-3 group"
+          >
+            <HiSparkles className="w-5 h-5 group-hover:animate-pulse" />
+            Ver {items.length - INITIAL_ITEMS} opciones más
+            <HiChevronRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+          </button>
+        </div>
+      )}
     </div>
   );
 }
