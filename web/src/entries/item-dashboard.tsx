@@ -24,11 +24,11 @@ async function searchDetail(category: string, sku: string) {
   console.log("Searching detail for SKU:", sku, "in category:", category);
   
   // Determinar el catálogo correcto (looks o items) desde la categoría
-  const catalog = category.toLowerCase().includes('retail_looks') ? 'retail_looks' : 'retail_items';
+  // const catalog = category.toLowerCase().includes('retail_looks') ? 'retail_looks' : 'retail_items';
   
   window.openai.callTool("retail-detail", { 
     sku: sku, 
-    catalog: catalog,
+    catalog: "looks",
     inputParameters: { 
       id: sku, 
       categoryId: category 
