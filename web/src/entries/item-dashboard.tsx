@@ -21,9 +21,10 @@ async function searchDetail(category: string, sku: string) {
   //   prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
   // });  
 
-  window.openai?.sendFollowUpMessage?.({
-    prompt: `Responde con: "✅ Ok, estoy ejecutando la operación..."`,
-  });
+  // window.openai?.sendFollowUpMessage?.({
+  //   prompt: `Responde con: "✅ Ok, estoy ejecutando la operación..."`,
+  // });
+  console.log("Searching detail for SKU:", sku, "in category:", category);
   window.openai?.callTool?.("retail-dashboard", { inputParameters: { sku, category }, sku: sku, catalog: category });
 }
 
