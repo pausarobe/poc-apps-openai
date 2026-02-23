@@ -36,12 +36,13 @@ async function searchDetail(category: string, sku: string) {
   // });
 
   await window.openai.sendFollowUpMessage({
-    prompt: `Simplemente responde con "BUSCANDO_DETALLE" para indicar que se va a iniciar la búsqueda del detalle del producto con SKU ${sku} en el catálogo ${category}.`,
+    prompt: `Simplemente responde con "BUSCANDO_DETALLE" y a después 
+      dame detalles del look con SKU ${sku} `
   });
 
-  await window.openai.sendFollowUpMessage({
-    prompt: `Dame detalles del look con SKU ${sku}`,
-  });
+  // await window.openai.sendFollowUpMessage({
+  //   prompt: `Dame detalles del look con SKU ${sku}`,
+  // });
 
   
 }
