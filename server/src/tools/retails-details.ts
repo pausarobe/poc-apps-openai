@@ -83,29 +83,32 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Store': 'Looks',
             'Authorization': `Bearer ${ACCESS_TOKEN}`
           },
           body: JSON.stringify({ query: gqlQuery, variables: { sku } })
         });
 
         if (!gqlResponse.ok) return errorMessage('Error de red con Magento.');
-        console.error('GraphQL REQUEST:', { gqlResponse });
+        // console.error('GraphQL REQUEST:', { gqlResponse });
        
         const gqlResult = await gqlResponse.json() as { 
           data?: { products?: { items: ItemsProduct[] } }, 
           errors?: { message: string }[] 
         };
         
-        console.error('GraphQL REQUEST2 :', { gqlResult });
+        // console.error('GraphQL REQUEST2 :', { gqlResult });
         
         if (gqlResult?.errors && gqlResult.errors.length > 0) {
           console.error('GraphQL Errors:', gqlResult.errors);
           return errorMessage('Error en la consulta de Magento.');
         }
 
-       
+        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
+
+
         const gqlItem = gqlResult.data?.products?.items[0];
+
+        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
 
         if (!gqlItem) return errorMessage('No se ha encontrado el producto solicitado.');
 
