@@ -103,12 +103,12 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
           return errorMessage('Error en la consulta de Magento.');
         }
 
-        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
+        // console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
 
 
         const gqlItem = gqlResult.data?.products?.items[0];
 
-        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
+        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items.length });
 
         if (!gqlItem) return errorMessage('No se ha encontrado el producto solicitado.');
 
@@ -135,6 +135,9 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             currency: rel.price_range?.minimum_price?.regular_price?.currency ?? 'EUR'
           })) || []
         };
+
+        console.error('FINAL :', item.name, item.related_products?.length);
+
 
         return {
           content: [{
