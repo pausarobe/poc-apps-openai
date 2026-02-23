@@ -16,19 +16,24 @@ import { useOpenAiGlobal } from "../lib/hooks";
 
 
 async function searchDetail(category: string, sku: string) {
-  if (!window.openai?.sendFollowUpMessage) {
-    console.error("OpenAI SDK not available or sendFollowUpMessage method missing.");
+  if (!window.openai?.callTool) {
+    console.error("OpenAI SDK not available or callTool method missing.");
     return;
   }
-  // await window.openai.sendFollowUpMessage({
-  //   prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
-  // });  
-
-  // window.openai?.sendFollowUpMessage?.({
-  //   prompt: `Responde con: "✅ Ok, estoy ejecutando la operación..."`,
-  // });
-  console.error("Searching detail for SKU:", sku, "in category:", category);
-  window.openai?.callTool?.("retail-dashboard", { inputParameters: { sku, category }, sku: sku, catalog: category });
+  
+  console.log("Searching detail for SKU:", sku, "in category:", category);
+  
+  // Determinar el catálogo correcto (looks o items) desde la categoría
+  const catalog = category.toLowerCase().includes('retail_looks') ? 'retail_looks' : 'retail_items';
+  
+  window.openai.callTool("retail-detail", { 
+    sku: sku, 
+    catalog: catalog,
+    inputParameters: { 
+      id: sku, 
+      categoryId: category 
+    }
+  });
 }
 
 export default function ItemDashboard() {
