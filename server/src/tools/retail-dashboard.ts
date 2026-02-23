@@ -44,10 +44,23 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     'retail-dashboard',
     {
       title: 'Retail Catalog',
-      description: `GENERAL SEARCH. Use it to display lists of clothing, outfits, or looks. It works by filtering by gender (men, women), weather (cold, warm), or occasion (party, wedding).
-                    CRITICAL RULE: DO NOT USE this tool if the user mentions a specific SKU code (e.g., LOOK-123, SKU-001)
-                    or asks to see the details of an item that is already on screen. In those cases, DO NOT CALL the tool; 
-                    simply describe the product using the information you already received from Magento in the previous step.`,
+      description: `
+      
+GENERAL FASHION SEARCH AND STYLE ASSISTANT.
+
+Use this tool to generate and display lists of clothing, outfits, or complete looks.
+It can be triggered by:
+- Explicit filters such as gender (men, women), weather (cold, warm), or occasion (party, wedding).
+- General or open-ended fashion questions (e.g., "What should I wear to a wedding?", "I have a party tomorrow, any outfit ideas?", "How should I dress for cold weather?").
+- Situations where the user describes an event, context, or need without specifying filters directly.
+
+The tool should interpret the user’s intent (occasion, weather, dress code, time of day, etc.) even if not explicitly structured as filters.
+
+CRITICAL RULE:
+DO NOT USE this tool if the user mentions a specific SKU code (e.g., LOOK-123, SKU-001)
+or asks to see the details of an item that is already on screen.
+In those cases, DO NOT CALL the tool; simply describe the product using the information already provided.
+`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
