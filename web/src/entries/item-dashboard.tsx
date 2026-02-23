@@ -35,14 +35,14 @@ async function searchDetail(category: string, sku: string) {
   //   }
   // });
 
-  await window.openai.sendFollowUpMessage({
-    prompt: `Simplemente responde con "BUSCANDO_DETALLE" y a después 
-      dame detalles del look con SKU ${sku} `
-  });
-
   // await window.openai.sendFollowUpMessage({
-  //   prompt: `Dame detalles del look con SKU ${sku}`,
+  //   prompt: `Simplemente responde con "BUSCANDO_DETALLE" y a después 
+  //     dame detalles del look con SKU ${sku} `
   // });
+
+  await window.openai.sendFollowUpMessage({
+    prompt: `Dame detalles del look con SKU ${sku}`,
+  });
 
   
 }
