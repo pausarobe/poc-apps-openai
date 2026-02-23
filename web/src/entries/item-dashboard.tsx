@@ -21,7 +21,7 @@ async function searchDetail(category: string, sku: string) {
   //   prompt: `Following the catalog ${category}, I want to see the item with SKU '${sku}'.`,
   // });  
 
-  window.openai?.sendFollowUpMessage?.({
+   window.openai?.sendFollowUpMessage?.({
     prompt: `Responde con: "✅ Ok, estoy ejecutando la operación..."`,
   });
   window.openai?.callTool?.("retail-dashboard", { inputParameters: { sku, category }, sku: sku, catalog: category });
@@ -180,9 +180,9 @@ export default function ItemDashboard() {
 
               {/* Añadir Etiquetas ocasion, genero, tiempo */}
               {item.visibleTags?.length && (
-                <div className="absolute top-4 left-4">
+                <div className="absolute top-4 left-4 flex flex-col gap-2">
                   {item.visibleTags.map(tag => (
-                    <Badge key={tag} color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md mr-2">
+                    <Badge key={tag} color="dark" className="bg-black/70 text-white border-0 font-black uppercase px-3 backdrop-blur-md">
                       {tag}
                     </Badge>
                   ))}

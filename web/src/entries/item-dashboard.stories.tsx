@@ -27,7 +27,16 @@ function MockToolOutput({
   }, [itemList, category]);
   return <>{children}</>;
 }
+const generoMap = { 'hombre': '112', 'mujer': '113', 'unisex': '114', 'kids': '115' };
+const tiempoMap = { 'frio': '99', 'calido': '100', 'lluvia': '101', 'templado': '102' };
+const ocasionMap = { 'boda': '103', 'oficina': '104', 'fiesta': '105', 'deporte': '106', 'diario': '107' };
 
+// Creamos el reverseMap automáticamente para no escribirlo a mano otra vez
+const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
+const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
+const getVisibleTags = (item: any) => (item.custom_attributes || [])
+    .filter((attr: any) => ['genero', 'tiempo', 'ocasion'].includes(attr.attribute_code) && attr.value)
+    .map((attr: any) => reverseMap[attr.value] || attr.value);
 // FUNCIÓN DE MAPEO ROBUSTA (Asegura que las imágenes y precios carguen siempre)
 const mapGqlItems = (gqlItems: any[]): ItemList => {
   return gqlItems.map((item) => {
@@ -50,7 +59,9 @@ const mapGqlItems = (gqlItems: any[]): ItemList => {
         label: item.name,
         url: imageUrl
       },
-      visibleTags: ["hombre", "fiesta", "calido"]
+      // MODIFICACIÓN: Aseguramos la coma y la traducción robusta
+      custom_attributes: item.custom_attributes || [],
+      visibleTags: getVisibleTags(item)
     };
   });
 };
