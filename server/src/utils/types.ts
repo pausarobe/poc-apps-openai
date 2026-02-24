@@ -74,6 +74,9 @@ export type Item = {
     label: string;
     url: string;
   };
+  properties?: {
+    [key: string]: any; 
+  };
   custom_attributes?: Array<{
     [key: string]: unknown;
   }>;

@@ -5,6 +5,7 @@ import z from 'zod';
 type LookProduct = {
   uid: string;
   id: number;
+  descripcionIA?: string;
   sku: string;
   name: string;
   descripcion?: string;
@@ -118,8 +119,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
     filter: { 
       category_id: { eq: $id },
       genero: { eq: $genero },
-      tiempo: { eq: $tiempo },
-      ocasion: { eq: $ocasion }
+      
     }
   ) {
     items {
@@ -130,6 +130,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
       genero
       tiempo
       ocasion
+      descripcionIA
       descripcion
       price_range {
         minimum_price {
@@ -171,8 +172,9 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
             variables: { 
               id: catalogId, 
               genero: generoId, 
-              tiempo: tiempoId, 
-              ocasion: ocasionId}
+              //tiempo: tiempoId, 
+             // ocasion: ocasionId
+             }
           })
         });
 
@@ -204,9 +206,12 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
           sku: item.sku,
           image: item.image, 
           thumbnail: item.thumbnail,
-          
+          price: item.price_range?.minimum_price?.regular_price?.value ?? 0,
 
-          properties: {}, 
+          properties: {
+            ai_recommendation_hint: item.descripcionIA || item.descripcion || "",
+            full_description: item.descripcion || ""
+          }, 
           
           product_links: [],
           custom_attributes:[],
@@ -217,8 +222,8 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         return {
           content: [{
             type: 'text' as const,
-            text: `He encontrado ${itemList.length} looks disponibles en el catálogo de moda.
-            Los resultados obtenidos se basan en: género=${genero || 'cualquiera'}, tiempo=${tiempo || 'cualquiera'}, ocasión=${ocasion || 'cualquiera'}.`
+            text: `I have retrieved ${itemList.length} options from the ${genero || 'general'} category. Analyze the 'ai_recommendation_hint' field of each one and select the ones that best fit the user's situation. 
+            Explain to them why these looks are ideal for what they requested.`
           }],
           structuredContent: { itemList, category: `retail_${catalog}` }, 
         };
