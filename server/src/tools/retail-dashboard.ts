@@ -70,8 +70,8 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
-        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
-        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
+       // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
+        // ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
       }
     },
     async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
