@@ -194,10 +194,9 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         const gqlItems = gqlResult.data?.products?.items || [];
 
           const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
-          // const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
-          // const getVisibleTags = (item: any) => item.custom_attributes
-          //     ?.filter((attr: any) => ['genero', 'tiempo', 'ocasion'].includes(attr.attribute_code) && attr.value)
-          //     .map((attr: any) => reverseMap[attr.value] || attr.value) || [];
+          const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
+          const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
+            .map(val => reverseMap[String(val)] || String(val));
           const itemList: Item[] = gqlItems.map((item: any) => ({
           uid: item.uid,    
           name: item.name,
@@ -211,7 +210,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
           
           product_links: [],
           custom_attributes:[],
-          visibleTags: []
+          visibleTags: getTags(item)
 
       }));
 
