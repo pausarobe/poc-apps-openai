@@ -221,16 +221,20 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         }));
 
         if (query) {
-          const searchTerms = query.toLowerCase().split(' ').filter(word => word.length > 3);
+          const cleanQuery = query.toLowerCase().replace(/[...]/g, '').trim();
+          const searchTerms = cleanQuery.split(' ').filter(word => word.length > 3);
 
           itemList.sort((a: any, b: any) => {
             const hintA = (a.properties.ai_recommendation_hint || "").toLowerCase();
             const hintB = (b.properties.ai_recommendation_hint || "").toLowerCase();
 
-          
+
             const scoreA = searchTerms.reduce((count, term) => count + (hintA.includes(term) ? 1 : 0), 0);
             const scoreB = searchTerms.reduce((count, term) => count + (hintB.includes(term) ? 1 : 0), 0);
 
+            if (scoreA > 0 || scoreB > 0) {
+              console.log(`📊 PUNTOS -> ${a.sku}: ${scoreA} | ${b.sku}: ${scoreB}`);
+            }
             return scoreB - scoreA;
           });
         }
