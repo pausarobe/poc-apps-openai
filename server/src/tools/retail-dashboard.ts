@@ -70,15 +70,16 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
-       // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
+        query: z.string().optional().describe('La necesidad o contexto específico del usuario para ordenar por relevancia'),
+        // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
         // ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
       }
     },
-    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
-      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion);
+    async ({ catalog, genero, tiempo, ocasion, query }: { catalog: 'looks' | 'items', query?: string, genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
+      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, query);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
-      
+
       // Mapeo de género a ID numérico
       const generoMap: Record<string, string> = {
         'hombre': '112',
@@ -169,12 +170,12 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
           },
           body: JSON.stringify({
             query: gqlQuery,
-            variables: { 
-              id: catalogId, 
-              genero: generoId, 
+            variables: {
+              id: catalogId,
+              genero: generoId,
               //tiempo: tiempoId, 
-             // ocasion: ocasionId
-             }
+              // ocasion: ocasionId
+            }
           })
         });
 
@@ -195,37 +196,53 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
 
         const gqlItems = gqlResult.data?.products?.items || [];
 
-          const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
-          const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
-          const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
-            .map(val => reverseMap[String(val)] || String(val));
-          const itemList: Item[] = gqlItems.map((item: any) => ({
-          uid: item.uid,    
+        const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
+        const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
+        const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
+          .map(val => reverseMap[String(val)] || String(val));
+        const itemList: Item[] = gqlItems.map((item: any) => ({
+          uid: item.uid,
           name: item.name,
-          id: item.id,   
+          id: item.id,
           sku: item.sku,
-          image: item.image, 
+          image: item.image,
           thumbnail: item.thumbnail,
           price: item.price_range?.minimum_price?.regular_price?.value ?? 0,
 
           properties: {
             ai_recommendation_hint: item.descripcionIA || item.descripcion || "",
             full_description: item.descripcion || ""
-          }, 
-          
+          },
+
           product_links: [],
-          custom_attributes:[],
+          custom_attributes: [],
           visibleTags: getTags(item)
 
-      }));
+        }));
+
+        if (query) {
+          const searchTerms = query.toLowerCase().split(' ').filter(word => word.length > 3);
+
+          itemList.sort((a: any, b: any) => {
+            const hintA = (a.properties.ai_recommendation_hint || "").toLowerCase();
+            const hintB = (b.properties.ai_recommendation_hint || "").toLowerCase();
+
+          
+            const scoreA = searchTerms.reduce((count, term) => count + (hintA.includes(term) ? 1 : 0), 0);
+            const scoreB = searchTerms.reduce((count, term) => count + (hintB.includes(term) ? 1 : 0), 0);
+
+            return scoreB - scoreA;
+          });
+        }
 
         return {
           content: [{
             type: 'text' as const,
-            text: `I have retrieved ${itemList.length} options from the ${genero || 'general'} category. Analyze the 'ai_recommendation_hint' field of each one and select the ones that best fit the user's situation. 
-            Explain to them why these looks are ideal for what they requested.`
+            text: `I have retrieved ${itemList.length} options and have SORTED them by semantic relevance based on the search: "${query}". 
+            The best options are at the top of the list. Please recommend the first looks from the list to the user, 
+            explaining why they fit their needs using the 'ai_recommendation_hint' field.`
           }],
-          structuredContent: { itemList, category: `retail_${catalog}` }, 
+          structuredContent: { itemList, category: `retail_${catalog}` },
         };
 
       } catch (error) {
