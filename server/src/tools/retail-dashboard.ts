@@ -114,7 +114,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
-        const gqlQuery = `query GetItems($id: String!, $genero: String, $tiempo: String, $ocasion: String) {
+        const gqlQuery = `query GetItems($id: String!, $genero: String) {
   products(
     filter: { 
       category_id: { eq: $id },
