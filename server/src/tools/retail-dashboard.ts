@@ -72,7 +72,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
         query: z.string().optional().describe('La necesidad o contexto específico del usuario para ordenar por relevancia'),
         // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
-        // ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
       }
     },
     async ({ catalog, genero, tiempo, ocasion, query }: { catalog: 'looks' | 'items', query?: string, genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
@@ -115,11 +115,12 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
-        const gqlQuery = `query GetItems($id: String!, $genero: String) {
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $ocasion: String) {
   products(
     filter: { 
       category_id: { eq: $id },
       genero: { eq: $genero },
+      ocasion: { eq: $ocasion },
       
     }
   ) {
@@ -174,7 +175,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
               id: catalogId,
               genero: generoId,
               //tiempo: tiempoId, 
-              // ocasion: ocasionId
+              ocasion: ocasionId
             }
           })
         });
@@ -232,9 +233,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
             const scoreA = searchTerms.reduce((count, term) => count + (hintA.includes(term) ? 1 : 0), 0);
             const scoreB = searchTerms.reduce((count, term) => count + (hintB.includes(term) ? 1 : 0), 0);
 
-            if (scoreA > 0 || scoreB > 0) {
-              console.log(`📊 PUNTOS -> ${a.sku}: ${scoreA} | ${b.sku}: ${scoreB}`);
-            }
+            
             return scoreB - scoreA;
           });
         }
