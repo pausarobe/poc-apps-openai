@@ -70,13 +70,13 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
-        query: z.string().optional().describe('La necesidad o contexto específico del usuario para ordenar por relevancia'),
+        orderedSkus: z.array(z.string()).optional().describe('Lista de SKUs en el orden exacto en que deben mostrarse visualmente.'),
         // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
         ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
       }
     },
-    async ({ catalog, genero, tiempo, ocasion, query }: { catalog: 'looks' | 'items', query?: string, genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario' }) => {
-      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, query);
+    async ({ catalog, genero, tiempo, ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus?: string[] }) => {
+      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, orderedSkus);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
 
@@ -201,7 +201,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
         const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
           .map(val => reverseMap[String(val)] || String(val));
-        const itemList: Item[] = gqlItems.map((item: any) => ({
+        let itemList: Item[] = gqlItems.map((item: any) => ({
           uid: item.uid,
           name: item.name,
           id: item.id,
@@ -221,29 +221,18 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
 
         }));
 
-        if (query) {
-          const cleanQuery = query.toLowerCase().replace(/[...]/g, '').trim();
-          const searchTerms = cleanQuery.split(' ').filter(word => word.length > 3);
-
-          itemList.sort((a: any, b: any) => {
-            const hintA = (a.properties.ai_recommendation_hint || "").toLowerCase();
-            const hintB = (b.properties.ai_recommendation_hint || "").toLowerCase();
-
-
-            const scoreA = searchTerms.reduce((count, term) => count + (hintA.includes(term) ? 1 : 0), 0);
-            const scoreB = searchTerms.reduce((count, term) => count + (hintB.includes(term) ? 1 : 0), 0);
-
-            
-            return scoreB - scoreA;
-          });
+        if (orderedSkus && orderedSkus.length > 0) {
+          itemList = orderedSkus.map(sku => itemList.find(item => item.sku === sku))
+            .filter((item): item is Item => !!item);
         }
-
         return {
           content: [{
             type: 'text' as const,
-            text: `I have retrieved ${itemList.length} options and have SORTED them by semantic relevance based on the search: "${query}". 
-            The best options are at the top of the list. Please recommend the first looks from the list to the user, 
-            explaining why they fit their needs using the 'ai_recommendation_hint' field.`
+            text: orderedSkus
+              ? `He organizado visualmente los productos siguiendo el orden de relevancia que has decidido.`
+              : `He recuperado ${itemList.length} opciones. Analiza estos datos y vuelve a llamarme con 'orderedSkus' 
+                para ordenarlos:\n${JSON.stringify(itemList)}`
+
           }],
           structuredContent: { itemList, category: `retail_${catalog}` },
         };
