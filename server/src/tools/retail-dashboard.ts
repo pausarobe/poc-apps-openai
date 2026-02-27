@@ -46,21 +46,10 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     {
       title: 'Retail Catalog',
       description: `
-      
-GENERAL FASHION SEARCH AND STYLE ASSISTANT.
-
-Use this tool to generate and display lists of clothing, outfits, or complete looks.
-It can be triggered by:
-- Explicit filters such as gender (men, women), weather (cold, warm), or occasion (party, wedding).
-- General or open-ended fashion questions (e.g., "What should I wear to a wedding?", "I have a party tomorrow, any outfit ideas?", "How should I dress for cold weather?").
-- Situations where the user describes an event, context, or need without specifying filters directly.
-
-The tool should interpret the user’s intent (occasion, weather, dress code, time of day, etc.) even if not explicitly structured as filters.
-
-CRITICAL RULE:
-DO NOT USE this tool if the user mentions a specific SKU code (e.g., LOOK-123, SKU-001)
-or asks to see the details of an item that is already on screen.
-In those cases, DO NOT CALL the tool; simply describe the product using the information already provided.
+ HERRAMIENTA EXCLUSIVAMENTE VISUAL.
+Úsala SOLO como paso final, DESPUÉS de haber analizado los datos con 'catalog-discovery' y haber elegido los productos.
+Recibe obligatoriamente la lista de SKUs elegidos en 'orderedSkus' y genera el carrusel de imágenes para el usuario.
+NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual final.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
@@ -69,13 +58,12 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
       },
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
-        genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto: "hombre" para ropa de hombre, "mujer" para ropa de mujer, "unisex" para ropa sin género específico, "kids" para niños'),
-        orderedSkus: z.array(z.string()).optional().describe('Lista de SKUs en el orden exacto en que deben mostrarse visualmente.'),
-        // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
-        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
-      }
+        genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto'),
+        orderedSkus: z.array(z.string()).describe('Lista OBLIGATORIA de SKUs en el orden exacto en que deben mostrarse.'),
+        // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), }
     },
-    async ({ catalog, genero, tiempo, ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus?: string[] }) => {
+    async ({ catalog, genero, tiempo, ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
       console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, orderedSkus);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
@@ -201,7 +189,9 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
         const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
         const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
           .map(val => reverseMap[String(val)] || String(val));
-        let itemList: Item[] = gqlItems.map((item: any) => ({
+        let itemList: Item[] = orderedSkus .map(sku => gqlItems.find((item: any) => item.sku === sku))
+          .filter((item): item is any => !!item)
+          .map((item: any) => ({
           uid: item.uid,
           name: item.name,
           id: item.id,
@@ -221,10 +211,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
 
         }));
 
-        if (orderedSkus && orderedSkus.length > 0) {
-          itemList = orderedSkus.map(sku => itemList.find(item => item.sku === sku))
-            .filter((item): item is Item => !!item);
-        }
+       
         return {
           content: [{
             type: 'text' as const,
@@ -234,9 +221,7 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
                 para ordenarlos:\n${JSON.stringify(itemList)}`
 
           }],
-          ...(orderedSkus ? {
-            structuredContent: { itemList, category: `retail_${catalog}` }
-          } : {}),
+          structuredContent: { itemList, category: `retail_${catalog}` },
         };
 
       } catch (error) {
