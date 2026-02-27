@@ -234,7 +234,9 @@ In those cases, DO NOT CALL the tool; simply describe the product using the info
                 para ordenarlos:\n${JSON.stringify(itemList)}`
 
           }],
-          structuredContent: { itemList, category: `retail_${catalog}` },
+          ...(orderedSkus ? {
+            structuredContent: { itemList, category: `retail_${catalog}` }
+          } : {}),
         };
 
       } catch (error) {
