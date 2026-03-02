@@ -32,7 +32,8 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
       }
     },
     async ({ catalog, genero, ocasion }: { catalog: 'looks' | 'items', genero?: string, ocasion?: string }) => {
-      const tStart = Date.now();
+      const t_llegada = Date.now();
+      console.log(`\n[⏱️ DISCOVERY] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()})`);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
       const generoMap: Record<string, string> = { 'hombre': '112', 'mujer': '113', 'unisex': '114', 'kids': '115' };
@@ -60,7 +61,8 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
             }
           }
         }`;
-        const tWebStart = Date.now();
+        const t_llamada_api = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_llamada_api}] 🌐 Hora de llamada a la API (${new Date(t_llamada_api).toISOString()})`);
         const gqlResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
           headers: {
@@ -80,13 +82,14 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
         });
 
         const gqlResult = await gqlResponse.json() as any;
-        const tWebEnd = Date.now();
+        const t_respuesta_api = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_respuesta_api}] 📥 Hora de respuesta de la API (${new Date(t_respuesta_api).toISOString()})`);
 
-        const tProcStart = Date.now();
+        
         const items = gqlResult.data?.products?.items || [];
-        const tProcEnd = Date.now();
-        console.log(`Tiempos: Total=${tProcEnd - tStart}ms, Web=${tWebEnd - tWebStart}ms, Proc=${tProcEnd - tProcStart}ms`);
-
+        const t_fin_tool = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_fin_tool}] 🔴 Fin del servicio Discovery\n`);
+        
         // Devolvemos los datos como texto plano para que la IA los lea
         return {
           content: [{

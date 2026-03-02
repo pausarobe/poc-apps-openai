@@ -65,7 +65,8 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
     },
     async ({ catalog, genero, tiempo, ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
       console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, orderedSkus);
-      const tStart = Date.now();
+      const t_llegada = Date.now();
+      console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'looks' ? '47' : '48';
 
@@ -151,7 +152,8 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
 }`;
         console.error('GraphQL REQUEST:', { id: catalogId, genero: generoId, tiempo: tiempoId, ocasion: ocasionId });
 
-        const tWebStart = Date.now();
+        const t_llamada_api = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_llamada_api}] 🌐 Hora de llamada a la API (${new Date(t_llamada_api).toISOString()})`);
         const gqlResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
           headers: {
@@ -179,14 +181,16 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         }
 
         const gqlResult = await gqlResponse.json() as { data?: { products?: { items: LookProduct[] } }, errors?: { message: string }[] };
-        const tWebEnd = Date.now();
+        const t_respuesta_api = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_respuesta_api}] 📥 Hora de respuesta de la API (${new Date(t_respuesta_api).toISOString()})`);
 
 
         if (gqlResult?.errors && gqlResult.errors.length > 0) {
           console.error('GraphQL Errors:', gqlResult.errors);
           throw new Error();
         }
-        const tProcStart = Date.now();
+        const t_pintar_widget = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_pintar_widget}] ⚙️ Llamada para pintar el widget (${new Date(t_pintar_widget).toISOString()})`);
         const gqlItems = gqlResult.data?.products?.items || [];
 
         const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
@@ -214,10 +218,8 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
           visibleTags: getTags(item)
 
         }));
-          const tProcEnd = Date.now();
-          const tEnd = Date.now();
-          console.log(`Tiempos: Total=${tEnd - tStart}ms, Web=${tWebEnd - tWebStart}ms, Proc=${tProcEnd - tProcStart}ms`);
-          
+        const t_llamada_widget = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_llamada_widget}] 🔴 Llamada al widget - Fin del servicio (${new Date(t_llamada_widget).toISOString()})\n`);
 
        
         return {
