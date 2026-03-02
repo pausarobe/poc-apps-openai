@@ -63,8 +63,8 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
         ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), }
     },
-    async ({ catalog, genero, tiempo, ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
-      console.log('Joining retail-dashboard', catalog, genero, tiempo, ocasion, orderedSkus);
+    async ({ catalog, genero,  ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
+      console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
@@ -80,13 +80,13 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
       const generoId = genero ? generoMap[genero] : "";
 
       // Mapeo de tiempo a ID numérico
-      const tiempoMap: Record<string, string> = {
+     /* const tiempoMap: Record<string, string> = {
         'frio': '99',
         'calido': '100',
         'lluvia': '101',
         'templado': '102'
       };
-      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";*/
 
       // Mapeo de ocasion a ID numérico
       const ocasionMap: Record<string, string> = {
@@ -120,7 +120,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
       sku
       name
       genero
-      tiempo
+     
       ocasion
       descripcionIA
       descripcion
@@ -150,7 +150,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
     }
   }
 }`;
-        console.error('GraphQL REQUEST:', { id: catalogId, genero: generoId, tiempo: tiempoId, ocasion: ocasionId });
+        console.error('GraphQL REQUEST:', { id: catalogId, genero: generoId, ocasion: ocasionId });
 
         const t_llamada_api = Date.now();
         console.log(`[⏱️ DASHBOARD] [${t_llamada_api}] 🌐 Hora de llamada a la API (${new Date(t_llamada_api).toISOString()})`);
@@ -193,9 +193,9 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         console.log(`[⏱️ DASHBOARD] [${t_pintar_widget}] ⚙️ Llamada para pintar el widget (${new Date(t_pintar_widget).toISOString()})`);
         const gqlItems = gqlResult.data?.products?.items || [];
 
-        const allMaps = { ...generoMap, ...tiempoMap, ...ocasionMap };
+        const allMaps = { ...generoMap, ...ocasionMap };
         const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
-        const getTags = (item: any) => [item.genero, item.tiempo, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
+        const getTags = (item: any) => [item.genero, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
           .map(val => reverseMap[String(val)] || String(val));
         let itemList: Item[] = orderedSkus .map(sku => gqlItems.find((item: any) => item.sku === sku))
           .filter((item): item is any => !!item)
