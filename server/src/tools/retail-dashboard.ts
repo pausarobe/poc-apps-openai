@@ -218,6 +218,9 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
           visibleTags: getTags(item)
 
         }));
+        // TRAZA DE ORDENACIÓN (DESPUÉS DEL MAPEO)
+        const skusFinales = itemList.map(item => item.sku);
+        console.log(`[✅ ORDEN] SKUs finales en el widget (Ya ordenados):`, skusFinales);
         const t_llamada_widget = Date.now();
         console.log(`[⏱️ DASHBOARD] [${t_llamada_widget}] 🔴 Llamada al widget - Fin del servicio (${new Date(t_llamada_widget).toISOString()})\n`);
 
@@ -225,11 +228,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         return {
           content: [{
             type: 'text' as const,
-            text: orderedSkus
-              ? `He organizado visualmente los productos siguiendo el orden de relevancia que has decidido.`
-              : `He recuperado ${itemList.length} opciones. Analiza estos datos y vuelve a llamarme con 'orderedSkus' 
-                para ordenarlos:\n${JSON.stringify(itemList)}`
-
+            text: `He preparado visualmente tu selección de moda.`
           }],
           structuredContent: { itemList, category: `retail_${catalog}` },
         };

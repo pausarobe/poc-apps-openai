@@ -87,6 +87,9 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
 
         
         const items = gqlResult.data?.products?.items || [];
+        const skusEncontrados = items.map((item: any) => item.sku);
+        console.log(`[🔎 DISCOVERY] SKUs crudos enviados a la IA para analizar:`, skusEncontrados);
+        
         const t_fin_tool = Date.now();
         console.log(`[⏱️ DISCOVERY] [${t_fin_tool}] 🔴 Fin del servicio Discovery\n`);
         
