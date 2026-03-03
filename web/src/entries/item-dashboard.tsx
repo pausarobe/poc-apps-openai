@@ -41,7 +41,7 @@ async function searchDetail(category: string, sku: string) {
   // });
 
   await window.openai.sendFollowUpMessage({
-    prompt: `Dame detalles del look presentado en la lista que tiene SKU ${sku}`,
+    prompt: `Dame detalle completo del look presentado en la lista que tiene SKU ${sku}`,
   });
 
   
