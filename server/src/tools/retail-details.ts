@@ -32,8 +32,8 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
     'retail-detail',
     {
       title: 'Retail Detail',
-      description: `Retrieve detailed information for a single look from a specific catalog. 
-      Only call this tool when the user explicitly provides a product SKU`,
+      description: `Retrieve detailed information for a single look or cloth item from a specific catalog. 
+      Only call this tool when the user explicitly provides a product SKU from a previous list you displayed`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-details.html',
         'openai/toolInvocation/invoking': 'Consultando detalle en Magento Cloud...',
