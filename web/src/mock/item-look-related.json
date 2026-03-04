@@ -3,72 +3,48 @@
         "products": {
             "items": [
                 {
-                    "uid": "MTI3NQ==",
-                    "sku": "Look Fiesta Mujer",
-                    "name": "Look Fiesta Mujer",
-                    "descripcion": null,
+                    "uid": "MTI0OQ==",
+                    "sku": "Look deportivo",
+                    "name": "Look deportivo",
+                    "descripcion": "Look deportivo perfecto para invierno",
                     "image": {
-                        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/l/o/look1.jpg"
                     },
                     "price_range": {
                         "minimum_price": {
                             "regular_price": {
-                                "value": 100,
+                                "value": 60,
                                 "currency": "EUR"
                             }
                         }
                     },
                     "related_products": [
                         {
-                            "sku": "Vestido Corto Negro",
-                            "name": "Vestido Corto Negro",
+                            "sku": "Camiseta técnica \"Dry-Fit\" Carbono",
+                            "name": "Camiseta técnica \"Dry-Fit\" Carbono",
                             "thumbnail": {
-                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/c/a/camiseta1_1.jpg"
+                            },
+                            "image": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/c/a/camiseta1_1.jpg"
                             },
                             "price_range": {
                                 "minimum_price": {
                                     "regular_price": {
-                                        "value": 80,
+                                        "value": 30,
                                         "currency": "EUR"
                                     }
                                 }
                             }
                         },
                         {
-                            "sku": "Tacones Stilettos Negros",
-                            "name": "Tacones Stilettos Negros",
+                            "sku": "Zapatillas",
+                            "name": "Zapatillas",
                             "thumbnail": {
-                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/z/a/zapatilla1.jpg"
                             },
-                            "price_range": {
-                                "minimum_price": {
-                                    "regular_price": {
-                                        "value": 20,
-                                        "currency": "EUR"
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "sku": "Clutch Negro Brillante",
-                            "name": "Clutch Negro Brillante",
-                            "thumbnail": {
-                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
-                            },
-                            "price_range": {
-                                "minimum_price": {
-                                    "regular_price": {
-                                        "value": 20,
-                                        "currency": "EUR"
-                                    }
-                                }
-                            }
-                        },
-                        {
-                            "sku": "Chaqueta Cropped",
-                            "name": "Chaqueta Cropped",
-                            "thumbnail": {
-                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/l/o/look1.jpg"
+                            "image": {
+                                "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/z/a/zapatilla1.jpg"
                             },
                             "price_range": {
                                 "minimum_price": {

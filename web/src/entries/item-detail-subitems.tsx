@@ -10,6 +10,7 @@ export default function ItemDetail() {
   const toolOutput = useOpenAiGlobal("toolOutput");
 
   useEffect(() => {
+    console.log("Rendering ItemDetail component", toolOutput);
     const itemData = toolOutput?.item;
     if (itemData) {
       setItem(itemData);

@@ -41,7 +41,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
       inputSchema: {
         sku: z.string().describe('El SKU del producto o look'),
         catalog: z.enum(['looks', 'items']).default('looks'),
-        inputparameters: z.object({
+        inputParameters: z.object({
           id: z.string().describe('id pasado por parámetro cuando se llama a la tool desde otra tool'),
           categoryId: z.string().describe("categoria pasada por parámetro cuando se llama a la tool desde otra tool, para identificar el tipo de producto (e.g. 'retail_looks', 'retail_items')"),
         }).describe('Parámetros de entrada para obtener el detalle del producto o look'),
@@ -83,32 +83,37 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Store': 'default',
             'Authorization': `Bearer ${ACCESS_TOKEN}`
           },
           body: JSON.stringify({ query: gqlQuery, variables: { sku } })
         });
 
         if (!gqlResponse.ok) return errorMessage('Error de red con Magento.');
-
+        // console.error('GraphQL REQUEST:', { gqlResponse });
        
         const gqlResult = await gqlResponse.json() as { 
           data?: { products?: { items: ItemsProduct[] } }, 
           errors?: { message: string }[] 
         };
         
+        // console.error('GraphQL REQUEST2 :', { gqlResult });
+        
         if (gqlResult?.errors && gqlResult.errors.length > 0) {
           console.error('GraphQL Errors:', gqlResult.errors);
           return errorMessage('Error en la consulta de Magento.');
         }
 
-       
+        // console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items });
+
+
         const gqlItem = gqlResult.data?.products?.items[0];
+
+        console.error('GraphQL REQUEST2 :', { gqlResult: gqlResult.data?.products?.items.length });
 
         if (!gqlItem) return errorMessage('No se ha encontrado el producto solicitado.');
 
         
-        const itemLook: Item = {
+        const item: Item = {
           uid: gqlItem.uid,
           sku: gqlItem.sku,
           name: gqlItem.name,
@@ -122,7 +127,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             uid: rel.uid,
             sku: rel.sku,
             name: rel.name,
-            thumbnail: rel.thumbnail ? {
+            image: rel.thumbnail ? {
               label: rel.name,
               url: rel.thumbnail.url
             } : undefined,
@@ -131,12 +136,15 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
           })) || []
         };
 
+        console.error('FINAL :', item.name, item.related_products?.length);
+
+
         return {
           content: [{
             type: 'text' as const,
-            text: `Detalles de ${itemLook.name} cargados correctamente.`
+            text: `Detalles de ${item.name} cargados correctamente.`
           }],
-          structuredContent: { itemLook, category: `retail_${catalog}`, metaData: { colorPalette: 'red' as MetaData['colorPalette'] } },
+          structuredContent: { item, category: `retail_${catalog}`, metaData: { colorPalette: 'red' as MetaData['colorPalette'] } },
         };
 
       } catch (error) {
