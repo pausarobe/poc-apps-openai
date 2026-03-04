@@ -4,14 +4,17 @@ import ItemDashboard from './item-dashboard';
 // Mocks
 import telcoMock from '../mock/items.json' with { type: 'json' };
 import looksMock from '../mock/looks.json' with { type: 'json' };
+import type { MetaData } from '../lib/openai';
 
 function MockToolOutput({ 
   itemList, 
-  category, 
+  category,
+  metaData,
   children 
 }: { 
   itemList: ItemList; 
   category: string; 
+  metaData?: MetaData;
   children: React.ReactNode 
 }) {
   useEffect(() => {
@@ -20,7 +23,8 @@ function MockToolOutput({
         toolOutput: {
           itemList: itemList,
           category: category,
-        },
+          metaData: metaData
+        }
       };
       window.dispatchEvent(new Event('openai:set_globals'));
     }
@@ -48,7 +52,7 @@ const mapGqlItems = (gqlItems: any[]): ItemList => {
     } else if (item.thumbnail?.url) {
       imageUrl = item.thumbnail.url;
     }
-
+    
     return {
       uid: item.uid || item.sku || String(Math.random()),
       sku: item.sku,
@@ -78,7 +82,7 @@ export const DashboardRetailLooks = () => {
   
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '20px' }}>
-      <MockToolOutput itemList={items} category="retail_looks">
+      <MockToolOutput itemList={items} category="retail_looks" metaData={{colorPalette: 'red'}}>
         <ItemDashboard />
       </MockToolOutput>
     </div>
@@ -106,7 +110,7 @@ export const DashboardGeneralB2C = () => {
   
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '20px' }}>
-      <MockToolOutput itemList={items} category="general_catalog">
+      <MockToolOutput itemList={items} category="general_catalog" metaData={{ colorPalette: 'blue' }}>
         <ItemDashboard />
       </MockToolOutput>
     </div>
