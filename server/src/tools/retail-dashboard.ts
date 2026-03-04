@@ -60,10 +60,10 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto'),
         orderedSkus: z.array(z.string()).describe('Lista OBLIGATORIA de SKUs en el orden exacto en que deben mostrarse.'),
-        // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
+        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
         ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), }
     },
-    async ({ catalog, genero,  ocasion, orderedSkus }: { catalog: 'looks' | 'items', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
+    async ({ catalog, genero,  ocasion, tiempo, orderedSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
       console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
@@ -80,13 +80,13 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
       const generoId = genero ? generoMap[genero] : "";
 
       // Mapeo de tiempo a ID numérico
-     /* const tiempoMap: Record<string, string> = {
+      const tiempoMap: Record<string, string> = {
         'frio': '99',
         'calido': '100',
         'lluvia': '101',
         'templado': '102'
       };
-      const tiempoId = tiempo ? tiempoMap[tiempo] : "";*/
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
 
       // Mapeo de ocasion a ID numérico
       const ocasionMap: Record<string, string> = {
@@ -105,12 +105,13 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
-        const gqlQuery = `query GetItems($id: String!, $genero: String, $ocasion: String) {
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $ocasion: String, $tiempo: String) {
   products(
     filter: { 
       category_id: { eq: $id },
       genero: { eq: $genero },
       ocasion: { eq: $ocasion },
+      tiempo: { eq: $tiempo }
       
     }
   ) {
@@ -166,7 +167,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
             variables: {
               id: catalogId,
               genero: generoId,
-              //tiempo: tiempoId, 
+              tiempo: tiempoId, 
               ocasion: ocasionId
             }
           })

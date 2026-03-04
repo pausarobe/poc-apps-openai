@@ -16,7 +16,9 @@ It can be triggered by:
 - General or open-ended fashion questions (e.g., "What should I wear to a wedding?").
 - Situations where the user describes an event, context, or need.
 
-The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, elige los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
+The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
+CRITICAL RULE: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. 
+En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer
 `,
       _meta: {
         
@@ -26,12 +28,12 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
       inputSchema: {
         catalog: z.enum(['looks', 'items']).default('looks').describe('Tipo de catálogo: looks o items'),
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género para filtrar la búsqueda inicial'),
-        // tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
+        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
         ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
 
       }
     },
-    async ({ catalog, genero, ocasion }: { catalog: 'looks' | 'items', genero?: string, ocasion?: string }) => {
+    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: string, tiempo?: string, ocasion?: string }) => {
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DISCOVERY] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()})`);
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
@@ -46,13 +48,21 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
         'diario': '107'
       };
       const ocasionId = ocasion ? ocasionMap[ocasion] : "";
+      const tiempoMap: Record<string, string> = {
+        'frio': '99',
+        'calido': '100',
+        'lluvia': '101',
+        'templado': '102'
+      };
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
+      
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
 
         // Query simplificada: Solo pedimos lo necesario para que la IA "entienda" los productos
-        const gqlQuery = `query GetItems($id: String!, $genero: String, $ocasion: String) {
-          products(filter: { category_id: { eq: $id }, genero: { eq: $genero }, ocasion: { eq: $ocasion } }) {
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $tiempo: String, $ocasion: String) {
+          products(filter: { category_id: { eq: $id }, genero: { eq: $genero }, tiempo: { eq: $tiempo }, ocasion: { eq: $ocasion } }) {
             items {
               sku
               name
@@ -75,7 +85,7 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
             variables: {
               id: catalogId,
               genero: generoId,
-              //tiempo: tiempoId, 
+              tiempo: tiempoId,
               ocasion: ocasionId
             }
           })
@@ -94,6 +104,7 @@ The tool should interpret the user’s intent and return a JSON. Analiza ese JSO
         console.log(`[⏱️ DISCOVERY] [${t_fin_tool}] 🔴 Fin del servicio Discovery\n`);
         
         // Devolvemos los datos como texto plano para que la IA los lea
+        
         return {
           content: [{
             type: 'text' as const,
