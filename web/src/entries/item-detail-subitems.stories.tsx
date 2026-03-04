@@ -3,14 +3,17 @@ import type { Item } from '../lib/types';
 
 import ItemDetail from './item-detail-subitems';
 import itemLookRelatedData from '../mock/item-look-related.json';
+import type { MetaData } from '../lib/openai';
 
 function MockToolOutput({ 
   item, 
-  category, 
+  category,
+  metaData,
   children 
 }: { 
   item: Item; 
   category?: string;
+  metaData?: MetaData;
   children: React.ReactNode;
 }) {
   useEffect(() => {
@@ -19,6 +22,7 @@ function MockToolOutput({
         toolOutput: {
           item: item,
           category: category || '',
+          metaData: metaData
         },
       };
 
@@ -66,7 +70,7 @@ export const ItemDetailLookRelated = () => {
 
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput item={mainItem} category="Fashion">
+      <MockToolOutput item={mainItem} category="Fashion" metaData={{ colorPalette: 'green' }}>
         <ItemDetail />
       </MockToolOutput>
     </div>

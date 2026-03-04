@@ -11,5 +11,10 @@ export interface ToolOutput {
   itemList?: ItemList;
   category?: string;
   lookList?: LookList;
+  metaData: MetaData | undefined;
   type?: 'arrival' | 'departure';
+}
+
+export interface MetaData {
+  colorPalette?: 'green' | 'blue' | 'yellow' | 'red' | 'purple';
 }

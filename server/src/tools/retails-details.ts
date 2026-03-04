@@ -1,4 +1,4 @@
-import type { RegisterToolFn, Look, LookItem, Item } from '../utils/types'; 
+import type { RegisterToolFn, Look, LookItem, Item, MetaData} from '../utils/types'; 
 import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
 
@@ -136,7 +136,7 @@ export function registerRetailDetailTool(registerTool: RegisterToolFn) {
             type: 'text' as const,
             text: `Detalles de ${itemLook.name} cargados correctamente.`
           }],
-          structuredContent: { itemLook, category: `retail_${catalog}` },
+          structuredContent: { itemLook, category: `retail_${catalog}`, metaData: { colorPalette: 'red' as MetaData['colorPalette'] } },
         };
 
       } catch (error) {

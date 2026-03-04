@@ -145,3 +145,7 @@ export type LookDetailResponse = {
   items: LookItem[];
 }
 export type LookList = Look[];
+
+export interface MetaData {
+  colorPalette?: 'green' | 'blue' | 'yellow' | 'red' | 'purple';
+}
