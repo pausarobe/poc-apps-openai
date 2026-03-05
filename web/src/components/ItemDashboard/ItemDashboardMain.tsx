@@ -1,38 +1,45 @@
 import { useEffect, useState } from "react";
-// Ajusta las rutas relativas a tu carpeta 'lib' según sea necesario
+
 import type { ItemList } from "../../lib/types";
 import { useOpenAiGlobal } from "../../lib/hooks";
+import { HiSwitchHorizontal, HiOutlineViewGrid } from "react-icons/hi";
 
-//Importamos las piezas visuales
+
 import Header from "./components/Header";
 import ProductCard from "./components/ProductCard";
 import Footer from "./components/Footer";
 
-//Importamos la lógica
+
+import CompareSidebar from "./components/CompareSidebar";
+import CompareZone from "./components/CompareZone";
+
+
 import { searchDetail } from "./utils/actions";
 import { getModeConfig } from "./utils/themeConfig";
 
 export default function ItemDashboardMain() {
+  // Estados originales
   const [items, setItems] = useState<ItemList>();
   const [category, setCategory] = useState<string>('');
   const [showAll, setShowAll] = useState(false);
   
-  // Hook global para leer la respuesta de la IA 
+  // Estados del Comparador
+  const [isCompareMode, setIsCompareMode] = useState(false);
+  const [comparedSkus, setComparedSkus] = useState<string[]>([]);
+
   const toolOutput = useOpenAiGlobal("toolOutput");
 
-  // Efecto para actualizar los datos cuando llegan del servidor
   useEffect(() => {
     try {
       const list = toolOutput?.itemList;
       if (list) setItems(list);
       setCategory(toolOutput?.category || '');
-      setShowAll(false); 
+      setShowAll(false);
     } catch (error) {
       console.error("Error fetching items data:", error);
     }
   }, [toolOutput]);
 
-  // Pantalla de carga mientras no hay datos
   if (!items || items.length === 0) {
     return (
       <div className="p-12 text-center bg-token-main-surface-secondary rounded-[2rem] border border-token-border-medium">
@@ -41,39 +48,100 @@ export default function ItemDashboardMain() {
     );
   }
 
-  // Obtenemos los colores y textos correspondientes
   const config = getModeConfig(category);
-  
-  // Lógica de paginación/visualización
   const INITIAL_ITEMS = 4;
   const hasMoreItems = items.length > INITIAL_ITEMS;
   const displayedItems = showAll ? items : items.slice(0, INITIAL_ITEMS);
 
+  // FUNCIÓN 1: Añadir al comparador
+  const handleDropItem = (sku: string) => {
+    setComparedSkus((prev) => {
+      // Evitamos que el usuario añada el mismo producto dos veces
+      if (prev.includes(sku)) return prev;
+      return [...prev, sku];
+    });
+  };
+
+  // FUNCIÓN 2: Quitar del comparador
+  const handleRemoveItem = (sku: string) => {
+    setComparedSkus((prev) => prev.filter((itemSku) => itemSku !== sku));
+  };
+
   return (
-    <div className="space-y-8 antialiased p-2">
-      {/* 1. CABECERA DINÁMICA */}
+    <div className="space-y-6 antialiased p-2">
+      
+     
       <Header config={config} totalItems={items.length} />
 
-      {/* 2. GRID DE TARJETAS */}
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {displayedItems.map((item) => (
-          <ProductCard 
-            key={item.sku}
-            item={item}
-            config={config}
-            category={category}
-            onItemClick={(sku) => searchDetail(category, sku)}
-          />
-        ))}
+      
+      <div className="flex justify-end px-4">
+        <button 
+          onClick={() => setIsCompareMode(!isCompareMode)}
+          className={`flex items-center gap-2 px-6 py-3 rounded-full font-black uppercase text-xs tracking-widest transition-all shadow-lg border ${
+            isCompareMode 
+              ? 'bg-slate-800 text-white hover:bg-slate-700 border-white/20' 
+              : `bg-white/10 text-white hover:bg-white/20 border-white/10 hover:border-white/30`
+          }`}
+        >
+          {isCompareMode ? (
+            <><HiOutlineViewGrid className="w-5 h-5" /> Volver al Catálogo</>
+          ) : (
+            <><HiSwitchHorizontal className="w-5 h-5" /> Activar Comparador</>
+          )}
+        </button>
       </div>
 
-      {/* 3. FOOTER - Ver más opciones */}
-      {hasMoreItems && !showAll && (
-        <Footer 
-          config={config}
-          hiddenItemsCount={items.length - INITIAL_ITEMS}
-          onShowAll={() => setShowAll(true)}
-        />
+      {/*INTERRUPTOR VISUAL */}
+      {!isCompareMode ? (
+        
+        /* --- MODO 1: CATÁLOGO NORMAL --- */
+        <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {displayedItems.map((item) => (
+              <ProductCard 
+                key={item.sku}
+                item={item}
+                config={config}
+                category={category}
+                onItemClick={(sku) => searchDetail(category, sku)}
+              />
+            ))}
+          </div>
+          {hasMoreItems && !showAll && (
+            <Footer 
+              config={config}
+              hiddenItemsCount={items.length - INITIAL_ITEMS}
+              onShowAll={() => setShowAll(true)}
+            />
+          )}
+        </div>
+
+      ) : (
+        
+        /* --- MODO 2: PANTALLA DIVIDIDA DEL COMPARADOR --- */
+        <div className="flex flex-col lg:flex-row gap-6 animate-in fade-in slide-in-from-bottom-4 duration-500 h-[600px]">
+          
+          {/* Columna Izquierda: La lista para arrastrar */}
+          <div className="lg:w-[30%] bg-slate-900 rounded-[2rem] p-4 flex flex-col border border-token-border-medium shadow-inner">
+            <h3 className="text-white/50 uppercase tracking-widest text-[10px] font-black mb-4 px-2 text-center">
+              Tus Opciones ({items.length})
+            </h3>
+            {/* Le pasamos la lista entera de items y la config visual */}
+            <CompareSidebar items={items} config={config} />
+          </div>
+
+          {/* Columna Derecha: La zona de comparación */} 
+          <div className="lg:w-[70%]">
+            <CompareZone 
+              items={items}
+              comparedSkus={comparedSkus}
+              onDropItem={handleDropItem}
+              onRemoveItem={handleRemoveItem}
+              config={config}
+            />
+          </div>
+
+        </div>
       )}
     </div>
   );
