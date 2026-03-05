@@ -80,7 +80,7 @@ export default function ItemDashboardMain() {
           className={`flex items-center gap-2 px-6 py-3 rounded-full font-black uppercase text-xs tracking-widest transition-all shadow-lg border ${
             isCompareMode 
               ? 'bg-slate-800 text-white hover:bg-slate-700 border-white/20' 
-              : `bg-white/10 text-white hover:bg-white/20 border-white/10 hover:border-white/30`
+              : `bg-slate-900 text-white hover:bg-white/20 border-white/10 hover:border-white/30`
           }`}
         >
           {isCompareMode ? (

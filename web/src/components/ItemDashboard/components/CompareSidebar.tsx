@@ -23,7 +23,7 @@ export default function CompareSidebar({ items, config }: CompareSidebarProps) {
           className="flex items-center gap-4 p-3 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all cursor-grab active:cursor-grabbing group shadow-sm"
         >
           {/* 1. Miniatura del producto */}
-          <div className="w-16 h-16 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-inner">
+          <div className="w-8 h-8 rounded-xl overflow-hidden bg-slate-800 flex-shrink-0 shadow-inner">
             {item.image?.url ? (
               <img
                 src={item.image.url}
@@ -43,13 +43,7 @@ export default function CompareSidebar({ items, config }: CompareSidebarProps) {
               {item.name}
             </h4>
             
-            {/* Precio condicional según la configuración */}
-            {config.showPrice && (
-              <div className={`flex items-center gap-1 text-sm font-black mt-1 ${config.accentColor}`}>
-                <HiCurrencyEuro className="w-3 h-3 opacity-60" />
-                {item.price} €
-              </div>
-            )}
+            
           </div>
         </div>
       ))}

@@ -26,7 +26,7 @@ export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveI
     setIsDraggingOver(false);
     const sku = event.dataTransfer.getData("text/plain"); 
     if (sku) {
-      onDropItem(sku); // Avisamos al Cerebro del nuevo SKU
+      onDropItem(sku); 
     }
   };
   
@@ -59,8 +59,8 @@ export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveI
       ) : (
         /* --- PANTALLA 2: VISTA DE COMPARACIÓN --- */
         <div className="flex flex-col h-full overflow-hidden">
-          {/* Un pequeño recordatorio arriba para que sepan que pueden seguir arrastrando */}
-          <div className="w-full text-center py-3 mb-6 bg-white/5 rounded-xl border border-white/10 text-xs uppercase tracking-widest font-bold text-white/60">
+         
+          <div className="w-full text-center py-3 mb-6 bg-slate-800 rounded-xl border border-slate-700 text-xs uppercase tracking-widest font-bold text-white/60">
             Arrastra más opciones aquí para seguir comparando
           </div>
 
@@ -90,7 +90,7 @@ export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveI
                   
                   <div className="space-y-4 flex-grow text-sm">
                     
-                    {/* PRECIO (Forzado a mostrarse siempre) */}
+                    {/* PRECIO  */}
                     <div className="flex justify-between items-center border-b border-white/10 pb-3">
                       <span className="text-white/50 uppercase text-[10px] font-black tracking-widest">Precio</span>
                       <span className="font-black flex items-center gap-1 text-lg text-white">
@@ -99,7 +99,7 @@ export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveI
                       </span>
                     </div>
 
-                    {/* ETIQUETAS (Tags) */}
+                    {/* ETIQUETAS */}
                     {item.visibleTags?.length > 0 ? (
                       <div className="pt-2">
                         <span className="text-white/50 uppercase text-[10px] font-black tracking-widest block mb-3">Características</span>
