@@ -1,5 +1,5 @@
 import { Badge } from "flowbite-react";
-import { HiOutlineViewGrid, HiChevronRight, HiCurrencyEuro } from "react-icons/hi";
+import { HiOutlineViewGrid, HiChevronRight } from "react-icons/hi";
 
 interface ProductCardProps {
   item: any;
