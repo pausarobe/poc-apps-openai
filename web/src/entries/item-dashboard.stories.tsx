@@ -96,7 +96,7 @@ export const DashboardTelcoB2B = () => {
   
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '20px' }}>
-      <MockToolOutput itemList={items} category="telco_b2b">
+      <MockToolOutput itemList={items} category="telco_b2b" metaData={{colorPalette: 'green'}}>
         <ItemDashboard />
       </MockToolOutput>
     </div>
@@ -110,7 +110,7 @@ export const DashboardGeneralB2C = () => {
   
   return (
     <div style={{ backgroundColor: '#f1f5f9', minHeight: '100vh', padding: '20px' }}>
-      <MockToolOutput itemList={items} category="general_catalog" metaData={{ colorPalette: 'blue' }}>
+      <MockToolOutput itemList={items} category="general_catalog" metaData={{ colorPalette: 'yellow' }}>
         <ItemDashboard />
       </MockToolOutput>
     </div>
