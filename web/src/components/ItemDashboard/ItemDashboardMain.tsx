@@ -122,15 +122,15 @@ export default function ItemDashboardMain() {
         
         <div className="flex flex-row gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 h-[600px] w-full">
           
-          {/* Columna Izquierda (Fija al 35%) */}
+          {/* Columna Izquierda  */}
           <div className="w-[35%] min-w-[200px] bg-slate-900 rounded-[2rem] p-4 flex flex-col border border-token-border-medium shadow-inner h-full">
             <h3 className="text-white/50 uppercase tracking-widest text-[10px] font-black mb-4 px-2 text-center">
               Tus Opciones ({items.length})
             </h3>
-            <CompareSidebar items={items} config={config} />
+            <CompareSidebar items={items}  />
           </div>
 
-          {/* Columna Derecha (Fija al 65%) */}
+          {/* Columna Derecha  */}
           <div className="w-[65%] h-full">
             <CompareZone 
               items={items}

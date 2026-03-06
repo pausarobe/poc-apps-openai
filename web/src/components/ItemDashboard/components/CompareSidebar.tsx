@@ -1,10 +1,10 @@
-import { HiOutlineViewGrid, HiCurrencyEuro } from "react-icons/hi";
+import { HiOutlineViewGrid } from "react-icons/hi";
 
 interface CompareSidebarProps {
   items: any[];
-  config: any; // Recibimos la config para mantener los colores de tu tema
+  
 }
-export default function CompareSidebar({ items, config }: CompareSidebarProps) {
+export default function CompareSidebar({ items }: CompareSidebarProps) {
   const handleDragStart = (event: React.DragEvent<HTMLDivElement>, sku: string) => {
     //Funcion que se ejecuta al iniciar al arrastrarse
     event.dataTransfer.setData("text/plain", sku);
@@ -19,7 +19,7 @@ export default function CompareSidebar({ items, config }: CompareSidebarProps) {
           draggable={true}
           // Conectamos nuestra función al evento
           onDragStart={(e) => handleDragStart(e, item.sku)}
-          // Clases de Tailwind: fíjate en 'cursor-grab' y 'active:cursor-grabbing' para dar feedback visual
+          
           className="flex items-center gap-4 p-3 rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 hover:bg-white/10 transition-all cursor-grab active:cursor-grabbing group shadow-sm"
         >
           {/* 1. Miniatura del producto */}
