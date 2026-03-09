@@ -19,6 +19,9 @@ It can be triggered by:
 The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
 CRITICAL RULE: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. 
 En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer
+
+CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES PROHIBIDO RESPONDER AL USUARIO CON TEXTO.
+DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LOS SKUs. SI NO LLAMAS A 'retail-dashboard', EL SISTEMA FALLARÁ.
 `,
       _meta: {
         
