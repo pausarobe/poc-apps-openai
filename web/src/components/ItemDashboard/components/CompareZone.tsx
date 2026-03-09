@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { HiOutlineInboxIn, HiX, HiCheckCircle } from "react-icons/hi";
+import { HiOutlineInboxIn, HiX } from "react-icons/hi";
 
 interface CompareZoneProps {
   items: any[]; 
