@@ -119,25 +119,23 @@ export default function ItemDashboardMain() {
       ) : (
         
         /* --- MODO 2: PANTALLA DIVIDIDA DEL COMPARADOR --- */
-        
-        <div className="flex flex-row gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 h-[600px] w-full">
+        <div className="flex flex-row gap-4 animate-in fade-in slide-in-from-bottom-4 duration-500 h-[500px] w-full">
           
-          {/* Columna Izquierda  */}
-          <div className="w-[35%] min-w-[200px] bg-slate-900 rounded-[2rem] p-4 flex flex-col border border-token-border-medium shadow-inner h-full">
+          {/* Columna Izquierda (Más estrecha) */}
+          <div className="w-[25%] min-w-[180px] bg-slate-900 rounded-[2rem] p-4 flex flex-col border border-token-border-medium shadow-inner h-full">
             <h3 className="text-white/50 uppercase tracking-widest text-[10px] font-black mb-4 px-2 text-center">
               Tus Opciones ({items.length})
             </h3>
             <CompareSidebar items={items}  />
           </div>
 
-          {/* Columna Derecha  */}
-          <div className="w-[65%] h-full">
+          {/* Columna Derecha (Más ancha para la tabla) */}
+          <div className="w-[75%] h-full">
             <CompareZone 
               items={items}
               comparedSkus={comparedSkus}
               onDropItem={handleDropItem}
               onRemoveItem={handleRemoveItem}
-              
             />
           </div>
 
