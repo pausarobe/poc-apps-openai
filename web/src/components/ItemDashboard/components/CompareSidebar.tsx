@@ -22,7 +22,7 @@ export default function CompareSidebar({ items }: CompareSidebarProps) {
           className="flex flex-col items-center text-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/25 hover:bg-white/10 transition-all cursor-grab active:cursor-grabbing group shadow-sm"
         >
           {/* 1. Miniatura */}
-          <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-800 flex-shrink-0 shadow-inner border border-white/5">
+          <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-800 flex-shrink-0 shadow-inner border border-white/5">
             {item.image?.url ? (
               <img
                 src={item.image.url}
