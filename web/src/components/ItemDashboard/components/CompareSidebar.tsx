@@ -11,17 +11,17 @@ export default function CompareSidebar({ items }: CompareSidebarProps) {
     event.dataTransfer.effectAllowed = "copy";
   };
   return (
-    /* Usamos un grid de 2 columnas para que queden como "botones" cuadrados, muy compactos */
-    <div className="grid grid-cols-2 gap-2 overflow-y-auto pr-1 pb-4">
+   
+    <div className="flex flex-col gap-2 overflow-y-auto pr-1 pb-4">
       {items.map((item) => (
         <div
           key={item.sku}
           draggable={true}
           onDragStart={(e) => handleDragStart(e, item.sku)}
-          // Cambiamos a flex-col, items-center y text-center
+          
           className="flex flex-col items-center text-center gap-2 p-2 rounded-xl bg-white/5 border border-white/10 hover:border-white/25 hover:bg-white/10 transition-all cursor-grab active:cursor-grabbing group shadow-sm"
         >
-          {/* 1. Miniatura (Al estar centrada arriba, luce muchísimo más) */}
+          {/* 1. Miniatura */}
           <div className="w-10 h-10 rounded-lg overflow-hidden bg-slate-800 flex-shrink-0 shadow-inner border border-white/5">
             {item.image?.url ? (
               <img
@@ -36,9 +36,9 @@ export default function CompareSidebar({ items }: CompareSidebarProps) {
             )}
           </div>
 
-          {/* 2. Información (Centrada debajo) */}
+          {/* 2. Información*/}
           <div className="flex flex-col w-full px-1">
-            {/* Usamos line-clamp-2 para que si el nombre es largo ocupe máximo 2 líneas y no rompa el diseño */}
+            
             <h4 className="text-white/90 font-bold text-[9px] uppercase tracking-tight line-clamp-2 leading-tight" title={item.name}>
               {item.name}
             </h4>
