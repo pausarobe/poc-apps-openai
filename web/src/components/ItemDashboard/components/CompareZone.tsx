@@ -62,65 +62,65 @@ export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveI
           </div>
 
           <div className="overflow-x-auto pb-2 flex-grow">
-            <div className="flex flex-col gap-4 min-w-max px-1">
+            <div className="flex flex-col gap-3 min-w-max px-1">
               
               {/* FILA 1: CABECERAS */}
-              <div className="flex gap-3">
+              <div className="flex gap-2.5">
                 {comparedItems.map((item) => (
-                  <div key={`header-${item.sku}`} className="flex items-center gap-2 w-[175px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2.5 relative group">
-                    <div className="w-9 h-9 rounded-md bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10">
+                  <div key={`header-${item.sku}`} className="flex items-center gap-2 w-[150px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2 relative group">
+                    <div className="w-8 h-8 rounded-md bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10">
                       {(item.image?.url || item.thumbnail?.url) ? (
                         <img src={item.image?.url || item.thumbnail?.url} alt={item.name} className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full flex items-center justify-center text-slate-600 text-[8px] text-center leading-none">Sin foto</div>
                       )}
                     </div>
-                    <div className="flex-1 min-w-0 pr-5">
-                      <h4 className="font-bold text-[10px] text-white line-clamp-2 leading-tight uppercase" title={item.name}>
+                    <div className="flex-1 min-w-0 pr-4">
+                      <h4 className="font-bold text-[9px] text-white line-clamp-2 leading-tight uppercase" title={item.name}>
                         {item.name}
                       </h4>
                     </div>
                     <button 
                       onClick={() => onRemoveItem(item.sku)}
-                      className="absolute top-1.5 right-1.5 text-slate-500 hover:text-red-400 bg-white/5 hover:bg-white/10 p-1 rounded-full transition-all"
+                      className="absolute top-1 right-1 text-slate-500 hover:text-red-400 bg-white/5 hover:bg-white/10 p-1 rounded-full transition-all"
                       title="Quitar"
                     >
-                      <HiX className="w-3.5 h-3.5" />
+                      <HiX className="w-3 h-3" />
                     </button>
                   </div>
                 ))}
               </div>
 
               {/* FILA 2: PRECIOS */}
-              <div className="flex gap-3">
+              <div className="flex gap-2.5">
                 {comparedItems.map((item) => (
-                  <div key={`price-${item.sku}`} className="w-[175px] shrink-0 bg-slate-900 rounded-xl p-2.5 flex justify-between items-center border border-slate-700 shadow-sm">
-                    <span className="text-[9px] text-white/50 uppercase tracking-widest font-bold">Precio</span>
+                  <div key={`price-${item.sku}`} className="w-[150px] shrink-0 bg-slate-900 rounded-xl p-2 flex justify-between items-center border border-slate-700 shadow-sm">
+                    <span className="text-[8px] text-white/50 uppercase tracking-widest font-bold">Precio</span>
                     <div className="font-black text-white text-sm">
-                      {item.price || "0"} <span className="text-[10px] text-white/50 font-normal">€</span>
+                      {item.price || "0"} <span className="text-[9px] text-white/50 font-normal">€</span>
                     </div>
                   </div>
                 ))}
               </div>
 
               {/* FILA 3: CARACTERÍSTICAS */}
-              <div className="flex gap-3 h-full">
+              <div className="flex gap-2.5 h-full">
                 {comparedItems.map((item) => (
-                  <div key={`tags-${item.sku}`} className="w-[175px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2.5 flex flex-col h-full shadow-sm">
-                    <span className="text-[8px] text-white/40 uppercase tracking-widest mb-2 block font-bold text-center">
+                  <div key={`tags-${item.sku}`} className="w-[150px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2 flex flex-col h-full shadow-sm">
+                    <span className="text-[8px] text-white/40 uppercase tracking-widest mb-1.5 block font-bold text-center">
                       Características
                     </span>
-                    <div className="flex flex-col gap-1.5">
+                    <div className="flex flex-col gap-1">
                       {(item.visibleTags || item.tags || item.attributes)?.length > 0 ? (
                         (item.visibleTags || item.tags || item.attributes).map((tag: string) => (
-                          <div key={tag} className="bg-white/5 hover:bg-white/10 transition-colors px-2 py-1.5 rounded-lg border border-white/10 text-center">
-                            <span className="text-[9px] font-bold text-white/90 uppercase tracking-wider block truncate">
+                          <div key={tag} className="bg-white/5 hover:bg-white/10 transition-colors px-1.5 py-1 rounded-md border border-white/10 text-center">
+                            <span className="text-[8px] font-bold text-white/90 uppercase tracking-wider block truncate">
                               {tag}
                             </span>
                           </div>
                         ))
                       ) : (
-                        <div className="text-[9px] text-white/30 italic px-2 py-1 text-center">Sin etiquetas</div>
+                        <div className="text-[8px] text-white/30 italic px-2 py-1 text-center">Sin etiquetas</div>
                       )}
                     </div>
                   </div>
