@@ -35,6 +35,12 @@ export default function ItemDashboardMain() {
       if (list) setItems(list);
       setCategory(toolOutput?.category || '');
       setShowAll(false);
+      if ((toolOutput as any)?.viewMode === 'compare') {
+        setIsCompareMode(true);
+      } else {
+        setIsCompareMode(false); 
+      }
+
     } catch (error) {
       console.error("Error fetching items data:", error);
     }

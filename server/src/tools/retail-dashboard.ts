@@ -6,6 +6,7 @@ type LookProduct = {
   uid: string;
   id: number;
   descripcionIA?: string;
+  viewMode?: 'catalog' | 'compare';
   sku: string;
   name: string;
   descripcion?: string;
@@ -61,9 +62,10 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto'),
         orderedSkus: z.array(z.string()).describe('Lista OBLIGATORIA de SKUs en el orden exacto en que deben mostrarse.'),
         tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
-        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), }
-    },
-    async ({ catalog, genero,  ocasion, tiempo, orderedSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), 
+        intent: z.enum(['catalog', 'compare']).describe('Si el usuario pide buscar o explorar, usa "catalog". Si el usuario pide explícitamente comparar opciones o ver diferencias, usa "compare".'),}
+      },
+    async ({ catalog, genero,  ocasion, tiempo, orderedSkus, intent }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[], intent: 'catalog' | 'compare' }) => {
       console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
@@ -231,7 +233,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
             type: 'text' as const,
             text: `He preparado visualmente tu selección de moda.`
           }],
-          structuredContent: { itemList, category: `retail_${catalog}` },
+          structuredContent: { itemList, category: `retail_${catalog}`, viewMode: intent },
         };
 
       } catch (error) {
