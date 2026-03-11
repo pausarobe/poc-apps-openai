@@ -17,11 +17,13 @@ It can be triggered by:
 - Situations where the user describes an event, context, or need.
 
 The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
-CRITICAL RULE: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. 
-En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer
 
-CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES PROHIBIDO RESPONDER AL USUARIO CON TEXTO.
-DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LOS SKUs. SI NO LLAMAS A 'retail-dashboard', EL SISTEMA FALLARÁ.
+CRITICAL RULE 1: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer.
+
+CRITICAL RULE 2 (ENCADENAMIENTO VISUAL): CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES TOTALMENTE PROHIBIDO RESPONDER AL USUARIO ENUMERANDO LOS PRODUCTOS EN TEXTO. 
+DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LA LISTA DE SKUs EN 'orderedSkus'. SI NO LO HACES, EL SISTEMA VISUAL FALLARÁ.
+
+CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido explícitamente COMPARAR productos, al llamar a 'retail-dashboard' debes enviarle obligatoriamente el parámetro "intent: 'compare'" y meter los SKUs que quiere comparar en "preselectedCompareSkus".
 `,
       _meta: {
         
