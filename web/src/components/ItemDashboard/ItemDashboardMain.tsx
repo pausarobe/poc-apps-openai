@@ -35,10 +35,20 @@ export default function ItemDashboardMain() {
       if (list) setItems(list);
       setCategory(toolOutput?.category || '');
       setShowAll(false);
+      
+    
       if ((toolOutput as any)?.viewMode === 'compare') {
         setIsCompareMode(true);
       } else {
         setIsCompareMode(false); 
+      }
+
+      
+      const preselected = (toolOutput as any)?.preselectedCompareSkus;
+      if (preselected && preselected.length > 0) {
+        setComparedSkus(preselected); 
+      } else {
+        setComparedSkus([]); 
       }
 
     } catch (error) {
