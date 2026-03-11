@@ -47,11 +47,11 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     {
       title: 'Retail Catalog',
       description: `
- HERRAMIENTA EXCLUSIVAMENTE VISUAL.
-Úsala SOLO como paso final, DESPUÉS de haber analizado los datos con 'catalog-discovery' y haber elegido los productos.
-Recibe obligatoriamente la lista de SKUs elegidos en 'orderedSkus' y genera el carrusel de imágenes para el usuario.
-NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual final.
-`,
+ HERRAMIENTA EXCLUSIVAMENTE VISUAL. Genera el carrusel de imágenes o el comparador para el usuario.
+Tiene DOS casos de uso permitidos:
+1. COMO PASO FINAL TRAS BUSCAR: DESPUÉS de haber analizado los datos con 'catalog-discovery', llámala pasando los 'orderedSkus' y el intent 'catalog' para mostrar los resultados iniciales.
+2. PARA ACTUALIZAR AL MODO COMPARADOR: Si el usuario ya está viendo los looks en pantalla y te pide comparar opciones concretas, LLAMA A ESTA HERRAMIENTA DIRECTAMENTE sin volver a usar 'catalog-discovery'. Pásale los mismos 'orderedSkus' de antes, pon el intent en 'compare', y mete los SKUs que el usuario quiere comparar dentro de 'preselectedCompareSkus'.
+NO la llames para explorar moda nueva, SOLO para renderizar o actualizar la interfaz gráfica final.`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
