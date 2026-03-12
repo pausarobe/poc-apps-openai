@@ -1,11 +1,11 @@
 import type { Story } from "@ladle/react";
-import Contador from "./contador";
+import Clase from "./clase";
 
 export const Example: Story = () => {
 
   return (
-      <Contador />
+      <Clase />
   );
 };
 
-Example.storyName = "Contador Example";
+Example.storyName = "Clase Example";
