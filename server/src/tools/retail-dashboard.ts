@@ -47,11 +47,11 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
     {
       title: 'Retail Catalog',
       description: `
- HERRAMIENTA EXCLUSIVAMENTE VISUAL. Genera el carrusel de imágenes o el comparador para el usuario.
-Tiene DOS casos de uso permitidos:
-1. COMO PASO FINAL TRAS BUSCAR: DESPUÉS de haber analizado los datos con 'catalog-discovery', llámala pasando los 'orderedSkus' y el intent 'catalog' para mostrar los resultados iniciales.
-2. PARA ACTUALIZAR AL MODO COMPARADOR: Si el usuario ya está viendo los looks en pantalla y te pide comparar opciones concretas, LLAMA A ESTA HERRAMIENTA DIRECTAMENTE sin volver a usar 'catalog-discovery'. Pásale los mismos 'orderedSkus' de antes, pon el intent en 'compare', y mete los SKUs que el usuario quiere comparar dentro de 'preselectedCompareSkus'.
-NO la llames para explorar moda nueva, SOLO para renderizar o actualizar la interfaz gráfica final.`,
+ HERRAMIENTA EXCLUSIVAMENTE VISUAL.
+Úsala SOLO como paso final, DESPUÉS de haber analizado los datos con 'catalog-discovery' y haber elegido los productos.
+Recibe obligatoriamente la lista de SKUs elegidos en 'orderedSkus' y genera el carrusel de imágenes para el usuario.
+NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual final.
+(Nota: Si el usuario te pide explícitamente comparar, puedes mandarle intent='compare' y los SKUs en preselectedCompareSkus).`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
@@ -64,9 +64,9 @@ NO la llames para explorar moda nueva, SOLO para renderizar o actualizar la inte
         tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
         ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), 
         preselectedCompareSkus: z.array(z.string()).optional().describe('Lista de SKUs exactos que el usuario ha pedido comparar explícitamente. Solo úsalo si el intent es "compare".'),
-        intent: z.enum(['catalog', 'compare']).describe('Si el usuario pide buscar o explorar, usa "catalog". Si el usuario pide explícitamente comparar opciones o ver diferencias, usa "compare".'),}
+        intent: z.enum(['catalog', 'compare']).optional().describe('Si el usuario pide buscar o explorar, usa "catalog". Si el usuario pide explícitamente comparar opciones o ver diferencias, usa "compare".'),}
       },
-    async ({ catalog, genero,  ocasion, tiempo, orderedSkus, intent, preselectedCompareSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[], intent: 'catalog' | 'compare', preselectedCompareSkus?: string[] }) => {
+    async ({ catalog, genero,  ocasion, tiempo, orderedSkus, intent, preselectedCompareSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[], intent?: 'catalog' | 'compare', preselectedCompareSkus?: string[] }) => {
       console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
