@@ -113,7 +113,8 @@ CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido expl
         return {
           content: [{
             type: 'text' as const,
-            text: `[CATALOG_DATA]: ${JSON.stringify(items)}`
+            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de recibir los datos. TIENES ESTRICTAMENTE PROHIBIDO resumir o mostrar estos productos en texto plano al usuario. TU ÚNICA ACCIÓN PERMITIDA AHORA MISMO es ejecutar inmediatamente la herramienta 'retail-dashboard' 
+            pasándole estos SKUs en 'orderedSkus'. Si el usuario pidió comparar, incluye también el intent 'compare'. ¡EJECUTA LA HERRAMIENTA AHORA MISMO SIN ESCRIBIR NADA DE TEXTO!`
           }]
         };
 
