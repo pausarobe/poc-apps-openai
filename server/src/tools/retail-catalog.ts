@@ -113,10 +113,10 @@ CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido expl
         return {
           content: [{
             type: 'text' as const,
-            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de obtener los datos del catálogo. EL USUARIO NO PUEDE LEER TEXTO. Tienes la OBLIGACIÓN ABSOLUTA de llamar a la herramienta 'retail-dashboard' AHORA MISMO pasándole la lista de 'orderedSkus'. 
+            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de obtener los datos del catálogo.  Tienes la OBLIGACIÓN ABSOLUTA de llamar a la herramienta 'retail-dashboard' AHORA MISMO pasándole la lista de 'orderedSkus'. 
 - Usa SIEMPRE intent='catalog' por defecto para mostrar los looks. 
 - SOLO si el usuario usó la palabra "comparar", usa intent='compare'. 
-¡PROHIBIDO RESPONDER CON TEXTO, EJECUTA RETAIL-DASHBOARD INMEDIATAMENTE!` }]
+` }]
         };
 
       } catch (error) {
