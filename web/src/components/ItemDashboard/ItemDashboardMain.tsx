@@ -29,11 +29,6 @@ export default function ItemDashboardMain() {
 
   const toolOutput = useOpenAiGlobal("toolOutput");
 
-  // 🚨 AÑADIDO 1: Guardamos cómo nace este componente 🚨
-  const [initialIntent] = useState(() => {
-    return (toolOutput as any)?.intent || 'catalog';
-  });
-
   useEffect(() => {
     try {
       const list = toolOutput?.itemList;
@@ -41,12 +36,14 @@ export default function ItemDashboardMain() {
       setCategory(toolOutput?.category || '');
       setShowAll(false);
       
+    
       if ((toolOutput as any)?.viewMode === 'compare') {
         setIsCompareMode(true);
       } else {
         setIsCompareMode(false); 
       }
 
+      
       const preselected = (toolOutput as any)?.preselectedCompareSkus;
       if (preselected && preselected.length > 0) {
         setComparedSkus(preselected); 
@@ -59,12 +56,6 @@ export default function ItemDashboardMain() {
     }
   }, [toolOutput]);
 
-  // 🚨 AÑADIDO 2: Si nació como clon para comparar, lo volvemos invisible 🚨
-  if (initialIntent === 'compare') {
-    return null;
-  }
-
-  // A partir de aquí sigue tu código original intacto
   if (!items || items.length === 0) {
     return (
       <div className="p-12 text-center bg-token-main-surface-secondary rounded-[2rem] border border-token-border-medium">
@@ -72,8 +63,6 @@ export default function ItemDashboardMain() {
       </div>
     );
   }
-
-  
 
   const config = getModeConfig(category);
   const INITIAL_ITEMS = 4;
