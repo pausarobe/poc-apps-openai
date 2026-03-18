@@ -6,6 +6,25 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   const app = express();
   app.use(express.json());
 
+  app.use((req, res, next) => {
+    if (req.path === '/mcp/health') return next();
+
+    const authHeader = req.headers.authorization;
+    const SECRET_TOKEN = process.env.MCP_SECRET_TOKEN;
+
+    if (SECRET_TOKEN) {
+      console.error("'MCP_SECRET_TOKEN' no está definido");
+      return res.status(500).json({ error: "Server Configuration Error" });
+    }
+    if (!authHeader || authHeader !== `Bearer ${SECRET_TOKEN}`) {
+      console.warn(`🔒 Bloqueado intento de acceso a ${req.path} sin credenciales válidas.`);
+      return res.status(401).json({ error: "Unauthorized: Solo ChatGPT puede pasar" });
+    }
+
+    next();
+  } );
+
+
   const broadcaster = new EventEmitter();
   broadcaster.setMaxListeners(0);
 
