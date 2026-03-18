@@ -12,14 +12,21 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     const authHeader = req.headers.authorization;
     const SECRET_TOKEN = process.env.MCP_SECRET_TOKEN;
 
-    if (SECRET_TOKEN) {
+    if (!SECRET_TOKEN) {
       console.error("'MCP_SECRET_TOKEN' no está definido");
       return res.status(500).json({ error: "Server Configuration Error" });
     }
-    if (!authHeader || authHeader !== `Bearer ${SECRET_TOKEN}`) {
+   /* if (!authHeader || authHeader !== `Bearer ${SECRET_TOKEN}`) {
       console.warn(`🔒 Bloqueado intento de acceso a ${req.path} sin credenciales válidas.`);
       return res.status(401).json({ error: "Unauthorized: Solo ChatGPT puede pasar" });
-    }
+    }*/
+
+    const guestId = req.headers['openai-ephemeral-user-id'] || req.headers['openai-conversation-id'] || 'usuario_desconocido';
+    console.log(`\n [NUEVA PETICIÓN] ID de OpenAI: ${guestId}`);
+    console.log(`   Ruta: ${req.path}\n`);
+
+    
+    (req as any).userId = guestId;
 
     next();
   } );
