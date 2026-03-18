@@ -31,6 +31,7 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   console.log(`🕵️‍♂️ [NUEVA PETICIÓN DETECTADA]`);
   console.log(`Ruta solicitada: ${req.path}`);
   console.log(`ID de OpenAI: ${guestId}`);
+  console.log(req.headers);
   console.log(`=========================================\n`);
   
   (req as any).userId = guestId;
