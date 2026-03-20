@@ -17,11 +17,15 @@ It can be triggered by:
 - Situations where the user describes an event, context, or need.
 
 The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
-CRITICAL RULE: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. 
-En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer
-`,
+
+CRITICAL RULE 1 (INTERFAZ VISUAL): Es OBLIGATORIO conocer el género ('genero'), el clima ('tiempo') y la ocasión ('ocasion') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dado alguno de estos parámetros, NO uses esta herramienta todavía y TIENES PROHIBIDO preguntárselo por texto. En su lugar, llama INMEDIATAMENTE a la herramienta 'render-retail-selector' enviando en el parámetro 'missingFields' la lista de los datos que faltan para que el usuario los seleccione visualmente en el widget.
+
+CRITICAL RULE 2 (ENCADENAMIENTO VISUAL): CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES TOTALMENTE PROHIBIDO RESPONDER AL USUARIO ENUMERANDO LOS PRODUCTOS EN TEXTO. 
+DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LA LISTA DE SKUs EN 'orderedSkus'. SI NO LO HACES, EL SISTEMA VISUAL FALLARÁ.
+
+CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido explícitamente COMPARAR productos, al llamar a 'retail-dashboard' debes enviarle obligatoriamente el parámetro "intent: 'compare'" y meter los SKUs que quiere comparar en "preselectedCompareSkus".`,
       _meta: {
-        
+
         'openai/toolInvocation/invoking': 'Analizando disponibilidad...',
         'openai/toolInvocation/invoked': 'Datos analizados',
       },
@@ -55,7 +59,7 @@ En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo 
         'templado': '102'
       };
       const tiempoId = tiempo ? tiempoMap[tiempo] : "";
-      
+
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
@@ -95,22 +99,25 @@ En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo 
         const t_respuesta_api = Date.now();
         console.log(`[⏱️ DISCOVERY] [${t_respuesta_api}] 📥 Hora de respuesta de la API (${new Date(t_respuesta_api).toISOString()})`);
 
-        
+
         const items = gqlResult.data?.products?.items || [];
         const skusEncontrados = items.map((item: any) => item.sku);
         console.log(`[🔎 DISCOVERY] SKUs crudos enviados a la IA para analizar:`, skusEncontrados);
-        
+
         const t_fin_tool = Date.now();
         console.log(`[⏱️ DISCOVERY] [${t_fin_tool}] 🔴 Fin del servicio Discovery\n`);
-        
+
         // Devolvemos los datos como texto plano para que la IA los lea
-        
+
         return {
           content: [{
             type: 'text' as const,
-            text: `[CATALOG_DATA]: ${JSON.stringify(items)}`
-          }]
+            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de obtener los datos del catálogo.  Tienes la OBLIGACIÓN ABSOLUTA de llamar a la herramienta 'retail-dashboard' AHORA MISMO pasándole la lista de 'orderedSkus'. 
+- Usa SIEMPRE intent='catalog' por defecto para mostrar los looks. 
+- SOLO si el usuario usó la palabra "comparar", usa intent='compare'. 
+` }]
         };
+
 
       } catch (error) {
         return errorMessage('Error en el descubrimiento de datos.');

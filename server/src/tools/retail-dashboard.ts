@@ -6,6 +6,7 @@ type LookProduct = {
   uid: string;
   id: number;
   descripcionIA?: string;
+  viewMode?: 'catalog' | 'compare';
   sku: string;
   name: string;
   descripcion?: string;
@@ -50,7 +51,7 @@ export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
 Úsala SOLO como paso final, DESPUÉS de haber analizado los datos con 'catalog-discovery' y haber elegido los productos.
 Recibe obligatoriamente la lista de SKUs elegidos en 'orderedSkus' y genera el carrusel de imágenes para el usuario.
 NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual final.
-`,
+(Nota: Si el usuario te pide explícitamente comparar, puedes mandarle intent='compare' y los SKUs en preselectedCompareSkus).`,
       _meta: {
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
         'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
@@ -61,9 +62,11 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
         genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto'),
         orderedSkus: z.array(z.string()).describe('Lista OBLIGATORIA de SKUs en el orden exacto en que deben mostrarse.'),
         tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
-        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), }
-    },
-    async ({ catalog, genero,  ocasion, tiempo, orderedSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[] }) => {
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), 
+        preselectedCompareSkus: z.array(z.string()).optional().describe('Lista de SKUs exactos que el usuario ha pedido comparar explícitamente. Solo úsalo si el intent es "compare".'),
+        intent: z.enum(['catalog', 'compare']).optional().describe('Si el usuario pide buscar o explorar, usa "catalog". Si el usuario pide explícitamente comparar opciones o ver diferencias, usa "compare".'),}
+      },
+    async ({ catalog, genero,  ocasion, tiempo, orderedSkus, intent, preselectedCompareSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[], intent?: 'catalog' | 'compare', preselectedCompareSkus?: string[] }) => {
       console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
       const t_llegada = Date.now();
       console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
@@ -231,7 +234,7 @@ NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual 
             type: 'text' as const,
             text: `He preparado visualmente tu selección de moda.`
           }],
-          structuredContent: { itemList, category: `retail_${catalog}` },
+          structuredContent: { itemList, category: `retail_${catalog}`, viewMode: intent, preselectedCompareSkus },
         };
 
       } catch (error) {
