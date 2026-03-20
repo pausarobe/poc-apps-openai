@@ -5,7 +5,7 @@ import z from 'zod';
 
 export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
   registerTool(
-    'render-retail-selector',
+    'retail-selector',
     {
       title: 'Retail Filter Selector Widget',
       description: `
