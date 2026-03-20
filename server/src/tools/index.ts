@@ -10,6 +10,8 @@ import { registerTelcoDetailTool } from './telco-detail.js';
 import { registerRetailDashboardTool } from './retail-dashboard.js';
 import { registerRetailDetailTool } from './retail-details.js';
 import { registerCatalogDiscoveryTool } from './retail-catalog.js';
+import { register } from 'module';
+import { registerRetailSelectorTool } from './retail-selector.js';
 
 export function registerTools(registerTool: RegisterToolFn) {
   registerFlightDetailTool(registerTool);
@@ -23,4 +25,5 @@ export function registerTools(registerTool: RegisterToolFn) {
   registerRetailDashboardTool(registerTool);
   registerRetailDetailTool(registerTool);
   registerCatalogDiscoveryTool(registerTool);
+  registerRetailSelectorTool(registerTool);
 }

@@ -13,6 +13,7 @@ ESTA HERRAMIENTA DISPARA UN SELECTOR VISUAL (WIDGET).
 ÚSALA OBLIGATORIAMENTE cuando falte alguno de estos datos: 'genero', 'tiempo' (clima) o 'ocasion' antes de buscar en Magento.
 `,
       _meta: {
+        'openai/outputTemplate': 'ui://widget/retail-selector.html',
         'openai/toolInvocation/invoking': 'Abriendo opciones de búsqueda...',
         'openai/toolInvocation/invoked': 'Opciones mostradas',
       },
