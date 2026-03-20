@@ -5,7 +5,7 @@ import {
   Label,
   Radio,
 } from "flowbite-react";
-import type { ItemList } from "../lib/types";
+
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
 
@@ -32,20 +32,27 @@ const parmRetail: {parameterId: string; parameterName: string; defaultValue?: st
 
 
 export default function Control() {
-    const [items, setItems] = useState<ItemList>();
-    const [category, setCategory] = useState<string>('');
+    
     const toolOutput = useOpenAiGlobal('toolOutput');
+    const [parameters, setParameters] = useState(parmRetail)
 
     useEffect(() => {
-    try {
-      const list = toolOutput?.itemList;
-      if (list) setItems(list);
-      setCategory(toolOutput?.category || '');
+        try {
+            
+            const camposQueFaltan = (toolOutput as any)?.missingFields;
 
-    } catch (error) {
-      console.error("Error fetching items data:", error);
-    }
-  }, [toolOutput]);
+            if (camposQueFaltan && Array.isArray(camposQueFaltan) && camposQueFaltan.length > 0) {
+                
+                const parametrosFiltrados = parmRetail.filter(param => 
+                    camposQueFaltan.includes(param.parameterId)
+                );
+                
+                setParameters(parametrosFiltrados);
+            }
+        } catch (error) {
+            console.error("Error procesando los filtros de toolOutput:", error);
+        }
+    }, [toolOutput]);
 
   return ( 
     <div className="space-y-8 antialiased p-2">
@@ -91,7 +98,7 @@ export default function Control() {
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
         }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-            {parmRetail.map((elem) => (
+            {parameters.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
                 <div>
