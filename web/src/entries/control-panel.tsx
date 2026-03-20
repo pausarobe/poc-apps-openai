@@ -14,6 +14,8 @@ import {
   ToggleSwitch,
 } from "flowbite-react";
 import { userInfo } from "node:os";
+import type { ItemList } from "../lib/types";
+import { useOpenAiGlobal } from '../lib/hooks.js';
 
 // Inp
 // ParameterType: 
@@ -48,63 +50,44 @@ const parametersToSpecify: {parameterId: string; parameterName: string; defaultV
     },
 ]
 
+const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
+		{
+      parameterId: "tiempo",
+      parameterName: "Tiempo",
+      defaultValue: "",
+      parameterOptions: ["Frio", "Calido", "Lluvia", "Templado"]
+    },
+    {
+      parameterId: "genero",
+      parameterName: "Genero",
+      defaultValue: "",
+      parameterOptions: ["Hombre", "Mujer"]
+    },
+    {
+      parameterId: "ocasion",
+      parameterName: "Ocasion",
+      defaultValue: "",
+      parameterOptions: ["Boda", "Oficina", "Fiesta", "Deporte", "Diario"]
+    }
+]
 
-// const renderInput = (elem: typeof parametersToSpecify[0]) => {
-//         if (elem.parameterType === 2) {
-//             return (
-//             <TextInput
-//                 id={elem.parameterId}
-//                 name={elem.parameterName}
-//                 type="number"
-//                 required
-//             />
-//             );
-//         }
-
-//         if (elem.parameterType === 3 && elem.parameterOptions) {
-//             return (
-//             <div className="flex max-w-md flex-col gap-4">
-//                 {elem.parameterOptions.map((option) => (
-//                 <div key={option} className="flex items-center gap-4">
-//                     <Radio
-//                     id={option}
-//                     name={elem.parameterName}
-//                     value={option}
-//                     required
-//                     />
-//                    <Label htmlFor={option}>{option}</Label> 
-//                 </div>
-//                 ))}
-//             </div>
-//             );
-//         }
-
-//         return (
-//             <TextInput
-//             id={elem.parameterId}
-//             name={elem.parameterName}
-//             type="text"
-//             defaultValue={elem.defaultValue ?? ""}
-//             />
-//         );
-//     };
 
 export default function Control() {
-    const [value, setValue] = useState({})
+    const [items, setItems] = useState<ItemList>();
+    const [category, setCategory] = useState<string>('');
+    const toolOutput = useOpenAiGlobal('toolOutput');
     const [parameters, setParameters] = useState(parametersToSpecify)
 
+    useEffect(() => {
+    try {
+      const list = toolOutput?.itemList;
+      if (list) setItems(list);
+      setCategory(toolOutput?.category || '');
 
-    // Tipar la funcion que el elem tenga un tipo, tipar el parameters to specify
-    // Luego comentar toda la funcion y ponerla en forma de ternarios en el render
-    // Arreglar los estilos, cjas de input minimo de anchura, grid de columnas. Si caben más pues que se metan
-    
-
-  //RENDER
-  //Cada vez que value se actualize que ejecute la función
-  useEffect(() => {
-    if(Object.keys(value).length !== 0 )console.log(value)
-    }, [value]);
-
+    } catch (error) {
+      console.error("Error fetching items data:", error);
+    }
+  }, [toolOutput]);
 
   return ( 
     <div className="space-y-8 antialiased p-2">
@@ -150,7 +133,6 @@ export default function Control() {
             const data = new FormData(e.target);
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
-            setValue(entries)
         }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
           <div className="grid grid-rows-3 grid-cols-2 gap-4">
             {parameters.map((elem) => (
