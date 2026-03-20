@@ -17,8 +17,13 @@ It can be triggered by:
 - Situations where the user describes an event, context, or need.
 
 The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
-CRITICAL RULE: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. 
-En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer
+
+CRITICAL RULE 1: Es OBLIGATORIO conocer el clima ('tiempo') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dicho el clima, NO uses esta herramienta todavía. En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo va a hacer.
+
+CRITICAL RULE 2 (ENCADENAMIENTO VISUAL): CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES TOTALMENTE PROHIBIDO RESPONDER AL USUARIO ENUMERANDO LOS PRODUCTOS EN TEXTO. 
+DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LA LISTA DE SKUs EN 'orderedSkus'. SI NO LO HACES, EL SISTEMA VISUAL FALLARÁ.
+
+CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido explícitamente COMPARAR productos, al llamar a 'retail-dashboard' debes enviarle obligatoriamente el parámetro "intent: 'compare'" y meter los SKUs que quiere comparar en "preselectedCompareSkus".
 `,
       _meta: {
         
@@ -108,9 +113,12 @@ En su lugar, respóndele en el chat preguntándole de forma natural qué tiempo 
         return {
           content: [{
             type: 'text' as const,
-            text: `[CATALOG_DATA]: ${JSON.stringify(items)}`
-          }]
+            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de obtener los datos del catálogo.  Tienes la OBLIGACIÓN ABSOLUTA de llamar a la herramienta 'retail-dashboard' AHORA MISMO pasándole la lista de 'orderedSkus'. 
+- Usa SIEMPRE intent='catalog' por defecto para mostrar los looks. 
+- SOLO si el usuario usó la palabra "comparar", usa intent='compare'. 
+` }]
         };
+
 
       } catch (error) {
         return errorMessage('Error en el descubrimiento de datos.');
