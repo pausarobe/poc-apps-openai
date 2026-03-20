@@ -97,7 +97,6 @@ export default function Control() {
       <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 shadow-2xl border border-slate-200">
         <form onSubmit={(e) => {
             e.preventDefault();
-            // Uso de FormData
             const data = new FormData(e.target);
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
@@ -113,7 +112,7 @@ export default function Control() {
                       name={elem.parameterName}
                       value={option}
                       required
-                      defaultValue={elem.defaultValue}/>
+                      defaultValue={elem.defaultValue ?? ""}/>
                       <Label htmlFor={option}>{option}</Label>
                     </div>
                   ))}
