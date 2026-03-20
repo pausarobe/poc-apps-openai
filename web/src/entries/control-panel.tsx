@@ -35,7 +35,6 @@ export default function Control() {
     const [items, setItems] = useState<ItemList>();
     const [category, setCategory] = useState<string>('');
     const toolOutput = useOpenAiGlobal('toolOutput');
-    const [parameters, setParameters] = useState(parmRetail)
 
     useEffect(() => {
     try {
@@ -92,7 +91,7 @@ export default function Control() {
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
         }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-            {parameters.map((elem) => (
+            {parmRetail.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
                 <div>
