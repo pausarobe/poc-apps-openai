@@ -55,19 +55,19 @@ const parmRetail: {parameterId: string; parameterName: string; defaultValue?: st
       parameterId: "tiempo",
       parameterName: "Tiempo",
       defaultValue: "",
-      parameterOptions: ["Frio", "Calido", "Lluvia", "Templado"]
+      parameterOptions: ["frio", "calido", "lluvia", "templado"]
     },
     {
       parameterId: "genero",
       parameterName: "Genero",
       defaultValue: "",
-      parameterOptions: ["Hombre", "Mujer"]
+      parameterOptions: ["hombre", "mujer", "unisex", "kids"]
     },
     {
       parameterId: "ocasion",
       parameterName: "Ocasion",
       defaultValue: "",
-      parameterOptions: ["Boda", "Oficina", "Fiesta", "Deporte", "Diario"]
+      parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"]
     }
 ]
 
