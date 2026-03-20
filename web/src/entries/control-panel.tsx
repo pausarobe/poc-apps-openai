@@ -17,38 +17,6 @@ import { userInfo } from "node:os";
 import type { ItemList } from "../lib/types";
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
-// Inp
-// ParameterType: 
-// 1 o ninguno = texto
-// 2 = numero
-// 3 = radio button
-//
-const parametersToSpecify: {parameterId: string; parameterName: string; defaultValue?: string; parameterType?: number; parameterOptions?: string[]}[] = [
-		{
-			parameterId: "1a",
-			parameterName: "Input1",
-			defaultValue: "1aaaaaaaaa"
-		},
-		{
-			parameterId: "2a",
-			parameterName: "Input2"
-		},
-    {
-      parameterId: "3a",
-      parameterName: "Input3"
-    },
-    {
-      parameterId: "4a",
-      parameterName: "Input4",
-      parameterType: 2,
-    },
-    {
-      parameterId: "5a",
-      parameterName: "Input5",
-      parameterType: 3,
-      parameterOptions: ["option1", "option2", "option3"],
-    },
-]
 
 const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
 		{
@@ -76,7 +44,7 @@ export default function Control() {
     const [items, setItems] = useState<ItemList>();
     const [category, setCategory] = useState<string>('');
     const toolOutput = useOpenAiGlobal('toolOutput');
-    const [parameters, setParameters] = useState(parametersToSpecify)
+    const [parameters, setParameters] = useState(parmRetail)
 
     useEffect(() => {
     try {
@@ -134,44 +102,24 @@ export default function Control() {
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
         }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-          <div className="grid grid-rows-3 grid-cols-2 gap-4">
             {parameters.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
-                    <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
-                    {/* {renderInput(elem)} */}
-                    {elem.parameterType == undefined || elem.parameterType == 1 ?
-                    <TextInput
-                    id={elem.parameterId}
-                    name={elem.parameterName}
-                    type="text"
-                    defaultValue={elem.defaultValue ?? ""}
-                    />:<></>}
-                    {elem.parameterType == 2 ?
-                    <TextInput
-                      id={elem.parameterId}
+                <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
+                <div>
+                  {elem.parameterOptions?.map((option) => (
+                    <div key={option} className="flex items-center gap-4">
+                      <Radio
+                      id={option}
                       name={elem.parameterName}
-                      type="number"
+                      value={option}
                       required
-                    /> : <></>}
-                    {elem.parameterType == 3 && elem.parameterOptions ?
-                    <div className="flex max-w-md flex-col gap-4">
-                      {elem.parameterOptions.map((option) => (
-                        <div key={option} className="flex items-center gap-4">
-                          <Radio
-                          id={option}
-                          name={elem.parameterName}
-                          value={option}
-                          required
-                          />
-                        <Label htmlFor={option}>{option}</Label> 
-                      </div>
-                      ))}
-                    </div> : <></>}
-                </div>
-                // Ternario: condicional ? true : false
-                // if (condicional) true else false
-              ))}
+                      defaultValue={elem.defaultValue}/>
+                      <Label htmlFor={option}>{option}</Label>
+                    </div>
+                  ))}
+                </div> 
               </div>
+              ))}
             <Button type="submit" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg uppercase tracking-wide">Enviar</Button>
         </form>
       </div>
