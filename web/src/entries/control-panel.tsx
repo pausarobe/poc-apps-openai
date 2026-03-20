@@ -5,7 +5,7 @@ import {
   Label,
   Radio,
 } from "flowbite-react";
-import type { ItemList } from "../lib/types";
+
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
 
@@ -98,7 +98,7 @@ export default function Control() {
             const entries = Object.fromEntries(data.entries());
             console.log(entries)
         }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-            {parmRetail.map((elem) => (
+            {parameters.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
                 <div>
