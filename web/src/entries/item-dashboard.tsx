@@ -1,19 +1,7 @@
-import { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
-import { Badge } from "flowbite-react";
-import { 
-  HiOutlineViewGrid, 
-  HiCurrencyEuro, 
-  HiOfficeBuilding, 
-  HiUser, 
-  HiInformationCircle, 
-  HiSparkles, 
-  HiTag, 
-  HiChevronRight 
-} from "react-icons/hi";
-import type { ItemList } from "../lib/types";
-import { useOpenAiGlobal } from "../lib/hooks";
 
+import ItemDashboardMain from "../components/ItemDashboard/ItemDashboardMain";
+export default ItemDashboardMain;
 
 async function searchDetail(category: string, sku: string) {
   if (!window.openai?.sendFollowUpMessage) return;
@@ -272,5 +260,5 @@ export default function ItemDashboard() {
 // Renderizado final
 if (typeof window !== "undefined" && document.getElementById("root")) {
   const root = createRoot(document.getElementById("root")!);
-  root.render(<ItemDashboard />);
+  root.render(<ItemDashboardMain />);
 }
