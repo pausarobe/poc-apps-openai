@@ -32,20 +32,27 @@ const parmRetail: {parameterId: string; parameterName: string; defaultValue?: st
 
 
 export default function Control() {
-    const [items, setItems] = useState<ItemList>();
-    const [category, setCategory] = useState<string>('');
+    
     const toolOutput = useOpenAiGlobal('toolOutput');
+    const [parameters, setParameters] = useState(parmRetail)
 
     useEffect(() => {
-    try {
-      const list = toolOutput?.itemList;
-      if (list) setItems(list);
-      setCategory(toolOutput?.category || '');
+        try {
+            
+            const camposQueFaltan = (toolOutput as any)?.missingFields;
 
-    } catch (error) {
-      console.error("Error fetching items data:", error);
-    }
-  }, [toolOutput]);
+            if (camposQueFaltan && Array.isArray(camposQueFaltan) && camposQueFaltan.length > 0) {
+                
+                const parametrosFiltrados = parmRetail.filter(param => 
+                    camposQueFaltan.includes(param.parameterId)
+                );
+                
+                setParameters(parametrosFiltrados);
+            }
+        } catch (error) {
+            console.error("Error procesando los filtros de toolOutput:", error);
+        }
+    }, [toolOutput]);
 
   return ( 
     <div className="space-y-8 antialiased p-2">
