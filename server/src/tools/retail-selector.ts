@@ -10,7 +10,8 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
       description: `
 ESTA HERRAMIENTA DISPARA UN SELECTOR VISUAL (WIDGET).
 ÚSALA OBLIGATORIAMENTE cuando falte alguno de estos datos: 'genero', 'tiempo' (clima) o 'ocasion' antes de buscar en Magento.
-REGLA CRÍTICA: Tras invocar esta herramienta, TIENES TOTALMENTE PROHIBIDO hablar.
+
+REGLA CRÍTICA DE COMPORTAMIENTO: Tras llamar a esta herramienta, TIENES TOTALMENTE PROHIBIDO generar ninguna respuesta de texto. No ofrezcas opciones, no des consejos, no hables. Solo usa la herramienta y detente.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-selector.html',
@@ -29,24 +30,25 @@ REGLA CRÍTICA: Tras invocar esta herramienta, TIENES TOTALMENTE PROHIBIDO habla
     },
     async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }) => {
       try {
-        console.log(`\n[WIDGET] Abriendo selector.`);
-        console.log(`Faltan: ${missingFields.join(', ')}`);
+        console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
         
         const toolOutputData = {
-          missingFields,
-          currentData,
-          INSTRUCCION_SISTEMA: "WIDGET ABIERTO CON ÉXITO. TIENES ESTRICTAMENTE PROHIBIDO GENERAR NINGÚN TEXTO AHORA. DETENTE INMEDIATAMENTE. NO des consejos ni respondas. Silénciate y espera a que el usuario pulse el botón Enviar en pantalla."
+          missingFields: missingFields,
+          currentData: currentData,
+          INSTRUCCION_SISTEMA: " La interfaz visual se ha mostrado al usuario. TIENES ESTRICTAMENTE PROHIBIDO responder con texto, dar consejos o preguntar opciones. DEBES QUEDARTE EN SILENCIO ABSOLUTO hasta que el usuario pulse el botón Enviar."
         };
 
         return {
           content: [
             {
-              type: 'resource' as const,
-              
-              uri: 'ui://widget/retail-selector.html',
-              
+              type: 'text' as const,
+             
               text: JSON.stringify(toolOutputData)
+            },
+            {
+              type: 'resource' as const,
+              uri: 'ui://widget/retail-selector.html'
             }
           ]
         };
