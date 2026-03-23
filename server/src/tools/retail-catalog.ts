@@ -18,7 +18,7 @@ It can be triggered by:
 
 The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
 
-CRITICAL RULE 1 (INTERFAZ VISUAL): Es OBLIGATORIO conocer el género ('genero'), el clima ('tiempo') y la ocasión ('ocasion') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dado alguno de estos parámetros, NO uses esta herramienta todavía y TIENES PROHIBIDO preguntárselo por texto. En su lugar, llama INMEDIATAMENTE a la herramienta 'render-retail-selector' enviando en el parámetro 'missingFields' la lista de los datos que faltan para que el usuario los seleccione visualmente en el widget.
+CRITICAL RULE 1 (INTERFAZ VISUAL): Es OBLIGATORIO conocer el género ('genero'), el clima ('tiempo') y la ocasión ('ocasion') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dado alguno de estos parámetros, NO uses esta herramienta todavía y TIENES PROHIBIDO preguntárselo por texto. En su lugar, llama INMEDIATAMENTE a la herramienta 'retail-selector' enviando en el parámetro 'missingFields' la lista de los datos que faltan para que el usuario los seleccione visualmente en el widget.
 
 CRITICAL RULE 2 (ENCADENAMIENTO VISUAL): CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES TOTALMENTE PROHIBIDO RESPONDER AL USUARIO ENUMERANDO LOS PRODUCTOS EN TEXTO. 
 DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LA LISTA DE SKUs EN 'orderedSkus'. SI NO LO HACES, EL SISTEMA VISUAL FALLARÁ.
