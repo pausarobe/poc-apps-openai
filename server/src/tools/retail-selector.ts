@@ -10,8 +10,10 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
       description: `
 ESTA HERRAMIENTA DISPARA UN SELECTOR VISUAL (WIDGET).
 ÚSALA OBLIGATORIAMENTE cuando falte alguno de estos datos: 'genero', 'tiempo' (clima) o 'ocasion' antes de buscar en Magento.
-
-REGLA CRÍTICA DE COMPORTAMIENTO: Tras llamar a esta herramienta, TIENES TOTALMENTE PROHIBIDO generar ninguna respuesta de texto. No ofrezcas opciones, no des consejos, no hables. Solo usa la herramienta y detente.
+REGLAS CRÍTICAS Y ABSOLUTAS:
+1. Al invocar esta herramienta, TIENES TOTALMENTE PROHIBIDO generar texto. No digas "Claro, aquí tienes looks...", no des consejos.
+2. TIENES TOTALMENTE PROHIBIDO inventar looks de tu propia memoria. No tienes los datos de Magento todavía.
+3. TU ÚNICA ACCIÓN es llamar a esta herramienta y SILENCIARTE INMEDIATAMENTE. El sistema espera que el usuario interactúe con la pantalla.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-selector.html',
@@ -32,11 +34,11 @@ REGLA CRÍTICA DE COMPORTAMIENTO: Tras llamar a esta herramienta, TIENES TOTALME
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
-        
+       
         const toolOutputData = {
           missingFields: missingFields,
           currentData: currentData,
-          INSTRUCCION_SISTEMA: " La interfaz visual se ha mostrado al usuario. TIENES ESTRICTAMENTE PROHIBIDO responder con texto, dar consejos o preguntar opciones. DEBES QUEDARTE EN SILENCIO ABSOLUTO hasta que el usuario pulse el botón Enviar."
+          _DIRECTIVA_DE_SISTEMA: "ÉXITO: El widget visual se ha mostrado. DETENTE AHORA MISMO. NO generes NINGÚN texto de respuesta. NO inventes productos de ropa. Cede el turno inmediatamente al usuario para que envíe el formulario."
         };
 
         return {
