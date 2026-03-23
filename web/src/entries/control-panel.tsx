@@ -30,17 +30,26 @@ export default function Control() {
 
     useEffect(() => {
         try {
-            const camposQueFaltan = (toolOutput as any)?.missingFields;
+            if (!toolOutput) return;
 
-            if (camposQueFaltan && Array.isArray(camposQueFaltan) && camposQueFaltan.length > 0) {
+            let camposQueFaltan: string[] = [];
+
+            if (typeof toolOutput === 'string') {
+                const parsed = JSON.parse(toolOutput);
+                camposQueFaltan = parsed.missingFields || [];
+            } else if (typeof toolOutput === 'object') {
+                camposQueFaltan = (toolOutput as any).missingFields || [];
+            }
+
+            
+            if (camposQueFaltan.length > 0) {
                 const parametrosFiltrados = parmRetail.filter(param => 
                     camposQueFaltan.includes(param.parameterId)
                 );
-                
                 setParameters(parametrosFiltrados);
             }
         } catch (error) {
-            console.error("Error procesando los filtros de toolOutput:", error);
+            console.error("Error procesando los datos:", error);
         }
     }, [toolOutput]);
 
@@ -91,7 +100,6 @@ export default function Control() {
                     <div key={option} className="flex items-center gap-4">
                       <Radio
                       id={`${elem.parameterId}-${option}`}
-                      // Usar parameterId para enviar el nombre correcto ('tiempo', no 'Tiempo') 
                       name={elem.parameterId} 
                       value={option}
                       required

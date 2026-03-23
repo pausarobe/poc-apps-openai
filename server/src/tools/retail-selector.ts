@@ -8,35 +8,33 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
     {
       title: 'Retail Filter Selector Widget',
       description: `
-ESTA HERRAMIENTA ABRE UN SELECTOR VISUAL AL USUARIO.
+ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
 Úsala OBLIGATORIAMENTE cuando falte 'genero', 'tiempo' o 'ocasion'.
 
- REGLA DE ORO INQUEBRANTABLE 
-Cuando uses esta herramienta, TIENES PROHIBIDO inventar looks o dar ideas. 
-Tu única respuesta de texto al usuario DEBE SER EXACTAMENTE ESTA FRASE: 
-"Por favor, selecciona las opciones en el recuadro."
-No añadas ni una sola palabra más. Detente inmediatamente.
+ INSTRUCCIÓN DE SISTEMA CRÍTICA
+Para no romper la interfaz visual, al usar esta herramienta TU ÚNICA RESPUESTA debe ser EXACTAMENTE esta frase: 
+"Por favor, completa las opciones en el recuadro de arriba para poder buscar tu ropa en el catálogo." 
+NO INVENTES LOOKS. NO DES CONSEJOS. SOLO DI ESA FRASE Y DETENTE.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-selector.html',
-        'openai/toolInvocation/invoking': 'Abriendo selector visual...',
-        'openai/toolInvocation/invoked': 'Selector abierto',
+        'openai/toolInvocation/invoking': 'Abriendo opciones de búsqueda...',
+        'openai/toolInvocation/invoked': 'Opciones mostradas',
       },
       inputSchema: {
         missingFields: z.array(z.enum(['genero', 'tiempo', 'ocasion']))
-          .describe('Lista de campos que FALTAN. Si el usuario menciona "boda", "fiesta", o "deporte", NO lo metas aquí, ya tienes la ocasión.'),
+          .describe('Lista de campos que FALTAN. Si el usuario pide para "boda", "fiesta" o "deporte", YA TIENES la ocasion, NO la metas aquí.'),
         currentData: z.object({
-          genero: z.string().optional(),
-          tiempo: z.string().optional(),
-          ocasion: z.string().optional(),
-        }).optional().describe('Datos que YA conoces.')
+          genero: z.string().optional().describe('Ej: hombre, mujer, kids'),
+          tiempo: z.string().optional().describe('Ej: frio, lluvia, calido'),
+          ocasion: z.string().optional().describe('IMPORTANTE: Si el usuario menciona boda, fiesta, deporte, oficina o diario, ponlo aquí.'),
+        }).optional().describe('Datos que YA HAS EXTRAÍDO del mensaje del usuario.')
       }
     },
     async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }) => {
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
-       
         const toolOutputData = {
           missingFields: missingFields,
           currentData: currentData
@@ -46,7 +44,8 @@ No añadas ni una sola palabra más. Detente inmediatamente.
           content: [
             {
               type: 'text' as const,
-              text: JSON.stringify(toolOutputData) 
+            
+              text: JSON.stringify(toolOutputData)
             },
             {
               type: 'resource' as const,
