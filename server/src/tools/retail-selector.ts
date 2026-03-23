@@ -8,12 +8,8 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
     {
       title: 'Retail Filter Selector Widget',
       description: `
-ESTA HERRAMIENTA DISPARA UN SELECTOR VISUAL (WIDGET).
-ÚSALA OBLIGATORIAMENTE cuando falte alguno de estos datos: 'genero', 'tiempo' (clima) o 'ocasion' antes de buscar en Magento.
-REGLAS CRÍTICAS Y ABSOLUTAS:
-1. Al invocar esta herramienta, TIENES TOTALMENTE PROHIBIDO generar texto. No digas "Claro, aquí tienes looks...", no des consejos.
-2. TIENES TOTALMENTE PROHIBIDO inventar looks de tu propia memoria. No tienes los datos de Magento todavía.
-3. TU ÚNICA ACCIÓN es llamar a esta herramienta y SILENCIARTE INMEDIATAMENTE. El sistema espera que el usuario interactúe con la pantalla.
+ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
+Úsala OBLIGATORIAMENTE cuando falte 'genero', 'tiempo' o 'ocasion'.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-selector.html',
@@ -22,31 +18,30 @@ REGLAS CRÍTICAS Y ABSOLUTAS:
       },
       inputSchema: {
         missingFields: z.array(z.enum(['genero', 'tiempo', 'ocasion']))
-          .describe('Lista de campos que el usuario DEBE completar (los que faltan).'),
+          .describe('Lista de campos que FALTAN. Si el usuario pide para "boda", "fiesta" o "deporte", YA TIENES la ocasion, NO la metas aquí.'),
         currentData: z.object({
-          genero: z.string().optional(),
-          tiempo: z.string().optional(),
-          ocasion: z.string().optional(),
-        }).optional().describe('Datos que YA conoces del usuario, para que el widget los muestre como pre-seleccionados.')
+          genero: z.string().optional().describe('Ej: hombre, mujer, kids'),
+          tiempo: z.string().optional().describe('Ej: frio, lluvia, calido'),
+          ocasion: z.string().optional().describe('IMPORTANTE: Si el usuario menciona boda, fiesta, deporte, oficina o diario, ponlo aquí.'),
+        }).optional().describe('Datos que YA HAS EXTRAÍDO del mensaje del usuario.')
       }
     },
     async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }) => {
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
-       
+        
         const toolOutputData = {
           missingFields: missingFields,
-          currentData: currentData,
-          _DIRECTIVA_DE_SISTEMA: "ÉXITO: El widget visual se ha mostrado. DETENTE AHORA MISMO. NO generes NINGÚN texto de respuesta. NO inventes productos de ropa. Cede el turno inmediatamente al usuario para que envíe el formulario."
+          currentData: currentData
         };
 
         return {
           content: [
             {
               type: 'text' as const,
-             
-              text: JSON.stringify(toolOutputData)
+              
+              text: `${JSON.stringify(toolOutputData)}\n\n[INSTRUCCIÓN DE SISTEMA]: El widget visual se ha enviado al usuario con éxito. Para no romper la interfaz visual, TU ÚNICA RESPUESTA a partir de ahora debe ser EXACTAMENTE esta frase: "Por favor, completa las opciones en el recuadro de arriba para poder buscar tu ropa en el catálogo." NO INVENTES LOOKS. NO DES CONSEJOS. SOLO DI ESA FRASE Y DETENTE.`
             },
             {
               type: 'resource' as const,
