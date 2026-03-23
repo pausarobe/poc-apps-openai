@@ -1,16 +1,10 @@
 import { useState, useEffect } from "react";
 import { createRoot } from "react-dom/client";
-import {
-  Button,
-  Label,
-  Radio,
-} from "flowbite-react";
-
+import { Button, Label, Radio } from "flowbite-react";
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
-
 const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
-		{
+    {
       parameterId: "tiempo",
       parameterName: "Tiempo",
       defaultValue: "",
@@ -30,19 +24,15 @@ const parmRetail: {parameterId: string; parameterName: string; defaultValue?: st
     }
 ]
 
-
 export default function Control() {
-    
     const toolOutput = useOpenAiGlobal('toolOutput');
     const [parameters, setParameters] = useState(parmRetail)
 
     useEffect(() => {
         try {
-            
             const camposQueFaltan = (toolOutput as any)?.missingFields;
 
             if (camposQueFaltan && Array.isArray(camposQueFaltan) && camposQueFaltan.length > 0) {
-                
                 const parametrosFiltrados = parmRetail.filter(param => 
                     camposQueFaltan.includes(param.parameterId)
                 );
@@ -54,25 +44,25 @@ export default function Control() {
         }
     }, [toolOutput]);
 
+    
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const entries = Object.fromEntries(data.entries());
+        
+        console.log("Enviando a ChatGPT:", entries);
+
+        if (window.parent) {
+            window.parent.postMessage({
+                type: 'tool_response', 
+                data: entries
+            }, '*');
+        }
+    };
+
   return ( 
     <div className="space-y-8 antialiased p-2">
-      {/* CABECERA DEL FORMULARIO */}
-      <div
-        className="
-          bg-gradient-to-r
-          from-slate-900
-          via-slate-700
-          to-slate-900
-          rounded-[2.5rem]
-          p-8
-          text-white
-          shadow-2xl
-          border-b-4
-          border-slate-600
-          transition-all
-          duration-500
-        "
-      >
+      <div className="bg-gradient-to-r from-slate-900 via-slate-700 to-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl border-b-4 border-slate-600 transition-all duration-500">
         <div className="flex flex-col justify-center items-center gap-6">
           <div className="bg-white/10 p-4 rounded-2xl backdrop-blur-xl border border-white/20 shadow-inner">
             <svg className="w-8 h-8 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -90,14 +80,9 @@ export default function Control() {
         </div>
       </div>
 
-      {/* CONTENIDO DEL FORMULARIO */}
       <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 shadow-2xl border border-slate-200">
-        <form onSubmit={(e) => {
-            e.preventDefault();
-            const data = new FormData(e.target);
-            const entries = Object.fromEntries(data.entries());
-            console.log(entries)
-        }} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
+     
+        <form onSubmit={handleSubmit} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
             {parameters.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
@@ -105,12 +90,13 @@ export default function Control() {
                   {elem.parameterOptions?.map((option) => (
                     <div key={option} className="flex items-center gap-4">
                       <Radio
-                      id={option}
-                      name={elem.parameterName}
+                      id={`${elem.parameterId}-${option}`}
+                      // Usar parameterId para enviar el nombre correcto ('tiempo', no 'Tiempo') 
+                      name={elem.parameterId} 
                       value={option}
                       required
                       defaultValue={elem.defaultValue ?? ""}/>
-                      <Label htmlFor={option}>{option}</Label>
+                      <Label htmlFor={`${elem.parameterId}-${option}`}>{option}</Label>
                     </div>
                   ))}
                 </div> 
@@ -123,7 +109,6 @@ export default function Control() {
     );
 }
 
-// RENDERIZADO FINAL
 if (typeof window !== "undefined" && document.getElementById("root")) {
   const root = createRoot(document.getElementById("root")!);
   root.render(<Control />);
