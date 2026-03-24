@@ -34,14 +34,22 @@ export default function Control() {
 
             let camposQueFaltan: string[] = [];
 
-            if (typeof toolOutput === 'string') {
+            // MAGIA DEFINITIVA: Detectamos cómo viene el paquete de OpenAI y sacamos los datos
+            if (Array.isArray(toolOutput)) {
+                // OpenAI manda un array, buscamos el que tiene type: 'text'
+                const bloqueTexto = toolOutput.find((item: any) => item.type === 'text');
+                if (bloqueTexto && bloqueTexto.text) {
+                    const parsed = JSON.parse(bloqueTexto.text);
+                    camposQueFaltan = parsed.missingFields || [];
+                }
+            } else if (typeof toolOutput === 'string') {
                 const parsed = JSON.parse(toolOutput);
                 camposQueFaltan = parsed.missingFields || [];
             } else if (typeof toolOutput === 'object') {
                 camposQueFaltan = (toolOutput as any).missingFields || [];
             }
 
-            
+            // Si hemos encontrado qué campos faltan, filtramos la pantalla
             if (camposQueFaltan.length > 0) {
                 const parametrosFiltrados = parmRetail.filter(param => 
                     camposQueFaltan.includes(param.parameterId)
