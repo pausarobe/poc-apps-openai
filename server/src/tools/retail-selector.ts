@@ -11,7 +11,7 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
 ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
 Úsala OBLIGATORIAMENTE cuando falte 'genero', 'tiempo' o 'ocasion'.
 
- INSTRUCCIÓN DE SISTEMA CRÍTICA
+INSTRUCCIÓN DE SISTEMA CRÍTICA 
 Para no romper la interfaz visual, al usar esta herramienta TU ÚNICA RESPUESTA debe ser EXACTAMENTE esta frase: 
 "Por favor, completa las opciones en el recuadro de arriba para poder buscar tu ropa en el catálogo." 
 NO INVENTES LOOKS. NO DES CONSEJOS. SOLO DI ESA FRASE Y DETENTE.
@@ -35,23 +35,18 @@ NO INVENTES LOOKS. NO DES CONSEJOS. SOLO DI ESA FRASE Y DETENTE.
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
-        const toolOutputData = {
-          missingFields: missingFields,
-          currentData: currentData
-        };
-
         return {
+         
           content: [
             {
               type: 'text' as const,
-            
-              text: JSON.stringify(toolOutputData)
-            },
-            {
-              type: 'resource' as const,
-              uri: 'ui://widget/retail-selector.html'
+              text: "He abierto el panel de opciones. Por favor, selecciona lo que falta."
             }
-          ]
+          ],
+                   structuredContent: {
+            missingFields: missingFields,
+            currentData: currentData
+          }
         };
       } catch (error) {
         return errorMessage('No se pudo cargar el selector visual.');
