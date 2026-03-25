@@ -15,21 +15,30 @@ export default function Control() {
 
     useEffect(() => {
         try {
-           
-            const camposQueFaltan = (toolOutput as any)?.missingFields || [];
+            const output = toolOutput as any;
+            if (!output) return;
 
-            if (camposQueFaltan.length > 0) {
-                const parametrosFiltrados = parmRetail.filter(param => 
-                    camposQueFaltan.includes(param.parameterId)
-                );
-                setParameters(parametrosFiltrados);
-            }
+            // 1. Extraemos los datos que ChatGPT YA conoce (ej: { genero: "hombre", ocasion: "boda" })
+            const currentData = output.currentData || {};
+
+            // 2. Inyectamos esos datos como valores por defecto en nuestro formulario
+            const parametrosConDatos = parmRetail.map(param => {
+                const valorDetectado = currentData[param.parameterId];
+                if (valorDetectado) {
+                    
+                    return { ...param, defaultValue: String(valorDetectado).toLowerCase() };
+                }
+                return param;
+            });
+
+            // 3. Mostramos TODOS los campos 
+            setParameters(parametrosConDatos);
+
         } catch (error) {
             console.error("Error procesando los datos:", error);
         }
     }, [toolOutput]);
 
-   
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
@@ -37,15 +46,12 @@ export default function Control() {
         
         console.log("Enviando selecciones:", entries);
 
-       
         const opcionesElegidas = Object.entries(entries)
             .map(([key, value]) => `${key}: ${value}`)
             .join(', ');
 
-        
-        const mensajeParaChat = `Aquí tienes las opciones que faltaban: ${opcionesElegidas}. Por favor, procede a buscar los looks en el catálogo con estos datos.`;
+        const mensajeParaChat = `Ya he rellenado el formulario. Mis opciones son: ${opcionesElegidas}. Por favor, busca la ropa en el catálogo con estos datos.`;
 
-        
         if ((window as any).openai?.sendFollowUpMessage) {
             await (window as any).openai.sendFollowUpMessage({
                 prompt: mensajeParaChat
@@ -66,10 +72,10 @@ export default function Control() {
           </div>
           <div className="text-center">
             <h1 className="text-2xl font-black tracking-tight leading-none text-white uppercase italic">
-              Formulario de Control
+              Formulario de Búsqueda
             </h1>
             <p className="text-white/60 text-sm font-medium italic mt-2">
-              Configura los parámetros necesarios
+              Confirma o rellena los parámetros necesarios
             </p>
           </div>
         </div>
@@ -88,14 +94,16 @@ export default function Control() {
                       name={elem.parameterId} 
                       value={option}
                       required
-                      defaultValue={elem.defaultValue ?? ""}/>
+                      /* Si la opción coincide con el valor que detectó ChatGPT, sale marcada */
+                      defaultChecked={elem.defaultValue === option} 
+                      />
                       <Label htmlFor={`${elem.parameterId}-${option}`}>{option}</Label>
                     </div>
                   ))}
                 </div> 
               </div>
               ))}
-            <Button type="submit" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg uppercase tracking-wide">Enviar</Button>
+            <Button type="submit" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg uppercase tracking-wide">Buscar Looks</Button>
         </form>
       </div>
     </div>
