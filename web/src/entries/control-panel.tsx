@@ -4,60 +4,75 @@ import { Button, Label, Radio } from "flowbite-react";
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
 const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
-    { parameterId: "tiempo", parameterName: "Tiempo", defaultValue: "", parameterOptions: ["frio", "calido", "lluvia", "templado"] },
-    { parameterId: "genero", parameterName: "Genero", defaultValue: "", parameterOptions: ["hombre", "mujer", "unisex", "kids"] },
-    { parameterId: "ocasion", parameterName: "Ocasion", defaultValue: "", parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"] }
+    {
+      parameterId: "tiempo",
+      parameterName: "Tiempo",
+      parameterOptions: ["frio", "calido", "lluvia", "templado"]
+    },
+    {
+      parameterId: "genero",
+      parameterName: "Genero",
+      parameterOptions: ["hombre", "mujer", "unisex", "kids"]
+    },
+    {
+      parameterId: "ocasion",
+      parameterName: "Ocasion",
+      parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"]
+    }
 ]
 
 export default function Control() {
     const toolOutput = useOpenAiGlobal('toolOutput');
+    // Inicializamos con la lista completa de parámetros
     const [parameters, setParameters] = useState(parmRetail);
 
     useEffect(() => {
         try {
-            const output = toolOutput as any;
-            if (!output) return;
+            if (!toolOutput) return;
 
-            // 1. Extraemos los datos que ChatGPT YA conoce (ej: { genero: "hombre", ocasion: "boda" })
-            const currentData = output.currentData || {};
+            console.log("Dato crudo recibido de OpenAI:", toolOutput);
 
-            // 2. Inyectamos esos datos como valores por defecto en nuestro formulario
-            const parametrosConDatos = parmRetail.map(param => {
-                const valorDetectado = currentData[param.parameterId];
-                if (valorDetectado) {
-                    
-                    return { ...param, defaultValue: String(valorDetectado).toLowerCase() };
+            let currentDataParsed: Record<string, string> = {};
+
+            // 1. Extraemos 'currentData' de forma segura
+            if (typeof toolOutput === 'object') {
+                currentDataParsed = (toolOutput as any).currentData || {};
+            }
+
+            console.log("Datos que ya tenemos (currentData):", currentDataParsed);
+
+            // 2. Mapeamos la lista completa de parámetros para añadirle los valores por defecto
+            const updatedParameters = parmRetail.map(param => {
+                // Buscamos si hay un valor para este parámetro en currentData
+                const value = currentDataParsed[param.parameterId];
+                if (value) {
+                    return { ...param, defaultValue: String(value).toLowerCase() };
                 }
+                
                 return param;
             });
 
-            // 3. Mostramos TODOS los campos 
-            setParameters(parametrosConDatos);
+            // 3. Actualizamos el estado de la UI (esto ya no oculta campos, solo añade defaults)
+            setParameters(updatedParameters);
 
         } catch (error) {
             console.error("Error procesando los datos:", error);
         }
     }, [toolOutput]);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    
+    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const entries = Object.fromEntries(data.entries());
         
-        console.log("Enviando selecciones:", entries);
+        console.log("Enviando a ChatGPT:", entries);
 
-        const opcionesElegidas = Object.entries(entries)
-            .map(([key, value]) => `${key}: ${value}`)
-            .join(', ');
-
-        const mensajeParaChat = `Ya he rellenado el formulario. Mis opciones son: ${opcionesElegidas}. Por favor, busca la ropa en el catálogo con estos datos.`;
-
-        if ((window as any).openai?.sendFollowUpMessage) {
-            await (window as any).openai.sendFollowUpMessage({
-                prompt: mensajeParaChat
-            });
-        } else {
-            console.error("No se ha encontrado el objeto window.openai");
+        if (window.parent) {
+            window.parent.postMessage({
+                type: 'tool_response', 
+                data: entries
+            }, '*');
         }
     };
 
@@ -82,6 +97,7 @@ export default function Control() {
       </div>
 
       <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 shadow-2xl border border-slate-200">
+     
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
             {parameters.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
@@ -94,8 +110,8 @@ export default function Control() {
                       name={elem.parameterId} 
                       value={option}
                       required
-                      /* Si la opción coincide con el valor que detectó ChatGPT, sale marcada */
-                      defaultChecked={elem.defaultValue === option} 
+                      /* Usamos defaultChecked para marcar la opción que coincide con defaultValue */
+                      defaultChecked={elem.defaultValue === option}
                       />
                       <Label htmlFor={`${elem.parameterId}-${option}`}>{option}</Label>
                     </div>
