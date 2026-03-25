@@ -15,7 +15,7 @@ export default function Control() {
 
     useEffect(() => {
         try {
-            
+           
             const camposQueFaltan = (toolOutput as any)?.missingFields || [];
 
             if (camposQueFaltan.length > 0) {
@@ -29,18 +29,29 @@ export default function Control() {
         }
     }, [toolOutput]);
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+   
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const data = new FormData(e.currentTarget);
         const entries = Object.fromEntries(data.entries());
         
-        console.log("Enviando a ChatGPT:", entries);
+        console.log("Enviando selecciones:", entries);
 
-        if (window.parent) {
-            window.parent.postMessage({
-                type: 'tool_response', 
-                data: entries
-            }, '*');
+       
+        const opcionesElegidas = Object.entries(entries)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(', ');
+
+        
+        const mensajeParaChat = `Aquí tienes las opciones que faltaban: ${opcionesElegidas}. Por favor, procede a buscar los looks en el catálogo con estos datos.`;
+
+        
+        if ((window as any).openai?.sendFollowUpMessage) {
+            await (window as any).openai.sendFollowUpMessage({
+                prompt: mensajeParaChat
+            });
+        } else {
+            console.error("No se ha encontrado el objeto window.openai");
         }
     };
 
