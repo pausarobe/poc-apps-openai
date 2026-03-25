@@ -10,44 +10,64 @@ const parmRetail: {parameterId: string; parameterName: string; defaultValue?: st
 ]
 
 export default function Control() {
+    console.log("🔵 [TRAZA] 1. Componente Control renderizado en pantalla.");
+
     const toolOutput = useOpenAiGlobal('toolOutput');
+    console.log("🔵 [TRAZA] 2. Valor que llega desde useOpenAiGlobal:", toolOutput);
+
     const [parameters, setParameters] = useState(parmRetail);
-    
-    
     const [candado, setCandado] = useState(false);
 
     useEffect(() => {
-       
-        if (candado) return;
+        console.log("🟡 [TRAZA] 3. Entrando al useEffect. Estado del candado:", candado);
+
+        if (candado) {
+            console.log("🟡 [TRAZA] -> El candado está cerrado. Ignorando nuevos datos.");
+            return;
+        }
 
         try {
-            if (!toolOutput) return;
+            if (!toolOutput) {
+                console.log("🟡 [TRAZA] -> toolOutput está vacío. Esperando datos...");
+                return;
+            }
 
             let camposQueFaltan: string[] = [];
+            console.log("🟡 [TRAZA] 4. Analizando el tipo de dato:", typeof toolOutput, Array.isArray(toolOutput) ? "(Es un Array)" : "");
 
             if (Array.isArray(toolOutput)) {
                 const bloqueTexto = toolOutput.find((item: any) => item.type === 'text');
+                console.log("🟡 [TRAZA] -> Bloque de texto encontrado en el Array:", bloqueTexto);
+                
                 if (bloqueTexto && bloqueTexto.text) {
                     const parsed = JSON.parse(bloqueTexto.text);
+                    console.log("🟡 [TRAZA] -> JSON parseado con éxito del Array:", parsed);
                     camposQueFaltan = parsed.missingFields || [];
                 }
             } else if (typeof toolOutput === 'string') {
                 const parsed = JSON.parse(toolOutput);
+                console.log("🟡 [TRAZA] -> JSON parseado con éxito del String:", parsed);
                 camposQueFaltan = parsed.missingFields || [];
             } else if (typeof toolOutput === 'object') {
+                console.log("🟡 [TRAZA] -> El dato ya es un Objeto:", toolOutput);
                 camposQueFaltan = (toolOutput as any).missingFields || [];
             }
 
-            
+            console.log("🟢 [TRAZA] 5. Campos faltantes finales extraídos:", camposQueFaltan);
+
             if (camposQueFaltan.length > 0) {
                 const parametrosFiltrados = parmRetail.filter(param => 
                     camposQueFaltan.includes(param.parameterId)
                 );
+                console.log("🟢 [TRAZA] 6. Aplicando estos botones a la pantalla:", parametrosFiltrados);
                 setParameters(parametrosFiltrados);
-                setCandado(true); 
+                setCandado(true);
+                console.log("🟢 [TRAZA] 7. Candado CERRADO con éxito.");
+            } else {
+                console.log("🔴 [TRAZA] -> No se detectaron campos faltantes en el JSON.");
             }
         } catch (error) {
-            console.error("Error procesando los datos:", error);
+            console.error("🔴 [TRAZA] ❌ ERROR FATAL procesando los datos:", error);
         }
     }, [toolOutput, candado]);
 
@@ -57,7 +77,7 @@ export default function Control() {
         const data = new FormData(e.currentTarget);
         const entries = Object.fromEntries(data.entries());
         
-        console.log("Enviando a ChatGPT:", entries);
+        console.log("🚀 [TRAZA] Enviando datos al chat:", entries);
 
         if (window.parent) {
             window.parent.postMessage({
