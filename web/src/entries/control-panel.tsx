@@ -3,76 +3,66 @@ import { createRoot } from "react-dom/client";
 import { Button, Label, Radio } from "flowbite-react";
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
-const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
-    {
-      parameterId: "tiempo",
-      parameterName: "Tiempo",
-      parameterOptions: ["frio", "calido", "lluvia", "templado"]
-    },
-    {
-      parameterId: "genero",
-      parameterName: "Genero",
-      parameterOptions: ["hombre", "mujer", "unisex", "kids"]
-    },
-    {
-      parameterId: "ocasion",
-      parameterName: "Ocasion",
-      parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"]
-    }
+const parmRetail: {parameterId: string; parameterName: string; parameterOptions?: string[]}[] = [
+    { parameterId: "tiempo", parameterName: "Tiempo", parameterOptions: ["frio", "calido", "lluvia", "templado"] },
+    { parameterId: "genero", parameterName: "Genero", parameterOptions: ["hombre", "mujer", "unisex", "kids"] },
+    { parameterId: "ocasion", parameterName: "Ocasion", parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"] }
 ]
 
 export default function Control() {
     const toolOutput = useOpenAiGlobal('toolOutput');
-    // Inicializamos con la lista completa de parámetros
-    const [parameters, setParameters] = useState(parmRetail);
+    
+    // Un estado para controlar exactamente qué botones están pulsados en tiempo real
+    const [selectedValues, setSelectedValues] = useState<Record<string, string>>({});
 
     useEffect(() => {
         try {
             if (!toolOutput) return;
 
-            console.log("Dato crudo recibido de OpenAI:", toolOutput);
+            // Extraemos los datos que nos manda ChatGPT
+            const output = toolOutput as any;
+            const currentDataParsed = output.currentData || {};
 
-            let currentDataParsed: Record<string, string> = {};
-
-            // 1. Extraemos 'currentData' de forma segura
-            if (typeof toolOutput === 'object') {
-                currentDataParsed = (toolOutput as any).currentData || {};
-            }
-
-            console.log("Datos que ya tenemos (currentData):", currentDataParsed);
-
-            // 2. Mapeamos la lista completa de parámetros para añadirle los valores por defecto
-            const updatedParameters = parmRetail.map(param => {
-                // Buscamos si hay un valor para este parámetro en currentData
-                const value = currentDataParsed[param.parameterId];
-                if (value) {
-                    return { ...param, defaultValue: String(value).toLowerCase() };
+           
+            const normalizedData: Record<string, string> = {};
+            for (const key in currentDataParsed) {
+                if (currentDataParsed[key]) {
+                    normalizedData[key] = String(currentDataParsed[key]).toLowerCase();
                 }
-                
-                return param;
-            });
-
-            // 3. Actualizamos el estado de la UI (esto ya no oculta campos, solo añade defaults)
-            setParameters(updatedParameters);
+            }
+            
+         
+            setSelectedValues(normalizedData);
 
         } catch (error) {
             console.error("Error procesando los datos:", error);
         }
     }, [toolOutput]);
 
-    
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const entries = Object.fromEntries(data.entries());
-        
-        console.log("Enviando a ChatGPT:", entries);
+    // Función para que el usuario pueda cambiar la selección manualmente si la IA se equivocó
+    const handleRadioChange = (parameterId: string, value: string) => {
+        setSelectedValues(prev => ({
+            ...prev,
+            [parameterId]: value
+        }));
+    };
 
-        if (window.parent) {
-            window.parent.postMessage({
-                type: 'tool_response', 
-                data: entries
-            }, '*');
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        // Formateamos lo que hay seleccionado para enviárselo al chat
+        const opcionesElegidas = Object.entries(selectedValues)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(', ');
+
+        const mensajeParaChat = `Ya he rellenado el formulario. Mis opciones son: ${opcionesElegidas}. Por favor, busca la ropa en el catálogo con estos datos.`;
+
+        if ((window as any).openai?.sendFollowUpMessage) {
+            await (window as any).openai.sendFollowUpMessage({
+                prompt: mensajeParaChat
+            });
+        } else {
+            console.error("No se ha encontrado el objeto window.openai");
         }
     };
 
@@ -97,9 +87,8 @@ export default function Control() {
       </div>
 
       <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 shadow-2xl border border-slate-200">
-     
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-            {parameters.map((elem) => (
+            {parmRetail.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
                 <div>
@@ -110,8 +99,9 @@ export default function Control() {
                       name={elem.parameterId} 
                       value={option}
                       required
-                      /* Usamos defaultChecked para marcar la opción que coincide con defaultValue */
-                      defaultChecked={elem.defaultValue === option}
+                      /* Controlamos el checked directamente con nuestro estado */
+                      checked={selectedValues[elem.parameterId] === option}
+                      onChange={() => handleRadioChange(elem.parameterId, option)}
                       />
                       <Label htmlFor={`${elem.parameterId}-${option}`}>{option}</Label>
                     </div>
