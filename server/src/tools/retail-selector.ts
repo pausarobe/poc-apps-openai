@@ -11,9 +11,10 @@ export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
 ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
 Úsala OBLIGATORIAMENTE cuando falte 'genero', 'tiempo' o 'ocasion'.
 
- INSTRUCCIONES DE COMPORTAMIENTO 
-1. AL LLAMAR A LA HERRAMIENTA: Para no romper la interfaz visual, tu única respuesta debe ser: "He abierto el panel de opciones. Por favor, selecciona lo que falta." y DETENTE. No inventes productos.
-2. AL RECIBIR LOS DATOS: Cuando el usuario pulse enviar y la herramienta te devuelva las opciones elegidas, TIENES PERMISO PARA CONTINUAR. Usa esos nuevos datos inmediatamente para buscar en el catálogo y mostrarle los looks.
+ INSTRUCCIONES ESTRICTAS DE FLUJO
+1. AL INVOCAR ESTA HERRAMIENTA: Tu única respuesta debe ser: "He abierto el panel de opciones. Por favor, selecciona lo que falta y pulsa Enviar." NO inventes ropa aquí. DETENTE.
+2. CUANDO EL USUARIO RESPONDA CON LOS DATOS: En el siguiente turno, el usuario te dará las opciones que eligió. TIENES TOTALMENTE PROHIBIDO INVENTAR LOOKS CON TEXTO.
+3. TU SIGUIENTE PASO OBLIGATORIO: Debes usar inmediatamente la herramienta de búsqueda de catálogo (ej: 'catalog-discovery' ) pasándole los nuevos datos recogidos para encontrar productos reales en la base de datos.
 `,
       _meta: {
         'openai/outputTemplate': 'ui://widget/retail-selector.html',
