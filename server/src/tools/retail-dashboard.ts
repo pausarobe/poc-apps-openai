@@ -1,0 +1,246 @@
+import type { Item, ItemList, LookList, RegisterToolFn } from '../utils/types';
+import { errorMessage } from '../utils/helpers.js';
+import z from 'zod';
+
+type LookProduct = {
+  uid: string;
+  id: number;
+  descripcionIA?: string;
+  viewMode?: 'catalog' | 'compare';
+  sku: string;
+  name: string;
+  descripcion?: string;
+  genero?: string;
+  tiempo?: string;
+  ocasion?: string;
+
+  price_range: {
+    minimum_price: {
+      regular_price: {
+        value: number;
+        currency: "EUR";
+      };
+    };
+  };
+  image?: {
+    label: string;
+    url: string;
+  };
+  thumbnail?: {
+    label: string;
+    url: string;
+  };
+  custom_attributes?: Array<{
+    attribute_code: string;
+    value: string | null;
+  }>;
+  related_products: Array<{
+    uid: string;
+    sku: string;
+    name: string;
+  }>;
+};
+
+export function registerRetailDashboardTool(registerTool: RegisterToolFn) {
+  registerTool(
+    'retail-dashboard',
+    {
+      title: 'Retail Catalog',
+      description: `
+ HERRAMIENTA EXCLUSIVAMENTE VISUAL.
+Úsala SOLO como paso final, DESPUÉS de haber analizado los datos con 'catalog-discovery' y haber elegido los productos.
+Recibe obligatoriamente la lista de SKUs elegidos en 'orderedSkus' y genera el carrusel de imágenes para el usuario.
+NO la llames para explorar o buscar moda, SOLO para mostrar el resultado visual final.
+(Nota: Si el usuario te pide explícitamente comparar, puedes mandarle intent='compare' y los SKUs en preselectedCompareSkus).`,
+      _meta: {
+        'openai/outputTemplate': 'ui://widget/item-dashboard.html',
+        'openai/toolInvocation/invoking': 'Filtrando el catálogo según tus preferencias...',
+        'openai/toolInvocation/invoked': 'Catálogo de moda cargado',
+      },
+      inputSchema: {
+        catalog: z.enum(['looks', 'items']).default('looks').describe('El tipo de catálogo: looks (conjuntos) o items (prendas sueltas)'),
+        genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género del producto'),
+        orderedSkus: z.array(z.string()).describe('Lista OBLIGATORIA de SKUs en el orden exacto en que deben mostrarse.'),
+        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional(),
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión'), 
+        preselectedCompareSkus: z.array(z.string()).optional().describe('Lista de SKUs exactos que el usuario ha pedido comparar explícitamente. Solo úsalo si el intent es "compare".'),
+        intent: z.enum(['catalog', 'compare']).optional().describe('Si el usuario pide buscar o explorar, usa "catalog". Si el usuario pide explícitamente comparar opciones o ver diferencias, usa "compare".'),}
+      },
+    async ({ catalog, genero,  ocasion, tiempo, orderedSkus, intent, preselectedCompareSkus }: { catalog: 'looks' | 'items',tiempo?: 'frio' | 'calido' | 'lluvia' | 'templado', genero?: 'hombre' | 'mujer' | 'unisex' | 'kids', ocasion?: 'boda' | 'oficina' | 'fiesta' | 'deporte' | 'diario', orderedSkus: string[], intent?: 'catalog' | 'compare', preselectedCompareSkus?: string[] }) => {
+      console.log('Joining retail-dashboard', catalog, genero,  ocasion, orderedSkus);
+      const t_llegada = Date.now();
+      console.log(`\n[⏱️ DASHBOARD] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()}) con SKUs:`, orderedSkus);
+      const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
+      const catalogId = catalog === 'looks' ? '47' : '48';
+
+      // Mapeo de género a ID numérico
+      const generoMap: Record<string, string> = {
+        'hombre': '112',
+        'mujer': '113',
+        'unisex': '114',
+        'kids': '115'
+      };
+      const generoId = genero ? generoMap[genero] : "";
+
+      // Mapeo de tiempo a ID numérico
+      const tiempoMap: Record<string, string> = {
+        'frio': '99',
+        'calido': '100',
+        'lluvia': '101',
+        'templado': '102'
+      };
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
+
+      // Mapeo de ocasion a ID numérico
+      const ocasionMap: Record<string, string> = {
+        'boda': '103',
+        'oficina': '104',
+        'fiesta': '105',
+        'deporte': '106',
+        'diario': '107'
+      };
+      const ocasionId = ocasion ? ocasionMap[ocasion] : "";
+
+      if (!ACCESS_TOKEN) {
+        console.error('ERROR: PROVIDER_CARS_API_KEY no está definida.');
+        return errorMessage('Error de configuración: Falta el Token.');
+      }
+
+      try {
+        const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $ocasion: String, $tiempo: String) {
+  products(
+    filter: { 
+      category_id: { eq: $id },
+      genero: { eq: $genero },
+      ocasion: { eq: $ocasion },
+      tiempo: { eq: $tiempo }
+      
+    }
+  ) {
+    items {
+      uid
+      id
+      sku
+      name
+      genero
+     
+      ocasion
+      descripcionIA
+      descripcion
+      price_range {
+        minimum_price {
+          regular_price {
+            currency
+            value
+          }
+        }
+      } 
+      image {
+        label
+        url
+      }
+      thumbnail {
+        label
+        url
+      }
+      related_products {
+        uid
+        sku
+        name
+      }
+
+      
+    }
+  }
+}`;
+        console.error('GraphQL REQUEST:', { id: catalogId, genero: generoId, ocasion: ocasionId });
+
+        const t_llamada_api = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_llamada_api}] 🌐 Hora de llamada a la API (${new Date(t_llamada_api).toISOString()})`);
+        const gqlResponse = await fetch(GRAPHQL_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Store': catalog === 'looks' ? 'Looks' : 'items',
+            'Authorization': `Bearer ${ACCESS_TOKEN}`
+          },
+          body: JSON.stringify({
+            query: gqlQuery,
+            variables: {
+              id: catalogId,
+              genero: generoId,
+              tiempo: tiempoId, 
+              ocasion: ocasionId
+            }
+          })
+        });
+
+        console.error('GraphQL Response Status:', gqlResponse.status, gqlResponse.statusText);
+
+        if (!gqlResponse.ok) {
+          const errorText = await gqlResponse.text();
+          console.error('Error de Magento (HTML):', errorText);
+          return errorMessage('Magento devolvió un error HTML. Revisa la consola.');
+        }
+
+        const gqlResult = await gqlResponse.json() as { data?: { products?: { items: LookProduct[] } }, errors?: { message: string }[] };
+        const t_respuesta_api = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_respuesta_api}] 📥 Hora de respuesta de la API (${new Date(t_respuesta_api).toISOString()})`);
+
+
+        if (gqlResult?.errors && gqlResult.errors.length > 0) {
+          console.error('GraphQL Errors:', gqlResult.errors);
+          throw new Error();
+        }
+        const t_pintar_widget = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_pintar_widget}] ⚙️ Llamada para pintar el widget (${new Date(t_pintar_widget).toISOString()})`);
+        const gqlItems = gqlResult.data?.products?.items || [];
+
+        const allMaps = { ...generoMap, ...ocasionMap };
+        const reverseMap = Object.fromEntries(Object.entries(allMaps).map(([k, v]) => [v, k]));
+        const getTags = (item: any) => [item.genero, item.ocasion].filter(val => val !== undefined && val !== null && val !== "")
+          .map(val => reverseMap[String(val)] || String(val));
+        let itemList: Item[] = orderedSkus .map(sku => gqlItems.find((item: any) => item.sku === sku))
+          .filter((item): item is any => !!item)
+          .map((item: any) => ({
+          uid: item.uid,
+          name: item.name,
+          id: item.id,
+          sku: item.sku,
+          image: item.image,
+          thumbnail: item.thumbnail,
+          price: item.price_range?.minimum_price?.regular_price?.value ?? 0,
+
+          properties: {
+            ai_recommendation_hint: item.descripcionIA || item.descripcion || "",
+            full_description: item.descripcion || ""
+          },
+
+          product_links: [],
+          custom_attributes: [],
+          visibleTags: getTags(item)
+
+        }));
+        // TRAZA DE ORDENACIÓN (DESPUÉS DEL MAPEO)
+        const skusFinales = itemList.map(item => item.sku);
+        console.log(`[✅ ORDEN] SKUs finales en el widget (Ya ordenados):`, skusFinales);
+        const t_llamada_widget = Date.now();
+        console.log(`[⏱️ DASHBOARD] [${t_llamada_widget}] 🔴 Llamada al widget - Fin del servicio (${new Date(t_llamada_widget).toISOString()})\n`);
+
+       
+        return {
+          content: [{
+            type: 'text' as const,
+            text: `He preparado visualmente tu selección de moda.`
+          }],
+          structuredContent: { itemList, category: `retail_${catalog}`, viewMode: intent, preselectedCompareSkus },
+        };
+
+      } catch (error) {
+        console.error('Error fetching retail catalog:', error);
+        return errorMessage('Hubo un problema al conectar con el catálogo de moda.');
+      }
+    },
+  );
+}

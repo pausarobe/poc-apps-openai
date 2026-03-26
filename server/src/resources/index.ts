@@ -7,6 +7,9 @@ import { registerTrainDashboardWidgetResource } from './train-dashboard-widget.j
 import { registerCarCreateWidgetResource } from './car-create-widget.js';
 import { registerItemDashboardWidgetResource } from './item-dashboard-widgets.js';
 import { registerItemDetailWidgetResource } from './item-detail-widget.js';
+import { registerRetailDetailsWidgetResource } from './retail-details-widgets.js';
+import { register } from 'module';
+import { registerRetailSelectorWidgetResource } from './retail-selector-widget.js';
 export function registerResources(
   server: McpServer,
   assets: ReturnType<typeof import('../utils/assets.js').loadWebAssets>,
@@ -19,4 +22,6 @@ export function registerResources(
   registerTrainDashboardWidgetResource(server, assets.JS_RENFE, assets.CSS);
   registerItemDashboardWidgetResource(server, assets.JS_ITEM_DASHBOARD, assets.CSS);
   registerItemDetailWidgetResource(server, assets.JS_ITEM_DETAIL, assets.CSS);
+  registerRetailDetailsWidgetResource(server, assets.JS_RETAIL_DETAIL, assets.CSS);
+  registerRetailSelectorWidgetResource(server, assets.JS_RETAIL_SELECTOR, assets.CSS);
 }

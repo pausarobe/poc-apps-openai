@@ -1,4 +1,4 @@
-import type { CarData, FlightData, Item, ItemList, TrainData } from './types.js';
+import type { CarData, FlightData, Item, ItemList, LookList, TrainData } from './types.js';
 
 export interface ToolOutput {
   flightDetail?: FlightData;
@@ -10,5 +10,11 @@ export interface ToolOutput {
   item?: Item;
   itemList?: ItemList;
   category?: string;
+  lookList?: LookList;
+  metaData: MetaData | undefined;
   type?: 'arrival' | 'departure';
+}
+
+export interface MetaData {
+  colorPalette?: 'green' | 'blue' | 'yellow' | 'red' | 'purple';
 }

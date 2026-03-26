@@ -1,20 +1,20 @@
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { makeWidgetHtml } from '../utils/helpers.js';
 
-export function registerItemDetailWidgetResource(server: McpServer, js: string, css: string) {
+export function registerRetailDetailsWidgetResource(server: McpServer, js: string, css: string) {
   server.registerResource(
-    'item-detail-widget',
-    'ui://widget/item-detail.html',
+    'retail-details-widget',
+    'ui://widget/retail-details.html',
     {
-      title: 'Item Catalog Detail',
-      description: 'Overview of the item detail',
+      title: 'Item Details Widget',
+      description: 'Detailed view of a specific item in the catalog',
     },
     async () => {
-      console.log("Serving item detail widget resource");
+      console.log("Serving retail details widget resource");
       return ({
       contents: [
         {
-          uri: 'ui://widget/item-detail.html',
+          uri: 'ui://widget/retail-details.html',
           mimeType: 'text/html+skybridge',
           text: makeWidgetHtml(js, css),
           _meta: {

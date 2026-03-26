@@ -1,0 +1,153 @@
+import { useState } from "react";
+import { HiOutlineInboxIn, HiX } from "react-icons/hi";
+
+interface CompareZoneProps {
+  items: any[]; 
+  comparedSkus: string[]; 
+  onDropItem: (sku: string) => void; 
+  onRemoveItem: (sku: string) => void; 
+}
+
+export default function CompareZone({ items, comparedSkus, onDropItem, onRemoveItem }: CompareZoneProps) {
+  const [isDraggingOver, setIsDraggingOver] = useState(false);
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault(); 
+    setIsDraggingOver(true);
+  };
+  
+  const handleDragLeave = () => {
+    setIsDraggingOver(false);
+  };
+
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+    setIsDraggingOver(false);
+    const sku = event.dataTransfer.getData("text/plain"); 
+    if (sku) {
+      onDropItem(sku); 
+    }
+  };
+  
+  const comparedItems = comparedSkus
+    .map(sku => items.find(i => i.sku === sku))
+    .filter(Boolean); 
+
+  const chunkedItems = [];
+  for (let i = 0; i < comparedItems.length; i += 3) {
+    chunkedItems.push(comparedItems.slice(i, i + 3));
+  }
+  
+  return (
+    <div 
+      className={`flex flex-col h-full rounded-2xl border-2 transition-all duration-300 p-4 ${
+        isDraggingOver 
+          ? `border-dashed border-blue-500 bg-blue-500/10 scale-[1.01]` 
+          : comparedItems.length === 0 
+            ? 'border-dashed border-white/20 bg-white/5' 
+            : 'border-solid border-token-border-medium bg-token-main-surface-secondary'
+      }`}
+      onDragOver={handleDragOver}
+      onDragLeave={handleDragLeave}
+      onDrop={handleDrop}
+    >
+      {/* --- PANTALLA VACÍA --- */}
+      {comparedItems.length === 0 ? (
+        <div className="flex flex-col items-center justify-center flex-grow text-center opacity-60 pointer-events-none text-slate-500 min-h-[300px]">
+          <HiOutlineInboxIn className="w-16 h-16 mb-4" />
+          <h3 className="text-xl font-bold uppercase tracking-widest mb-2">Tabla Comparativa</h3>
+          <p className="text-sm">Arrastra las opciones aquí</p>
+        </div>
+      ) : (
+        /* --- VISTA DE TABLA SEPARADA POR FILAS --- */
+        <div className="flex flex-col h-full overflow-hidden">
+          
+          <div className="w-full text-center py-2 mb-4 bg-slate-800 rounded-lg border border-slate-700 text-[10px] uppercase tracking-widest font-bold text-white/80 shadow-sm flex-shrink-0">
+            Comparativa de Looks
+          </div>
+
+          
+          <div className="overflow-y-auto pb-4 flex-grow pr-2">
+            <div className="flex flex-col gap-8 px-1">
+              
+              {/* Mapeamos cada Bloque de 3*/}
+              {chunkedItems.map((chunk, chunkIndex) => (
+                <div key={`chunk-${chunkIndex}`} className="flex flex-col gap-3">
+                  
+                  
+                  {chunkIndex > 0 && <div className="w-full h-px bg-white/10 my-2 rounded-full"></div>}
+
+                  {/* FILA 1: CABECERAS DEL BLOQUE */}
+                  <div className="flex gap-2.5">
+                    {chunk.map((item) => (
+                      <div key={`header-${item.sku}`} className="flex items-center gap-2 w-[150px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2 relative group">
+                        <div className="w-8 h-8 rounded-md bg-slate-800 flex-shrink-0 overflow-hidden border border-white/10">
+                          {(item.image?.url || item.thumbnail?.url) ? (
+                            <img src={item.image?.url || item.thumbnail?.url} alt={item.name} className="w-full h-full object-cover" />
+                          ) : (
+                            <div className="w-full h-full flex items-center justify-center text-slate-600 text-[8px] text-center leading-none">Sin foto</div>
+                          )}
+                        </div>
+                        <div className="flex-1 min-w-0 pr-4">
+                          <h4 className="font-bold text-[9px] text-white line-clamp-2 leading-tight uppercase" title={item.name}>
+                            {item.name}
+                          </h4>
+                        </div>
+                        <button 
+                          onClick={() => onRemoveItem(item.sku)}
+                          className="absolute top-1 right-1 text-slate-500 hover:text-red-400 bg-white/5 hover:bg-white/10 p-1 rounded-full transition-all"
+                          title="Quitar"
+                        >
+                          <HiX className="w-3 h-3" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* FILA 2: PRECIOS DEL BLOQUE */}
+                  <div className="flex gap-2.5">
+                    {chunk.map((item) => (
+                      <div key={`price-${item.sku}`} className="w-[150px] shrink-0 bg-slate-900 rounded-xl p-2 flex justify-between items-center border border-slate-700 shadow-sm">
+                        <span className="text-[8px] text-white/50 uppercase tracking-widest font-bold">Precio</span>
+                        <div className="font-black text-white text-sm">
+                          {item.price || "0"} <span className="text-[9px] text-white/50 font-normal">€</span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* FILA 3: CARACTERÍSTICAS DEL BLOQUE */}
+                  <div className="flex gap-2.5 h-full">
+                    {chunk.map((item) => (
+                      <div key={`tags-${item.sku}`} className="w-[150px] shrink-0 bg-slate-900 rounded-xl border border-slate-700 p-2 flex flex-col h-full shadow-sm">
+                        <span className="text-[8px] text-white/40 uppercase tracking-widest mb-1.5 block font-bold text-center">
+                          Características
+                        </span>
+                        <div className="flex flex-col gap-1">
+                          {(item.visibleTags || item.tags || item.attributes)?.length > 0 ? (
+                            (item.visibleTags || item.tags || item.attributes).map((tag: string) => (
+                              <div key={tag} className="bg-white/5 hover:bg-white/10 transition-colors px-1.5 py-1 rounded-md border border-white/10 text-center">
+                                <span className="text-[8px] font-bold text-white/90 uppercase tracking-wider block truncate">
+                                  {tag}
+                                </span>
+                              </div>
+                            ))
+                          ) : (
+                            <div className="text-[8px] text-white/30 italic px-2 py-1 text-center">Sin etiquetas</div>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                </div>
+              ))}
+              
+            </div>
+          </div>
+
+        </div>
+      )}
+    </div>
+  );
+}

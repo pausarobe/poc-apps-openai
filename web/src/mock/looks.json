@@ -1,0 +1,125 @@
+{
+  "item": [
+    {
+      "uid": "MTI3NQ==",
+      "name": "Look Fiesta Mujer",
+      "id": 1275,
+      "sku": "Look Fiesta Mujer",
+      "image": {
+        "label": "Look Fiesta Mujer",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/image.jpg"
+      },
+      "thumbnail": {
+        "label": "Look Fiesta Mujer",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/thumbnail.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    },
+    {
+      "uid": "MTI3MA==",
+      "name": "Look Boda Hombre",
+      "id": 1270,
+      "sku": "Look Boda Hombre",
+      "image": {
+        "label": "Look Boda Hombre",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/image.jpg"
+      },
+      "thumbnail": {
+        "label": "Look Boda Hombre",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/thumbnail.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    },
+    {
+      "uid": "MTI2Nw==",
+      "name": "Look Boda Mujer",
+      "id": 1267,
+      "sku": "Look Boda Mujer",
+      "image": {
+        "label": "Look Boda Mujer",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/image.jpg"
+      },
+      "thumbnail": {
+        "label": "Look Boda Mujer",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/thumbnail.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    },
+    {
+      "uid": "MTI1OA==",
+      "name": "Look Invierno",
+      "id": 1258,
+      "sku": "Look Invierno",
+      "image": {
+        "label": "Look Invierno",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/image.jpg"
+      },
+      "thumbnail": {
+        "label": "Look Invierno",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/thumbnail.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    },
+    {
+      "uid": "MTI1Mw==",
+      "name": "Look Casual Urbano",
+      "id": 1253,
+      "sku": "Look Casual Urbano",
+      "image": {
+        "label": "Look Casual Urbano",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/image.jpg"
+      },
+      "thumbnail": {
+        "label": "Look Casual Urbano",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/static/version1770050630/frontend/Magento/luma/es_ES/Magento_Catalog/images/product/placeholder/thumbnail.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    },
+    {
+      "uid": "MTI0OQ==",
+      "name": "Look deportivo",
+      "id": 1249,
+      "sku": "Look deportivo",
+      "image": {
+        "label": "Look deportivo",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/l/o/look1.jpg"
+      },
+      "thumbnail": {
+        "label": "Look deportivo",
+        "url": "https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/media/catalog/product/cache/84fdd758efcbe1c2b4c51afaa454848f/l/o/look1.jpg"
+      },
+      "price": 0,
+      "description": "",
+      "category": "Looks",
+      "properties": {},
+      "product_links": [],
+      "custom_attributes": []
+    }
+  ],
+  "category": "retail_looks"
+}

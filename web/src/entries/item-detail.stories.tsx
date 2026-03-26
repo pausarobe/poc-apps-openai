@@ -2,13 +2,15 @@ import { useEffect } from 'react';
 import type { Item } from '../lib/types';
 import item from '../mock/item.json' with { type: 'json' };
 import ItemDetail from './item-detail';
+import type { MetaData } from '../lib/openai';
 
-function MockToolOutput({ item, children }: { item: Item; children: React.ReactNode }) {
+function MockToolOutput({ item, children, metaData }: { item: Item; children: React.ReactNode; metaData?: MetaData }) {
   useEffect(() => {
     if (typeof window !== 'undefined') {
       window.openai = {
         toolOutput: {
           item: item,
+          metaData: metaData
         },
       };
 
@@ -30,7 +32,7 @@ export const ItemDetailIA = () => {
   };
   return (
     <div style={{ backgroundColor: '#f8fafc', minHeight: '100vh', padding: '40px' }}>
-      <MockToolOutput item={itemList}>
+      <MockToolOutput item={itemList} metaData={{colorPalette: "red"}}>
         <ItemDetail />
       </MockToolOutput>
     </div>

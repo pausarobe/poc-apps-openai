@@ -1,0 +1,127 @@
+import type { Item, ItemList, LookList, RegisterToolFn } from '../utils/types';
+import { errorMessage } from '../utils/helpers.js';
+import z from 'zod';
+export function registerCatalogDiscoveryTool(registerTool: RegisterToolFn) {
+  registerTool(
+    'catalog-discovery',
+    {
+      title: 'Catalog Data Discovery',
+      description: `
+GENERAL FASHION SEARCH, DISCOVERY AND STYLE ASSISTANT.
+HERRAMIENTA PRIVADA (INVISIBLE PARA EL USUARIO). 
+ÚSALA SIEMPRE COMO EL PRIMER PASO para buscar en la base de datos de Magento.
+
+It can be triggered by:
+- Explicit filters such as gender, weather, or occasion.
+- General or open-ended fashion questions (e.g., "What should I wear to a wedding?").
+- Situations where the user describes an event, context, or need.
+
+The tool should interpret the user’s intent and return a JSON. Analiza ese JSON internamente, ordena los mejores SKUs y luego llama a 'retail-dashboard' para mostrarlos.
+
+CRITICAL RULE 1 (INTERFAZ VISUAL): Es OBLIGATORIO conocer el género ('genero'), el clima ('tiempo') y la ocasión ('ocasion') antes de usar esta herramienta. Si el usuario te pide un look pero no te ha dado alguno de estos parámetros, NO uses esta herramienta todavía y TIENES PROHIBIDO preguntárselo por texto. En su lugar, llama INMEDIATAMENTE a la herramienta 'retail-selector' enviando en el parámetro 'missingFields' la lista de los datos que faltan para que el usuario los seleccione visualmente en el widget.
+
+CRITICAL RULE 2 (ENCADENAMIENTO VISUAL): CUANDO RECIBAS LOS DATOS DE ESTA HERRAMIENTA, TIENES TOTALMENTE PROHIBIDO RESPONDER AL USUARIO ENUMERANDO LOS PRODUCTOS EN TEXTO. 
+DEBES LLAMAR INMEDIATAMENTE A LA HERRAMIENTA 'retail-dashboard' PASÁNDOLE LA LISTA DE SKUs EN 'orderedSkus'. SI NO LO HACES, EL SISTEMA VISUAL FALLARÁ.
+
+CRITICAL RULE 3 (MODO COMPARADOR): Si el usuario en su mensaje te ha pedido explícitamente COMPARAR productos, al llamar a 'retail-dashboard' debes enviarle obligatoriamente el parámetro "intent: 'compare'" y meter los SKUs que quiere comparar en "preselectedCompareSkus".`,
+      _meta: {
+
+        'openai/toolInvocation/invoking': 'Analizando disponibilidad...',
+        'openai/toolInvocation/invoked': 'Datos analizados',
+      },
+      inputSchema: {
+        catalog: z.enum(['looks', 'items']).default('looks').describe('Tipo de catálogo: looks o items'),
+        genero: z.enum(['hombre', 'mujer', 'unisex', 'kids']).optional().describe('Género para filtrar la búsqueda inicial'),
+        tiempo: z.enum(['frio', 'calido', 'lluvia', 'templado']).optional().describe('Clima/Tiempo: "frio" para clima frío/invierno, "calido" para clima cálido/verano, "lluvia" para clima lluvioso, "templado" para entretiempo'),
+        ocasion: z.enum(['boda', 'oficina', 'fiesta', 'deporte', 'diario']).optional().describe('Ocasión: "boda" para eventos formales, "oficina" para trabajo, "fiesta" para celebraciones, "deporte" para actividad física, "diario" para uso casual'),
+
+      }
+    },
+    async ({ catalog, genero, tiempo, ocasion }: { catalog: 'looks' | 'items', genero?: string, tiempo?: string, ocasion?: string }) => {
+      const t_llegada = Date.now();
+      console.log(`\n[⏱️ DISCOVERY] [${t_llegada}] 🟢 Llegada primera traza (${new Date(t_llegada).toISOString()})`);
+      const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
+      const catalogId = catalog === 'looks' ? '47' : '48';
+      const generoMap: Record<string, string> = { 'hombre': '112', 'mujer': '113', 'unisex': '114', 'kids': '115' };
+      const generoId = genero ? generoMap[genero] : "";
+      const ocasionMap: Record<string, string> = {
+        'boda': '103',
+        'oficina': '104',
+        'fiesta': '105',
+        'deporte': '106',
+        'diario': '107'
+      };
+      const ocasionId = ocasion ? ocasionMap[ocasion] : "";
+      const tiempoMap: Record<string, string> = {
+        'frio': '99',
+        'calido': '100',
+        'lluvia': '101',
+        'templado': '102'
+      };
+      const tiempoId = tiempo ? tiempoMap[tiempo] : "";
+
+
+      try {
+        const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/graphql`;
+
+        // Query simplificada: Solo pedimos lo necesario para que la IA "entienda" los productos
+        const gqlQuery = `query GetItems($id: String!, $genero: String, $tiempo: String, $ocasion: String) {
+          products(filter: { category_id: { eq: $id }, genero: { eq: $genero }, tiempo: { eq: $tiempo }, ocasion: { eq: $ocasion } }) {
+            items {
+              sku
+              name
+              descripcionIA
+              descripcion
+            }
+          }
+        }`;
+        const t_llamada_api = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_llamada_api}] 🌐 Hora de llamada a la API (${new Date(t_llamada_api).toISOString()})`);
+        const gqlResponse = await fetch(GRAPHQL_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Store': catalog === 'looks' ? 'Looks' : 'items',
+            'Authorization': `Bearer ${ACCESS_TOKEN}`
+          },
+          body: JSON.stringify({
+            query: gqlQuery,
+            variables: {
+              id: catalogId,
+              genero: generoId,
+              tiempo: tiempoId,
+              ocasion: ocasionId
+            }
+          })
+        });
+
+        const gqlResult = await gqlResponse.json() as any;
+        const t_respuesta_api = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_respuesta_api}] 📥 Hora de respuesta de la API (${new Date(t_respuesta_api).toISOString()})`);
+
+
+        const items = gqlResult.data?.products?.items || [];
+        const skusEncontrados = items.map((item: any) => item.sku);
+        console.log(`[🔎 DISCOVERY] SKUs crudos enviados a la IA para analizar:`, skusEncontrados);
+
+        const t_fin_tool = Date.now();
+        console.log(`[⏱️ DISCOVERY] [${t_fin_tool}] 🔴 Fin del servicio Discovery\n`);
+
+        // Devolvemos los datos como texto plano para que la IA los lea
+
+        return {
+          content: [{
+            type: 'text' as const,
+            text: `[CATALOG_DATA]: ${JSON.stringify(items)} \n Acabas de obtener los datos del catálogo.  Tienes la OBLIGACIÓN ABSOLUTA de llamar a la herramienta 'retail-dashboard' AHORA MISMO pasándole la lista de 'orderedSkus'. 
+- Usa SIEMPRE intent='catalog' por defecto para mostrar los looks. 
+- SOLO si el usuario usó la palabra "comparar", usa intent='compare'. 
+` }]
+        };
+
+
+      } catch (error) {
+        return errorMessage('Error en el descubrimiento de datos.');
+      }
+    }
+  );
+}
