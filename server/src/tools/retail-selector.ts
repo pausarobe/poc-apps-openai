@@ -31,7 +31,10 @@ ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
         }).optional().describe('Datos que YA HAS EXTRAÍDO del mensaje del usuario.')
       }
     },
-    async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }) => {
+    async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }, extra) => {
+      console.log('--- EXTRA ---');
+      console.dir(extra, { depth: 10 });
+      
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
