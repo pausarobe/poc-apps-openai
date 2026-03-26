@@ -1,4 +1,4 @@
-import { verifyToken } from "../auth/verify-token";
+import { verifyToken } from "../auth/verify-token.js";
 
 export async function authMiddleware(req: any, res: any, next: any) {
   const authHeader = req.headers.authorization;

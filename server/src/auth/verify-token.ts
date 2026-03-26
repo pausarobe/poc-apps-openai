@@ -1,6 +1,6 @@
 import jwt, { type JwtHeader } from "jsonwebtoken";
 import jwksClient from "jwks-rsa";
-import { clerkConfig } from "./clerk-config";
+import { clerkConfig } from "./clerk-config.js";
 
 const client = jwksClient({
   jwksUri: clerkConfig.jwksUrl,
