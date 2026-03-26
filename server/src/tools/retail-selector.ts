@@ -1,6 +1,7 @@
 import type { RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
+import { getToolContext, requireAuthInfo } from '../utils/auth.js';
 
 export function registerRetailSelectorTool(registerTool: RegisterToolFn) {
   registerTool(
@@ -32,9 +33,12 @@ ESTA HERRAMIENTA MUESTRA UN SELECTOR VISUAL AL USUARIO.
       }
     },
     async ({ missingFields, currentData }: { missingFields: string[], currentData?: any }, extra) => {
+      const ctx = getToolContext(extra);
+      console.log('Tool context:', ctx);
+
       console.log('--- EXTRA ---');
       console.dir(extra, { depth: 10 });
-      
+
       try {
         console.log(`\n[WIDGET] Abriendo selector. Faltan: ${missingFields.join(', ')}`);
 
