@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+/*import { useEffect } from 'react';
 import type { ItemList } from '../lib/types';
 import ItemDashboard from './item-dashboard';
 // Mocks
@@ -115,4 +115,4 @@ export const DashboardGeneralB2C = () => {
       </MockToolOutput>
     </div>
   );
-};
+}; */

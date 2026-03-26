@@ -1,9 +1,13 @@
+/// <reference types="vite/client" />
 import type { ToolOutput } from './lib/openai.js';
 
 export {};
 
+
 declare global {
   const __WEATHER_API_KEY__: string;
+
+  const __CLERK_PUBLISHABLE_KEY__: string;
 
   interface OpenAIWindowGlobals {
     toolInput?: unknown;

@@ -1,9 +1,13 @@
 import { createRoot } from "react-dom/client";
+import { ClerkProvider, SignIn } from "@clerk/clerk-react";
 
-import ItemDashboardMain from "../components/ItemDashboard/ItemDashboardMain";
-export default ItemDashboardMain;
+const clerkPubKey = __CLERK_PUBLISHABLE_KEY__;
 
 if (typeof window !== "undefined" && document.getElementById("root")) {
   const root = createRoot(document.getElementById("root")!);
-  root.render(<ItemDashboardMain />);
+  root.render(
+    <ClerkProvider publishableKey={clerkPubKey}>
+      <SignIn />
+    </ClerkProvider>
+  );
 }
