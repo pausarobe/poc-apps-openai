@@ -15,7 +15,10 @@ export async function authMiddleware(req: Request & any, res: Response, next: Ne
   req.auth = null;
 
   if (!authHeader?.startsWith('Bearer ')) {
-    return next();
+    res.setHeader( 'WWW-Authenticate',
+      'Bearer realm="mcp", resource_metadata="/.well-known/oauth-protected-resource"'
+    );
+    return res.status(401).json({ error: 'Missing or invalid Authorization header' });
   }
 
   const token = authHeader.slice('Bearer '.length);
@@ -34,6 +37,9 @@ export async function authMiddleware(req: Request & any, res: Response, next: Ne
 
     next();
   } catch (error) {
+    res.setHeader(  'WWW-Authenticate',
+      'Bearer realm="mcp", resource_metadata="/.well-known/oauth-protected-resource"'
+    );
     return res.status(401).json({ error: 'Invalid bearer token' });
   }
 }
