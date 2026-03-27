@@ -1,44 +1,15 @@
 import express from 'express';
 import type { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { EventEmitter } from 'node:events';
+import { authMiddleware } from './auth-middleware.js';
+import { registerWellKnownRoutes } from './well-known.js';
 
 export function createHttpApp(transport: StreamableHTTPServerTransport, server: any) {
   const app = express();
   app.use(express.json());
 
-  app.use((req, res, next) => {
-  if (req.path === '/mcp/health') return next();
-
-  const authHeader = req.headers.authorization;
-  const SECRET_TOKEN = process.env.MCP_SECRET_TOKEN;
-
-  if (!SECRET_TOKEN) {
-    console.error("🚨 'MCP_SECRET_TOKEN' no está definido en las variables de entorno");
-    return res.status(500).json({ error: "Server Configuration Error" });
-  }
-
-  /* if (!authHeader || authHeader !== `Bearer ${SECRET_TOKEN}`) {
-    console.warn(`🔒 Bloqueado intento de acceso a ${req.path} sin credenciales válidas.`);
-    return res.status(401).json({ error: "Unauthorized: Solo ChatGPT puede pasar" });
-  }
-  */
-
-  // Extraemos el ID
-  const guestId = req.headers['openai-ephemeral-user-id'] || req.headers['openai-conversation-id'] || 'usuario_desconocido';
-  
-  // Imprimimos un bloque muy llamativo en la consola
-  console.log(`\n=========================================`);
-  console.log(`🕵️‍♂️ [NUEVA PETICIÓN DETECTADA]`);
-  console.log(`Ruta solicitada: ${req.path}`);
-  console.log(`ID de OpenAI: ${guestId}`);
-  console.log(req.headers);
-  console.log(`=========================================\n`);
-  
-  (req as any).userId = guestId;
-
-  next(); // Esto le dice al servidor: "Ya he mirado, puedes seguir con la búsqueda de ropa"
-});
-
+  app.use(authMiddleware);
+  registerWellKnownRoutes(app);
 
   const broadcaster = new EventEmitter();
   broadcaster.setMaxListeners(0);
@@ -50,16 +21,16 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     while (masterConnecting) await new Promise((r) => setTimeout(r, 10));
   }
 
-  app.get("/mcp/watch", (req, res) => {
+  app.get('/mcp/watch', (req, res) => {
     res.writeHead(200, {
-      "Content-Type": "text/event-stream",
-      "Cache-Control": "no-cache",
-      Connection: "keep-alive",
+      'Content-Type': 'text/event-stream',
+      'Cache-Control': 'no-cache',
+      Connection: 'keep-alive',
     });
     res.flushHeaders?.();
 
     const onChunk = (chunk: any) => {
-      const payload = typeof chunk === "string" ? chunk : chunk.toString();
+      const payload = typeof chunk === 'string' ? chunk : chunk.toString();
       res.write(`data: ${payload}\n\n`);
     };
 
@@ -67,27 +38,27 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       res.write(`event: error\ndata: ${JSON.stringify({ message: String(err) })}\n\n`);
     };
 
-    broadcaster.on("model-chunk", onChunk);
-    broadcaster.on("transport-error", onError);
+    broadcaster.on('model-chunk', onChunk);
+    broadcaster.on('transport-error', onError);
 
-    req.on("close", () => {
-      broadcaster.off("model-chunk", onChunk);
-      broadcaster.off("transport-error", onError);
+    req.on('close', () => {
+      broadcaster.off('model-chunk', onChunk);
+      broadcaster.off('transport-error', onError);
       try { res.end(); } catch {}
     });
   });
 
-  app.all("/mcp", async (req: any, res: any) => {
+  app.all('/mcp', async (req: any, res: any) => {
     const wantsSse =
-      req.method === "GET" &&
-      (req.headers.accept?.includes("text/event-stream") ||
-        req.headers["user-agent"]?.includes("curl"));
+      req.method === 'GET' &&
+      (req.headers.accept?.includes('text/event-stream') ||
+        req.headers['user-agent']?.includes('curl'));
 
     if (wantsSse) {
       await waitForMasterUnlock();
 
       if (masterConnected) {
-        res.status(409).json({ error: "Master SSE already connected. Use GET /mcp/watch" });
+        res.status(409).json({ error: 'Master SSE already connected. Use GET /mcp/watch' });
         return;
       }
 
@@ -98,22 +69,22 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       const origEnd = res.end.bind(res);
 
       res.write = (chunk: any, encoding?: any, cb?: any) => {
-        try { broadcaster.emit("model-chunk", chunk); } catch {}
+        try { broadcaster.emit('model-chunk', chunk); } catch {}
         return origWrite(chunk, encoding, cb);
       };
 
       res.end = (chunk?: any, encoding?: any, cb?: any) => {
         if (chunk) {
-          try { broadcaster.emit("model-chunk", chunk); } catch {}
+          try { broadcaster.emit('model-chunk', chunk); } catch {}
         }
         masterConnected = false;
-        setImmediate(() => broadcaster.emit("transport-closed"));
+        setImmediate(() => broadcaster.emit('transport-closed'));
         return origEnd(chunk, encoding, cb);
       };
 
-      req.on("close", () => {
+      req.on('close', () => {
         masterConnected = false;
-        broadcaster.emit("transport-closed");
+        broadcaster.emit('transport-closed');
       });
 
       masterConnecting = false;
@@ -121,7 +92,7 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       try {
         await transport.handleRequest(req, res, req.body);
       } catch (err) {
-        broadcaster.emit("transport-error", err);
+        broadcaster.emit('transport-error', err);
         try { res.end(); } catch {}
       } finally {
         masterConnected = false;
@@ -136,7 +107,7 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     }
   });
 
-  app.get("/mcp/health", (_, res) => res.json({ ok: true, masterConnected }));
+  app.get('/mcp/health', (_req, res) => res.json({ ok: true, masterConnected }));
   return app;
 }
 
