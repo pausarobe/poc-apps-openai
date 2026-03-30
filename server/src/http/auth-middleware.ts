@@ -8,6 +8,8 @@ export async function authMiddleware(req: any, res: any, next: any) {
   if (req.path === "/mcp/health") return next();
   if (req.path === "/debug-auth") return next();
   if (req.path.startsWith("/.well-known/")) return next();
+  if(req.path ==="/") return next();
+  if(req.path ==="/favicon.ico") return next();
 
   const authHeader = req.headers.authorization;
 
