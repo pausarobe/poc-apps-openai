@@ -47,7 +47,7 @@ export async function authMiddleware(req: any, res: any, next: any) {
 
     res.setHeader(
       "WWW-Authenticate",
-      'Bearer error="invalid_token", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource"'
+      'Bearer error="invalid_token", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource/mcp"'
     );
 
     return res.status(401).json({ error: "Invalid token" });
