@@ -36,7 +36,7 @@ export async function authMiddleware(req: Request & any, res: Response, next: Ne
     };
 
     next();
-  } catch (error) {
+  } catch (error) { 
     res.setHeader(  'WWW-Authenticate',
       'Bearer realm="mcp", resource_metadata="/.well-known/oauth-protected-resource"'
     );

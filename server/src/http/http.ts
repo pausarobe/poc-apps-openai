@@ -108,6 +108,12 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   });
 
   app.get('/mcp/health', (_req, res) => res.json({ ok: true, masterConnected }));
+
+  app.get('/debug-auth', (_req, res) => {
+    console.error('[DEBUG] /debug-auth reached');
+    res.json({ ok: true, debug: 'auth middleware deployed' });
+  });
+
   return app;
 }
 
