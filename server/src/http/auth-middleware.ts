@@ -1,45 +1,53 @@
-import type { Request, Response, NextFunction } from 'express';
-import { verifyToken } from '../auth/verify-token.js';
+import { verifyToken } from "../auth/verify-token.js";
 
-export async function authMiddleware(req: Request & any, res: Response, next: NextFunction) {
-  if (req.path === '/mcp/health') return next();
-  if (req.path.startsWith('/.well-known/')) return next();
+export async function authMiddleware(req: any, res: any, next: any) {
+  console.error("[AUTH] path:", req.path, "method:", req.method);
+  console.error("[AUTH] auth header present:", Boolean(req.headers.authorization));
+
+  // Rutas públicas
+  if (req.path === "/mcp/health") return next();
+  if (req.path === "/debug-auth") return next();
+  if (req.path.startsWith("/.well-known/")) return next();
 
   const authHeader = req.headers.authorization;
 
-  req.openaiContext = {
-    ephemeralUserId: req.headers['openai-ephemeral-user-id'] ?? null,
-    conversationId: req.headers['openai-conversation-id'] ?? null,
-  };
-
   req.auth = null;
 
-  if (!authHeader?.startsWith('Bearer ')) {
-    res.setHeader( 'WWW-Authenticate',
-      'Bearer realm="mcp", resource_metadata="/.well-known/oauth-protected-resource"'
+  if (!authHeader?.startsWith("Bearer ")) {
+    console.error("[AUTH] blocking request with 401:", req.path);
+
+    res.setHeader(
+      "WWW-Authenticate",
+      'Bearer realm="mcp", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource"'
     );
-    return res.status(401).json({ error: 'Missing or invalid Authorization header' });
+
+    return res.status(401).json({
+      error: "Missing or invalid Authorization header",
+    });
   }
 
-  const token = authHeader.slice('Bearer '.length);
+  const token = authHeader.replace("Bearer ", "");
 
   try {
-    const claims = await verifyToken(token);
+    const decoded = await verifyToken(token);
 
     req.auth = {
-      userId: claims.sub,
-      email: claims.email ?? null,
-      scopes: Array.isArray(claims.scopes) ? claims.scopes : [],
-      roles: Array.isArray(claims.roles) ? claims.roles : [],
-      orgId: claims.org_id ?? null,
-      raw: claims,
+      userId: decoded.sub,
+      email: decoded.email,
+      roles: decoded.roles || [],
+      scopes: decoded.scopes || [],
+      orgId: decoded.org_id,
     };
 
-    next();
-  } catch (error) { 
-    res.setHeader(  'WWW-Authenticate',
-      'Bearer realm="mcp", resource_metadata="/.well-known/oauth-protected-resource"'
+    return next();
+  } catch (err) {
+    console.error("[AUTH] token verification failed on path:", req.path, err);
+
+    res.setHeader(
+      "WWW-Authenticate",
+      'Bearer error="invalid_token", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource"'
     );
-    return res.status(401).json({ error: 'Invalid bearer token' });
+
+    return res.status(401).json({ error: "Invalid token" });
   }
 }
