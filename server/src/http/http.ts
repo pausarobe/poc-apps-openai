@@ -121,3 +121,6 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
 
   return app;
 }
+export function startHttpServer(app: express.Express, port: number | string) {
+  app.listen(port, () => console.error(`[HTTP] Server listening on port ${port}`));
+}
