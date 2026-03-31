@@ -1,4 +1,5 @@
 import express from 'express';
+import cors from 'cors';
 import type { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { EventEmitter } from 'node:events';
 import { authMiddleware } from './auth-middleware.js';
@@ -6,6 +7,8 @@ import { registerWellKnownRoutes } from './well-known.js';
 
 export function createHttpApp(transport: StreamableHTTPServerTransport, server: any) {
   const app = express();
+
+  app.use(cors({ exposedHeaders: ['WWW-Authenticate'] }));
   app.use(express.json());
 
   app.use(authMiddleware);
@@ -108,15 +111,13 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   });
 
   app.get('/mcp/health', (_req, res) => res.json({ ok: true, masterConnected }));
-
   app.get('/debug-auth', (_req, res) => {
     console.error('[DEBUG] /debug-auth reached');
     res.json({ ok: true, debug: 'auth middleware deployed' });
   });
+  app.get('/', (_req, res) => {
+    res.json({ ok: true, service: 'MCP server' });
+  });
 
   return app;
-}
-
-export function startHttpServer(app: express.Express, port: number | string) {
-  app.listen(port, () => console.error(`MCP listening on http://localhost:${port}/mcp`));
 }

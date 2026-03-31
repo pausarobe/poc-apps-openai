@@ -20,7 +20,7 @@ export async function authMiddleware(req: any, res: any, next: any) {
 
     res.setHeader(
       "WWW-Authenticate",
-      'Bearer realm="mcp", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource"'
+      'Bearer realm="mcp", resource_metadata="https://poc-apps-openai.onrender.com/.well-known/oauth-protected-resource/mcp"'
     );
 
     return res.status(401).json({
