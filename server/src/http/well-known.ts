@@ -1,7 +1,6 @@
 import type { Express, Request, Response } from 'express';
 
 export function registerWellKnownRoutes(app: Express) {
-  
   app.get('/.well-known/oauth-protected-resource/mcp', (_req: Request, res: Response) => {
     const resource = process.env.MCP_RESOURCE_URL;
     const issuer = process.env.CLERK_ISSUER;
@@ -18,7 +17,6 @@ export function registerWellKnownRoutes(app: Express) {
     });
   });
 
-  
   app.get('/.well-known/oauth-authorization-server', (_req: Request, res: Response) => {
     const issuer = process.env.CLERK_ISSUER;
 
@@ -34,12 +32,14 @@ export function registerWellKnownRoutes(app: Express) {
       authorization_endpoint: `${issuer}/oauth/authorize`,
       token_endpoint: `${issuer}/oauth/token`,
 
-      
-      response_types_supported: ["code"],
-      grant_types_supported: ["authorization_code"],
-      token_endpoint_auth_methods_supported: ["client_secret_post", "none"],
-      scopes_supported: ["openid", "profile", "email"],
-      code_challenge_methods_supported: ["S256"],
+      response_types_supported: ['code'],
+      grant_types_supported: ['authorization_code', 'refresh_token'],
+      token_endpoint_auth_methods_supported: ['client_secret_basic', 'none'],
+      scopes_supported: ['openid', 'profile', 'email', 'public_metadata', 'private_metadata'],
+      subject_types_supported: ['public'],
+      id_token_signing_alg_values_supported: ['RS256'],
+      claims_supported: ['sub', 'iss', 'aud', 'exp', 'iat', 'email', 'name'],
+      code_challenge_methods_supported: ['S256'],
     });
   });
 }
