@@ -17,7 +17,7 @@ export function registerWellKnownRoutes(app: Express) {
     });
   });
 
-  app.get('/.well-known/oauth-authorization-server', (_req: Request, res: Response) => {
+  app.get('/.well-known/oauth-authorization-server', async (_req: Request, res: Response) => {
     const issuer = process.env.CLERK_ISSUER;
 
     if (!issuer) {
@@ -26,20 +26,29 @@ export function registerWellKnownRoutes(app: Express) {
       });
     }
 
-    return res.json({
-      issuer,
-      jwks_uri: `${issuer}/.well-known/jwks.json`,
-      authorization_endpoint: `${issuer}/oauth/authorize`,
-      token_endpoint: `${issuer}/oauth/token`,
+    try {
+      const clerkMetadataUrl = `${issuer}/.well-known/oauth-authorization-server`;
+      const response = await fetch(clerkMetadataUrl);
 
-      response_types_supported: ['code'],
-      grant_types_supported: ['authorization_code', 'refresh_token'],
-      token_endpoint_auth_methods_supported: ['client_secret_basic', 'none'],
-      scopes_supported: ['openid', 'profile', 'email', 'public_metadata', 'private_metadata'],
-      subject_types_supported: ['public'],
-      id_token_signing_alg_values_supported: ['RS256'],
-      claims_supported: ['sub', 'iss', 'aud', 'exp', 'iat', 'email', 'name'],
-      code_challenge_methods_supported: ['S256'],
-    });
+      if (!response.ok) {
+        return res.status(502).json({
+          error: 'Failed to fetch Clerk authorization server metadata',
+          status: response.status,
+        });
+      }
+
+      const metadata = await response.json() as Record<string, unknown>;
+
+      return res.json({
+        ...metadata,
+
+        // Opcional: limitar scopes a los que sí usas ahora
+        scopes_supported: ['openid', 'profile', 'email'],
+      });
+    } catch (error) {
+      return res.status(500).json({
+        error: 'Unable to load Clerk authorization server metadata',
+      });
+    }
   });
 }
