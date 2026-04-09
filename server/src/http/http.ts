@@ -3,7 +3,7 @@ import cors from 'cors';
 import type { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { EventEmitter } from 'node:events';
 import { authMiddleware } from './auth-middleware.js';
-import { registerWellKnownRoutes } from './well-known.js';
+import { registerOAuthRoutes } from '../oauth/index.js';
 
 export function createHttpApp(transport: StreamableHTTPServerTransport, server: any) {
   const app = express();
@@ -12,7 +12,7 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   app.use(express.json());
 
   app.use(authMiddleware);
-  registerWellKnownRoutes(app);
+  registerOAuthRoutes(app);
 
   const broadcaster = new EventEmitter();
   broadcaster.setMaxListeners(0);
@@ -21,7 +21,9 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   let masterConnecting = false;
 
   async function waitForMasterUnlock() {
-    while (masterConnecting) await new Promise((r) => setTimeout(r, 10));
+    while (masterConnecting) {
+      await new Promise((r) => setTimeout(r, 10));
+    }
   }
 
   app.get('/mcp/watch', (req, res) => {
@@ -47,7 +49,9 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     req.on('close', () => {
       broadcaster.off('model-chunk', onChunk);
       broadcaster.off('transport-error', onError);
-      try { res.end(); } catch {}
+      try {
+        res.end();
+      } catch {}
     });
   });
 
@@ -72,13 +76,17 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
       const origEnd = res.end.bind(res);
 
       res.write = (chunk: any, encoding?: any, cb?: any) => {
-        try { broadcaster.emit('model-chunk', chunk); } catch {}
+        try {
+          broadcaster.emit('model-chunk', chunk);
+        } catch {}
         return origWrite(chunk, encoding, cb);
       };
 
       res.end = (chunk?: any, encoding?: any, cb?: any) => {
         if (chunk) {
-          try { broadcaster.emit('model-chunk', chunk); } catch {}
+          try {
+            broadcaster.emit('model-chunk', chunk);
+          } catch {}
         }
         masterConnected = false;
         setImmediate(() => broadcaster.emit('transport-closed'));
@@ -96,10 +104,13 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
         await transport.handleRequest(req, res, req.body);
       } catch (err) {
         broadcaster.emit('transport-error', err);
-        try { res.end(); } catch {}
+        try {
+          res.end();
+        } catch {}
       } finally {
         masterConnected = false;
       }
+
       return;
     }
 
@@ -110,17 +121,30 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
     }
   });
 
-  app.get('/mcp/health', (_req, res) => res.json({ ok: true, masterConnected }));
-  app.get('/debug-auth', (_req, res) => {
-    console.error('[DEBUG] /debug-auth reached');
-    res.json({ ok: true, debug: 'auth middleware deployed' });
+  app.get('/mcp/health', (_req, res) => {
+    res.json({ ok: true, masterConnected });
   });
+
+  app.get('/debug-auth', (req: any, res) => {
+    res.json({
+      ok: true,
+      auth: req.auth ?? null,
+    });
+  });
+
   app.get('/', (_req, res) => {
-    res.json({ ok: true, service: 'MCP server' });
+    res.json({
+      ok: true,
+      service: 'mcp-server',
+      mode: 'global-auth',
+    });
   });
 
   return app;
 }
+
 export function startHttpServer(app: express.Express, port: number | string) {
-  app.listen(port, () => console.error(`[HTTP] Server listening on port ${port}`));
+  app.listen(port, () => {
+    console.error(`[HTTP] Server listening on port ${port}`);
+  });
 }
