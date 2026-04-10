@@ -1,46 +1,82 @@
-import crypto from 'node:crypto';
 import type { Request, Response } from 'express';
-import { saveAuthCode } from './store.js';
+import { randomUUID } from 'crypto';
+import { saveLoginState } from './store.js';
+import { oauthStore } from './store.js';
 
-export function handleAuthorize(req: Request, res: Response) {
-  const {
-    client_id,
-    redirect_uri,
-    state,
-    response_type,
-  } = req.query as Record<string, string | undefined>;
+export async function handleAuthorize(req: Request, res: Response) {
+  const clientId = String(req.query.client_id ?? '');
+  const redirectUri = String(req.query.redirect_uri ?? '');
+  const originalState = String(req.query.state ?? '');
+  const scope = String(req.query.scope ?? 'openid profile email');
+  const resource = req.query.resource ? String(req.query.resource) : undefined;
+  const codeChallenge = req.query.code_challenge
+    ? String(req.query.code_challenge)
+    : null;
+  const codeChallengeMethod = req.query.code_challenge_method
+    ? String(req.query.code_challenge_method)
+    : null;
 
-  if (!client_id || !redirect_uri || !state) {
+  if (!clientId || !redirectUri || !originalState) {
     return res.status(400).json({
       error: 'invalid_request',
-      message: 'Missing client_id, redirect_uri or state',
+      error_description: 'Missing client_id, redirect_uri or state',
     });
   }
 
-  if (response_type && response_type !== 'code') {
+  const client = oauthStore.clients.get(clientId);
+
+  if (!client) {
     return res.status(400).json({
-      error: 'unsupported_response_type',
-      message: 'Only response_type=code is supported',
+      error: 'invalid_client',
+      error_description: 'Unknown client_id',
     });
   }
 
-  // Placeholder temporal.
-  // Aquí después meteremos la redirección a Clerk.
-  const fakeSubject = 'pending-clerk-user';
+  if (!client.redirect_uris.includes(redirectUri)) {
+    return res.status(400).json({
+      error: 'invalid_request',
+      error_description: 'redirect_uri is not registered for this client',
+    });
+  }
 
-  const code = crypto.randomUUID();
+  if (codeChallengeMethod && !['S256', 'plain'].includes(codeChallengeMethod)) {
+    return res.status(400).json({
+      error: 'invalid_request',
+      error_description: 'Unsupported code_challenge_method',
+    });
+  }
 
-  saveAuthCode({
-    code,
-    clientId: client_id,
-    redirectUri: redirect_uri,
-    subject: fakeSubject,
-    createdAt: Date.now(),
+  const brokerState = `broker_state_${randomUUID()}`;
+
+  saveLoginState({
+    brokerState,
+    clientId,
+    redirectUri,
+    originalState,
+    scope,
+    resource,
+    codeChallenge,
+    codeChallengeMethod,
   });
 
-  const redirectUrl = new URL(redirect_uri);
-  redirectUrl.searchParams.set('code', code);
-  redirectUrl.searchParams.set('state', state);
+  const clerkIssuer = process.env.CLERK_ISSUER;
+  const clerkClientId = process.env.CLERK_CLIENT_ID;
+  const clerkRedirectUri = process.env.CLERK_REDIRECT_URI;
 
-  return res.redirect(302, redirectUrl.toString());
+  if (!clerkIssuer || !clerkClientId || !clerkRedirectUri) {
+    return res.status(500).json({
+      error: 'server_error',
+      error_description:
+        'Missing CLERK_ISSUER, CLERK_CLIENT_ID or CLERK_REDIRECT_URI',
+    });
+  }
+
+  const clerkAuthorizeUrl = new URL(`${clerkIssuer}/oauth/authorize`);
+  clerkAuthorizeUrl.searchParams.set('client_id', clerkClientId);
+  clerkAuthorizeUrl.searchParams.set('redirect_uri', clerkRedirectUri);
+  clerkAuthorizeUrl.searchParams.set('response_type', 'code');
+  clerkAuthorizeUrl.searchParams.set('scope', 'openid profile email');
+  clerkAuthorizeUrl.searchParams.set('state', brokerState);
+
+  return res.redirect(clerkAuthorizeUrl.toString());
 }
