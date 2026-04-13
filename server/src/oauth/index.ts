@@ -4,6 +4,7 @@ import { handleToken } from './token.js';
 import { registerOAuthWellKnownRoutes } from './well-known.js';
 import { handleRegister } from './register.js';
 import { handleCallback } from './callback.js';
+import 'dotenv/config';
 
 
 export function registerOAuthRoutes(app: Express) {
