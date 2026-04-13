@@ -1,4 +1,4 @@
-import { verifyToken } from '../auth/verify-token.js';
+import jwt from 'jsonwebtoken';
 
 function isPublicPath(path: string) {
   return (
@@ -8,7 +8,9 @@ function isPublicPath(path: string) {
     path === '/debug-auth' ||
     path === '/.well-known/oauth-protected-resource' ||
     path === '/oauth/.well-known/oauth-authorization-server' ||
+    path === '/oauth/register' ||
     path === '/oauth/authorize' ||
+    path === '/oauth/callback' ||
     path === '/oauth/token'
   );
 }
@@ -36,16 +38,14 @@ export async function authMiddleware(req: any, res: any, next: any) {
   }
 
   const token = authHeader.slice('Bearer '.length);
+  const secret = process.env.OAUTH_JWT_SECRET ?? 'dev-oauth-secret';
 
   try {
-    const decoded: any = await verifyToken(token);
+    const decoded: any = jwt.verify(token, secret);
 
     req.auth = {
       userId: decoded.sub,
-      email: decoded.email ?? null,
-      roles: decoded.roles ?? [],
-      scopes: decoded.scopes ?? [],
-      orgId: decoded.org_id ?? null,
+      scopes: decoded.scope?.split(' ') ?? [],
       raw: decoded,
     };
 
