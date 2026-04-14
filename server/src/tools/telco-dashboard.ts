@@ -2,6 +2,7 @@ import type { ItemList, RegisterToolFn } from '../utils/types';
 import { errorMessage } from '../utils/helpers.js';
 import z from 'zod';
 
+// La foram de los productos que vienen de GraphQL evitar autocompletado, evitar errores
 type Product = {
   uid: string;
   id: number;
@@ -36,6 +37,7 @@ export function registerTelcoDashboardTool(registerTool: RegisterToolFn) {
   registerTool(
     'telco-dashboard',
     {
+      // El texto que le enviamos
       title: 'Telco Catalog',
       description: `Search for products in a telco catalog (telecommunications products and services).
 This tool MUST be used only for telco-related products (e.g. mobile plans, broadband, fiber, devices, SIMs, add-ons).
@@ -50,17 +52,23 @@ Populate the "search" field with product-related criteria mentioned by the user,
 
 If the request is not related to telco products, do NOT call this tool.`,
       _meta: {
+        // A que widget te estas comunicando
         'openai/outputTemplate': 'ui://widget/item-dashboard.html',
+        //El mensje cuando se esta conectado
         'openai/toolInvocation/invoking': 'Consultando catálogo en Magento Cloud...',
+        // Cuando ya ha recibido la respuesta
         'openai/toolInvocation/invoked': 'Catálogo cargado correctamente',
       },
       inputSchema: {
+        // Los valores que le puedes pasar al widget, el tipo de catalogo y el criterio de busqueda
         catalog: z.enum(['b2b', 'b2c']).describe('El típo de catálogo a consultar: b2b o b2c'),
         search: z.string().optional().describe('Criterio de búsqueda opcional, basado en la consulta del usuario'),
       }
     },
     async ({ catalog, search }: { catalog: 'b2b' | 'b2c', search?: string }) => {
       console.log('Joining telco-dashboard', catalog, search);
+      // Variables de entorno que necesito para conectarme a Magento Cloud, el token de acceso y el id del catalogo dependiendo si es b2b o b2c
+      // Las contraseñas nunca vandentro de codigo, se meten dentro de un fichero en el git ignore, de ahíes donde sacas esos tokens de acceso
       const ACCESS_TOKEN = process.env.PROVIDER_CARS_API_KEY;
       const catalogId = catalog === 'b2b' ? '29' : '28';
 
@@ -71,6 +79,7 @@ If the request is not related to telco products, do NOT call this tool.`,
 
       try {
         const GRAPHQL_URL = `https://poc-aem-ac-3sd2yly-l5m7ecdhyjm4m.eu-4.magentosite.cloud/telco_${catalog}/graphql`;
+        // Estructura de la consulta 
         const gqlQuery = `query GetItems($id: String!, $search: String) {
           products(
             search: $search,
@@ -105,9 +114,11 @@ If the request is not related to telco products, do NOT call this tool.`,
           }
         }`;
 
+        // Peticion http al servidor, le dices el catalago que quieres de telco, lo guardo en gqlResponse
         const gqlResponse = await fetch(GRAPHQL_URL, {
           method: 'POST',
           headers: {
+            // Definimos contexto de tienda en la cabecera para que Magento Cloud sepa a qué catálogo queremos acceder
             'Content-Type': 'application/json',
             'Store': `telco_${catalog}`
           },
@@ -116,15 +127,18 @@ If the request is not related to telco products, do NOT call this tool.`,
             variables: { id: catalogId, search }
           })
         });
-
+        // Pillamos la respuesta y la guardamos aquí, lo guardamos en Json
         const gqlResult = await gqlResponse.json() as { data?: { products?: { items: Product[] }, __type?: { fields: any[] } }, errors?: { message: string }[] };
 
+        // Manejo de errores
         if (gqlResult?.errors && gqlResult.errors.length > 0) {
           console.error('GraphQL Errors:', gqlResult.errors);
           throw new Error();
         }
+        // Extraemos los items de la respuesta, si no hay items devolvemos un array vacío
         const gqlItems = gqlResult.data?.products?.items || [];
 
+        // Transformamos los items cen ItemList con un .map
         const itemList: ItemList = gqlItems.map((item) => ({
           uid: item.uid,
           sku: item.sku,
@@ -136,10 +150,12 @@ If the request is not related to telco products, do NOT call this tool.`,
         }));
 
         return {
+          // Lo que le digo al chatGPT que me muestre en el widget, el número de productos encontrados
           content: [{
             type: 'text' as const,
             text: `He encontrado ${itemList.length ?? 0} productos disponibles.`
           }],
+          // Datos que utilzo en el widget
           structuredContent: { itemList, category: `telco_${catalog}` },
         };
 

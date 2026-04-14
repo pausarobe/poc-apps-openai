@@ -1,0 +1,86 @@
+export const events = [
+    {
+        "id": 1,
+        "title": "RSAC 2026 Conference",
+        "description": "RSA Conference 2026 brings together global cybersecurity leaders and innovators to reflect on the latest security trends and insights, share ideas, and create smarter solutions together.",
+        "date": "2026-03-23",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://www.nttdata.com/global/en/-/media/nttdataglobal/1_images/insights/event/2025/april/rsa-conference/rsa-conference_01.jpg?h=1108&iar=0&w=1660&rev=fcc4308b8b704f4c98856a978fcfb976"
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "title": "Mobile World Congress BCN 2026",
+        "description": "Mobile World Congress BCN 2026 is the premier event for the mobile industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "date": "2026-03-02",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://www.restaurantemesdevi.es/images/Blog/Diciembre/Mobile/Mes-de-Vi-Blog-Mobile-World-Congress-26-1.jpg"
+            }
+        ]
+    },
+    {
+        "id": 3,
+        "title": "Cisco Live 2026, Amsterdam",
+        "description": "Cisco Live 2026 is the premier event for the networking industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "date": "2026-03-09",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://media.licdn.com/dms/image/sync/v2/D4E27AQHkwITFEx7iig/articleshare-shrink_1280_800/B4EZlRqj7EHIAY-/0/1758011737199?e=2147483647&v=beta&t=F_gUryKzpLbXEIvQduFIRqrDbKbmJJp9sfq-NcwPzRk"
+            }
+        ]
+    },
+    {
+        "id": 4,
+        "title": "Sibos 2025, Frankfurt",
+        "description": "Sibos 2025 is the premier event for the financial services industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "date": "2025-09-29",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://media.licdn.com/dms/image/v2/D4E10AQFY2dntz3Vj1A/image-shrink_800/B4EZmAr6GwHIAg-/0/1758800618398?e=2147483647&v=beta&t=5QVUnO_zVNLWpGULA2enzB3Xt2GCEt4VtJ5cWZMKO1U"
+            }
+        ]
+    },
+    {
+        "id": 5,
+        "title": "Google Cloud Next 2025",
+        "description": "Google Cloud Next 2025 is the premier event for the cloud computing industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "date": "2025-04-09",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://tse4.mm.bing.net/th/id/OIF.VJSj0l3hG65YAMCzVZpQOQ?rs=1&pid=ImgDetMain&o=7&rm=3"
+            }
+        ]
+    },
+    {
+        "id": 6,
+        "title": "Electric Vehicle Asia 2024",
+        "description": "Electric Vehicle Asia 2024 is the premier event for the electric vehicle industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "date": "2024-07-03",
+        "sections": [
+            {
+                "id": 1,
+                "sectionTitle": "Section 1",
+                "sectionContent": "Content for Section 1",
+                "image": "https://tse4.mm.bing.net/th/id/OIP.gg9m5Tpnn4tfjpXj5VtXsAHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+            }
+        ]
+    }
+]
