@@ -3,60 +3,66 @@ import { createRoot } from "react-dom/client";
 import { Button, Label, Radio } from "flowbite-react";
 import { useOpenAiGlobal } from '../lib/hooks.js';
 
-const parmRetail: {parameterId: string; parameterName: string; defaultValue?: string; parameterOptions?: string[]}[] = [
-    {
-      parameterId: "tiempo",
-      parameterName: "Tiempo",
-      defaultValue: "",
-      parameterOptions: ["frio", "calido", "lluvia", "templado"]
-    },
-    {
-      parameterId: "genero",
-      parameterName: "Genero",
-      defaultValue: "",
-      parameterOptions: ["hombre", "mujer", "unisex", "kids"]
-    },
-    {
-      parameterId: "ocasion",
-      parameterName: "Ocasion",
-      defaultValue: "",
-      parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"]
-    }
+const parmRetail: {parameterId: string; parameterName: string; parameterOptions?: string[]}[] = [
+    { parameterId: "tiempo", parameterName: "Tiempo", parameterOptions: ["frio", "calido", "lluvia", "templado"] },
+    { parameterId: "genero", parameterName: "Genero", parameterOptions: ["hombre", "mujer", "unisex", "kids"] },
+    { parameterId: "ocasion", parameterName: "Ocasion", parameterOptions: ["boda", "oficina", "fiesta", "deporte", "diario"] }
 ]
 
 export default function Control() {
     const toolOutput = useOpenAiGlobal('toolOutput');
-    const [parameters, setParameters] = useState(parmRetail)
+    
+    // Un estado para controlar exactamente qué botones están pulsados en tiempo real
+    const [selectedValues, setSelectedValues] = useState<Record<string, string>>({});
 
     useEffect(() => {
         try {
-            const camposQueFaltan = (toolOutput as any)?.missingFields;
+            if (!toolOutput) return;
 
-            if (camposQueFaltan && Array.isArray(camposQueFaltan) && camposQueFaltan.length > 0) {
-                const parametrosFiltrados = parmRetail.filter(param => 
-                    camposQueFaltan.includes(param.parameterId)
-                );
-                
-                setParameters(parametrosFiltrados);
+            // Extraemos los datos que nos manda ChatGPT
+            const output = toolOutput as any;
+            const currentDataParsed = output.currentData || {};
+
+           
+            const normalizedData: Record<string, string> = {};
+            for (const key in currentDataParsed) {
+                if (currentDataParsed[key]) {
+                    normalizedData[key] = String(currentDataParsed[key]).toLowerCase();
+                }
             }
+            
+         
+            setSelectedValues(normalizedData);
+
         } catch (error) {
-            console.error("Error procesando los filtros de toolOutput:", error);
+            console.error("Error procesando los datos:", error);
         }
     }, [toolOutput]);
 
-    
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        const data = new FormData(e.currentTarget);
-        const entries = Object.fromEntries(data.entries());
-        
-        console.log("Enviando a ChatGPT:", entries);
+    // Función para que el usuario pueda cambiar la selección manualmente si la IA se equivocó
+    const handleRadioChange = (parameterId: string, value: string) => {
+        setSelectedValues(prev => ({
+            ...prev,
+            [parameterId]: value
+        }));
+    };
 
-        if (window.parent) {
-            window.parent.postMessage({
-                type: 'tool_response', 
-                data: entries
-            }, '*');
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        
+        // Formateamos lo que hay seleccionado para enviárselo al chat
+        const opcionesElegidas = Object.entries(selectedValues)
+            .map(([key, value]) => `${key}: ${value}`)
+            .join(', ');
+
+        const mensajeParaChat = `Ya he rellenado el formulario. Mis opciones son: ${opcionesElegidas}. Por favor, busca la ropa en el catálogo con estos datos.`;
+
+        if ((window as any).openai?.sendFollowUpMessage) {
+            await (window as any).openai.sendFollowUpMessage({
+                prompt: mensajeParaChat
+            });
+        } else {
+            console.error("No se ha encontrado el objeto window.openai");
         }
     };
 
@@ -71,19 +77,18 @@ export default function Control() {
           </div>
           <div className="text-center">
             <h1 className="text-2xl font-black tracking-tight leading-none text-white uppercase italic">
-              Formulario de Control
+              Formulario de Búsqueda
             </h1>
             <p className="text-white/60 text-sm font-medium italic mt-2">
-              Configura los parámetros necesarios
+              Confirma o rellena los parámetros necesarios
             </p>
           </div>
         </div>
       </div>
 
       <div className="bg-white/95 backdrop-blur-xl rounded-[2rem] p-8 shadow-2xl border border-slate-200">
-     
         <form onSubmit={handleSubmit} className="flex flex-col gap-6 grid-rows-3 grid-cols-2 gap-4">
-            {parameters.map((elem) => (
+            {parmRetail.map((elem) => (
               <div key={elem.parameterId} className="space-y-2">
                 <Label htmlFor={elem.parameterId} className="text-sm font-semibold text-slate-700 uppercase tracking-wider">{elem.parameterName}</Label>
                 <div>
@@ -91,18 +96,20 @@ export default function Control() {
                     <div key={option} className="flex items-center gap-4">
                       <Radio
                       id={`${elem.parameterId}-${option}`}
-                      // Usar parameterId para enviar el nombre correcto ('tiempo', no 'Tiempo') 
                       name={elem.parameterId} 
                       value={option}
                       required
-                      defaultValue={elem.defaultValue ?? ""}/>
+                      /* Controlamos el checked directamente con nuestro estado */
+                      checked={selectedValues[elem.parameterId] === option}
+                      onChange={() => handleRadioChange(elem.parameterId, option)}
+                      />
                       <Label htmlFor={`${elem.parameterId}-${option}`}>{option}</Label>
                     </div>
                   ))}
                 </div> 
               </div>
               ))}
-            <Button type="submit" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg uppercase tracking-wide">Enviar</Button>
+            <Button type="submit" className="w-full bg-gradient-to-r from-slate-700 to-slate-900 hover:from-slate-800 hover:to-slate-950 text-white font-bold py-3 px-6 rounded-xl transition duration-300 shadow-lg uppercase tracking-wide">Buscar Looks</Button>
         </form>
       </div>
     </div>
