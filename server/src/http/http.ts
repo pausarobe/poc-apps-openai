@@ -4,6 +4,8 @@ import type { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/se
 import { EventEmitter } from 'node:events';
 import { authMiddleware } from './auth-middleware.js';
 import { registerOAuthRoutes } from '../oauth/index.js';
+import { handleCallback } from '../oauth/callback.js';
+
 
 export function createHttpApp(transport: StreamableHTTPServerTransport, server: any) {
   const app = express();
@@ -11,9 +13,10 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
   app.use(cors({ exposedHeaders: ['WWW-Authenticate'] }));
   app.use(express.json());
 
-  app.use(authMiddleware);
+  app.get('/oauth/callback', handleCallback);
   registerOAuthRoutes(app);
-
+  app.use(authMiddleware);
+  
   const broadcaster = new EventEmitter();
   broadcaster.setMaxListeners(0);
 
