@@ -16,7 +16,21 @@ export async function handleAuthorize(req: Request, res: Response) {
     ? String(req.query.code_challenge_method)
     : null;
 
+  console.log('[SERVER OAUTH AUTHORIZE] params=', {
+    clientId,
+    redirectUri,
+    originalState,
+    scope,
+    resource,
+    codeChallengeMethod,
+  });
+
   if (!clientId || !redirectUri || !originalState) {
+    console.error('[SERVER OAUTH AUTHORIZE] invalid_request missing params', {
+      clientId,
+      redirectUri,
+      originalState,
+    });
     return res.status(400).json({
       error: 'invalid_request',
       error_description: 'Missing client_id, redirect_uri or state',
@@ -26,6 +40,7 @@ export async function handleAuthorize(req: Request, res: Response) {
   const client = oauthStore.clients.get(clientId);
 
   if (!client) {
+    console.error('[SERVER OAUTH AUTHORIZE] invalid_client unknown client_id', { clientId });
     return res.status(400).json({
       error: 'invalid_client',
       error_description: 'Unknown client_id',
@@ -33,6 +48,11 @@ export async function handleAuthorize(req: Request, res: Response) {
   }
 
   if (!client.redirect_uris.includes(redirectUri)) {
+    console.error('[SERVER OAUTH AUTHORIZE] invalid_request bad redirect_uri', {
+      clientId,
+      redirectUri,
+      allowedRedirectUris: client.redirect_uris,
+    });
     return res.status(400).json({
       error: 'invalid_request',
       error_description: 'redirect_uri is not registered for this client',

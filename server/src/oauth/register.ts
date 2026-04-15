@@ -4,10 +4,12 @@ import { oauthStore } from './store.js';
 
 export async function handleRegister(req: Request, res: Response) {
   const body: any = req.body ?? {};
+  console.log('[SERVER OAUTH REGISTER] body=', JSON.stringify(body));
 
   const redirectUris = Array.isArray(body.redirect_uris) ? body.redirect_uris : [];
 
   if (redirectUris.length === 0) {
+    console.error('[SERVER OAUTH REGISTER] invalid_client_metadata missing redirect_uris');
     return res.status(400).json({
       error: 'invalid_client_metadata',
       error_description: 'redirect_uris is required',
@@ -36,6 +38,11 @@ export async function handleRegister(req: Request, res: Response) {
   };
 
   oauthStore.clients.set(clientId, client);
+  console.log('[SERVER OAUTH REGISTER] client created', {
+    client_id: clientId,
+    redirect_uris: client.redirect_uris,
+    token_endpoint_auth_method: client.token_endpoint_auth_method,
+  });
 
   return res.status(201).json(client);
 }

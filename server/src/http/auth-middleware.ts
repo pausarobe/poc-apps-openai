@@ -11,7 +11,11 @@ function isPublicPath(path: string) {
     path === '/oauth/register' ||
     path === '/oauth/authorize' ||
     path === '/oauth/callback' ||
-    path === '/oauth/token'
+    path === '/oauth/token' ||
+    path === '/register' ||
+    path === '/authorize' ||
+    path === '/callback' ||
+    path === '/token'
   );
 }
 
