@@ -12,11 +12,12 @@ export function createHttpApp(transport: StreamableHTTPServerTransport, server: 
 
   app.use(cors({ exposedHeaders: ['WWW-Authenticate'] }));
   app.use(express.json());
+  app.use(express.urlencoded({ extended: true }));
 
   app.get('/oauth/callback', handleCallback);
   registerOAuthRoutes(app);
   app.use(authMiddleware);
-  
+
   const broadcaster = new EventEmitter();
   broadcaster.setMaxListeners(0);
 
