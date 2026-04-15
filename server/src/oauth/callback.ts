@@ -10,7 +10,16 @@ export async function handleCallback(req: Request, res: Response) {
   const codeFromClerk = String(req.query.code ?? '');
   const brokerState = String(req.query.state ?? '');
 
+  console.log('[SERVER OAUTH CALLBACK] params=', {
+    codeFromClerkPresent: !!codeFromClerk,
+    brokerState,
+  });
+
   if (!codeFromClerk || !brokerState) {
+    console.error('[SERVER OAUTH CALLBACK] invalid_request missing code or state', {
+      codeFromClerk,
+      brokerState,
+    });
     return res.status(400).json({
       error: 'invalid_request',
       error_description: 'Missing code or state',
@@ -20,6 +29,9 @@ export async function handleCallback(req: Request, res: Response) {
   const loginState = getLoginState(brokerState);
 
   if (!loginState) {
+    console.error('[SERVER OAUTH CALLBACK] invalid_request unknown or expired broker state', {
+      brokerState,
+    });
     return res.status(400).json({
       error: 'invalid_request',
       error_description: 'Unknown or expired broker state',
@@ -37,6 +49,13 @@ export async function handleCallback(req: Request, res: Response) {
     subject: 'clerk-user-temp',
     scope: loginState.scope,
     expiresAt: Date.now() + 5 * 60 * 1000,
+  });
+
+  console.log('[SERVER OAUTH CALLBACK] auth code saved', {
+    authCode,
+    clientId: loginState.clientId,
+    redirectUri: loginState.redirectUri,
+    codeChallengeMethod: loginState.codeChallengeMethod,
   });
 
   deleteLoginState(brokerState);

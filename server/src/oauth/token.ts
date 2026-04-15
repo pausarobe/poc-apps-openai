@@ -34,7 +34,16 @@ export async function handleToken(req: Request, res: Response) {
     ? String(req.body.code_verifier)
     : null;
 
+  console.log('[SERVER OAUTH TOKEN] request:', {
+    grantType,
+    code,
+    redirectUri,
+    codeVerifierProvided: codeVerifier != null,
+    authHeader: req.headers.authorization,
+  });
+
   if (grantType !== 'authorization_code') {
+    console.error('[SERVER OAUTH TOKEN] unsupported_grant_type', { grantType });
     return res.status(400).json({
       error: 'unsupported_grant_type',
       error_description: 'Only authorization_code is supported',
@@ -42,6 +51,10 @@ export async function handleToken(req: Request, res: Response) {
   }
 
   if (!code || !redirectUri) {
+    console.error('[SERVER OAUTH TOKEN] invalid_request missing code/redirectUri', {
+      codePresent: !!code,
+      redirectUri,
+    });
     return res.status(400).json({
       error: 'invalid_request',
       error_description: 'Missing code or redirect_uri',
@@ -51,6 +64,7 @@ export async function handleToken(req: Request, res: Response) {
   const authCode = getAuthCode(code);
 
   if (!authCode) {
+    console.error('[SERVER OAUTH TOKEN] invalid_grant unknown auth code', { code });
     return res.status(400).json({
       error: 'invalid_grant',
       error_description: 'Unknown authorization code',
@@ -68,6 +82,7 @@ export async function handleToken(req: Request, res: Response) {
   const client = oauthStore.clients.get(authCode.clientId);
 
   if (!client) {
+    console.error('[SERVER OAUTH TOKEN] invalid_client unknown client', { clientId: authCode.clientId });
     return res.status(401).json({
       error: 'invalid_client',
       error_description: 'Unknown client',
@@ -78,6 +93,10 @@ export async function handleToken(req: Request, res: Response) {
     const clientId = String(req.body?.client_id ?? '');
 
     if (clientId !== client.client_id) {
+      console.error('[SERVER OAUTH TOKEN] invalid_client invalid public client_id', {
+        clientId,
+        expected: client.client_id,
+      });
       return res.status(401).json({
         error: 'invalid_client',
         error_description: 'Invalid public client_id',
@@ -93,6 +112,10 @@ export async function handleToken(req: Request, res: Response) {
       clientId !== client.client_id ||
       clientSecret !== client.client_secret
     ) {
+      console.error('[SERVER OAUTH TOKEN] invalid_client invalid client_secret_post', {
+        clientId,
+        clientSecretProvided: !!clientSecret,
+      });
       return res.status(401).json({
         error: 'invalid_client',
         error_description: 'Invalid client credentials',
@@ -108,6 +131,9 @@ export async function handleToken(req: Request, res: Response) {
       parsed.clientId !== client.client_id ||
       parsed.clientSecret !== client.client_secret
     ) {
+      console.error('[SERVER OAUTH TOKEN] invalid_client invalid basic client credentials', {
+        parsed,
+      });
       return res.status(401).json({
         error: 'invalid_client',
         error_description: 'Invalid basic client credentials',
@@ -116,6 +142,10 @@ export async function handleToken(req: Request, res: Response) {
   }
 
   if (authCode.redirectUri !== redirectUri) {
+    console.error('[SERVER OAUTH TOKEN] invalid_grant redirect_uri mismatch', {
+      expected: authCode.redirectUri,
+      received: redirectUri,
+    });
     return res.status(400).json({
       error: 'invalid_grant',
       error_description: 'redirect_uri does not match authorization code',
@@ -124,6 +154,7 @@ export async function handleToken(req: Request, res: Response) {
 
   if (authCode.codeChallenge) {
     if (!codeVerifier) {
+      console.error('[SERVER OAUTH TOKEN] invalid_request missing code_verifier');
       return res.status(400).json({
         error: 'invalid_request',
         error_description: 'Missing code_verifier',
@@ -134,6 +165,11 @@ export async function handleToken(req: Request, res: Response) {
       const expectedChallenge = buildCodeChallengeFromVerifier(codeVerifier);
 
       if (expectedChallenge !== authCode.codeChallenge) {
+        console.error('[SERVER OAUTH TOKEN] invalid_grant invalid PKCE code_verifier', {
+          expectedChallenge,
+          codeChallenge: authCode.codeChallenge,
+          codeVerifier,
+        });
         return res.status(400).json({
           error: 'invalid_grant',
           error_description: 'Invalid PKCE code_verifier',
@@ -141,6 +177,10 @@ export async function handleToken(req: Request, res: Response) {
       }
     } else if (authCode.codeChallengeMethod === 'plain') {
       if (codeVerifier !== authCode.codeChallenge) {
+        console.error('[SERVER OAUTH TOKEN] invalid_grant invalid PKCE plain verifier', {
+          codeVerifier,
+          expected: authCode.codeChallenge,
+        });
         return res.status(400).json({
           error: 'invalid_grant',
           error_description: 'Invalid PKCE code_verifier',
