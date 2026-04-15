@@ -2,6 +2,9 @@ import type { Request, Response } from 'express';
 import { randomUUID } from 'crypto';
 import { oauthStore } from './store.js';
 
+// Manejamos el registro dinamico de cliente OAuth.
+// Crea un nuevo registro de cliente en memoria y devuelve las credenciales del cliente.
+
 export async function handleRegister(req: Request, res: Response) {
   const body: any = req.body ?? {};
   console.log('[SERVER OAUTH REGISTER] body=', JSON.stringify(body));

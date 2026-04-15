@@ -3,6 +3,10 @@ import { createHash } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { deleteAuthCode, getAuthCode, oauthStore } from './store.js';
 
+//Gestiona el intercambio del token OAuth.
+// Esto valida el código de autorización, las credenciales del cliente,
+// luego emite un token de acceso firmado.
+
 function toBase64Url(input: Buffer) {
   return input
     .toString('base64')

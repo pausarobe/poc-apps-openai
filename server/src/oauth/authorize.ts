@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 import { saveLoginState } from './store.js';
 import { oauthStore } from './store.js';
 
+// Manejar la solicitud de autorización inicial del cliente.
 export async function handleAuthorize(req: Request, res: Response) {
   const clientId = String(req.query.client_id ?? '');
   const redirectUri = String(req.query.redirect_uri ?? '');

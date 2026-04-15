@@ -1,5 +1,6 @@
 import type { Express, Request, Response } from 'express';
 
+// Publica la metadata de discovery del servidor OAuth
 export function registerOAuthWellKnownRoutes(app: Express) {
   app.get('/.well-known/oauth-protected-resource', (_req: Request, res: Response) => {
     const resource = process.env.MCP_RESOURCE_URL ?? 'http://localhost:3333/mcp';

@@ -6,6 +6,7 @@ import { handleRegister } from './register.js';
 import { handleCallback } from './callback.js';
 import 'dotenv/config';
 
+// Registramos los endpoints Oauth del servidor.
 
 export function registerOAuthRoutes(app: Express) {
   registerOAuthWellKnownRoutes(app);

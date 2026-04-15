@@ -6,6 +6,10 @@ import {
   saveAuthCode,
 } from './store.js';
 
+// Manejar la devolución de llamada del intermediario de Clerk.
+// Convierte la respuesta del código de autorización de Clerk en el propio código de autorización del servidor,
+// lo almacena y redirige de nuevo al URI de redirección del cliente.
+
 export async function handleCallback(req: Request, res: Response) {
   const codeFromClerk = String(req.query.code ?? '');
   const brokerState = String(req.query.state ?? '');
