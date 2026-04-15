@@ -1,7 +1,7 @@
 import type { Story } from "@ladle/react";
 import { useEffect } from 'react';
 import type { EventData } from '../lib/openai';
-import EventDashboard from './event';
+import EventDashboard from './event-dashboard';
 import eventData from '../mock/events.json' with { type: 'json' };
 
 // Mock tool output component for future implementations.
