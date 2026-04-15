@@ -12,6 +12,7 @@ export function loadWebAssets(WEB_DIST: string) {
     JS_RENFE: readFileSync(join(WEB_DIST, 'train-dashboard.js'), 'utf8'),
     JS_ITEM_DASHBOARD: readFileSync(join(WEB_DIST, 'item-dashboard.js'), 'utf8'),
     JS_ITEM_DETAIL: readFileSync(join(WEB_DIST, 'item-detail.js'), 'utf8'),
+    JS_EVENT_DASHBOARD: readFileSync(join(WEB_DIST, 'event-dashboard.js'), 'utf8'),
     JS_RETAIL_DASHBOARD: readFileSync(join(WEB_DIST, 'item-dashboard.js'), 'utf8'),
     JS_RETAIL_DETAIL: readFileSync(join(WEB_DIST, 'item-detail-subitems.js'), 'utf8'),
     JS_RETAIL_SELECTOR: readFileSync(join(WEB_DIST, 'control-panel.js'), 'utf8'),

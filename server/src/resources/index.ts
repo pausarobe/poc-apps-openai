@@ -8,6 +8,7 @@ import { registerCarCreateWidgetResource } from './car-create-widget.js';
 import { registerItemDashboardWidgetResource } from './item-dashboard-widgets.js';
 import { registerItemDetailWidgetResource } from './item-detail-widget.js';
 import { registerRetailDetailsWidgetResource } from './retail-details-widgets.js';
+import { registerEventDashboardWidgetResource } from './event-dashboard-widget.js';
 import { register } from 'module';
 import { registerRetailSelectorWidgetResource } from './retail-selector-widget.js';
 export function registerResources(
@@ -23,5 +24,6 @@ export function registerResources(
   registerItemDashboardWidgetResource(server, assets.JS_ITEM_DASHBOARD, assets.CSS);
   registerItemDetailWidgetResource(server, assets.JS_ITEM_DETAIL, assets.CSS);
   registerRetailDetailsWidgetResource(server, assets.JS_RETAIL_DETAIL, assets.CSS);
+  registerEventDashboardWidgetResource(server, assets.JS_EVENT_DASHBOARD, assets.CSS);
   registerRetailSelectorWidgetResource(server, assets.JS_RETAIL_SELECTOR, assets.CSS);
 }
