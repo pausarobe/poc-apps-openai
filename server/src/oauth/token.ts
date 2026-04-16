@@ -3,10 +3,7 @@ import { createHash } from 'crypto';
 import jwt from 'jsonwebtoken';
 import { deleteAuthCode, getAuthCode, oauthStore } from './store.js';
 
-//Gestiona el intercambio del token OAuth.
-// Esto valida el código de autorización, las credenciales del cliente,
-// luego emite un token de acceso firmado.
-
+// Convierte un buffer a Base64URL según el estándar PKCE y JWT.
 function toBase64Url(input: Buffer) {
   return input
     .toString('base64')
@@ -30,7 +27,16 @@ function parseBasicAuth(authHeader?: string) {
   return { clientId, clientSecret };
 }
 
+// Maneja el intercambio de código de autorización por token de acceso.
+
+// Este endpoint implementa el flujo de "authorization_code":
+// 1. Valida que el grant_type sea válido.
+// 2. Busca y valida el auth code en memoria.
+// 3. Verifica caducidad, client_id, redirect_uri y credenciales del cliente.
+// 4. Comprueba PKCE si se usó code_challenge en la autorización.
+// 5. Emite un JWT usado como access_token y lo devuelve al cliente.
 export async function handleToken(req: Request, res: Response) {
+  // Extraer los parámetros enviados al endpoint de token.
   const grantType = String(req.body?.grant_type ?? '');
   const code = String(req.body?.code ?? '');
   const redirectUri = String(req.body?.redirect_uri ?? '');
@@ -54,6 +60,7 @@ export async function handleToken(req: Request, res: Response) {
     });
   }
 
+  // Validar que el grant_type sea authorization_code.
   if (!code || !redirectUri) {
     console.error('[SERVER OAUTH TOKEN] invalid_request missing code/redirectUri', {
       codePresent: !!code,
@@ -65,6 +72,7 @@ export async function handleToken(req: Request, res: Response) {
     });
   }
 
+  // Recuperar el auth code almacenado previamente.
   const authCode = getAuthCode(code);
 
   if (!authCode) {
@@ -83,6 +91,7 @@ export async function handleToken(req: Request, res: Response) {
     });
   }
 
+  // Cargar los datos del cliente que generó el auth code.
   const client = oauthStore.clients.get(authCode.clientId);
 
   if (!client) {
@@ -128,6 +137,7 @@ export async function handleToken(req: Request, res: Response) {
   }
 
   if (client.token_endpoint_auth_method === 'client_secret_basic') {
+    // Validar credenciales del cliente en el header Authorization Basic.
     const parsed = parseBasicAuth(req.headers.authorization);
 
     if (
@@ -145,6 +155,7 @@ export async function handleToken(req: Request, res: Response) {
     }
   }
 
+  // Verificar que el redirect_uri coincide con el código de autorización.
   if (authCode.redirectUri !== redirectUri) {
     console.error('[SERVER OAUTH TOKEN] invalid_grant redirect_uri mismatch', {
       expected: authCode.redirectUri,
@@ -157,6 +168,7 @@ export async function handleToken(req: Request, res: Response) {
   }
 
   if (authCode.codeChallenge) {
+    // Validar PKCE cuando el auth code fue creado con un code_challenge.
     if (!codeVerifier) {
       console.error('[SERVER OAUTH TOKEN] invalid_request missing code_verifier');
       return res.status(400).json({
@@ -198,6 +210,7 @@ export async function handleToken(req: Request, res: Response) {
     }
   }
 
+  // Consumir el auth code para que no pueda usarse de nuevo.
   deleteAuthCode(code);
 
   const issuer = process.env.OAUTH_ISSUER_URL ?? 'http://localhost:3333/oauth';

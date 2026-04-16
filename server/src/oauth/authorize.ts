@@ -3,8 +3,16 @@ import { randomUUID } from 'crypto';
 import { saveLoginState } from './store.js';
 import { oauthStore } from './store.js';
 
-// Manejar la solicitud de autorización inicial del cliente.
+// Maneja la solicitud de autorización inicial del cliente.
+
+// Este endpoint recibe la petición OAuth de tipo "authorization request" y realiza:
+// 1. Validación de parámetros obligatorios como client_id, redirect_uri y state.
+// 2. Verificación de que el cliente existe y que la URI de redirección está registrada.
+// 3. Soporte de PKCE verificando el code_challenge y el método.
+// 4. Generación de un estado interno (brokerState) que mantiene el estado entre el cliente y ClerK.
+// 5. Redirección hacia el proveedor de identidad (Clerk) con un código de autorización.
 export async function handleAuthorize(req: Request, res: Response) {
+  // Leer los parámetros de la solicitud de autorización.
   const clientId = String(req.query.client_id ?? '');
   const redirectUri = String(req.query.redirect_uri ?? '');
   const originalState = String(req.query.state ?? '');
@@ -38,6 +46,7 @@ export async function handleAuthorize(req: Request, res: Response) {
     });
   }
 
+  // Buscar el cliente registrado en memoria.
   const client = oauthStore.clients.get(clientId);
 
   if (!client) {
@@ -67,8 +76,10 @@ export async function handleAuthorize(req: Request, res: Response) {
     });
   }
 
+  // Generar un estado interno que enlaza la petición del cliente con la respuesta de Clerk.
   const brokerState = `broker_state_${randomUUID()}`;
 
+  // Guardar el estado de login temporal para poder recuperarlo al callback.
   saveLoginState({
     brokerState,
     clientId,
@@ -92,6 +103,7 @@ export async function handleAuthorize(req: Request, res: Response) {
     });
   }
 
+  // Construir y redirigir a la URL de autorización del proveedor Clerk.
   const clerkAuthorizeUrl = new URL(`${clerkIssuer}/oauth/authorize`);
   clerkAuthorizeUrl.searchParams.set('client_id', clerkClientId);
   clerkAuthorizeUrl.searchParams.set('redirect_uri', clerkRedirectUri);
