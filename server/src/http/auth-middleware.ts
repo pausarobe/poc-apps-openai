@@ -50,6 +50,11 @@ export async function authMiddleware(req: any, res: any, next: any) {
     req.auth = {
       userId: decoded.sub,
       scopes: decoded.scope?.split(' ') ?? [],
+      email: decoded.email,
+      name: decoded.name,
+      role: decoded.role,
+      organizationId: decoded.organizationId,
+      organizationSlug: decoded.organizationSlug,
       raw: decoded,
     };
 

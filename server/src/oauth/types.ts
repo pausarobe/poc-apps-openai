@@ -29,4 +29,9 @@ export type AuthCodeRecord = {
   subject: string;
   scope: string;
   expiresAt: number;
+  email?: string | null;
+  name?: string | null;
+  role?: string | null;
+  organizationId?: string | null;
+  organizationSlug?: string | null;
 };
