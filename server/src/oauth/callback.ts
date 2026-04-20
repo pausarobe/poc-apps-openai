@@ -54,16 +54,25 @@ export async function handleCallback(req: Request, res: Response) {
 
   try {
     // Intercambiar el código con Clerk para obtener access_token
-    const clerkIssuer = process.env.CLERK_ISSUER;
-    const clerkClientId = process.env.CLERK_CLIENT_ID;
-    const clerkClientSecret = process.env.CLERK_CLIENT_SECRET;
-    const clerkRedirectUri = process.env.CLERK_REDIRECT_URI;
+    const clerkIssuer = process.env.CLERK_ISSUER ?? '';
+    const clerkClientId = process.env.CLERK_CLIENT_ID ?? '';
+    const clerkClientSecret = process.env.CLERK_CLIENT_SECRET ?? '';
+    const clerkRedirectUri = process.env.CLERK_REDIRECT_URI ?? '';
 
-    if (!clerkIssuer || !clerkClientId || !clerkClientSecret || !clerkRedirectUri) {
-      console.error('[SERVER OAUTH CALLBACK] missing Clerk environment variables');
+    const missingClerkEnvVars = [
+      !clerkIssuer && 'CLERK_ISSUER',
+      !clerkClientId && 'CLERK_CLIENT_ID',
+      !clerkClientSecret && 'CLERK_CLIENT_SECRET',
+      !clerkRedirectUri && 'CLERK_REDIRECT_URI',
+    ].filter(Boolean);
+
+    if (missingClerkEnvVars.length > 0) {
+      console.error('[SERVER OAUTH CALLBACK] missing Clerk environment variables', {
+        missingClerkEnvVars,
+      });
       return res.status(500).json({
         error: 'server_error',
-        error_description: 'Clerk configuration missing',
+        error_description: `Clerk configuration missing: ${missingClerkEnvVars.join(', ')}`,
       });
     }
 
