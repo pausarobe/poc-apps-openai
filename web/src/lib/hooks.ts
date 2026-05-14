@@ -1,4 +1,4 @@
-import { useSyncExternalStore } from 'react';
+import { useEffect, useSyncExternalStore, useState } from 'react';
 
 function getOpenAIValue<K extends keyof Window['openai']>(key: K) {
   return window.openai?.[key];
@@ -24,3 +24,18 @@ export function useOpenAiGlobal<K extends keyof Window['openai']>(key: K) {
     () => undefined,
   ) as Window['openai'][K];
 }
+
+export function useMobileView(breakpoint: number = 768) {
+        const [isMobile, setIsMobile] = useState(typeof window !== 'undefined' ? window.innerWidth < breakpoint : false);
+        useEffect(() => {
+            const handleResize = () => {
+                setIsMobile(window.innerWidth < breakpoint);
+            };
+            window.addEventListener('resize', handleResize);
+            return () => window.removeEventListener('resize', handleResize);
+        }, [breakpoint]);
+
+        return isMobile;
+}
+
+

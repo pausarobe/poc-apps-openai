@@ -5,11 +5,14 @@ export type EventData = {
   title: string;
   description: string;
   date: string;
+  location?: string;
+  tag?: string;
+  image?: string;
   sections?: Array<{
-    id: number;
-    sectionTitle: string;
-    sectionContent: string;
-    image: string;
+    id?: number;
+    tabTitle?: string;
+    sectionTitle?: string;
+    sectionContent?: string;
   }>;
 };
 
@@ -23,6 +26,7 @@ export interface ToolOutput {
   item?: Item;
   itemList?: ItemList;
   eventList?: EventData[];
+  eventFavoriteList?: String[];
   category?: string;
   lookList?: LookList;
   metaData?: MetaData | undefined;

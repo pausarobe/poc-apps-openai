@@ -3,84 +3,137 @@
     {
         "id": 1,
         "title": "RSAC 2026 Conference",
-        "description": "RSA Conference 2026 brings together global cybersecurity leaders and innovators to reflect on the latest security trends and insights, share ideas, and create smarter solutions together.",
+        "description": "Global cybersecurity conference feats featuring leaders, trends, and innovations.",
         "date": "2026-03-23",
+        "location": "San Francisco, CA",
+        "tag": "cybersecurity",
+        "image": "https://www.nttdata.com/global/en/-/media/nttdataglobal/1_images/insights/event/2025/april/rsa-conference/rsa-conference_01.jpg?h=1108&iar=0&w=1660&rev=fcc4308b8b704f4c98856a978fcfb976",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://www.nttdata.com/global/en/-/media/nttdataglobal/1_images/insights/event/2025/april/rsa-conference/rsa-conference_01.jpg?h=1108&iar=0&w=1660&rev=fcc4308b8b704f4c98856a978fcfb976"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is RSAC 2026 Conference?",
+                "sectionContent": "The RSAC 2026 Conference is one of the most prominent global gatherings in cybersecurity, held annually and widely regarded as a central meeting point for the industry. In 2026, it took place in San Francisco and brought together tens of thousands of participants, including security professionals, researchers, technology companies, and government representatives. At its core, the conference is designed as a space where the cybersecurity community exchanges knowledge and perspectives on current and emerging threats. It serves both as a showcase for new technologies—ranging from advanced threat detection to AI-driven security tools—and as a forum for strategic discussion about issues such as cyber warfare, data privacy, and the evolving threat landscape. Beyond the formal presentations, a significant part of its value lies in the interaction it enables. Attendees use the event to build partnerships, explore business opportunities, and align on industry standards. The presence of major companies and startups alongside policymakers and academics creates a mix that reflects how interconnected cybersecurity has become across sectors. In practical terms, RSAC functions as a barometer of where the field is heading. The themes, technologies, and concerns emphasized there tend to anticipate what organizations will be dealing with in the near future."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "San Francisco, CA"
             }
         ]
     },
     {
         "id": 2,
         "title": "Mobile World Congress BCN 2026",
-        "description": "Mobile World Congress BCN 2026 is the premier event for the mobile industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "description": "Premier mobile industry event showcasing latest trends and technologies.",
         "date": "2026-03-02",
+        "location": "Barcelona, Spain",
+        "tag": "mobile",
+        "image": "https://www.restaurantemesdevi.es/images/Blog/Diciembre/Mobile/Mes-de-Vi-Blog-Mobile-World-Congress-26-1.jpg",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://www.restaurantemesdevi.es/images/Blog/Diciembre/Mobile/Mes-de-Vi-Blog-Mobile-World-Congress-26-1.jpg"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is Mobile World Congress BCN 2026?",
+                "sectionContent": "The Mobile World Congress Barcelona 2026 is one of the most important global events in the technology and telecommunications industry, focused specifically on mobile connectivity and digital infrastructure. Held in Barcelona from March 2 to 5, 2026, it gathered over 100,000 attendees and thousands of companies, making it the largest event of its kind worldwide. At its core, the conference functions as a meeting point for the entire mobile ecosystem: device manufacturers, telecom operators, infrastructure providers, startups, and policymakers. While it originally revolved around smartphone launches, it has evolved into a broader platform where the future of connectivity is defined, including areas such as artificial intelligence, 5G and 6G networks, cloud computing, and digital services. A key aspect of the event is its dual nature. On one side, it acts as a massive exhibition where companies present new products and technological innovations; on the other, it serves as a strategic forum where industry leaders discuss how connectivity is reshaping economies, security, and society. The presence of governments and regulators reflects how telecom infrastructure is now tightly linked to geopolitical and economic priorities."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "Barcelona, Spain"
             }
         ]
     },
     {
         "id": 3,
         "title": "Cisco Live 2026, Amsterdam",
-        "description": "Cisco Live 2026 is the premier event for the networking industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "description": "Premier networking event for enterprise IT and digital transformation.",
         "date": "2026-03-09",
+        "location": "Amsterdam, Netherlands",
+        "tag": "networking",
+        "image": "https://media.licdn.com/dms/image/sync/v2/D4E27AQHkwITFEx7iig/articleshare-shrink_1280_800/B4EZlRqj7EHIAY-/0/1758011737199?e=2147483647&v=beta&t=F_gUryKzpLbXEIvQduFIRqrDbKbmJJp9sfq-NcwPzRk",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://media.licdn.com/dms/image/sync/v2/D4E27AQHkwITFEx7iig/articleshare-shrink_1280_800/B4EZlRqj7EHIAY-/0/1758011737199?e=2147483647&v=beta&t=F_gUryKzpLbXEIvQduFIRqrDbKbmJJp9sfq-NcwPzRk"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is Cisco Live 2026?",
+                "sectionContent": "The Cisco Live Amsterdam 2026 is one of Cisco’s main global events, focused on enterprise networking, infrastructure, and digital transformation. Held in Amsterdam in February 2026, it brought together thousands of IT professionals, engineers, partners, and business leaders from across Europe and beyond. At its core, the event operates as a highly technical conference combined with a strategic industry forum. It is designed not just to present new products, but to help organizations understand how to build and operate modern IT environments. The emphasis in 2026 was strongly centered on artificial intelligence, particularly how AI is reshaping networks, data centers, and security architectures. A defining characteristic of Cisco Live is its depth on the technical side. Unlike broader tech events, it includes hands-on labs, certification opportunities, and detailed engineering sessions where participants work directly with real systems and tools. This makes it especially relevant for practitioners—network engineers, security specialists, and architects—who need applied knowledge rather than just high-level trends. At the same time, it functions as a launchpad for innovation. In 2026, Cisco used the event to introduce new networking hardware, security platforms, and AI-driven infrastructure solutions aimed at supporting large-scale data processing and next-generation enterprise environments."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "Amsterdam, Netherlands"
             }
         ]
     },
     {
         "id": 4,
         "title": "Sibos 2025, Frankfurt",
-        "description": "Sibos 2025 is the premier event for the financial services industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "description": "Premier event for financial services industry trends and technologies.",
         "date": "2025-09-29",
+        "location": "Frankfurt, Germany",
+        "tag": "finance",
+        "image": "https://media.licdn.com/dms/image/v2/D4E10AQFY2dntz3Vj1A/image-shrink_800/B4EZmAr6GwHIAg-/0/1758800618398?e=2147483647&v=beta&t=5QVUnO_zVNLWpGULA2enzB3Xt2GCEt4VtJ5cWZMKO1U",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://media.licdn.com/dms/image/v2/D4E10AQFY2dntz3Vj1A/image-shrink_800/B4EZmAr6GwHIAg-/0/1758800618398?e=2147483647&v=beta&t=5QVUnO_zVNLWpGULA2enzB3Xt2GCEt4VtJ5cWZMKO1U"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is Sibos 2025?",
+                "sectionContent": "The Sibos 2025 is one of the most important global events in the financial services industry, organized annually by SWIFT. In 2025, it was held in Frankfurt from late September to early October and became the largest edition of the conference to date, bringing together more than 12,000 participants from over 160 countries. At its core, Sibos functions as the central meeting point for the global financial ecosystem. It gathers banks, central institutions, fintech companies, regulators, and technology providers to discuss how the financial system is evolving. Unlike broader tech conferences, its focus is very specific: the infrastructure of global finance—payments, securities, trade finance, and cross-border transactions. The 2025 edition revolved around the theme “The Next Frontiers of Global Finance,” reflecting how the industry is being reshaped by digital transformation. Discussions were heavily centered on topics such as artificial intelligence in banking, digital assets, modernization of payment systems, interoperability between financial networks, cybersecurity, and regulatory challenges."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "Frankfurt, Germany"
             }
         ]
     },
     {
         "id": 5,
         "title": "Google Cloud Next 2025",
-        "description": "Google Cloud Next 2025 is the premier event for the cloud computing industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "description": "Premier cloud computing and AI event for enterprise technology.",
         "date": "2025-04-09",
+        "location": "Las Vegas, NV",
+        "tag": "cloud",
+        "image": "https://www.ai21.com/wp-content/uploads/2024/11/google-cloud-next-25-event.png",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://tse4.mm.bing.net/th/id/OIF.VJSj0l3hG65YAMCzVZpQOQ?rs=1&pid=ImgDetMain&o=7&rm=3"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is Google Cloud Next 2025?",
+                "sectionContent": "The Google Cloud Next 2025 is Google Cloud’s flagship annual conference, focused on cloud computing, artificial intelligence, and enterprise technology. In 2025, it took place in Las Vegas from April 9 to 11 and brought together tens of thousands of developers, engineers, business leaders, and partners working with Google’s cloud ecosystem. At its core, the event serves as a platform where Google presents its latest technological advances and defines its strategic direction in cloud and AI. While it is rooted in cloud infrastructure, the 2025 edition made it clear that the center of gravity has shifted toward artificial intelligence, particularly generative AI and AI-driven enterprise applications. The conference emphasized how these technologies are moving from experimentation into real-world deployment across industries. A key characteristic of Google Cloud Next is its combination of technical depth and business orientation. On one side, it includes highly technical sessions, product demos, and hands-on labs covering areas such as data platforms, machine learning models, and cloud architecture. On the other, it acts as a strategic forum where companies share how they are using Google Cloud to transform operations, automate processes, and build new digital products."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "Las Vegas, NV"
             }
         ]
     },
     {
         "id": 6,
         "title": "Electric Vehicle Asia 2024",
-        "description": "Electric Vehicle Asia 2024 is the premier event for the electric vehicle industry, bringing together leaders, innovators, and professionals to discuss the latest trends and technologies.",
+        "description": "Premier event for electric vehicle industry in Asia.",
         "date": "2024-07-03",
+        "location": "Bangkok, Thailand",
+        "image": "https://tse4.mm.bing.net/th/id/OIP.gg9m5Tpnn4tfjpXj5VtXsAHaE7?rs=1&pid=ImgDetMain&o=7&rm=3",
         "sections": [
             {
                 "id": 1,
-                "sectionTitle": "Section 1",
-                "sectionContent": "Content for Section 1",
-                "image": "https://tse4.mm.bing.net/th/id/OIP.gg9m5Tpnn4tfjpXj5VtXsAHaE7?rs=1&pid=ImgDetMain&o=7&rm=3"
+                "tabTitle": "Overview",
+                "sectionTitle": "What is Electric Vehicle Asia 2024?",
+                "sectionContent": "The Electric Vehicle Asia 2024 is a major regional conference and exhibition focused on the electric vehicle ecosystem in Asia, held in July 2024 in Bangkok. It is widely recognized as one of the key meeting points for the EV industry in Southeast Asia, bringing together manufacturers, suppliers, policymakers, researchers, and technology providers. At its core, the event functions as a business and technology platform for the entire electric mobility value chain. It is not limited to vehicles themselves; it covers infrastructure, battery technology, charging systems, power electronics, and supply chain transformation. The emphasis is on how the industry is transitioning toward electrification and sustainable energy systems, particularly in fast-growing Asian markets. A defining characteristic of Electric Vehicle Asia is its dual role as both an exhibition and a strategic forum. On one side, companies showcase cutting-edge technologies—from charging stations to advanced battery components—while on the other, stakeholders discuss policy frameworks, market expansion, and industrial strategy. The presence of governments and energy institutions reflects how closely EV adoption is tied to national energy and sustainability goals."
+            },
+            {
+                "id": 2,
+                "tabTitle": "Location",
+                "sectionTitle": "Location",
+                "sectionContent": "Bangkok, Thailand"
             }
         ]
     }
